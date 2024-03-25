@@ -99,6 +99,8 @@
  
 	$(document).on('ready',function(){
 		
+		
+		/* 날짜설정 */
 		var Dates = new Date();
 
 		var todayYear = (String)(Dates.getFullYear());
@@ -115,16 +117,23 @@
 			   }
 			}
 
+		/* 페이지 시작하자마자 불러오기 */
 		delivery_nc();
 		
-		
+
+		/* 테이블 목록 클릭시 */
 		$(document).on("click","#Nocomplete_Table > tbody > tr",function(){
 			var nc = $(this).find(".in_key").val();
+			
 
+			/* 미완료 배송신청으로 이동 */
 			location.href = "adminDeliveryRegistMain.do?ik=" +nc;
 		})
 		
 	})
+	
+	
+	/* 미완료된 배송신청목록 불러오기 */
 	function delivery_nc(){
 		var deliverydata = {
 				MEM_ID : uid,

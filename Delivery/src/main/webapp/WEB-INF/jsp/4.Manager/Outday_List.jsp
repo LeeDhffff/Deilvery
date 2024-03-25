@@ -135,6 +135,7 @@
 		})
 		
 		
+		/* 클릭시 출항일 관리페이지로 이동 */
 		$(document).on("click","#Outday_Table > tbody > tr", function(){
 			
 			var outkey = $(this).find(".out_key").val();

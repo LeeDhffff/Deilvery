@@ -146,8 +146,9 @@
                                     모든 품목 kg * $1.5 or 용적중량 * $1.5<br>
                                     [ 용적중량 = (가로*세로*높이*0.00022) ]
                                 </p>
+								<!-- creday 및 chk 추가 (수정자: 이동헌) -->
                             	<input type="hidden" id="creDay" name="creDay" value="">
-                            	<input type="hidden" id="chk" name="chk" placeholder="구글 좌표를 입력해주세요." value="N">
+                            	<input type="hidden" id="chk" name="chk" placeholder="" value="N">
                             </div>
                         </div>
                        	</form>

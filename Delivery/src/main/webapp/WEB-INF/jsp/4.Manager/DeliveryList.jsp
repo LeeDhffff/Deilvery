@@ -148,7 +148,7 @@
 				});
 // 		$('#S_Out_Day').datepicker('setDate','today');
 
-		// 체크박스
+		// 체크박스 트리거
 		
 		$(".List_Check.All").on("click",function(){
 			if($(this).prop("checked") == true){
@@ -171,17 +171,18 @@
 			}
 		});
 
+		
+
+		/* 인쇄페이지 열기(팝업) */
 		$(".bill").on("click",function(){
 			$("#print_grayback").show();
 		})
 		
-		//검색
-		$("#Delivery_Search").on("click",function(){
-			
-		})
-		
 		ChangeSearch();
 	})
+	
+	
+	/* 배송신청 완료된거 불러오기 */
 	function ChangeSearch(){
 		var deliverydata = {
 				MEM_ID : uid,

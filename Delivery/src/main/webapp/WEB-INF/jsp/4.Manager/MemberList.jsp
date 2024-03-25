@@ -183,17 +183,20 @@
 			   }
 			}
 		
-		
+
+		/* 테이블 클릭시 해당 회원 정보 열람 / 수정페이지로 이동 */
 		$(document).on("click","#Member_Table > tbody > tr",function(){
 			
 			if($(this).find(".tdid").val() != ''){
+				
 				   location.href = "MemberModifyPage.do?id="+$(this).find(".tdid").val()+"&level="+$(this).find(".tdlevel").val();
 			}
 			
 		});
-		selectList()
+		selectList();
 	})
 	
+	/* 회원 리스트 불러오기 */
 	function selectList(){
 			var deliverydata = {
 					MEM_ID : uid

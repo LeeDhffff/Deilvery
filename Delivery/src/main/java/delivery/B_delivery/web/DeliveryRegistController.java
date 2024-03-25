@@ -60,6 +60,7 @@ public class DeliveryRegistController {
 	/************************** 회원파트 start!! ********************************/
 	
 	/* 사용자 배송신청 화면 진입 */
+	/* 경로수정 - (수정자 : 이동헌) */
 	@RequestMapping("userDeliveryRegistMain.do")
 	public String userDeliveryRegistMain(){
 		return "2.Delivery/userDeliveryRegist";
@@ -73,6 +74,9 @@ public class DeliveryRegistController {
 		
 		
 		inputMap.put("inKey", "US24031704");
+		
+
+		/* memId를 세션값으로 삽입 - (수정자 : 이동헌) */
 		if(!session.getAttribute("SESSION_MEM_ID").equals(null)) {
 			inputMap.put("memId", (String)(session.getAttribute("SESSION_MEM_ID")));	
 		}

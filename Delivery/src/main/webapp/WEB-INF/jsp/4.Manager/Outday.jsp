@@ -355,6 +355,9 @@
 				}
 				
 		});
+
+		/* 출항일 수정 */
+		/* 규칙: 반드시 활성화된 칸만 수정할 수 있음. */
 		$(".modify").on("click",function(){
 				if($(".current.on").find(".currentDay").val() == ''){
 					alert("현재 날짜 텍스트를 입력해주세요.")
@@ -388,6 +391,9 @@
 				
 		});
 
+		/* 출항일 삭제 */
+		/* 규칙 : 배송현황이 하나이상 존재할 경우, 배송현황만이 삭제. */
+		/* 만약 배송현황이 하나도 없을때 클릭할 경우, 출항일 자체 삭제가능. */
 		$(".delete").on("click",function(){
 
 			var test = ["","one","two","three","four","five","six"]
@@ -451,6 +457,7 @@
 		});
 	})
 
+	/* 출항일 현황 불러오기 */
 	function searchOutDay(out_key){
 		var OutData = {
 				MEM_ID : uid,
@@ -500,6 +507,8 @@
 		})
 		
 	}
+
+	/* 최신 데이터가 삽입된 칸과 이후에 새로 입력할수 있는 칸만 활성화. */
 	function chkfileReset(chk){
 		
 		$("#Out_CHK").val(chk);
