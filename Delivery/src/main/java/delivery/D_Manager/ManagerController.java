@@ -21,6 +21,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import delivery.D_Manager.service.ManagerService;
 
+/**
+ * @Class Name : ManagerController.java
+ * @Description : Manager Controller Class
+ * @Modification Information
+ * @
+ * @  수정일      수정자              수정내용
+ * @ ---------   ---------   -------------------------------
+ * @ 2024.03.25  이동헌           최초생성
+ *
+ * @author 이동헌
+ * @since 2024. 03.10
+ * @version 1.0
+ * @see
+ *
+ *  Copyright (C) by LLJ All right reserved.
+ */
 @Controller
 public class ManagerController {
 	
@@ -28,38 +44,43 @@ public class ManagerController {
 	private ManagerService ManagerService;
 
 
+	/* 관리자용 메인페이지로 이동 */
 	@RequestMapping("/Main_Manager.do")
 	public String Main_Manager() {
 		return "4.Manager/Main_Manager";
 	}
 	
-
+	/* 회원 목록으로 이동 */
 	@RequestMapping("/MemberListPage.do")
 	public String MemberList() {
 		return "4.Manager/MemberList";
 	}
 
-
+	/* 관리자용 배송신청목록페이지로 이동 */
 	@RequestMapping("/M_DeliveryList.do")
 	public String DeliveryList() {
 		return "4.Manager/DeliveryList";
 	}
-	
+
+	/* 관리자용 미완료 배송신청 목록페이지로 이동 */	
 	@RequestMapping("/M_Delivery_NC_List.do")
 	public String Delivery_NC_List() {
 		return "4.Manager/Delivery_NC_List";
 	}
 
+	/* 관리자용 출항일 리스트 페이지로 이동 */
 	@RequestMapping("/Outday_List.do")
 	public String Outday_List() {
 		return "4.Manager/Outday_List";
 	}
-
+	
+	/* 출항일 관리페이지로 이동 */
 	@RequestMapping("/Outday.do")
 	public String Outday() {
 		return "4.Manager/Outday";
 	}
-	
+
+	/* 회원 목록가져오기 */
 	@RequestMapping(value = "/Member_Select.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String Member_Select(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
@@ -75,6 +96,7 @@ public class ManagerController {
 	
 	
 
+	/* 회원정보 수정 시 비밀번호 확인 */
 	@RequestMapping(value = "/Mem_Pw_Chk.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String Mem_Pw_Chk(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
@@ -84,7 +106,8 @@ public class ManagerController {
 		return LoginList;
 	}
 	
-	
+
+	/* 회원정보 수정 */
 	@RequestMapping(value = "/Member_Modify.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String Member_Modify(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
@@ -99,6 +122,7 @@ public class ManagerController {
 	}
 
 
+	/* 미완료 배송신청 목록 불러오기 */
 	@RequestMapping(value = "/Nocomplete_Select.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String Nocomplete_Select(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
@@ -116,6 +140,7 @@ public class ManagerController {
 	
 	
 
+	/* 완료된 배송신청 목록 불러오기 */
 	@RequestMapping(value = "/Deilvery_Now_List.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String Deilvery_Now_List(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
@@ -192,6 +217,7 @@ public class ManagerController {
 		return LoginList;
 	}
 
+	/* 출항일 파일 불러오기 (현재 사용여부 X) */
 	@RequestMapping(value = "/Out_Day_File_Select.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String Out_Day_File_Select(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
@@ -206,6 +232,7 @@ public class ManagerController {
 	}
 	
 
+	/* 출항일 파일 삽입 (현재 사용여부 X) */
 	@RequestMapping(value = "Out_Day_File_Insert.do", produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String Out_Day_File_Insert(@RequestParam("uploadFile") List<MultipartFile> uploadFile, @RequestParam HashMap<String, Object> inputMap, HttpServletRequest request, MultipartHttpServletRequest mRequest,
@@ -266,6 +293,7 @@ public class ManagerController {
 	}
 	
 
+	/* 출항일 파일 수정/삭제 (현재 사용여부 X) */
 	@RequestMapping(value = "Out_Day_File_UD.do", produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String Out_Day_File_UD(@RequestParam("uploadFile") List<MultipartFile> uploadFile, @RequestParam HashMap<String, Object> inputMap, HttpServletRequest request, MultipartHttpServletRequest mRequest,

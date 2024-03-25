@@ -1,7 +1,6 @@
 package delivery.A_Login;
 
 import java.util.HashMap;
-import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -21,9 +20,23 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import delivery.A_Login.service.LoginService;
 import delivery.Main.service.MainService;
 
-//import delivery.TempKey;
-//import delivery.Login.service.LoginService;
 
+/**
+ * @Class Name : LoginController.java
+ * @Description : Login Controller Class
+ * @Modification Information
+ * @
+ * @  수정일      수정자              수정내용
+ * @ ---------   ---------   -------------------------------
+ * @ 2024.03.25  이동헌           최초생성
+ *
+ * @author 이동헌
+ * @since 2024. 03.01
+ * @version 1.0
+ * @see
+ *
+ *  Copyright (C) by LLJ All right reserved.
+ */
 @Controller
 public class LoginController {
 
@@ -33,30 +46,37 @@ public class LoginController {
 	@Resource(name = "MainService")
 	private MainService MainService;
 	
-	
+    /* 로그인 페이지로 이동 */
 	@RequestMapping("/LoginPage.do")
 	public String LoginPage() {
 		return "0.Login/Login";
 	}
-
+	
+	/* 비회원 로그인 페이지로 이동 */
 	@RequestMapping("/LoginPage_B.do")
 	public String LoginPage_B() {
 		return "0.Login/LoginB";
 	}
-	
+
+	/* 회원가입 페이지로 이동 */
 	@RequestMapping("/JoinPage.do")
 	public String JoinPage() {
 		return "0.Login/Join";
 	}
+	
+	/* 회원가입 완료 페이지로 이동 */
 	@RequestMapping("/JoinComplete.do")
 	public String JoinComplete() {
 		return "0.Login/JoinComplete";
 	}
+
+	/* 회원정보 수정페이지 페이지로 이동(관리자도 사용함) */
 	@RequestMapping("/MemberModifyPage.do")
 	public String MemberModifyPage() {
 		return "0.Login/Modify";
 	}
-	
+
+	/* 회원가입 */
 	@RequestMapping(value = "/Join.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String Join(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
@@ -84,6 +104,7 @@ public class LoginController {
 	}
 	
 
+	/* 아이디 체크(중복) */
 	@RequestMapping(value = "/id_chk.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String id_chk(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
@@ -98,6 +119,7 @@ public class LoginController {
 	}
 	
 
+	/* 아이디 찾기 */
 	@RequestMapping(value = "/find_id.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String find_id(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
@@ -110,6 +132,8 @@ public class LoginController {
 //		String jsonStr = mapper.writeValueAsString(LoginList);
 		return LoginList;
 	}
+
+	/* 비밀번호 찾기 */
 	@RequestMapping(value = "/find_pw.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String find_pw(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
@@ -119,6 +143,8 @@ public class LoginController {
 		
 		return LoginList;
 	}
+
+	/* 비밀번호 찾기 후 변경 */
 	@RequestMapping(value = "/find_pw_change.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String find_pw_change(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
@@ -129,6 +155,7 @@ public class LoginController {
 		return LoginList;
 	}
 
+	/* 로그인 */
 	@RequestMapping(value = "/Login.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String Login(@RequestParam HashMap<String, Object> inputMap,HttpServletResponse res, Model model, HttpServletRequest request, HttpSession session) throws Exception {
@@ -186,6 +213,7 @@ public class LoginController {
 	}
 	
 
+	/* 로그아웃 */
 	@RequestMapping(value = "Logout.do")
 	@ResponseBody
 	public String Logout(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
@@ -216,6 +244,7 @@ public class LoginController {
 	
 	
 
+	/* 비회원 로그인 */
 	@RequestMapping(value = "/Login_B.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String Login_B(@RequestParam HashMap<String, Object> inputMap,HttpServletResponse res, Model model, HttpServletRequest request, HttpSession session) throws Exception {
