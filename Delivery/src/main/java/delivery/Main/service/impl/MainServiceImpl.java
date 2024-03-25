@@ -13,11 +13,12 @@ import delivery.Main.service.MainService;
 public class MainServiceImpl implements MainService {
 	@Resource(name="MainMapper")
 	private MainMapper MainMapper;
-	
+
 	@Override
-	public List<HashMap<String, String>> signin(HashMap<String, Object> inputMap) throws Exception {
+	public String LOG_MM(HashMap<String, Object> MM) throws Exception {
 		// TODO Auto-generated method stub
-		return MainMapper.signin(inputMap);
+		return MainMapper.LOG_MM(MM);
 	}
+	
 
 }

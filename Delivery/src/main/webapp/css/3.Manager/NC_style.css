@@ -1,0 +1,203 @@
+:root 
+{
+    --main-color: #E88100;
+    --sub-color: #006EBD;
+    --background-gray:#F1F1F1;
+    --color-dark: #222;
+    --color-white: #fff;
+    --input-color: #E5E5EC;    
+    --table-head: #F7F7FB;
+}
+
+body 
+{
+    position: relative;
+}
+
+section 
+{
+    width: 100%;
+    background: linear-gradient(180deg, rgba(241,241,241,1) 0%, rgba(232,232,232,1) 100%);
+    display: flex;
+    justify-content: center;
+}
+
+.sectionContainer 
+{
+    width: 62.5%;
+    padding: 60px 0;
+}
+
+.sectionTitle 
+{
+    margin-bottom: 20px;
+}
+
+.sectionTitle a 
+{
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--main-color);    
+}
+
+.noticeNum 
+{
+    width: 100%;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--main-color);
+    margin-bottom: 40px;
+}
+
+.noticeNum a 
+{
+    font-size: 28px;
+    color: #fff;
+    font-weight: 500;
+}
+
+.conWrap 
+{
+    background-color: #fff;
+    padding: 60px 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.conMainTitle 
+{
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.conMainTitle a 
+{
+    color: var(--main-color);
+}
+
+.wrap 
+{
+    margin-top: 20px;
+}
+
+table 
+{
+    width: 100%;
+    border: 0;
+    box-sizing: border-box;
+    margin-bottom: 40px;
+}
+
+table thead 
+{
+    height: 50px;
+    background-color: var(--table-head);
+    color: #222;
+    font-weight: 500;
+}
+
+table tbody 
+{
+    background-color: #fff;
+    text-align: center;
+}
+
+table tbody tr td 
+{
+    height: 50px;
+}
+
+/* 쪽번호 위치 */
+
+.pageControll 
+{
+    display: flex;
+    justify-content: center;
+}
+
+.pageControll .page 
+{
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--input-color);
+    color: 222;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.pageControll .page:last-child 
+{
+    margin-right:0;
+}
+
+.pageControll .page.on 
+{
+    border: 1px solid var(--main-color);
+    color: #fff;
+    background-color: var(--main-color);
+} 
+
+/* 반응형 구간 */
+
+@media all and (min-width:1440px) and (max-width:1760px) 
+{
+
+}
+
+@media (min-width:1200px) and (max-width:1439px) 
+{
+    .menu { margin-left: 10%; font-size:20px; }
+    
+    .sectionTitle a { font-size: 28px; }
+    .conWrap { padding: 60px 40px; }
+
+}
+
+@media (min-width:990px) and (max-width:1199px) 
+{
+    .menu { margin-left: 5%; font-size:18px; }
+    .menu li { margin-right: 40px; }
+    
+    .sectionTitle a { font-size: 28px; }
+    .conWrap { padding: 60px 40px; }
+
+}
+
+@media (min-width:768px) and (max-width:989px) 
+{
+    header { padding: 0 24px; }
+    .menu { margin-left: 5%; font-size:14px; }
+    .menu li { margin-right: 30px; }
+
+    .sectionTitle a { font-size: 28px; }
+    .noticeNum { height: 100px;}
+    .noticeNum a { font-size:20px;}
+    .conWrap { padding: 60px 40px; }
+
+}
+
+@media (min-width:576px) and (max-width:767px) 
+{
+    header{ padding: 0 24px; }
+    header h1.logo a img{ width:80%; }
+    .menu { margin-left: 0; font-size: 12px;}
+    .menu li { margin-right:10px; }
+    .header_option li{ font-size: 12px;}
+    .header_option li.language { margin-left: 5px;}
+    .header_option li.language a .icon img { display: none;}
+
+    .sectionTitle a { font-size: 28px; }
+    .noticeNum { height: 80px;}
+    .noticeNum a { font-size:16px;}
+    .conWrap { padding: 60px 40px; }
+    .tableWrap { width: 100%; overflow-x: scroll;}
+    table { width: 600px;}    
+    .pageControll { margin-top: 40px;}
+}

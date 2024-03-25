@@ -1,0 +1,111 @@
+package delivery.C_Delivery;
+
+import java.util.HashMap;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import delivery.C_Delivery.service.DeliveryService;
+
+@Controller
+public class DeliveryController {
+	
+	@Resource(name = "DeliveryService")
+	private DeliveryService DeliveryService;
+	
+	
+	@RequestMapping("/Delivery_Search.do")
+	public String Delivery_Search() {
+		return "2.Delivery/Delivery_Search";
+	}
+
+	@RequestMapping("/Delivery_Search_B.do")
+	public String Delivery_Search_B() {
+		return "2.Delivery/Delivery_Search_B";
+	}
+
+	@RequestMapping(value = "/Delivery_Select.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Delivery_Select(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		List<HashMap<String, String>> DeliveryList = DeliveryService.Delivery_Select(inputMap);
+		System.out.println(DeliveryList);
+
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr = mapper.writeValueAsString(DeliveryList);
+		return jsonStr;
+	}
+
+	@RequestMapping(value = "/Delivery_Select_D.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Delivery_Select_D(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		List<HashMap<String, String>> DeliveryList = DeliveryService.Delivery_Select_D(inputMap);
+		System.out.println(DeliveryList);
+
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr = mapper.writeValueAsString(DeliveryList);
+		return jsonStr;
+	}
+
+	@RequestMapping(value = "/Delivery_Select_O.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Delivery_Select_O(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		List<HashMap<String, String>> DeliveryList = DeliveryService.Delivery_Select_O(inputMap);
+		System.out.println(DeliveryList);
+
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr = mapper.writeValueAsString(DeliveryList);
+		return jsonStr;
+	}
+	
+
+	@RequestMapping(value = "/Delivery_Select_B_CHK.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Delivery_Select_B_CHK(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		String DeliveryList = DeliveryService.Delivery_Select_B_CHK(inputMap);
+		return DeliveryList;
+	}
+	
+
+	@RequestMapping(value = "/Delivery_Select_B.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Delivery_Select_B(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		List<HashMap<String, String>> DeliveryList = DeliveryService.Delivery_Select_B(inputMap);
+		System.out.println(DeliveryList);
+
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr = mapper.writeValueAsString(DeliveryList);
+		return jsonStr;
+	}
+	@RequestMapping(value = "/Delivery_Mem_Info.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Delivery_Mem_Info(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		HashMap<String, String> LoginList = DeliveryService.Delivery_Mem_Info(inputMap);
+		System.out.println(LoginList);
+
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr = mapper.writeValueAsString(LoginList);
+		return jsonStr;
+	}
+}

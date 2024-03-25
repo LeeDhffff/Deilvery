@@ -1,0 +1,169 @@
+:root 
+{
+    --main-color: #E88100;
+    --sub-color: #006EBD;
+    --background-gray:#F1F1F1;
+    --color-dark: #222;
+    --color-white: #fff;
+    --input-color: #E5E5EC;    
+    
+}
+
+section 
+{
+    width: 100%;
+    background: linear-gradient(180deg, rgba(241,241,241,1) 0%, rgba(232,232,232,1) 100%);
+    display: flex;
+    justify-content: center;
+}
+
+.sectionContainer 
+{
+    width: 62.5%;
+    padding: 60px 0;
+}
+
+.sectionTitle 
+{
+    margin-bottom: 20px;
+}
+
+.sectionTitle a 
+{
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--main-color);    
+}
+
+.conWrap 
+{
+    background-color: #fff;
+    padding: 60px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.conWrap .logo a img 
+{ 
+    height: 60px;
+}
+
+.wrap 
+{
+    width: 50%;
+    margin-top: 20px;
+}
+
+.inputWrap 
+{
+    margin-bottom: 40px;
+}
+
+.inputWrap h5 
+{
+    text-align: left;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.inputWrap input 
+{
+    width: 100%;
+    height: 50px;
+    border: 1px solid var(--input-color);
+    padding-left: 10px;
+}
+
+.inputWrap.password
+{
+    margin-bottom: 10px;
+}
+
+.inputWrap.check 
+{
+    display: flex;
+    align-items: center;
+}
+
+.inputWrap.check h5
+{
+    margin-bottom: 0;
+}
+
+.inputWrap input.checkBox 
+{
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+.inputWrap button 
+{
+    width: 100%;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.inputWrap button.login 
+{
+    background-color: var(--main-color);
+}
+
+.inputWrap.login 
+{
+    margin-bottom: 20px;
+}
+
+.join { text-align: center;}
+
+.join a
+{
+    font-size: 14px;
+    color: var(--main-color);
+}
+
+.inputWrap button.loginSub 
+{
+    background-color: var(--sub-color);
+}
+
+
+
+
+
+
+/* 반응형 구간 */
+
+@media all and (min-width:1440px) and (max-width:1760px) 
+{
+
+}
+
+@media (min-width:1200px) and (max-width:1439px) 
+{
+    
+}
+
+@media (min-width:990px) and (max-width:1199px) 
+{
+    .sectionContainer { width: 70%; }
+    .wrap { width: 70%; }
+}
+
+@media (min-width:768px) and (max-width:989px) 
+{
+    .sectionContainer { width: 80%; }
+    .wrap { width: 80%; }
+    .inputWrap h5 { font-size: 14px;}
+}
+
+@media (min-width:576px) and (max-width:767px) 
+{
+    .sectionContainer { width: 80%; }
+    .wrap { width: 80%; } 
+    .inputWrap h5 { font-size: 14px;}
+}

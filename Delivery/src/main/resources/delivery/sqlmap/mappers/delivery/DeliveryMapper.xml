@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="delivery.C_Delivery.service.impl.DeliveryMapper">
+	
+	<select id="Delivery_Select" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call B_APPLICATION_SELECT(
+				#{MEM_ID}
+		) }
+	</select>
+	<select id="Delivery_Select_D" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call B_APPLICATION_SELECT_D(
+				#{MEM_ID},
+				#{IN_KEY}
+		) }
+	</select>
+	<select id="Delivery_Select_O" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call B_APPLICATION_SELECT_O(
+				#{MEM_ID},
+				#{IN_KEY}
+		) }
+	</select>
+	<select id="Delivery_Mem_Info" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call B_MEM_INFO(
+				#{MEM_ID},
+				#{MEM_LEVEL}
+		) }
+	</select>
+	
+	<select id="Delivery_Select_B_CHK" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call B_APPLICATION_SELECT_B_CHK(
+				#{MEM_NM},
+				#{MEM_PHONE}
+		) }
+	</select>
+	<select id="Delivery_Select_B" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call B_APPLICATION_SELECT_B(
+				#{MEM_NM},
+				#{MEM_PHONE}
+		) }
+	</select>
+	
+	
+</mapper>

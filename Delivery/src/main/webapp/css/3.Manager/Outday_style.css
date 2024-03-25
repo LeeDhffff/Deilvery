@@ -1,0 +1,399 @@
+:root 
+{
+    --main-color: #E88100;
+    --sub-color: #006EBD;
+    --background-gray:#F1F1F1;
+    --color-dark: #222;
+    --color-white: #fff;
+    --input-color: #E5E5EC;    
+    --table-head: #F7F7FB;
+}
+
+body 
+{
+    position: relative;
+}
+
+section 
+{
+    width: 100%;
+    background: linear-gradient(180deg, rgba(241,241,241,1) 0%, rgba(232,232,232,1) 100%);
+    display: flex;
+    justify-content: center;
+}
+
+.sectionContainer 
+{
+    width: 62.5%;
+    padding: 60px 0;
+}
+
+.sectionTitle 
+{
+    margin-bottom: 20px;
+}
+
+.sectionTitle a 
+{
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--main-color);    
+}
+
+.conWrap 
+{
+    background-color: #fff;
+    padding: 60px 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.conMainTitle 
+{
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.conSubTitle 
+{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 28px;
+}
+
+.wrap 
+{
+    margin-top: 20px;
+}
+
+.inputWrap 
+{
+    margin-bottom: 40px;
+}
+
+.inputWrap h5 
+{
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 10px;
+} 
+
+.inputWrap h5 a 
+{
+    display: flex;
+    align-items: center;
+}
+
+.inputWrap input 
+{
+    width: calc(50% - 20px);
+    border: 1px solid var(--input-color);
+    height: 50px;
+    padding-left: 10px;
+}
+
+
+.currentWrap .conMainTitle 
+{
+    display: flex;
+}
+button.qr 
+{ 
+    width: 120px;
+    height: 40px;
+    color: #222;
+    font-size: 18px;
+    border: 1px solid var(--input-color);
+    background: #fff;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+button.qr:hover 
+{
+    background-color: var(--main-color);
+    color: #fff;
+    border: 1px solid var(--main-color);
+}
+
+.currentCon 
+{
+    margin-top: 20px;    
+}
+
+.currentCon .current 
+{
+    height: 100px;
+    border: 1px solid var(--input-color);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    justify-content: space-around;
+    background-color: #999999;
+}
+
+.currentCon .current:last-child 
+{
+    margin-bottom: 0;
+}
+
+.currentCon .current.on 
+{
+    border: 1px solid var(--main-color);
+    background-color: #fff;
+}
+
+.currentCon .current .condition 
+{
+    background-color: #999;
+    width:42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 24px;
+}
+
+.currentCon .current .condition.on 
+{
+    background-color: var(--main-color);
+}
+
+.currentCon .current .condition a 
+{
+    height: 38px;
+}
+
+.current.on .currentTitle, .current.on .currentDay, .current.on .currentMessage 
+{
+    background-color: #fff;
+}
+
+.currentTitle, .currentDay, .currentMessage
+{
+    font-size: 18px;
+    font-weight: 500;
+    color: #222;
+    border: 1px solid var(--input-color);
+    height: 40px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    background-color: #999;
+}
+.currentTitle { width: 110px; border: 0;}
+.currentDay::placeholder, .currentMessage::placeholder 
+{
+    font-size: 16px;
+    font-weight: 500;
+    color: #222;
+}
+
+.currentcheck 
+{ 
+    width: 24px; 
+    height: 24px; 
+    border: 1px solid var(--input-color);
+}
+
+.currentMessage 
+{
+    margin-right:0;
+}
+
+/* qr 구간*/
+.qrWrap, .history 
+{
+    width: 100%; 
+    height:100%;
+    background-color: rgba(17,17,17,0.6);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.qrCon 
+{
+    width: 400px;
+    height: 400px;
+    background-color: #fff;  
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;  
+}
+
+.qrHeader, .qrBody, .historyHeader  
+{
+    display: flex;
+    padding: 20px 40px;
+}
+
+.qrTitle, .historyTitle   
+{
+    margin: 0 auto;
+    font-size: 24px;
+}
+
+.qrBody 
+{
+    justify-content: center;
+    align-items: center;
+}
+.qrAdd 
+{
+    width: 200px;
+    height: 200px;
+    border: 1px solid var(--input-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.qrFoot .qrSave 
+{
+    width: 100%;
+    height: 56px;
+    background-color: var(--main-color);
+    font-size: 18px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* 배송내역확인 */
+
+
+.historyCon 
+{
+    width: 62.5%;
+    background-color: #fff;
+}
+
+.historyBody
+{
+    padding: 0 40px;
+} 
+
+
+.buttonWrap 
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-left: auto;
+}
+
+button.modify, button.delete, button.qrcode, button.create 
+{
+    width: 32px;
+    height: 32px;
+    background-color: #fff;
+    border: 1px solid var(--input-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    margin-left: 20px;
+}
+
+button.qrcode a img { width: 20px; height: 20px;}
+button.create a img { width: 20px; height: 20px;}
+
+.bottomButton 
+{
+    width: 250px;
+    height: 50px;
+    color: #fff;
+    background-color: var(--main-color);
+    font-size: 14px;
+    font-weight: 500;
+    margin: 40px auto 0;
+    display: block;
+}
+
+
+
+
+/* 반응형 구간 */
+
+@media all and (min-width:1440px) and (max-width:1760px) 
+{
+    .currentCon .current { justify-content: space-around; }
+    .currentTitle, .currentDay, .currentMessage{ font-size: 14px; margin-right: 0;}
+}
+
+@media (min-width:1200px) and (max-width:1439px) 
+{
+    .menu { margin-left: 10%; font-size:20px; }
+    
+    .sectionTitle a { font-size: 28px; }
+    .sectionContainer, .historyCon { width: 80%; }
+    .conWrap { padding: 60px 40px; }
+    .currentWrap { margin-top: 40px; }
+    .currentCon .current { justify-content: space-around; }
+    .currentMessage { display: none;}
+    .currentTitle, .currentDay, .currentMessage{ font-size: 16px; margin-right: 0;}
+}
+
+@media (min-width:990px) and (max-width:1199px) 
+{
+    .menu { margin-left: 5%; font-size:18px; }
+    .menu li { margin-right: 40px; }
+    
+    .sectionTitle a { font-size: 28px; }
+    .sectionContainer, .historyCon { width: 80%; }
+    .conWrap { padding: 60px 40px; }
+    .currentWrap { margin-top: 40px; }
+    .currentCon .current { justify-content: space-around; }
+    .currentMessage { display: none;}
+    .currentTitle, .currentDay, .currentMessage{ font-size: 16px; margin-right: 0;}
+}
+
+@media (min-width:768px) and (max-width:989px) 
+{
+    header { padding: 0 24px; }
+    .menu { margin-left: 5%; font-size:14px; }
+    .menu li { margin-right: 30px; }
+    
+    .sectionTitle a { font-size: 28px; }
+    .sectionContainer, .historyCon { width: 80%; }
+    .conWrap { padding: 60px 40px; }
+    .currentWrap { margin-top: 40px; }
+    .currentCon .current { justify-content: space-around; }
+    .currentMessage { display: none;}
+    .currentTitle, .currentDay, .currentMessage{ font-size: 16px; margin-right: 0;}
+}
+
+@media (min-width:576px) and (max-width:767px) 
+{
+    header{ padding: 0 24px; }
+    header h1.logo a img{ width:80%; }
+    .menu { margin-left: 0; font-size: 12px;}
+    .menu li { margin-right:10px; }
+    .header_option li{ font-size: 12px;}
+    .header_option li.language { margin-left: 5px;}
+    .header_option li.language a .icon img { display: none;}
+	
+    .sectionTitle a { font-size: 28px; }
+    .sectionContainer, .historyCon  { width: 80%; }
+    .conWrap { padding: 60px 40px; }
+    .inputWrap input { width: 100%; }
+
+    .tableWrap { width: 100%; overflow-x: scroll;}
+    table { width: 1200px;}
+    .currentWrap { margin-top: 40px; }
+    .currentCon .current { justify-content: space-around; }
+    .currentMessage { display: none;}
+    .currentTitle, .currentDay, .currentMessage{ width: 100px; font-size: 16px; margin-right: 0;}
+    .currentcheck { width: 20px; height: 20px; }
+    .currentCon .current .condition { margin-right: 0;}
+}

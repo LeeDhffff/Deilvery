@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="delivery.B_delivery.service.impl.DeliveryRegistMapper">
+	
+	
+	<!-- ************************** 회원파트 start!! ******************************** -->
+	
+	<!-- 회원 배송신청 등록 -->
+	<insert id="userDelRegist" parameterType="hashmap">
+		/* userDelRegist */
+		INSERT INTO APPLICATION(
+			IN_KEY
+			,MEM_ID
+			,TYPE
+			,REC_NM
+			,REC_PHONE
+			,REC_TARGET
+			,REC_ADDR
+			,REC_HOU
+			,REC_TXT
+			,GOO_COORDINATE
+			,CRE_DAY
+			,ARR_DAY
+			,CHK
+			,PASSWORD
+		) VALUES (
+			#{inKey}
+			,#{memId}
+			,#{type}
+			,#{recNm}
+			,#{recPhone}
+			,#{recTarget}
+			,#{recAddr}
+			,#{recHou}
+			,#{recTxt}
+			,#{gooCoordinate}
+			,#{creDay}
+			,#{arrDay}
+			,#{chk}
+			,#{password}
+		);
+	</insert>
+	
+	
+	
+	
+	
+	
+	<!-- ************************** 관리자파트 start!! ******************************** -->
+	
+	<!-- 미완료 배송건 조회 -->
+	<select id="ingDeliveryRead" parameterType="hashmap" resultType="hashmap">
+		/* ingDeliveryRead */
+		SELECT 
+			IN_KEY AS inKey
+			,MEM_ID AS memId
+			,TYPE AS type
+			,REC_NM AS recNm
+			,REC_PHONE AS recPhone
+			,REC_TARGET AS recTarget
+			,REC_ADDR AS recAddr
+			,REC_HOU AS recHou
+			,REC_TXT AS recTxt
+			,GOO_COORDINATE AS gooCoordinate
+			,CRE_DAY AS creDay
+			,ARR_DAY AS arrDay
+			,CHK AS chk
+			,PASSWORD AS password
+		FROM APPLICATION
+		WHERE IN_KEY = #{inKey};
+	</select>
+	
+	<!-- 출항일 조회 -->
+	<select id="outDayList" parameterType="hashmap" resultType="hashmap">
+		/* outDayList */
+		SELECT 
+			OUT_KEY AS outKey
+			,OUT_DAY AS outDay
+			,OUT_TXT AS outTxt
+		FROM OUT_DAY;
+	</select>
+	
+	<!-- 박스정보 가져오기 -->
+	<select id="packInfoList" parameterType="hashmap" resultType="hashmap">
+		/* packInfoList */
+		SELECT
+			SJ_KEY AS sjKey
+			,IN_KEY AS inKey
+			,WIDTH AS width
+			,LENGTH AS length
+			,HEIGHT AS height
+			,WEIGHT AS weight
+			,COST AS cost
+			,OUT_KEY AS outKey
+		FROM SJ_NUM
+		WHERE IN_KEY = #{inKey};
+	</select>
+	
+	<!-- 관리자 배송신청 등록 -->
+	<update id="adminDelRegist" parameterType="hashmap">
+		/* adminDelRegist */
+		UPDATE APPLICATION
+		SET		
+			REC_NM = #{recNm}
+			,REC_PHONE = #{recPhone} 
+			,REC_TARGET = #{recTarget}
+			,REC_ADDR = #{recAddr}
+			,REC_HOU = #{recHou}
+			,REC_TXT = #{recTxt}
+			,GOO_COORDINATE = #{gooCoordinate}
+			,CRE_DAY = #{creDay}
+			,ARR_DAY = #{arrDay}
+			,CHK = #{chk}
+			,PASSWORD = #{password}
+		WHERE 
+			IN_KEY = #{inKey};	
+	</update>
+	
+	<!-- 회원 배송신청 등록 -->
+	<insert id="packetInfoRegist" parameterType="hashmap">
+		/* packetInfoRegist */
+		INSERT INTO SJ_NUM
+		VALUES(
+			#{sjKey}
+			,#{inKey}
+			,#{width}
+			,#{length}
+			,#{height}
+			,#{weight}
+			,#{cost}
+			,#{outKey}
+		);
+	</insert>
+	
+	<!-- 등록된 전체 배송 박스 건수 체크 -->
+	<select id="cntTotalPacketInfo" parameterType="hashmap" resultType="java.lang.Integer">
+		/* cntPacketInfo */
+		SELECT COUNT(*)
+		FROM SJ_NUM
+		WHERE OUT_KEY = #{outKey};
+	</select>	
+	
+	<!-- 등록된 박스 정보 삭제 -->
+	<delete id="delPacketInfo" parameterType="hashmap">
+		/* delPacketInfo */
+		UPDATE SJ_NUM
+		SET IN_KEY = #{outKey}
+		WHERE IN_KEY = #{inKey};
+	</delete>
+	
+	
+	
+</mapper>

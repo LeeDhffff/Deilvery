@@ -1,0 +1,255 @@
+:root 
+{
+    --main-color: #E88100;
+    --sub-color: #006EBD;
+    --background-gray:#F1F1F1;
+    --color-dark: #222;
+    --color-white: #fff;
+    --input-color: #E5E5EC;    
+    
+}
+
+section 
+{
+    width: 100%;
+    background: linear-gradient(180deg, rgba(241,241,241,1) 0%, rgba(232,232,232,1) 100%);
+    display: flex;
+    justify-content: center;
+}
+
+.sectionContainer 
+{
+    width: 62.5%;
+    padding: 60px 0;
+}
+
+.sectionTitle 
+{
+    margin-bottom: 20px;
+}
+
+.sectionTitle a 
+{
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--main-color);    
+}
+
+.conWrap 
+{
+    background-color: #fff;
+    padding: 60px 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.conMainTitle 
+{
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 60px;
+}
+
+.wrap 
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputWrap 
+{
+    margin-bottom: 40px;
+}
+
+.inputWrap h5 
+{
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 10px;
+} 
+
+.inputWrap h5 a 
+{
+    display: flex;
+    align-items: center;
+}
+
+.inputWrap h5 a span 
+{
+    color:var(--main-color);
+    margin-left: 10px;
+}
+
+.inputAlarm a
+{
+    font-size: 12px;
+    color:var(--main-color);
+    margin-top: 10px;
+}
+
+.inputWrap input, .inputWrap select
+{
+    width: calc(50% - 20px);
+    height: 50px;
+    border: 1px solid var(--input-color);
+    padding-left: 10px;
+}
+
+.inputWrap.full input 
+{
+    width: 100%;
+} 
+
+.inputWrap input::placeholder 
+{
+    color: #999;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+
+.double 
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.double .inputWrap 
+{
+    width: calc(50% - 20px);
+}
+
+.double .inputWrap input  
+{
+    width: 100%;
+}
+
+.noticeWrap 
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--input-color);
+    margin-bottom: 40px;
+}
+
+.noticeCon 
+{
+    width: 50%;
+    padding: 20px 40px;
+}
+
+.noticeCon:first-child
+{
+    border-right: 1px solid var(--input-color);
+} 
+
+.noticeCon .noticeTitle a span.icon img 
+{
+    width: 28px;
+}
+
+.noticeTitle 
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.noticeCon p 
+{
+    line-height: 28px;
+    font-size: 14px;
+}
+
+.noticeCon.notice .noticeTitle 
+{
+    color: red;
+}
+
+.noticeCon.notice p 
+{
+    color: red;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.noticeCon.cost p
+{
+    text-align: center;
+} 
+
+.bottomButton 
+{
+    width: 250px;
+    height: 50px;
+    color: #fff;
+    background-color: var(--main-color);
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0 auto;
+}
+
+/* 반응형 구간 */
+
+@media all and (min-width:1440px) and (max-width:1760px) 
+{
+
+}
+
+@media (min-width:1200px) and (max-width:1439px) 
+{
+    .sectionContainer { width: 80%; }
+    .conWrap { padding: 60px 200px; }
+    .inputWrap h5 { font-size: 16px;}
+    .inputWrap input, .inputWrap select { width: 100%; }
+    .inputWrap div input { width: calc(70% - 20px); }
+    .inputWrap div button.check { width: 120px; margin-left: 20px; }
+    .double { display: block; }
+    .double .inputWrap { width: 100%; }
+}
+
+@media (min-width:990px) and (max-width:1199px) 
+{
+    .sectionContainer { width: 80%; }
+    .conWrap { padding: 60px 100px; }
+    .inputWrap h5 { font-size: 16px;}
+    .inputWrap input, .inputWrap select { width: 100%; }
+    .inputWrap div input { width: calc(70% - 20px); }
+    .inputWrap div button.check { width: 120px; margin-left: 20px; }
+    .double { display: block; }
+    .double .inputWrap { width: 100%; }
+}
+
+@media (min-width:768px) and (max-width:989px) 
+{
+    .sectionContainer { width: 80%; }
+    .conWrap { padding: 60px 40px; }
+    .inputWrap h5 { font-size: 14px;}
+    .inputWrap input, .inputWrap select { width: 100%; }
+    .inputWrap div input { width: calc(70% - 20px); }
+    .inputWrap div button.check { width: 100px; margin-left: 20px; }
+    .double { display: block; }
+    .double .inputWrap { width: 100%; }
+}
+
+@media (min-width:576px) and (max-width:767px) 
+{
+    .sectionContainer { width: 80%; }
+    .conWrap { padding: 60px 40px; }
+    .inputWrap h5 { font-size: 14px;}
+    .inputWrap input, .inputWrap select { width: 100%; }
+    .inputWrap div input { width: calc(70% - 20px); }
+    .inputWrap div button.check { width: 100px; margin-left: 20px; }
+    .double { display: block; }
+    .double .inputWrap { width: 100%; }
+
+    .noticeWrap { flex-direction: column; }
+    .noticeCon { width: initial; padding: 20px; }
+    .noticeCon:first-child 
+    { 
+        padding-bottom: 40px;
+        border:0;
+    }
+}

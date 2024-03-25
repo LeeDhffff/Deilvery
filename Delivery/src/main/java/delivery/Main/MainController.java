@@ -27,18 +27,10 @@ public class MainController {
 	public String index() {
 		return "index";
 	}
-	
 
-	@RequestMapping(value = "/id_chk.do" , produces = "application/text; charset=utf-8")
-	@ResponseBody
-	public String id_chk(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
-
-		System.out.println("resultMsg");
-		List<HashMap<String, String>> LoginList = MainService.signin(inputMap);
-//		System.out.println(LoginList.get("resultMsg"));
-
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonStr = mapper.writeValueAsString(LoginList);
-		return jsonStr;
+	@RequestMapping("/Main.do")
+	public String Main() {
+		return "1.Main/Main";
 	}
+
 }

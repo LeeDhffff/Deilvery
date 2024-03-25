@@ -1,0 +1,117 @@
+/* --------기본 세팅값 시작------- */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css");
+:root 
+{
+    --main-color: #E88100;
+    --color-dark: #000;
+    --color-white: #fff;
+    --input-color: #dadada;
+    --font-color: #222;
+    --background-gray:#f7f7f7;
+}
+
+*
+{
+    margin: 0;
+    padding: 0;
+    border:0;
+}
+
+html,body 
+{
+    min-height: 100vh;
+    font-family: 'Pretendard Variable';
+}
+
+ul,li,ol
+{
+    list-style:none;
+}
+
+a
+{
+    text-decoration: none;
+    color: #000;
+} 
+
+input 
+{
+    box-sizing: border-box;
+}
+/* 공통으로 들어가는 요소*/
+
+/* header */
+header 
+{
+    height: 90px;
+    padding:0 60px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+}
+
+.menu 
+{
+    margin-left: 20%;
+    font-size: 24px;
+    font-weight: 600;
+    display: flex;
+}
+
+.menu li
+{
+    margin-right: 50px;
+}
+
+.menu li a:hover 
+{
+    color: var(--main-color);
+}
+
+.menu li:last-child 
+{
+    margin-right: 0;
+}
+
+.header_option 
+{
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.header_option li 
+{
+    font-size: 14px;
+}
+
+.header_option li a
+{
+    font-weight: 600;
+}
+
+.header_option li.language 
+{
+    margin-left:20px;
+}
+
+.header_option li.language a
+{
+    display: flex;
+    align-items: center;
+}
+
+.header_option li.language a .icon 
+{
+    margin-right: 10px;
+}
+
+.header_option li.language a .icon img
+{
+    width: 20px;
+}
+
+section 
+{
+    min-height: calc(100vh - 90px);
+}

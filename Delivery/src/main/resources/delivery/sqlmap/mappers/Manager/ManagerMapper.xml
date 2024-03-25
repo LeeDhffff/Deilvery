@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="delivery.D_Manager.service.impl.ManagerMapper">
+	
+	<select id="Member_Select" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call B_MEM_LIST(
+				#{MEM_ID}
+		) }
+	</select>
+	
+	<select id="Member_Modify" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call B_MEM_MODIFY(
+				#{MEM_NM},
+				#{MEM_ID},
+				#{MEM_PW},
+				#{MEM_PHONE},
+				#{MEM_EMAIL},
+				#{MEM_ID2},
+				#{MEM_LEVEL}
+		) }
+	</select>
+	
+	<select id="Mem_Pw_Chk" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call A_PW_CHK(
+				#{MEM_ID},
+				#{MEM_PW}
+		) }
+	</select>
+	
+	<select id="Nocomplete_Select" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call C_NC_DELIVERY(
+				#{MEM_ID},
+				#{MODE}
+		) }
+	</select>
+	
+	
+	<select id="Out_Day_List" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call C_OUTDAY_LIST(
+				#{MEM_ID},
+				#{OUT_DAY}
+		) }
+	</select>
+	<select id="Outday_Select" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call C_OUTDAY_SELECT(
+				#{MEM_ID},
+				#{OUT_KEY}
+		) }
+	</select>
+	<select id="Outday_Insert" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call C_OUTDAY_INSERT(
+				#{MEM_ID},
+				#{OUT_DAY},
+				#{OUT_TXT}
+		) }
+	</select>
+	<select id="Outday_UD" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call C_OUTDAY_UD(
+				#{MEM_ID},
+				#{OUT_KEY},
+				#{OUT_TXT},
+				#{MODE}
+		) }
+	</select>
+	<select id="Out_Day_File_Select" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call C_OUTDAY_FILE_LIST(
+				#{MEM_ID},
+				#{OUT_KEY}
+		) }
+	</select>
+	<select id="Out_Day_File_Insert" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call C_OUTDAY_FILE_INSERT(
+				#{MEM_ID},
+				#{OUT_KEY},
+				#{CHK},
+				#{OUT_TXT},
+				#{PATH},
+				#{SAVE_NM},
+				#{ORGIN_NM}
+		) }
+	</select>
+	<select id="Out_Day_File_UD" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call C_OUTDAY_FILE_UD(
+				#{MEM_ID},
+				#{OUT_KEY},
+				#{OUT_SEQ},
+				#{CHK},
+				#{OUT_TXT},
+				#{PATH},
+				#{SAVE_NM},
+				#{ORGIN_NM},
+				#{MODE}
+		) }
+	</select>
+	
+	<select id="Deilvery_Now_List" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call C_APP_SELECT(
+				#{MEM_ID},
+				#{OUT_DAY},
+				#{REC_NM},
+				#{REC_PHONE},
+				#{REC_TARGET},
+				#{REC_SERVICE}
+		) }
+	</select>
+</mapper>

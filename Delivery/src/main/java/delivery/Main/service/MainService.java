@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface MainService {
-	// 로그인
-	List<HashMap<String, String>> signin(HashMap<String, Object> inputMap) throws Exception;
 	
+	String LOG_MM(HashMap<String, Object> MM) throws Exception;
 }

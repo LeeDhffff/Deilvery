@@ -1,0 +1,359 @@
+:root 
+{
+    --main-color: #E88100;
+    --sub-color: #006EBD;
+    --background-gray:#F1F1F1;
+    --color-dark: #222;
+    --color-white: #fff;
+    --input-color: #E5E5EC;    
+    --table-head: #F7F7FB;
+}
+
+body 
+{
+    position: relative;
+}
+
+section 
+{
+    width: 100%;
+    background: linear-gradient(180deg, rgba(241,241,241,1) 0%, rgba(232,232,232,1) 100%);
+    display: flex;
+    justify-content: center;
+}
+
+.sectionContainer 
+{
+    width: 62.5%;
+    padding: 60px 0;
+}
+
+.sectionTitle 
+{
+    margin-bottom: 20px;
+}
+
+.sectionTitle a 
+{
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--main-color);    
+}
+
+.conWrap 
+{
+    background-color: #fff;
+    padding: 60px 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.conMainTitle 
+{
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 60px;
+}
+
+.wrap 
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputWrap 
+{
+    margin-bottom: 40px;
+}
+
+.inputWrap h5 
+{
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 10px;
+} 
+
+.inputWrap h5 a 
+{
+    display: flex;
+    align-items: center;
+}
+
+.inputWrap h5 a span 
+{
+    color:var(--main-color);
+    margin-left: 10px;
+}
+
+.inputAlarm a
+{
+    font-size: 12px;
+    color:var(--main-color);
+    margin-top: 10px;
+}
+
+.inputWrap input, .inputWrap select
+{
+    width: calc(50% - 20px);
+    height: 50px;
+    border: 1px solid var(--input-color);
+    padding-left: 10px;
+}
+
+.inputWrap.full input 
+{
+    width: 100%;
+} 
+
+.inputWrap input::placeholder 
+{
+    color: #999;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+
+.double 
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.double .inputWrap 
+{
+    width: calc(50% - 20px);
+}
+
+.double .inputWrap input  
+{
+    width: 100%;
+}
+
+/* box 부분*/
+
+/* 왼쪽 박스 정보 입력 */
+button.boxSave, button.boxInput 
+{
+    width: 120px;
+    height: 40px;
+    font-size: 16px;
+    color: #222;
+    border: 1px solid var(--input-color);
+    background-color: #fff;
+    cursor: pointer;
+}
+
+button.boxSave:hover, button.boxInput:hover 
+{
+    color: #fff;
+    background-color: var(--main-color);
+    border: 1px solid var(--main-color);
+}
+
+.inputHeader 
+{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.inputHeader h5 
+{
+    margin-bottom: 0;
+}
+.double.box .inputWrap:first-child input 
+{
+    margin-bottom:20px;
+}
+
+.double.box .inputWrap:first-child input:last-child 
+{
+    margin-bottom:0;
+}
+
+/* 오른쪽 박스 데이터 테이블 */
+
+.tableWrap 
+{
+    height: 260px;
+    overflow-y: scroll;
+    border: 1px solid var(--input-color);
+}
+
+table 
+{
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 40px;
+    min-height: 260px;    
+}
+
+table thead 
+{
+    height: 50px;
+    background-color: var(--table-head);
+    color: #222;
+    font-weight: 500;
+}
+
+table thead tr th:first-child 
+{
+    padding:5px;
+}
+
+table tbody 
+{
+    background-color: #fff;
+    text-align: center;
+}
+
+table tbody tr td 
+{
+    height: 50px;
+}
+
+table thead tr th input, table tbody tr td input 
+{
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.bottomButton 
+{
+    width: 250px;
+    height: 50px;
+    color: #fff;
+    background-color: var(--main-color);
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0 auto;
+}
+
+
+/* 출력하기 */
+.outWrap 
+{
+    width: 100%; 
+    height:100%;
+    background-color: rgba(17,17,17,0.6);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.outCon 
+{
+    width: 400px;
+    height: 400px;
+    background-color: #fff;   
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; 
+}
+
+.outHeader, .outBody, .outFoot
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: 1px solid #222;
+    padding: 20px 0;
+}
+
+.outBody h1 
+{
+    font-size: 82px;
+}
+
+.outFoot 
+{
+    border:0;
+}
+
+.outTitleWrap
+{
+    display: flex;
+    padding: 20px 40px;
+}
+
+.outTitle 
+{
+    margin: 0 auto;
+    font-size: 24px;
+}
+
+
+/* 반응형 구간 */
+
+@media all and (min-width:1440px) and (max-width:1760px) 
+{
+
+}
+
+@media (min-width:1200px) and (max-width:1439px) 
+{
+    .menu { margin-left: 10%; font-size:20px; }
+    
+    .sectionContainer { width: 80%; }
+    .conWrap { padding: 60px 200px; }
+    .inputWrap h5 { font-size: 16px;}
+    .inputWrap input, .inputWrap select, .outday_list_main { width: 100%; }
+    .inputWrap div input { width: calc(70% - 20px); }
+    .inputWrap div button.check { width: 120px; margin-left: 20px; }
+    .double { display: block; }
+    .double .inputWrap { width: 100%; }
+}
+
+@media (min-width:990px) and (max-width:1199px) 
+{
+    .menu { margin-left: 5%; font-size:18px; }
+    .menu li { margin-right: 40px; }
+    
+    .sectionContainer { width: 80%; }
+    .conWrap { padding: 60px 100px; }
+    .inputWrap h5 { font-size: 16px;}
+    .inputWrap input, .inputWrap select, .outday_list_main { width: 100%; }
+    .inputWrap div input { width: calc(70% - 20px); }
+    .inputWrap div button.check { width: 120px; margin-left: 20px; }
+    .double { display: block; }
+    .double .inputWrap { width: 100%; }
+}
+
+@media (min-width:768px) and (max-width:989px) 
+{
+    header { padding: 0 24px; }
+    .menu { margin-left: 5%; font-size:14px; }
+    .menu li { margin-right: 30px; }
+    
+    .sectionContainer { width: 80%; }
+    .conWrap { padding: 60px 40px; }
+    .inputWrap h5 { font-size: 14px;}
+    .inputWrap input, .inputWrap select, .outday_list_main { width: 100%; }
+    .inputWrap div input { width: calc(70% - 20px); }
+    .inputWrap div button.check { width: 100px; margin-left: 20px; }
+    .double { display: block; }
+    .double .inputWrap { width: 100%; }
+}
+
+@media (min-width:576px) and (max-width:767px) 
+{
+    header{ padding: 0 24px; }
+    header h1.logo a img{ width:80%; }
+    .menu { margin-left: 0; font-size: 12px;}
+    .menu li { margin-right:10px; }
+    .header_option li{ font-size: 12px;}
+    .header_option li.language { margin-left: 5px;}
+    .header_option li.language a .icon img { display: none;}
+    
+    .sectionContainer { width: 80%; }
+    .sectionTitle a { font-size: 28px; }
+    .conWrap { padding: 60px 40px; }
+    .inputWrap h5 { font-size: 14px;}
+    .inputWrap input, .inputWrap select, .outday_list_main { width: 100%; }
+    .inputWrap div input { width: calc(70% - 20px); }
+    .inputWrap div button.check { width: 100px; margin-left: 20px; }
+    .double { display: block; }
+    .double .inputWrap { width: 100%; }    
+}

@@ -1,0 +1,128 @@
+:root 
+{
+    --main-color: #E88100;
+    --sub-color: #006EBD;
+    --background-gray:#F1F1F1;
+    --color-dark: #222;
+    --color-white: #fff;
+    --input-color: #E5E5EC;    
+    
+}
+
+section 
+{
+    width: 100%;
+    background: linear-gradient(180deg, rgba(241,241,241,1) 0%, rgba(232,232,232,1) 100%);
+    display: flex;
+    justify-content: center;
+}
+
+.sectionContainer 
+{
+    width: 62.5%;
+    padding: 60px 0;
+}
+
+.sectionTitle 
+{
+    margin-bottom: 20px;
+}
+
+.sectionTitle a 
+{
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--main-color);    
+}
+
+.conWrap 
+{
+    background-color: #fff;
+    padding: 60px 100px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.conMainTitle 
+{
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 46px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+
+.subTitle
+{
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 26px;
+    margin-bottom: 40px;
+} 
+
+.move
+{
+    width: 250px;
+    height: 50px;
+    color: #fff;
+    background-color: var(--main-color);
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0 auto;
+}
+
+
+
+
+
+/* 반응형 구간 */
+
+@media all and (min-width:1440px) and (max-width:1760px) 
+{
+
+}
+
+@media (min-width:1200px) and (max-width:1439px) 
+{
+    .sectionContainer { width: 80%; }
+    .conWrap { padding: 60px 200px; }
+    .inputWrap h5 { font-size: 16px;}
+    .inputWrap input { width: 100%; }
+    .inputWrap div input { width: calc(70% - 20px); }
+    .inputWrap div button.check { width: 120px; margin-left: 20px; }
+    .double { display: block; }
+    .double .inputWrap { width: 100%; }
+}
+
+@media (min-width:990px) and (max-width:1199px) 
+{
+    .sectionContainer { width: 80%; }
+    .conWrap { padding: 60px 100px; }
+    .inputWrap h5 { font-size: 16px;}
+    .inputWrap input { width: 100%; }
+    .inputWrap div input { width: calc(70% - 20px); }
+    .inputWrap div button.check { width: 120px; margin-left: 20px; }
+    .double { display: block; }
+    .double .inputWrap { width: 100%; }
+}
+
+@media (min-width:768px) and (max-width:989px) 
+{
+    .sectionContainer { width: 80%; }
+    .conWrap { padding: 60px 40px; }
+    .inputWrap h5 { font-size: 14px;}
+    .inputWrap input { width: 100%; }
+    .inputWrap div input { width: calc(70% - 20px); }
+    .inputWrap div button.check { width: 100px; margin-left: 20px; }
+    .double { display: block; }
+    .double .inputWrap { width: 100%; }
+}
+
+@media (min-width:576px) and (max-width:767px) 
+{
+    .sectionContainer { width: 80%; }
+    .conWrap { padding: 60px 40px; }
+    .conMainTitle { font-size: 26px; line-height: 36px; }
+    .subTitle { font-size: 16px; line-height: 28px; }
+}

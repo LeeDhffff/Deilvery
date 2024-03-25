@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="delivery.A_Login.service.impl.LoginMapper">
+	
+	<select id="id_chk" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call A_ID_CHK(
+				#{CHK_ID}
+		) }
+	</select>
+	
+	
+	<select id="Join" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call A_JOIN(
+				#{MEM_NM},
+				#{MEM_ID},
+				#{MEM_PW},
+				#{MEM_PHONE},
+				#{MEM_EMAIL}
+		) }
+	</select>
+	
+	<select id="find_id" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call A_FIND_ID(
+				#{MEM_NM},
+				#{MEM_EMAIL}
+		) }
+	</select>
+	<select id="find_pw" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call A_FIND_PW(
+				#{MEM_ID},
+				#{MEM_EMAIL}
+		) }
+	</select>
+	<select id="find_pw_change" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call A_FIND_PW_CHANGE(
+				#{MEM_ID},
+				#{MEM_PW}
+		) }
+	</select>
+	
+	<select id="Login" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call A_LOGIN(
+				#{MEM_ID},
+				#{MEM_PW}
+		) }
+	</select>
+	<select id="Login_B" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call A_LOGIN_B(
+				#{MEM_NM},
+				#{MEM_PHONE},
+				#{MEM_EMAIL}
+		) }
+	</select>
+</mapper>

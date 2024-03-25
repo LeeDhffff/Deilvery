@@ -1,0 +1,296 @@
+:root 
+{
+    --main-color: #E88100;
+    --sub-color: #006EBD;
+    --background-gray:#F1F1F1;
+    --color-dark: #222;
+    --color-white: #fff;
+    --input-color: #E5E5EC;    
+    --table-head: #F7F7FB;
+}
+
+body 
+{
+    position: relative;
+}
+
+section 
+{
+    width: 100%;
+    background: linear-gradient(180deg, rgba(241,241,241,1) 0%, rgba(232,232,232,1) 100%);
+    display: flex;
+    justify-content: center;
+}
+
+.sectionContainer 
+{
+    width: 62.5%;
+    padding: 60px 0;
+}
+
+.sectionTitle 
+{
+    margin-bottom: 20px;
+}
+
+.sectionTitle a 
+{
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--main-color);    
+}
+
+.conWrap 
+{
+    background-color: #fff;
+    padding: 60px 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.conMainTitle 
+{
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.conSubTitle 
+{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 28px;
+}
+
+.wrap 
+{
+    margin-top: 20px;
+}
+
+table 
+{
+    width: 100%;
+    border: 0;
+    box-sizing: border-box;
+    margin-bottom: 40px;
+}
+
+table thead 
+{
+    height: 50px;
+    background-color: var(--table-head);
+    color: #222;
+    font-weight: 500;
+}
+
+table tbody 
+{
+    background-color: #fff;
+    text-align: center;
+}
+
+table tbody tr td 
+{
+    height: 100px;
+}
+
+
+.currentWrap .conMainTitle 
+{
+    display: flex;
+}
+button.qr 
+{ 
+    width: 120px;
+    height: 40px;
+    color: #222;
+    font-size: 18px;
+    border: 1px solid var(--input-color);
+    background: #fff;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+button.qr:hover 
+{
+    background-color: var(--main-color);
+    color: #fff;
+    border: 1px solid var(--main-color);
+}
+
+.currentWrap 
+{
+    display: none;
+}
+
+.currentCon 
+{
+    margin-top: 20px;    
+}
+
+.currentCon .current 
+{
+    height: 100px;
+    border: 1px solid var(--input-color);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    justify-content: space-around;
+}
+
+.currentCon .current:last-child 
+{
+    margin-bottom: 0;
+}
+
+.currentCon .current.on 
+{
+    border: 1px solid var(--main-color);
+}
+
+.currentCon .current .condition 
+{
+    background-color: #999;
+    width:42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 24px;
+}
+
+.currentCon .current .condition.on 
+{
+    background-color: var(--main-color);
+}
+
+.currentCon .current .condition a 
+{
+    height: 38px;
+}
+
+.currentTitle, .currentDay, .currentMessage
+{
+    font-size: 18px;
+    font-weight: 500;
+    color: #222;
+}
+
+.currentMessage 
+{
+    margin-right:0;
+}
+
+/* qr 구간*/
+.qrWrap, .history 
+{
+    width: 100%; 
+    height:100%;
+    background-color: rgba(17,17,17,0.6);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.qrCon 
+{
+    width: 400px;
+    height: 400px;
+    background-color: #fff;    
+}
+
+.qrHeader, .qrBody, .historyHeader  
+{
+    display: flex;
+    padding: 20px 40px;
+}
+
+.qrTitle, .historyTitle   
+{
+    margin: 0 auto;
+    font-size: 24px;
+}
+
+.qrBody 
+{
+    justify-content: center;
+    align-items: center;
+}
+
+/* 배송내역확인 */
+
+
+.historyCon 
+{
+    width: 62.5%;
+    background-color: #fff;
+}
+
+.historyBody
+{
+    padding: 0 40px;
+} 
+
+
+
+
+
+
+/* 반응형 구간 */
+
+@media all and (min-width:1440px) and (max-width:1760px) 
+{
+    .currentCon .current { justify-content: space-around; }
+    .currentTitle, .currentDay, .currentMessage{ font-size: 14px; margin-right: 0;}
+}
+
+@media (min-width:1200px) and (max-width:1439px) 
+{
+    .sectionTitle a { font-size: 28px; }
+    .sectionContainer, .historyCon { width: 80%; }
+    .conWrap { padding: 60px 40px; }
+    .currentWrap { margin-top: 40px; }
+    .currentCon .current { justify-content: space-around; }
+    .currentMessage { display: none;}
+    .currentTitle, .currentDay, .currentMessage{ font-size: 16px; margin-right: 0;}
+}
+
+@media (min-width:990px) and (max-width:1199px) 
+{
+    .sectionTitle a { font-size: 28px; }
+    .sectionContainer, .historyCon { width: 80%; }
+    .conWrap { padding: 60px 40px; }
+    .currentWrap { margin-top: 40px; }
+    .currentCon .current { justify-content: space-around; }
+    .currentMessage { display: none;}
+    .currentTitle, .currentDay, .currentMessage{ font-size: 16px; margin-right: 0;}
+}
+
+@media (min-width:768px) and (max-width:989px) 
+{
+    .sectionTitle a { font-size: 28px; }
+    .sectionContainer, .historyCon { width: 80%; }
+    .conWrap { padding: 60px 40px; }
+    .currentWrap { margin-top: 40px; }
+    .currentCon .current { justify-content: space-around; }
+    .currentMessage { display: none;}
+    .currentTitle, .currentDay, .currentMessage{ font-size: 16px; margin-right: 0;}
+}
+
+@media (min-width:576px) and (max-width:767px) 
+{
+    .sectionTitle a { font-size: 28px; }
+    .sectionContainer, .historyCon  { width: 80%; }
+    .conWrap { padding: 60px 40px; }
+    .tableWrap { width: 100%; overflow-x: scroll;}
+    table { width: 1200px;}
+    .currentWrap { margin-top: 40px; }
+    .currentCon .current { justify-content: space-around; }
+    .currentMessage { display: none;}
+    .currentTitle, .currentDay, .currentMessage{ font-size: 16px; margin-right: 0;}
+}

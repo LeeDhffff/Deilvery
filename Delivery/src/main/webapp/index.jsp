@@ -10,9 +10,9 @@
 <!DOCTYPE html>
 <html lang="kr">
     
-    <title>JMT - 스케쥴러</title>
+    <title></title>
 </head>
- <jsp:forward page="/LoginPage.do"/>
+ <jsp:forward page="/Main.do"/>
 <style>
 body{
 	margin: auto;
@@ -58,15 +58,15 @@ body{
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$.ajax({
-			type: "POST",
-			url : "./id_chk.do",
-			data: {},
-			async: false,
-            success: function(datas){
-                alert(datas);
-            }
-        })
+// 		$.ajax({
+// 			type: "POST",
+// 			url : "./id_chk.do",
+// 			data: {},
+// 			async: false,
+//             success: function(datas){
+//                 alert(datas);
+//             }
+//         })
 	})
 
 </script>

@@ -1,0 +1,173 @@
+
+
+:root 
+{
+    --main-color: #E88100;
+    --color-dark: #000;
+    --color-white: #fff;
+    --input-color: #dadada;
+    --font-color: #222;
+    --background-gray:#f7f7f7;
+}
+
+section 
+{
+    background-image: url(../../images/pc_icon/section_img.svg);
+    background-size: cover;
+    height: calc(100vh - 90px);
+}
+
+.textCon 
+{
+    padding-top: 160px;
+    padding-left: 200px;
+}
+
+.textCon .mainTitle 
+{
+    margin-bottom: 20px;
+}
+
+.textCon .mainTitle a
+{
+    font-size: 36px;
+    color: #fff;
+    font-weight: 300;
+}
+
+.textCon .subTitle
+{
+    margin-top: 40px;
+}
+
+.textCon .subTitle a
+{
+    font-size: 24px;
+    color: #fff;
+    font-weight: 300;
+    line-height: 36px;
+}
+
+.buttonCon
+{
+    position: absolute;
+    bottom:160px;
+    left:50%;
+    transform: translate(-50%,0);
+    display: flex;
+} 
+
+.buttonCon button 
+{
+    width: 300px;
+    height: 170px;
+    border-radius: 10px;
+    background:#fff;
+}
+
+.buttonCon button:first-child
+{
+    margin-right: 20px;
+}
+
+.buttonCon button a 
+{
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.buttonCon button.register a span.icon.truckBlack 
+{
+    background-image: url(../../images/pc_icon/truck_black.svg);
+    width: 48px;
+    background-size: 100%;
+    display: block;
+    height: 48px;
+    margin: 0 auto 10px;
+} 
+
+.buttonCon button.search a span.icon.searchBlack 
+{
+    background-image: url(../../images/pc_icon/search_black.svg);
+    width: 48px;
+    background-size: 100%;
+    display: block;
+    height: 48px;
+    margin: 0 auto 10px;
+} 
+
+/* buttonCon button : hover*/
+
+.buttonCon button:hover 
+{
+    background: var(--main-color);
+}
+
+.buttonCon button:hover > a 
+{
+    color: #fff;
+}
+
+.buttonCon button:hover > a span.icon.truckBlack 
+{
+    background-image: url(../../images/pc_icon/truck_white.svg);
+}
+
+.buttonCon button:hover > a span.icon.searchBlack 
+{
+    background-image: url(../../images/pc_icon/search_white.svg);
+}
+
+@media all and (min-width:1440px) and (max-width:1760px) {}
+@media (min-width:1200px) and (max-width:1439px) 
+{
+    .textCon .mainTitle a { font-size: 32px;}
+    .textCon .subTitle a { font-size: 20px;}
+    .buttonCon { bottom: 120px; }
+    .buttonCon button { width:260px; height: 160px;}
+}
+@media (min-width:990px) and (max-width:1199px) 
+{
+    .textCon .mainTitle a { font-size: 32px;}
+    .textCon .subTitle a { font-size: 20px;}
+    .buttonCon { bottom: 120px; }
+    .buttonCon button { width:260px; height: 160px;}
+}
+@media (min-width:768px) and (max-width:989px) 
+{
+    .menu { margin-left: 10%; font-size: 20px;}    
+
+    .textCon { padding-top: 60px; padding-left: 100px; }
+    .textCon .mainTitle a { font-size: 28px;}
+    .textCon .subTitle a { font-size: 18px;}
+    .buttonCon { bottom: 120px; }
+    .buttonCon button { width:260px; height: 140px;}
+    .buttonCon button.register a span.icon.truckBlack,
+    .buttonCon button.search a span.icon.searchBlack 
+    {
+        width:36px;
+        height: 36px;
+    }    
+    .buttonCon button a { font-size: 20px;}
+}
+@media (min-width:576px) and (max-width:767px) 
+{
+    header{ padding: 0 24px; }
+    .menu { margin-left: 5%; font-size: 16px;}
+    .menu li:first-child { margin-right:20px; }
+
+    .textCon { padding-top: 100px; padding-left: 100px; }
+    .textCon .mainTitle a { font-size: 20px;}
+    .logoWhite img { width: 40%; }
+    .textCon .subTitle a { font-size: 16px; line-height: 24px;}
+    .buttonCon { bottom: 140px; }
+    .buttonCon button { width:200px; height: 120px;}
+    .buttonCon button.register a span.icon.truckBlack,
+    .buttonCon button.search a span.icon.searchBlack 
+    {
+        width:36px;
+        height: 36px;
+    }    
+    .buttonCon button a { font-size: 16px;}
+}
+@media (max-width:576px)  {}
