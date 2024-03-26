@@ -17,7 +17,6 @@
     <script src="js/qrcode.js"></script>
     
     <!-- css import -->
-    <link href="css/adminDeliverRegist/commonStyle.css" rel="stylesheet" type="text/css">
     <link href="css/adminDeliverRegist/common.css" rel="stylesheet" type="text/css">
     <link href="css/adminDeliverRegist/style.css" rel="stylesheet" type="text/css">
     
@@ -149,8 +148,8 @@
                             </div>
                             <div class="inputWrap">
                                 <div class="inputHeader" style="display: flex;">
-                                    <button class="boxInput" style="margin-left: auto;" id="boxDel">삭제하기</button>
-                                    <button class="boxInput" style="margin-left: auto;" id="printBtn">출력하기</button>
+                                    <button class="boxInput" style="margin-left: 20px;" id="boxDel">삭제하기</button>
+                                    <button class="boxInput" style="margin-left: 20px;" id="printBtn">출력하기</button>
                                 </div>
                                 <div class="tableWrap">
                                 <input type="hidden" id="widthArr" name="widthArr" placeholder="가로">

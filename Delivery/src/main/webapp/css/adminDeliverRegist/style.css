@@ -155,6 +155,7 @@ button.boxSave:hover, button.boxInput:hover
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    justify-content: end;
 }
 
 .inputHeader h5 
