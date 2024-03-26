@@ -179,6 +179,16 @@
 		})
 		
 		ChangeSearch();
+		
+
+		/* 테이블 목록 클릭시 */
+		$(document).on("click","#Delivery_Table > tbody > tr",function(){
+			var nc = $(this).find(".in_key").val();
+			
+
+			/* 미완료 배송신청으로 이동 */
+			location.href = "adminDeliveryRegistMain.do?ik=" +nc;
+		})
 	})
 	
 	
@@ -206,7 +216,7 @@
 				for(let i=0; i<result.length; i++ ){
 
 					tbodyData += "<tr><td><input type='checkbox' name='List_Check' class='List_Check sub'>";
-					tbodyData += "<td>"+result[i].OUT_DAY+"</td>";
+					tbodyData += "<td><input type='hidden' class='in_key' value='"+result[i].IN_KEY+"'>"+result[i].OUT_DAY+"</td>";
 					tbodyData += "<td>"+result[i].REC_NM+"</td>";
 					tbodyData += "<td>"+result[i].REC_TARGET+"</td>";
 					tbodyData += "<td>"+result[i].NOW_DELIVERY+"</td>";
