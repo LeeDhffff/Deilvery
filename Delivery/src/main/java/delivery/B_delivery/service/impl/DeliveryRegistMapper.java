@@ -30,6 +30,13 @@ public interface DeliveryRegistMapper {
 		
 	/* 관리자 배송신청 등록 */
 	public void adminDelRegist(HashMap<String, Object> inputMap) throws Exception;
+	/* 관리자 배송신청 수정 */
+	public void adminDelUpdate(HashMap<String, Object> inputMap) throws Exception;
+	/* IN_KEY 등록여부 체크 */
+	public int cntInKey(HashMap<String, Object> inputMap) throws Exception;
+	/* 해당 신청일 마지막 등록된 IN_KEY 값 */
+	public String lastInKey(HashMap<String, Object> inputMap) throws Exception;
+	
 	/* 박스 정보 등록 체크 */
 	public int cntTotalPacketInfo(HashMap<String, Object> inputMap) throws Exception;
 	/* 박스 정보 등록 */

@@ -36,7 +36,7 @@
 			,#{gooCoordinate}
 			,#{creDay}
 			,#{arrDay}
-			,#{chk}
+			,'N'
 			,#{password}
 		);
 	</insert>
@@ -93,12 +93,51 @@
 			,COST AS cost
 			,OUT_KEY AS outKey
 		FROM SJ_NUM
-		WHERE IN_KEY = #{inKey};
+		WHERE IN_KEY = #{inKey}
+		ORDER BY CAST(SUBSTR(SJ_KEY, 12) AS INTEGER) ASC;
 	</select>
 	
+	
+	
 	<!-- 관리자 배송신청 등록 -->
-	<update id="adminDelRegist" parameterType="hashmap">
+	<insert id="adminDelRegist" parameterType="hashmap">
 		/* adminDelRegist */
+		INSERT INTO APPLICATION(
+			IN_KEY
+			,MEM_ID
+			,TYPE
+			,REC_NM
+			,REC_PHONE
+			,REC_TARGET
+			,REC_ADDR
+			,REC_HOU
+			,REC_TXT
+			,GOO_COORDINATE
+			,CRE_DAY
+			,ARR_DAY
+			,CHK
+			,PASSWORD
+		)VALUES(
+			#{inKey}
+			,#{memId}
+			,#{type}
+			,#{recNm}
+			,#{recPhone}
+			,#{recTarget}
+			,#{recAddr}
+			,#{recHou}
+			,#{recTxt}
+			,#{gooCoordinate}
+			,#{creDay}
+			,#{arrDay}
+			,'Y'
+			,#{password}
+		);		
+	</insert>
+	
+	<!-- 관리자 배송신청 수정 -->
+	<update id="adminDelUpdate" parameterType="hashmap">
+		/* adminDelUpdate */
 		UPDATE APPLICATION
 		SET		
 			REC_NM = #{recNm}
@@ -110,19 +149,45 @@
 			,GOO_COORDINATE = #{gooCoordinate}
 			,CRE_DAY = #{creDay}
 			,ARR_DAY = #{arrDay}
-			,CHK = #{chk}
+			,CHK = 'Y'
 			,PASSWORD = #{password}
 		WHERE 
 			IN_KEY = #{inKey};	
 	</update>
 	
-	<!-- 회원 배송신청 등록 -->
+	<!-- 등록된 IN_KEY 여부 체크 -->
+	<select id="cntInKey" parameterType="hashmap" resultType="java.lang.Integer">
+		/* cntInKey */
+		SELECT COUNT(*) AS cnt
+		FROM APPLICATION
+		WHERE SUBSTR(IN_KEY,3,8) = #{inKeyDay};
+	</select>
+	
+	<!-- 마지막 등록된 IN_KEY 값 조회 -->
+	<select id="lastInKey" parameterType="hashmap" resultType="java.lang.String">
+		/* lastInKey */
+		SELECT MAX(IN_KEY) AS inKey
+		FROM APPLICATION
+		WHERE SUBSTR(IN_KEY,3,8) = #{inKeyDay};
+	</select>
+	
+	
+	<!-- 박스정보 SN 값 체크 -->
+	<select id="cntTotalPacketInfo" parameterType="hashmap" resultType="java.lang.Integer">
+		/* cntTotalPacketInfo */
+		SELECT IFNULL(MAX(SN),0) AS sn
+		FROM SJ_NUM
+		WHERE OUT_KEY = #{outKey};
+	</select>
+	
+	<!-- 박스정보 등록 -->
 	<insert id="packetInfoRegist" parameterType="hashmap">
 		/* packetInfoRegist */
 		INSERT INTO SJ_NUM
 		VALUES(
 			#{sjKey}
 			,#{inKey}
+			,#{sn}
 			,#{width}
 			,#{length}
 			,#{height}
@@ -132,15 +197,7 @@
 		);
 	</insert>
 	
-	<!-- 등록된 전체 배송 박스 건수 체크 -->
-	<select id="cntTotalPacketInfo" parameterType="hashmap" resultType="java.lang.Integer">
-		/* cntPacketInfo */
-		SELECT COUNT(*)
-		FROM SJ_NUM
-		WHERE OUT_KEY = #{outKey};
-	</select>	
-	
-	<!-- 등록된 박스 정보 삭제 -->
+	<!-- 등록된 박스정보 삭제 -->
 	<delete id="delPacketInfo" parameterType="hashmap">
 		/* delPacketInfo */
 		UPDATE SJ_NUM

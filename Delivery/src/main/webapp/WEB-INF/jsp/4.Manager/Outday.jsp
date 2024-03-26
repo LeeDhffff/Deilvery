@@ -299,6 +299,7 @@
 			}
 		});
 
+		/* 출항일 생성 */
 		$(".create").on("click",function(){
 				if($("#Out_Day").val() == ''){
 					alert("출항 예정일을 입력해주세요.")
@@ -319,8 +320,11 @@
 	    				async: false,
 	    	            success: function(data){
 	    	            	
-	    	            	if(data == '' || data == '잘못된 접근입니다.'){
-	    	            		alert("잘못된 접근입니다.");
+	    	            	if(data == ''){
+	    	            		alert("잘못된 접근입니다.");	
+	    	            	}
+	    	            	else if(data == '잘못된 접근입니다.' || data == '해당 날짜에 출항일이 이미 생성되어 있습니다.'){
+	    	            		alert(data);
 	    	            	}
 	    	            	else{
 	    	            		$("#Out_Key").val(data);

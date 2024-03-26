@@ -11,11 +11,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>    
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>    
+    <script src="https://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+    
+	<!-- qrCode.js import -->
+    <script src="js/qrcode.js"></script>
     
     <!-- css import -->
-    <link href="css/adminDeliverRegist/common.css" rel="stylesheet" type="text/css">
     <link href="css/adminDeliverRegist/commonStyle.css" rel="stylesheet" type="text/css">
+    <link href="css/adminDeliverRegist/common.css" rel="stylesheet" type="text/css">
     <link href="css/adminDeliverRegist/style.css" rel="stylesheet" type="text/css">
     
     <!-- import font-awesome, line-awesome -->
@@ -38,8 +41,8 @@
                 </h3>
             </div>
             <div class="outHeader">
-                <div class="left">
-                    <img src="images/delivery/pc_icon/QR.svg" alt="#" style="width:62px; height: 62px;">
+                <div class="left" id="qrCode">
+<!--                     <img src="images/delivery/pc_icon/QR.svg" alt="#" style="width:62px; height: 62px;"> -->
                 </div>
                 <div class="right">
                     <div class="logo">
@@ -61,12 +64,14 @@
                 <p>접수번호 :<br>
                    접수번호 :
                 </p>
-                <h1>EK 18</h1>
+<!-- 			접수번호 동적 생성 설정 영역       -->
+                <h1>EK</h1>
             </div>
             <div class="outFoot">
                 <div class="top">
-                    <h5>No.EK18_231212-10</h5>
-                    <h5>No.EK18_231212-10</h5>
+<!--             접수코드 동적 생성 설정 영역 -->
+<!--                     <h5>No.EK18_231212-10</h5> -->
+<!--                     <h5>No.EK18_231212-10</h5> -->
                 </div>
                 <div class="bottom">
                     <h5>Tel.020-1234-1234</h5>
@@ -77,16 +82,19 @@
     </div>
 
     <div class="container">
-        <jsp:include page="../common.jsp"></jsp:include>
+    <jsp:include page="../common.jsp"></jsp:include>
+		 
         <section>        	
             <div class="sectionContainer">
                 <h1 class="sectionTitle">
-                <c:if test="${result.inKey ne ''}" >
-                    <a href="#">물류접수-수정</a>
-                </c:if>
-                <c:if test="${result.inKey eq '' }" >
-                    <a href="#">물류접수</a>
-                </c:if>
+                <c:choose>
+					<c:when test="${result.inKey ne '' && not empty result.inKey }">
+						<a href="#">물류접수-수정</a>
+					</c:when>
+					<c:otherwise>
+						<a href="#">물류접수</a>                            			
+					</c:otherwise>
+				</c:choose>                
                 </h1>
                 <div class="conWrap">
                 	<form id="formData" name="formData">
@@ -142,7 +150,7 @@
                             <div class="inputWrap">
                                 <div class="inputHeader" style="display: flex;">
                                     <button class="boxInput" style="margin-left: auto;" id="boxDel">삭제하기</button>
-                                    <button class="boxInput" style="margin-left: auto;">출력하기</button>
+                                    <button class="boxInput" style="margin-left: auto;" id="printBtn">출력하기</button>
                                 </div>
                                 <div class="tableWrap">
                                 <input type="hidden" id="widthArr" name="widthArr" placeholder="가로">
@@ -200,12 +208,19 @@
                             	</c:forEach>
                             </select>                            
                         </div>
-                        </form>
                         <div class="bottomButtonWrap">
-	                        <button class="bottomButton" id="returnBtn">미완료 배송신청으로 돌아가기</button>   
-	                        <button class="bottomButton" id="adminDelRegBtn">저장 하기</button>
+	                        <button class="bottomButton" id="returnBtn">미완료 배송신청으로 돌아가기</button>
+	                        <c:choose>
+								<c:when test="${result.inKey ne '' && not empty result.inKey }">
+			                        <button class="bottomButton" id="adminDelRegBtn">수정 하기</button>									
+								</c:when>
+								<c:otherwise>
+									<button class="bottomButton" id="adminDelRegBtn">저장 하기</button>
+								</c:otherwise>
+							</c:choose>     
 	                    </div>
                     </div> <!-- wrap -->
+                </form>
                 </div> <!-- conWrap -->
             </div> <!-- sectionContainer -->
         </section>
@@ -257,7 +272,6 @@
 	    		$("#tBody").append(htmlStr);
 	    		console.log("chkIndex : ", chkIndex);
 	    		$("input[class='boxSize']").val("");
-	    		
     		}
     	});
     	
@@ -336,18 +350,61 @@
     			$(this).parent().siblings(".boxIndex").text(index+1);
     		});
     	});    	
+
     	
+    	// 박스 출력버튼 연계 (이재원)
+        $('.outTitleWrap > .icon.cancelout').click(function(){
+        	$(".outFoot > .top > h5").remove();
+        	$("#qrCode > img").remove();
+            $('.outWrap').css({'display':'none'});
+        });
+        
+    	/* 출력하기 버튼 설정 (JANG) */
+        $("#printBtn").on("click", function(evt){
+        	evt.preventDefault();
+        	const sjKeyArr = new Array();
+        	let sjNum = "";
+        	let htmlStr = "";
+        	let recTarget = ($("#recTarget").val() == 1) ? "본사" : "하우창고";
+        	let qrTxt = "수령인 : "+$("#recNm").val()+"\n연락처 : "+$("#recPhone").val()+"\n픽업지 : "+recTarget;
+        	
+        	if($("input[name=sjKey]").length > 0){
+	        	$("input[name=sjKey]").each(function(index){
+	        		sjKeyArr.push($("input[name=sjKey]").eq(index).val());
+	        		htmlStr += "<h5>No."+$("input[name=sjKey]").eq(index).val()+"</h5>";
+	        	});
+	        	let txt = sjKeyArr[0].split("-");
+	        	
+	        	$(".outBody > h1").text(txt[0]);
+				$(".outFoot > .top").append(htmlStr);
+	        	qrCreate("qrCode", qrTxt);	        	
+	            $('.outWrap').css({'display':'flex'});
+        	}else{
+        		
+        		alert("배송신청 저장 후 다시 시도해주세요.");
+        	}
+        	
+        });
     	
     	/* 미확인 배송신청으로 돌아가기 (JANG) */
     	$("#returnBtn").on("click", function(evt){
     		console.log("미확인 배송신청 돌아가기 경로설정 해야됨!!!");
     	});
     	
-    	
    	});	// document.ready end!!
+   	   	
    	
-   	
-   	
+   	/* qrCode 생성 함수 (JANG) */
+   	function qrCreate(id, txt){
+   		var qrcode = new QRCode(id, {
+   		    text: txt,
+   		    width: 62,
+   		    height: 62,
+   		    colorDark : "#000000",
+   		    colorLight : "#ffffff",
+   		    correctLevel : QRCode.CorrectLevel.H
+   		});
+   	}
    	
    	
     </script>

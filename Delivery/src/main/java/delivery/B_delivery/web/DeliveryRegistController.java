@@ -72,10 +72,6 @@ public class DeliveryRegistController {
 	public String userDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		
 		
-		
-		inputMap.put("inKey", "US24031704");
-		
-
 		/* memId를 세션값으로 삽입 - (수정자 : 이동헌) */
 		if(!session.getAttribute("SESSION_MEM_ID").equals(null)) {
 			inputMap.put("memId", (String)(session.getAttribute("SESSION_MEM_ID")));	
@@ -144,7 +140,6 @@ public class DeliveryRegistController {
 	@ResponseBody
 	public String adminDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		
-		inputMap.put("chk", "Y");
 		System.out.println("key : " + inputMap.keySet().toString());
 		System.out.println("values : " + inputMap.values().toString());
 		
