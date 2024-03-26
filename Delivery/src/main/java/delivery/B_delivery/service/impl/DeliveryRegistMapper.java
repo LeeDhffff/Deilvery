@@ -10,6 +10,14 @@ public interface DeliveryRegistMapper {
 
 	/************************** 회원파트 start!! ********************************/
 	
+	/* 접속한 member 정보 가져오기 */
+	public List<HashMap<String, String>> memInfoList(HashMap<String, Object> inputMap) throws Exception;
+	
+	
+	
+	
+	/************************** 회원파트 start!! ********************************/
+	
 	/* 회원 배송신청 등록 */
 	public void userDelRegist(HashMap<String, Object> inputMap) throws Exception;
 

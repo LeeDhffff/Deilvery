@@ -23,6 +23,9 @@ public interface DeliveryRegistService {
 	/* 박스정보 가져오기 */
 	public List<HashMap<String, String>> packInfoList(HashMap<String, Object> inputMap) throws Exception;
 	
+	/* 접속한 member 정보 가져오기 */
+	public List<HashMap<String, String>> memInfoList(HashMap<String, Object> inputMap) throws Exception;
+	
 	/* 관리자 배송신청 등록 */
 	public String adminDelRegist(HashMap<String, Object> inputMap) throws Exception;
 	

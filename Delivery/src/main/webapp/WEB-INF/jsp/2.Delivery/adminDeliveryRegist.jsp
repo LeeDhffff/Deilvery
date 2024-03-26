@@ -161,7 +161,7 @@
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    <input type="checkbox">
+                                                    <input type="checkbox" id="allChk">
                                                 </th>
                                                 <th>No</th>
                                                 <th>박스크기</th>
@@ -322,7 +322,7 @@
 					alert(result);
 
 					/* redirect될 경로 설정 필요!! */
-// 					location.href = "userDeliveryRegistResult.do";
+					$(".nc_delivery").trigger("click");
 					
 				},
 				error : function(xhr, status, error){
@@ -338,11 +338,14 @@
     		evt.preventDefault();    		
     		// 박스정보 삭제
     		$("input[name=boxIndex]").each(function(index){    			
-    			console.log($(this).eq(index).is(":checked"));
-    			if($(this).eq(index).is(":checked")){
-    				$(this).parent().parent().remove();
-    				console.log($(this).parent().siblings(".boxIndex").text());
+    			if($("#allChk").is(":checked")){
+    				$("input[name=boxIndex]").parent().parent().remove();
     			}
+	    		if($(this).is(":checked")){
+	    			$(this).parent().parent().remove();
+	    		}
+    			
+    			$("#allChk").prop("checked", false);
     		});
     		
     		// No 초기화
@@ -386,9 +389,23 @@
         	
         });
     	
+    	
+    	/* 전체체크박스(allChk) 이벤트 설정 */
+    	$("#allChk").on("change", function(evt){
+    		console.log("changed : ", $(this).is(":checked"));
+    		if($(this).is(":checked")){
+    			$("input[name=boxIndex]").prop("checked", true);
+    		}else{
+    			$("input[name=boxIndex]").prop("checked", false);
+    		}
+    	
+    	});
+    	
+    	
     	/* 미확인 배송신청으로 돌아가기 (JANG) */
     	$("#returnBtn").on("click", function(evt){
-    		console.log("미확인 배송신청 돌아가기 경로설정 해야됨!!!");
+    		evt.preventDefault();
+    		$(".nc_delivery").trigger("click");
     	});
     	
    	});	// document.ready end!!

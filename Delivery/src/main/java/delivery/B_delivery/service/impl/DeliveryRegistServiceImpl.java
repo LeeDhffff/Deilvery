@@ -18,6 +18,20 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 	private DeliveryRegistMapper delRegistMapper;
 
 	
+	/************************** 공통파트 start!! ********************************/
+	
+	/* 접속한 member 정보 가져오기 */
+	@Override
+	public List<HashMap<String, String>> memInfoList(HashMap<String, Object> inputMap) throws Exception {
+		
+		return delRegistMapper.memInfoList(inputMap);
+	}
+	
+	
+	
+	
+	
+	
 	/************************** 회원파트 start!! ********************************/
 	
 	/* 회원 배송신청 등록 */
@@ -26,7 +40,9 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 		
 		Date nowDate = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat creDay = new SimpleDateFormat("yyyy-MM-dd");
 		sdf.format(nowDate);
+		inputMap.put("creDay", creDay.format(nowDate));
 		
 		/* IN_KEY 초기화 */
 		String inKey = "";
@@ -52,11 +68,10 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 		delRegistMapper.userDelRegist(inputMap);
 	}
 	
-	
-	
-	
-	
-	
+
+
+
+
 	/************************** 관리자파트 start!! ********************************/
 	
 	/* 미완료 배송건 조회 */

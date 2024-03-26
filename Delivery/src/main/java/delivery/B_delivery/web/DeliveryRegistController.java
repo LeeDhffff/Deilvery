@@ -61,16 +61,17 @@ public class DeliveryRegistController {
 	
 	/* 사용자 배송신청 화면 진입 */
 	/* 경로수정 - (수정자 : 이동헌) */
+//	@RequestMapping("userDeliveryRegistMain.do")
+//	public String userDeliveryRegistMain(){
+//		return "2.Delivery/userDeliveryRegist";
+//	}
+	
+	/* 사용자 배송신청 화면 진입 */
 	@RequestMapping("userDeliveryRegistMain.do")
-	public String userDeliveryRegistMain(){
-		return "2.Delivery/userDeliveryRegist";
-	}
-
-	/* 회원 배송신청 등록 */
-	@RequestMapping(value = "/userDelRegist.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
-	public String userDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+	public ModelAndView userDeliveryRegistMain(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception{
 		
+		ModelAndView mav = new ModelAndView();
 		
 		/* memId를 세션값으로 삽입 - (수정자 : 이동헌) */
 		if(!session.getAttribute("SESSION_MEM_ID").equals(null)) {
@@ -79,6 +80,31 @@ public class DeliveryRegistController {
 		else if(!session.getAttribute("SESSION_PROTO_ID").equals(null)) {
 			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));	
 		}
+		
+		/* 접속한 member 정보 가져오기 (JANG) - 생략해도 됨 */
+		List<HashMap<String, String>> memInfo = delRegistService.memInfoList(inputMap);
+
+		
+		mav.addObject("memInfo", memInfo);		
+		
+		mav.setViewName("2.Delivery/userDeliveryRegist");
+		
+		return mav;
+		
+	}
+
+	/* 회원 배송신청 등록 */
+	@RequestMapping(value = "/userDelRegist.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String userDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		
+//		/* memId를 세션값으로 삽입 - (수정자 : 이동헌) */
+//		if(!session.getAttribute("SESSION_MEM_ID").equals(null)) {
+//			inputMap.put("memId", (String)(session.getAttribute("SESSION_MEM_ID")));	
+//		}
+//		else if(!session.getAttribute("SESSION_PROTO_ID").equals(null)) {
+//			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));	
+//		}
 		System.out.println("key : " + inputMap.keySet().toString());
 		System.out.println("values : " + inputMap.values().toString());
 		
@@ -90,8 +116,17 @@ public class DeliveryRegistController {
 	
 	/* 회원 배송신청결과 화면 진입 */
 	@RequestMapping("userDeliveryRegistResult.do")
-	public String userDeliveryRegistResult(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
-		return "2.Delivery/userDeliveryRegistResult";
+	@ResponseBody
+	public ModelAndView userDeliveryRegistResult(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("memId", inputMap.get("memId"));
+		mav.addObject("memNm", inputMap.get("memNm"));
+		
+		mav.setViewName("2.Delivery/userDeliveryRegistResult");
+		
+		return mav;
 	}
 	
 	

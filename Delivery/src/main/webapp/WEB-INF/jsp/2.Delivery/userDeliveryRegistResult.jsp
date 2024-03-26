@@ -31,7 +31,7 @@
         <section>
             <div class="sectionContainer">
                 <h1 class="sectionTitle">
-                    <a href="#">회원가입 완료</a>
+                    <a href="#">배송신청 완료</a>
                 </h1>
                 <div class="conWrap">
                     <a href="#">
@@ -41,14 +41,14 @@
                     </a>
                     <h3 class="conMainTitle">
                         <a href="#">
-                            <span class="customer">이*원</span>님 배송신청이 접수되었습니다.
+                            <span class="customer">${memNm}</span>님 배송신청이 접수되었습니다.
                         </a>
                     </h3>  
                     <h3 class="subTitle">
                         <a href="#">
-                            이*원 님께서 신청하신 배송이 접수되었습니다. 배송확인을 하시려면 배송현황에서 확인하실수 있습니다.
+                            ${memNm} 님께서 신청하신 배송이 접수되었습니다. 배송확인을 하시려면 배송현황에서 확인하실수 있습니다.
                         </a>
-                    </h3>                                    
+                    </h3>
                     <button class="move" id="delStateBtn">배송현황으로 이동</button>
                 </div> <!-- conWrap -->
             </div> <!-- sectionContainer -->
@@ -58,12 +58,13 @@
 	<!-- script setting -->
     <script>
     $(document).ready(function(){
-    	console.log("페이지초기화!");
+    	
+//     	console.log("uid : ", uid);
     	
     	/* 배송현황으로 이동 버튼 클릭 이벤트 설정 (JANG) */
     	$("#delStateBtn").on("click", function(evt){
     		
-    		//location.href = "배송현황 페이지로";
+    		$(".Delivery_Search").trigger("click");
     		
     	});
    	});	// document.ready end!!
