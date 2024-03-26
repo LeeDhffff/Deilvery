@@ -14,7 +14,6 @@
     
     <!-- css import -->
     <link href="css/userDeliveryRegist/common.css" rel="stylesheet" type="text/css">
-    <link href="css/userDeliveryRegist/commonStyle.css" rel="stylesheet" type="text/css">
     <link href="css/userDeliveryRegist/userDeliveryRegistStyle.css" rel="stylesheet" type="text/css">
     
     <!-- import font-awesome, line-awesome -->
