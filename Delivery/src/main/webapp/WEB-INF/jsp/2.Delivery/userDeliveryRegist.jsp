@@ -35,9 +35,11 @@
                 </h1>
                 <div class="conWrap">
                     <h3 class="conMainTitle">
-                        <a href="#">반갑습니다. <span class="customer">이재원</span> 회원님</a>
+                        <a href="#">반갑습니다. <span class="customer">${memInfo[0].memNm }</span> 회원님</a>
                     </h3>    
                     <form id="formData" name="formData">
+                   	<input type="hidden" id="memId" value="${memInfo[0].memId }" />
+                   	<input type="hidden" id="memLv" value="${memInfo[0].memLv }" />
                     <div class="wrap">                        
                         <div class="double">
                             <div class="inputWrap">
@@ -171,16 +173,16 @@
     	$("#delRegistBtn").on("click", function(evt){
     		evt.preventDefault();    		
 
-    		var Dates = new Date();
+//     		var Dates = new Date();
 
-    		var todayYear = (String)(Dates.getFullYear());
-    		var todayMonth = ((String)(Dates.getMonth() + 1).length < 2) ? "0" + (String)(Dates.getMonth() + 1)
-    						: (String)(Dates.getMonth() + 1);
-    		var todayDate = ((String)(Dates.getDate()).length < 2) ? "0" + (String)(Dates.getDate())
-    						: (String)(Dates.getDate());
+//     		var todayYear = (String)(Dates.getFullYear());
+//     		var todayMonth = ((String)(Dates.getMonth() + 1).length < 2) ? "0" + (String)(Dates.getMonth() + 1)
+//     						: (String)(Dates.getMonth() + 1);
+//     		var todayDate = ((String)(Dates.getDate()).length < 2) ? "0" + (String)(Dates.getDate())
+//     						: (String)(Dates.getDate());
 
     		
-    		$("#creDay").val(todayYear + "-" + todayMonth + "-" + todayDate);
+//     		$("#creDay").val(todayYear + "-" + todayMonth + "-" + todayDate);
     		
     		console.log("formData : ", $("#formData").serialize());
 			$.ajax({
@@ -193,7 +195,7 @@
 					alert(result);
 
 					/* redirect될 경로 설정 필요!! */
-					location.href = "userDeliveryRegistResult.do";
+					location.href = "userDeliveryRegistResult.do?memNm="+"${memInfo[0].memNm}"+"&memId="+$("#memId").val();
 					
 				},
 				error : function(xhr, status, error){

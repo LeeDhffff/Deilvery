@@ -5,6 +5,22 @@
 	
 	<!-- ************************** 회원파트 start!! ******************************** -->
 	
+	<!-- 접속한 member 정보 가져오기 -->
+	<select id="memInfoList" parameterType="hashmap" resultType="hashmap">
+		/* memInfoList */
+		SELECT
+			MEM_ID AS memId
+			,NAME AS memNm
+			,LEVEL AS memLv
+		FROM MEMBER
+		WHERE MEM_ID = #{memId};		
+	</select>
+	
+	
+	
+	
+	<!-- ************************** 회원파트 start!! ******************************** -->
+	
 	<!-- 회원 배송신청 등록 -->
 	<insert id="userDelRegist" parameterType="hashmap">
 		/* userDelRegist */
@@ -183,17 +199,27 @@
 	<!-- 박스정보 등록 -->
 	<insert id="packetInfoRegist" parameterType="hashmap">
 		/* packetInfoRegist */
-		INSERT INTO SJ_NUM
+		INSERT INTO SJ_NUM(
+			SJ_KEY
+			,IN_KEY
+			,SN
+			,OUT_KEY
+			,WIDTH
+			,LENGTH
+			,HEIGHT
+			,WEIGHT
+			,COST
+		)
 		VALUES(
 			#{sjKey}
 			,#{inKey}
 			,#{sn}
+			,#{outKey}
 			,#{width}
 			,#{length}
 			,#{height}
 			,#{weight}
 			,#{cost}
-			,#{outKey}
 		);
 	</insert>
 	
