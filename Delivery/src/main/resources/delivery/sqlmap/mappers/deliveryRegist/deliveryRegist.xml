@@ -161,8 +161,7 @@
 			,REC_TARGET = #{recTarget}
 			,REC_ADDR = #{recAddr}
 			,REC_HOU = #{recHou}
-			,REC_TXT = #{recTxt}
-			,GOO_COORDINATE = #{gooCoordinate}
+			,REC_TXT = #{recTxt}			
 			,CRE_DAY = #{creDay}
 			,ARR_DAY = #{arrDay}
 			,CHK = 'Y'
