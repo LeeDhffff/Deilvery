@@ -88,7 +88,12 @@
 			location.href = "Main.do";
 		}
 
-		
+		$(".register").on("click",function(){
+			location.href="adminDeliveryRegistMain.do";
+		})
+		$(".search").on("click",function(){
+			location.href="M_DeliveryList.do";
+		})
 	})
 </script>
 </html>
