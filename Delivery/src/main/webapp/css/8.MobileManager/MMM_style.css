@@ -1,0 +1,202 @@
+:root 
+{
+    --main-color: #E88100;
+    --color-dark: #000;
+    --color-white: #fff;
+    --input-color: #dadada;
+    --font-color: #222;
+    --background-gray:#f7f7f7;
+}
+
+.m_header 
+{
+    justify-content: space-between;
+    padding: 0 32px;
+}
+
+.header_option
+{ 
+    display: flex;
+    align-items: center;
+}
+
+.header_option li 
+{
+    margin-right: 10px;
+}
+
+.header_option li img { width: 20px; }
+
+.logo { margin-bottom: 0;}
+
+.logo img { height: 28px;}
+
+.language 
+{
+    display: flex;
+    align-items: center;
+}
+
+.language img { margin-right: 4px; }
+
+section 
+{
+    padding: 20px 32px 0;
+}
+
+.slide 
+{
+    background-color: rgba(11,11,11,0.8);
+    background-image: url(../../images/m_icon/section_img.svg);
+    background-size: cover;
+    height: 180px;
+    position: relative;
+}
+
+.textCon 
+{
+    position: absolute;
+    bottom:20px;
+    left: 24px;
+}
+
+.textCon .mainTitle 
+{
+    margin-bottom: 12px;
+}
+
+.textCon .mainTitle a
+{
+    font-size: 20px;
+    color: #fff;
+    font-weight: 300;
+}
+
+.textCon .subTitle
+{
+    margin-top: 12px;
+}
+
+.textCon .subTitle a
+{
+    font-size: 12px;
+    color: #fff;
+    font-weight: 300;
+    line-height: 20px;
+}
+
+.mainTitle 
+{ 
+    font-size: 16px; 
+    font-weight:  600; 
+    margin-bottom: 12px; 
+}
+
+.noticeWrap 
+{
+    margin-top: 24px;
+}
+
+.notice 
+{
+    height: 40px;
+    border-radius: 4px;
+    background-color: #F7F7FB;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+}
+
+.notice .icon { margin-right: 16px;}
+.notice .txt { font-size: 14px; font-weight: 500;}
+
+.menuWrap 
+{
+    margin-top: 24px;
+}
+
+
+.buttonCon
+{
+    display: flex;
+    margin-bottom: 24px;
+} 
+
+.buttonCon:last-child 
+{
+    margin-bottom: 0;
+}
+
+.buttonCon button 
+{
+    width: calc(100% - 10px);
+    height: 100px;
+    border-radius: 4px;
+    background-color: #F7F7FB;
+}
+
+.buttonCon:last-child button 
+{
+    width: calc(50% - 10px);
+}
+
+.buttonCon button:first-child
+{
+    margin-right: 20px;
+}
+
+.buttonCon button a 
+{
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.buttonCon button.register a span.icon.truckBlack 
+{
+    background-image: url(../../images/m_icon/truck_orange.svg);
+    width: 36px;
+    background-size: 100%;
+    display: block;
+    height: 36px;
+    margin: 0 auto 10px;
+} 
+
+.buttonCon button.search a span.icon.searchBlack 
+{
+    background-image: url(../../images/m_icon/search_orange.svg);
+    width: 36px;
+    background-size: 100%;
+    display: block;
+    height: 36px;
+    margin: 0 auto 10px;
+} 
+
+.buttonCon button.register a span.icon.register 
+{
+    background-image: url(../../images/m_icon/write_orange.svg);
+    width: 36px;
+    background-size: 100%;
+    display: block;
+    height: 36px;
+    margin: 0 auto 10px;
+} 
+.buttonCon button.outdate a span.icon.outdate 
+{
+    background-image: url(../../images/m_icon/callendar_orange.svg);
+    width: 36px;
+    background-size: 100%;
+    display: block;
+    height: 36px;
+    margin: 0 auto 10px;
+} 
+.buttonCon button.customer a span.icon.customer
+{
+    background-image: url(../../images/m_icon/people_info.svg);
+    width: 36px;
+    background-size: 100%;
+    display: block;
+    height: 36px;
+    margin: 0 auto 10px;
+} 
+
+

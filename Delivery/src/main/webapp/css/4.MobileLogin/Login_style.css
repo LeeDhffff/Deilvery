@@ -1,0 +1,73 @@
+:root 
+{
+    --main-color: #E88100;
+    --sub-color: #006EBD;
+    --color-dark: #000;
+    --color-white: #fff;
+    --input-color: #dadada;
+    --font-color: #222;
+    --background-gray:#f7f7f7;
+}
+
+
+.logo { text-align: center; }
+
+.inputWrap { margin-bottom: 24px; }
+
+.inputWrap input 
+{ 
+    width: 100%; 
+    height: 48px;
+    border: 1px solid var(--input-color);
+    padding-left: 10px;
+}
+
+.inputWrap.check 
+{
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.inputWrap.check  input 
+{
+    width: 20px;
+    height: 20px;
+}
+
+.inputWrap.check h5 
+{
+    margin-left: 10px;
+    font-weight: 500;
+}
+
+button.login, button.uncustomer 
+{
+    width: 100%;
+    height: 48px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+button.login { background-color: var(--main-color); margin-bottom: 12px; }
+button.uncustomer { background-color: var(--sub-color);}
+
+.joinWrap 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.joinWrap h5 
+{
+    font-weight: 600;
+}
+
+.joinWrap h5:first-child 
+{
+    margin-right: 10px;
+    font-weight: 400;
+}

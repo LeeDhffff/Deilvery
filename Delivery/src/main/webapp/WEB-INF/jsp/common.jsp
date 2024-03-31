@@ -72,9 +72,16 @@
 	var uid2 = '<%=(String)session.getAttribute("SESSION_PROTO_ID")%>';
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
 	
+
  
 	$(document).on('ready',function(){
+
+		var width = window.outerWidth;
+		if(width <= 767){
+
+// 			location.href = "Mobile.do";
 			
+		}
 
 		if(uid=="null" && uid2=="null"){ 
 		}

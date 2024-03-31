@@ -89,8 +89,9 @@
 				data: BHW,
 				async: false,
 	            success: function(datas){
+	            	console.log(datas);
 	            	if(datas == 'Y'){
-	            		
+	            		location.href= "Delivery_Search_B_CHK.do?nm=" + encodeURI(encodeURIComponent($("#B_NM").val())) + "&ph=" + $("#B_PHONE").val();
 	            	}
 	            	else{
 	            		alert("해당 정보로 신청한 배송정보가 없습니다.")

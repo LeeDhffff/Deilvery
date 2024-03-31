@@ -297,9 +297,12 @@
 
 <script type="text/javascript">
 
-	var uid = '<%=(String)session.getAttribute("SESSION_MEM_ID")%>';
-	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
-	var name = '<%=(String)session.getAttribute("SESSION_MEM_NM")%>';
+	
+	
+	var lok =  window.location.search.replaceAll("?nm=","").split("&ph=");
+	var name = decodeURI(decodeURIComponent(lok[0]));
+	
+	// 	var chk_mods = decodeURI(decodeURIComponent()));
 	
 	if(uid=="null" && uid2=="null"){ 
 // 	   location.replace("Main.do");
@@ -316,11 +319,11 @@
 		
 		
 		$(document).on("click",".historyCheck",function(){
-			Delivery_Search_D($(this).parents("tr").find(".T_IN_KEY").val());
+			Delivery_Search_D($(this).parents("tr").find(".T_MEM_ID").val(),$(this).parents("tr").find(".T_IN_KEY").val());
 		})
 		
 		$(document).on("click",".currentClickOne",function(){
-			Delivery_Search_O($(this).parents("tr").find(".T_IN_KEY").val());
+			Delivery_Search_O($(this).parents("tr").find(".T_MEM_ID").val(),$(this).parents("tr").find(".T_IN_KEY").val());
 		})
 		
 		
@@ -329,12 +332,12 @@
 	
 	function Delivery_Search(){
 		var deliverydata = {
-				MEM_ID : (uid != 'null') ? uid
-						 : uid2
+				MEM_NM : name,
+				MEM_PHONE : lok[1]
 		};
 		$.ajax({
 			type: "POST",
-			url : "./Delivery_Select.do",
+			url : "./Delivery_Select_B.do",
 			data: deliverydata,
 			async: false,
             success: function(datas){
@@ -349,7 +352,7 @@
 						keytable.push(result[i].IN_KEY);	
 						tbodyData += "<tr>";
 						tbodyData += "<td>"+result[i].ARR_DAY+"</td>";
-						tbodyData += "<td><input type='hidden' class='T_IN_KEY' id='"+result[i].IN_KEY+"' value='"+result[i].IN_KEY+"'>"+result[i].REC_NM+"</td>";
+						tbodyData += "<td><input type='hidden' class='T_MEM_ID' value='"+result[i].MEM_ID+"'><input type='hidden' class='T_IN_KEY' id='"+result[i].IN_KEY+"' value='"+result[i].IN_KEY+"'>"+result[i].REC_NM+"</td>";
 						tbodyData += "<td>"+result[i].CRE_DAY+"</td>";
 					}
 					else if(keytable.includes(result[i].IN_KEY) == false  && i > 0){
@@ -362,26 +365,26 @@
 						keytable.push(result[i].IN_KEY);	
 						tbodyData += "<tr>";
 						tbodyData += "<td>"+result[i].ARR_DAY+"</td>";
-						tbodyData += "<td><input type='hidden' class='T_IN_KEY' id='"+result[i].IN_KEY+"' value='"+result[i].IN_KEY+"'>"+result[i].REC_NM+"</td>";
+						tbodyData += "<td><input type='hidden' class='T_MEM_ID' value='"+result[i].MEM_ID+"'><input type='hidden' class='T_IN_KEY' id='"+result[i].IN_KEY+"' value='"+result[i].IN_KEY+"'>"+result[i].REC_NM+"</td>";
 						tbodyData += "<td>"+result[i].CRE_DAY+"</td>";
 					}
 					
 
 //	 				$500 (kg*$1.5 or 용적중량 *$1.5 중 비싼 비용으로 계산)
 //	 				용적중량 : 가로*세로*높이*0.00022 
-					var kgcost = result[i].WEIGHT * 1.5;
-					var lncost = result[i].WIDTH * result[i].HEIGHT * result[i].LENGTH * 0.00022;
+// 					var kgcost = result[i].WEIGHT * 1.5;
+// 					var lncost = result[i].WIDTH * result[i].HEIGHT * result[i].LENGTH * 0.00022;
 					
-					console.log(kgcost,lncost);
-					if(kgcost >= lncost){
-						number += kgcost;
-					}
-					else{
-						number += lncost;
-					}
+// 					console.log(kgcost,lncost);
+// 					if(kgcost >= lncost){
+// 						number += kgcost;
+// 					}
+// 					else{
+// 						number += lncost;
+// 					}
 
 					if(i == result.length - 1){
-						tbodyData += "<td>$"+number+"</td>";
+						tbodyData += "<td>$"+result[i].COST+"</td>";
 						tbodyData += '<td class="currentClickOne" style="cursor:pointer;">한국물류창고 (클릭)</td>';
 						tbodyData += '<td class="historyCheck">확인하기</td>';
 						
@@ -399,13 +402,13 @@
 		
 	}
 
-	function Delivery_Search_D(key){
+	function Delivery_Search_D(uid,key){
 
 		var deliverydata = {
-				MEM_ID : (uid != 'null') ? uid
-						 : uid2,
+				MEM_ID : uid,
 				IN_KEY : key
 		};
+		console.log(deliverydata);
 		$.ajax({
 			type: "POST",
 			url : "./Delivery_Select_D.do",
@@ -451,13 +454,13 @@
 		})	
 	}
 
-	function Delivery_Search_O(key){
+	function Delivery_Search_O(uid,key){
 
 		var deliverydata = {
-				MEM_ID : (uid != 'null') ? uid
-						 : uid2,
+				MEM_ID : uid,
 				IN_KEY : key
 		};
+		console.log(deliverydata);
 		$.ajax({
 			type: "POST",
 			url : "./Delivery_Select_O.do",

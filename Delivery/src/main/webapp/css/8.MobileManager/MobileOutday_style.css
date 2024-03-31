@@ -1,0 +1,170 @@
+:root 
+{
+    --main-color: #E88100;
+    --sub-color: #006EBD;
+    --color-dark: #000;
+    --color-white: #fff;
+    --input-color: #dadada;
+    --font-color: #222;
+    --background-gray:#f7f7f7;
+}
+
+body { position: relative;}
+
+section 
+{
+    padding: 40px 32px 80px;
+}
+
+.sectionMainTitle 
+{ 
+    font-size: 16px; 
+    margin-bottom: 8px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sectionSubTitle 
+{ 
+    font-size: 14px; 
+    margin-bottom: 24px;
+    font-weight: 400;
+}
+
+.inputWrap { margin-bottom: 24px; }
+
+.inputWrap h5 
+{
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 10px;
+} 
+
+.inputWrap h5 a 
+{
+    display: flex;
+    align-items: center;
+}
+
+.inputWrap h5 a span 
+{
+    color:var(--main-color);
+    margin-left: 10px;
+}
+
+.inputWrap input
+{ 
+    width: 100%; 
+    height: 40px;
+    border: 1px solid var(--input-color);
+    padding-left: 10px;
+    margin-bottom: 12px;
+}
+
+.qr 
+{
+    border: 1px solid var(--input-color);
+    width: 120px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stepWrap
+{
+    margin-top: 24px;
+}
+
+.stepCon 
+{
+    height: 40px;
+    border: 1px solid var(--input-color); 
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F7F7FB;
+    margin-bottom: 12px;
+}
+
+.stepCon:last-child
+{
+    margin-bottom: 0;
+}
+
+.stepCon.on 
+{
+    border: 1px solid var(--main-color);
+    background-color: #fff;
+}
+
+.stepCon.on .stepDate 
+{
+    background-color: #fff;
+}
+
+.stepDate 
+{ 
+    width: 120px; 
+    background: none; 
+    border: 1px solid var(--input-color);
+}
+
+.pop 
+{
+    width:100%;
+    height:100%;
+    position: absolute;
+    background-color: rgba(17,17,17,0.6);
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+.popCon 
+{
+    width: 90%;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.popHeader 
+{
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding:0 32px;
+    position: relative;
+}
+.popTitle 
+{
+    font-size: 18px;
+    font-weight: 500;   
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%); 
+}
+
+.cancel { margin-left: auto;}
+
+.popBody 
+{
+    padding:0 16px 24px;
+    margin-top: 24px;
+    justify-content: center;
+    display: flex;
+}
+
+footer button 
+{
+    background-color: var(--main-color);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+}

@@ -51,6 +51,12 @@ public class DeliveryController {
 		return "2.Delivery/Delivery_Search_B";
 	}
 
+	/* 배송신청 목록 검색페이지로 이동.(비회원, 로그인 필요X) */
+	@RequestMapping("/Delivery_Search_B_CHK.do")
+	public String Delivery_Search_B_CHK() {
+		return "2.Delivery/Delivery_Search_B_CHK";
+	}
+	
 	/* 배송신청 목록 검색 */
 	@RequestMapping(value = "/Delivery_Select.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody

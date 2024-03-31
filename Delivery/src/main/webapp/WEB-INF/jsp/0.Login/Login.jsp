@@ -87,7 +87,11 @@
 		}
 
 	$(document).on('ready', function(){
+		var width = window.outerWidth;
 		
+		if(width < 767){
+			location.replace("Mobile_Login.do");
+		}
 
 		$("#none_id").on('click',function(){
 			location.href="LoginPage_B.do";

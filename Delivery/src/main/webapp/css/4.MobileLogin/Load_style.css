@@ -1,0 +1,50 @@
+:root 
+{
+    --main-color: #E88100;
+    --color-dark: #000;
+    --color-white: #fff;
+    --input-color: #dadada;
+    --font-color: #222;
+    --background-gray:#f7f7f7;
+}
+
+
+.m_container 
+{
+    background-image: url(../../images/m_icon/loading.svg);
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+}
+
+.logoWhite a img { height: 40px;}
+
+.textCon 
+{
+    padding: 80px 40px 0;
+}
+
+.textCon .mainTitle 
+{
+    margin: 10px 0 20px;
+}
+
+.textCon .mainTitle a
+{
+    font-size: 36px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.textCon .subTitle
+{
+    margin-top: 20px;
+}
+
+.textCon .subTitle a
+{
+    font-size: 14px;
+    color: #fff;
+    font-weight: 300;
+    line-height: 20px;
+}

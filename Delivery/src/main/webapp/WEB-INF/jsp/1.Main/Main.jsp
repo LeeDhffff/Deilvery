@@ -87,6 +87,13 @@
 		   }
 		}
 
+		var width = window.outerWidth;
+		
+		if(width < 767){
+			location.replace("Mobile_Main.do");
+		}
+
+		
 		$("button > a").on("click",function(e){
 			e.preventDefault();
 		})
