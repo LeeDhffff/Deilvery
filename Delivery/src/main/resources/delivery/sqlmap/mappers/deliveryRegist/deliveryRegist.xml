@@ -160,8 +160,7 @@
 			,REC_PHONE = #{recPhone} 
 			,REC_TARGET = #{recTarget}
 			,REC_ADDR = #{recAddr}
-			,REC_HOU = #{recHou}
-			,REC_TXT = #{recTxt}			
+			,REC_HOU = #{recHou}						
 			,CRE_DAY = #{creDay}
 			,ARR_DAY = #{arrDay}
 			,CHK = 'Y'
@@ -181,9 +180,14 @@
 	<!-- 마지막 등록된 IN_KEY 값 조회 -->
 	<select id="lastInKey" parameterType="hashmap" resultType="java.lang.String">
 		/* lastInKey */
-		SELECT MAX(IN_KEY) AS inKey
+		SELECT IN_KEY AS inKey
 		FROM APPLICATION
-		WHERE SUBSTR(IN_KEY,3,8) = #{inKeyDay};
+		WHERE SUBSTR(IN_KEY,3,8) = #{inKeyDay}
+		AND SUBSTR(IN_KEY, 11) = (
+			SELECT MAX(cast(SUBSTR(IN_KEY,11) AS INTEGER)) 
+			FROM APPLICATION
+			WHERE SUBSTR(IN_KEY,3,8) = #{inKeyDay}
+		);
 	</select>
 	
 	

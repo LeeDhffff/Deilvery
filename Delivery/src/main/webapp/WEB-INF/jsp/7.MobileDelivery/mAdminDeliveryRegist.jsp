@@ -102,7 +102,7 @@
                     <div class="wrap">
                         <div class="inputWrap">
                             <h5 class="inputName"><a href="#">신청일자<span>*</span></a></h5>
-                            <input type="text" id="creDay" name="creDay" placeholder="날짜를 선택해주세요.">
+                            <input type="text" id="creDay" name="creDay" placeholder="2024-02-20">
                         </div>
                         <div class="double">
                             <div class="inputWrap">
@@ -126,11 +126,11 @@
                         <div class="double">
                             <div class="inputWrap">
                                 <h5 class="inputName"><a href="#">본사주소</a></h5>
-                                <input type="text" id="bon" name="recAddr" id="recAddr" placeholder="Pakthang Villsge, Sikhot District T3, Dongnatong Vientiane, LAO P.D.R">
+                                <input type="text" name="recAddr" id="recAddr" placeholder="Pakthang Villsge, Sikhot District T3, Dongnatong Vientiane, LAO P.D.R">
                             </div>
                             <div class="inputWrap">
                                 <h5 class="inputName"><a href="#">하우 창고 주소</a></h5>
-                                <input type="text" id="hou" name="recHou" id="recHou" placeholder="Pakthang Villsge, Sikhot District T3, Dongnatong Vientiane, LAO P.D.R">
+                                <input type="text" name="recHou" id="recHou" placeholder="Pakthang Villsge, Sikhot District T3, Dongnatong Vientiane, LAO P.D.R">
                                 <h5 class="inputAlarm"><a href="#">※하우창고에서 수령시 배출일 (9시~17시) 하루동안만 개봉되며 미수령시 본사로 이동됩니다.</a></h5>
                             </div>
                         </div> 
@@ -236,10 +236,8 @@
     	$("#creDay").datepicker("option", "dateFormat", "yy-mm-dd");
     	$("#creDay").datepicker("setDate", "${result.creDay}");
     	
-    	/* 본사, 하우창고 선택 설정 (JANG) */
-    	if("${result.recTarget}" != "" && "${result.recTarget}" != null){
-	    	$("#recTarget").val("${result.recTarget}").prop("selected", true);
-    	}
+    	/* 본사, 하우창고 선택 설정 (JANG) */    	
+    	$("#recTarget").val("${result.recTarget}").prop("selected", true);
     	
     	// box데이터 수정하러 들어왔을 때 대비해서 boxIndex 활용 방안 체크 다시할 것!!
 		let boxIndex = 0;
@@ -311,54 +309,26 @@
     		$("#lengthArr").val(lengthArr);
     		$("#weightArr").val(weightArr);
     		
-    		/* 필수값 유효성 검사 */
-    		let regist = true;
-    		if($("#creDay").val() == "" || $("#creDay").val() == null){
-    			alert("신청일자를 선택해주세요.");
-    			$("#creDay").focus();
-    			regist = false;
-    		}else if($("#cost").val() == "" || $("#cost").val() == null){
-    			alert("예상 물류 비용을 입력해주세요.");
-    			$("#cost").focus();
-    			regist = false;
-    		}else if($("input[name='boxIndex']").length == ""){
-    			alert("박스정보를 입력해주세요.");
-    			$("#width").focus();
-    			regist = false;
-    		}else{
-    			$("#formData > .wrap > .double > .inputWrap > input").each(function(index){ 
-	    			if(($(this).val() == null || $(this).val() == '') && $(this).attr("id") != "bon" && $(this).attr("id") != "hou" && $(this).attr("id") != "width" && $(this).attr("id") != "length" && $(this).attr("id") != "height" && $(this).attr("id") != "weight" ){
-	    				const text = $(this).siblings(".inputName").children().text();
-	    				console.log('text : ', text);
-	    				alert(text+' 정보를 입력해주세요.');
-	    				$(this).focus();
-	    				regist = false;
-	    				return false;
-	    			}
-	    		}); 
-    		}
-    			
-    		if(regist){
-	    		console.log("formData : ", $("#formData").serialize());
-				$.ajax({
-					url : "adminDelRegist.do",
-					type : "POST",
-					async : false,
-					data : $("#formData").serialize(),
-					success : function(result, status, xhr){
-						console.log("result : ", result);
-						alert(result);
-	
-						/* redirect될 경로 설정 필요!! */
-						$(".nc_delivery").trigger("click");
-						
-					},
-					error : function(xhr, status, error){
-						console.log("xhr : ", xhr, " // status : ", status, " // error : ", error);
-						alert("배송신청에 실패했습니다. 관리자에게 문의해주세요.");
-					}
-				});    			
-    		}
+    		console.log("formData : ", $("#formData").serialize());
+    		
+			$.ajax({
+				url : "adminDelRegist.do",
+				type : "POST",
+				async : false,
+				data : $("#formData").serialize(),
+				success : function(result, status, xhr){
+					console.log("result : ", result);
+					alert(result);
+
+					/* redirect될 경로 설정 필요!! */
+					$(".nc_delivery").trigger("click");
+					
+				},
+				error : function(xhr, status, error){
+					console.log("xhr : ", xhr, " // status : ", status, " // error : ", error);
+					alert("배송신청에 실패했습니다. 관리자에게 문의해주세요.");
+				}
+			});
     	});
     	
     	

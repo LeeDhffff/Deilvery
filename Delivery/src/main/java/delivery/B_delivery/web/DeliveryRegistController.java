@@ -66,7 +66,7 @@ public class DeliveryRegistController {
 //		return "2.Delivery/userDeliveryRegist";
 //	}
 	
-	/* 사용자 배송신청 화면 진입 */
+	/* PC사용자 배송신청 화면 진입 */
 	@RequestMapping(value = "userDeliveryRegistMain.do")
 	@ResponseBody
 	public ModelAndView userDeliveryRegistMain(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception{
@@ -94,18 +94,11 @@ public class DeliveryRegistController {
 		
 	}
 
-	/* 회원 배송신청 등록 */
+	/* PC회원 배송신청 등록 */
 	@RequestMapping(value = "/userDelRegist.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String userDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		
-//		/* memId를 세션값으로 삽입 - (수정자 : 이동헌) */
-//		if(!session.getAttribute("SESSION_MEM_ID").equals(null)) {
-//			inputMap.put("memId", (String)(session.getAttribute("SESSION_MEM_ID")));
-//		}
-//		else if(!session.getAttribute("SESSION_PROTO_ID").equals(null)) {
-//			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));
-//		}
 		System.out.println("key : " + inputMap.keySet().toString());
 		System.out.println("values : " + inputMap.values().toString());
 		
@@ -115,7 +108,7 @@ public class DeliveryRegistController {
 		
 	}
 	
-	/* 회원 배송신청결과 화면 진입 */
+	/* PC회원 배송신청결과 화면 진입 */
 	@RequestMapping("userDeliveryRegistResult.do")
 	@ResponseBody
 	public ModelAndView userDeliveryRegistResult(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
@@ -131,6 +124,64 @@ public class DeliveryRegistController {
 	}
 	
 	
+	/* Mobile사용자 배송신청 화면 진입 */
+	@RequestMapping(value = "mUserDeliveryRegistMain.do")
+	@ResponseBody
+	public ModelAndView mUserDeliveryRegistMain(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception{
+		
+		ModelAndView mav = new ModelAndView();
+		
+		/* memId를 세션값으로 삽입 - (수정자 : 이동헌) */
+		if(session.getAttribute("SESSION_MEM_ID") != null) {			
+			inputMap.put("memId", (String)(session.getAttribute("SESSION_MEM_ID")));	
+		}
+		else if(session.getAttribute("SESSION_PROTO_ID") != null) {			
+			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));	
+		}
+		System.out.println("memId : " + inputMap.get("memId"));
+		
+		/* 접속한 member 정보 가져오기 (JANG) - 생략해도 됨 */
+		List<HashMap<String, String>> memInfo = delRegistService.memInfoList(inputMap);
+		
+		
+		mav.addObject("memInfo", memInfo);
+		
+		mav.setViewName("7.MobileDelivery/mUserDeliveryRegist");
+		
+		return mav;
+		
+	}
+	
+	/* Mobile회원 배송신청 등록 */
+	@RequestMapping(value = "/mUserDelRegist.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String mUserDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		System.out.println("key : " + inputMap.keySet().toString());
+		System.out.println("values : " + inputMap.values().toString());
+		
+		delRegistService.userDelRegist(inputMap);
+		
+		return "배송신청을 완료했습니다.";
+		
+	}
+	 
+	/* Mobile회원 배송신청결과 화면 진입 */
+	@RequestMapping("mUserDeliveryRegistResult.do")
+	@ResponseBody
+	public ModelAndView mUserDeliveryRegistResult(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("memId", inputMap.get("memId"));
+		mav.addObject("memNm", inputMap.get("memNm"));
+		
+		mav.setViewName("7.MobileDelivery/mUserDeliveryRegistResult");
+		
+		return mav;
+	}
+	
+	
 	
 	
 	
@@ -139,7 +190,7 @@ public class DeliveryRegistController {
 	
 	/************************** 관리자파트 start!! ********************************/
 	
-	/* 관리자 배송신청 화면 진입 */
+	/* PC관리자 배송신청 화면 진입 */
 	@RequestMapping("adminDeliveryRegistMain.do")
 	@ResponseBody
 	public ModelAndView adminDeliveryRegistMain(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception{
@@ -171,10 +222,79 @@ public class DeliveryRegistController {
 		
 	}
 	
-	/* 관리자 배송신청 등록 */
+	/* PC관리자 배송신청 등록 */
 	@RequestMapping(value = "/adminDelRegist.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String adminDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		System.out.println("key : " + inputMap.keySet().toString());
+		System.out.println("values : " + inputMap.values().toString());
+		
+		String resultMsg = delRegistService.adminDelRegist(inputMap);
+		
+		return resultMsg;
+		
+	}
+	
+	/* Mobile관리자 배송신청 화면1 진입 */
+	@RequestMapping("mAdminDeliveryRegistMain.do")
+	@ResponseBody
+	public ModelAndView mAdminDeliveryRegistMain(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception{
+		
+		ModelAndView mav = new ModelAndView();
+
+		// 선택한 데이터 가지고 오기
+		inputMap.put("inKey", inputMap.get("ik"));
+		
+		HashMap<String, String> ingDelRead = delRegistService.ingDeliveryRead(inputMap);
+		
+		mav.addObject("result", ingDelRead);		
+		mav.setViewName("7.MobileDelivery/mAdminDeliveryRegist_A");
+		
+		return mav;
+	}
+	
+	/* Mobile관리자 배송신청 화면2 진입 */
+	@RequestMapping("mAdminDeliveryRegistB.do")
+	@ResponseBody
+	public ModelAndView mAdminDeliveryRegistB(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+				
+		// 박스정보 가지고 오기
+		List<HashMap<String, String>> packInfo = delRegistService.packInfoList(inputMap);
+
+		mav.addObject("inputMap", inputMap);
+		mav.addObject("packInfo", packInfo);
+		mav.setViewName("7.MobileDelivery/mAdminDeliveryRegist_B");
+		
+		return mav;
+	}
+	
+	/* Mobile관리자 배송신청 화면3 진입 */
+	@RequestMapping("mAdminDeliveryRegistC.do")
+	@ResponseBody
+	public ModelAndView mAdminDeliveryRegistC(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		// 출항일 데이터 가지고 오기
+		List<HashMap<String, String>> outDayList = delRegistService.outDayList(inputMap);
+		
+		mav.addObject("inputMap", inputMap);
+		mav.addObject("outDayList", outDayList);
+		mav.setViewName("7.MobileDelivery/mAdminDeliveryRegist_C");
+		
+		System.out.println("inputMap c : " + inputMap);
+		
+		return mav;
+	}
+	
+	
+	/* Mobile관리자 배송신청 등록 */
+	@RequestMapping(value = "/mAdminDelRegist.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String mAdminDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		
 		System.out.println("key : " + inputMap.keySet().toString());
 		System.out.println("values : " + inputMap.values().toString());

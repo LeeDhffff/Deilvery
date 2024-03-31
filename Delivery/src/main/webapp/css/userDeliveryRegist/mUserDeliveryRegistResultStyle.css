@@ -1,0 +1,46 @@
+:root 
+{
+    --main-color: #E88100;
+    --sub-color: #006EBD;
+    --color-dark: #000;
+    --color-white: #fff;
+    --input-color: #dadada;
+    --font-color: #222;
+    --background-gray:#f7f7f7;
+}
+
+body { position: relative;}
+
+.icon 
+{
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.mainP 
+{
+    font-size: 28px;
+    line-height: 44px;
+    font-weight: 700;
+    color: #222;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.subP
+{
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 300;
+    color: #222;
+    text-align: center;
+}
+
+footer button 
+{ 
+    background-color: var(--main-color); 
+    color: #fff; 
+    font-size: 16px;
+    font-weight: 500;
+}
+
