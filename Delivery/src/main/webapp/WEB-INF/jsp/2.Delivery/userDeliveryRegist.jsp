@@ -62,11 +62,11 @@
                         <div class="double">
                             <div class="inputWrap">
                                 <h5 class="inputName"><a href="#">본사주소</a></h5>
-                                <input type="text" placeholder="Pakthang Villsge, Sikhot District T3, Dongnatong Vientiane, LAO P.D.R" readonly>
+                                <input type="text" id="bon" placeholder="Pakthang Villsge, Sikhot District T3, Dongnatong Vientiane, LAO P.D.R" readonly>
                             </div>
                             <div class="inputWrap">
                                 <h5 class="inputName"><a href="#">하우 창고 주소</a></h5>
-                                <input type="text" placeholder="Pakthang Villsge, Sikhot District T3, Dongnatong Vientiane, LAO P.D.R" readonly>
+                                <input type="text" id="hou" placeholder="Pakthang Villsge, Sikhot District T3, Dongnatong Vientiane, LAO P.D.R" readonly>
                                 <h5 class="inputAlarm"><a href="#">※하우창고에서 수령시 배출일 (9시~17시) 하루동안만 개봉되며 미수령시 본사로 이동됩니다.</a></h5>
                             </div>
                         </div> 
@@ -170,38 +170,56 @@
     	
     	/* 배송신청 버튼 클릭 이벤트 설정 (JANG) */
     	$("#delRegistBtn").on("click", function(evt){
+    		
     		evt.preventDefault();    		
-
-//     		var Dates = new Date();
-
-//     		var todayYear = (String)(Dates.getFullYear());
-//     		var todayMonth = ((String)(Dates.getMonth() + 1).length < 2) ? "0" + (String)(Dates.getMonth() + 1)
-//     						: (String)(Dates.getMonth() + 1);
-//     		var todayDate = ((String)(Dates.getDate()).length < 2) ? "0" + (String)(Dates.getDate())
-//     						: (String)(Dates.getDate());
-
     		
-//     		$("#creDay").val(todayYear + "-" + todayMonth + "-" + todayDate);
+    		const formData = document.formData;
+    		const recTarget = formData.recTarget.value; // 픽업지 선택 데이터
+    		let regist = true;
     		
-    		console.log("formData : ", $("#formData").serialize());
-			$.ajax({
-				url : "userDelRegist.do",
-				type : "POST",
-				async : false,
-				data : $("#formData").serialize(),
-				success : function(result, status, xhr){
-					console.log("result : ", result);
-					alert(result);
-
-					/* redirect될 경로 설정 필요!! */
-					location.href = "userDeliveryRegistResult.do?memNm="+"${memInfo[0].memNm}"+"&memId="+$("#memId").val();
-					
-				},
-				error : function(xhr, status, error){
-					console.log("xhr : ", xhr, " // status : ", status, " // error : ", error);
-					alert("배송신청에 실패했습니다. 관리자에게 문의해주세요.");
-				}
-			});
+    		/* 필수값 유효성 검사 */
+    		if($("#recTxt").val() == "" || $("#recTxt").val() == null){
+    			const text = $("#recTxt").siblings(".inputName").children().text();
+				console.log('text : ', text);
+				alert(text+' 정보를 입력해주세요.');
+				$("#recTxt").focus();
+    			regist = false;
+    		}else{
+	    		$("#formData > .wrap > .double > .inputWrap > input").each(function(index){ 
+	    			if(($(this).val() == null || $(this).val() == '') && $(this).attr("id") != "gooCoordinate" && $(this).attr("id") != "bon" && $(this).attr("id") != "hou"){
+	    				const text = $(this).siblings(".inputName").children().text();
+	    				console.log('text : ', text);
+	    				alert(text+' 정보를 입력해주세요.');
+	    				$(this).focus();
+	    				regist = false;
+	    				return false;
+	    			}
+	    		});    			
+    		}
+    		
+    		if(regist){
+	    		console.log("formData : ", $("#formData").serialize());
+				$.ajax({
+					url : "userDelRegist.do",
+					type : "POST",
+					async : false,
+					data : $("#formData").serialize(),
+					success : function(result, status, xhr){
+						console.log("result : ", result);
+						alert(result);
+	
+						/* redirect될 경로 설정 필요!! */
+						location.href = "userDeliveryRegistResult.do?memNm="+"${memInfo[0].memNm}"+"&memId="+$("#memId").val();
+						
+					},
+					error : function(xhr, status, error){
+						console.log("xhr : ", xhr, " // status : ", status, " // error : ", error);
+						alert("배송신청에 실패했습니다. 관리자에게 문의해주세요.");
+					}
+				});    			
+    		}
+    		
+    		
     	});
    	});	// document.ready end!!
     </script>

@@ -23,7 +23,6 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 	/* 접속한 member 정보 가져오기 */
 	@Override
 	public List<HashMap<String, String>> memInfoList(HashMap<String, Object> inputMap) throws Exception {
-		
 		return delRegistMapper.memInfoList(inputMap);
 	}
 	
@@ -100,7 +99,7 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 		
 		String resultMsg = "";
 		
-		if(inputMap.get("inKey").toString() != null && !inputMap.get("inKey").toString().equals("")) {
+		if(inputMap.get("inKey") != null && inputMap.get("inKey") != "") {
 			/* 배송신청 내용 수정 */
 			delRegistMapper.adminDelUpdate(inputMap);
 			
@@ -138,7 +137,7 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 			}
 			resultMsg = "배송신청을 완료했습니다.";
 		}else {
-			
+			System.out.println("else로 들어옴");
 			/* IN_KEY 초기화 */
 			String inKey = "";			
 			String inKeyDay = inputMap.get("creDay").toString().replace("-", "");

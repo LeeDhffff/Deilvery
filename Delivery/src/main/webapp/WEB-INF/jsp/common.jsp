@@ -132,12 +132,13 @@
 			   alert("로그인이 필요한 서비스입니다.")
 			}
 			else if(uid != "null" && level == '2'){
-
+				
 		      	   location.href = "adminDeliveryRegistMain.do";
 			}
 			else if(level < '2'){
-
+				
 		      	   location.href = "userDeliveryRegistMain.do";
+		      	   
 			}
 		})
 		$(".Modify").on("click",function(){
