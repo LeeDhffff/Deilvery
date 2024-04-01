@@ -80,7 +80,7 @@
 				   location.replace("Mobile_Main.do");
 			}
 			else{
-				   location.replace("Mobile_Main_Manager.do");
+				   location.replace("Mobile_ManagerMain.do");
 			}
 		}
 		

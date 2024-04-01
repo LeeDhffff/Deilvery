@@ -88,9 +88,6 @@
                     <h5 class="icon modify">
                         <img src="./images/m_icon/modify_orange.svg" alt="#">
                     </h5>
-                    <h5 class="icon delete">
-                        <img src="./images/m_icon/delete_orange.svg" alt="#">
-                    </h5>
                 </div>                
                 <div class="currentHeader">
                     <h5><a href="#">출항일리스트</a></h5>

@@ -16,6 +16,24 @@
 	.currentcheck{
 		display:none;
 	}
+	.qrbutton{
+		display:flex;
+	}
+	.icon {
+	    width: 28px;
+	    height: 28px;
+	    /* background-color: #FFD9AA; */
+	    border: 1px solid var(--main-color);
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    border-radius: 4px;
+	    margin-left: 12px;
+	}
+	.icon img {
+	    width: 18px;
+	    height: 18px;
+	}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -69,7 +87,12 @@
                 <a href="#">
                     배송 현황
                 </a>
-                <div class="qr">QR코드</div>
+                <div class="qrbutton">
+                	<div class="qr">QR코드</div>
+                    <h5 class="icon delete">
+                        <img src="./images/m_icon/delete_orange.svg" alt="#">
+                    </h5>
+                </div>
             </h3>
             <div class="stepWrap">
                 <div class="stepCon current one on">
@@ -177,27 +200,15 @@
 		$(".stepCon.current").on("click",function(){
 		
 			if($(this).find(".currentcheck").prop("disabled") != true){
-				$(this).find(".currentcheck").trigger("click");
+
+				$(".currentDay").attr("disabled",true);
+				$(".current").removeClass("on");
+
+				$(this).addClass("on");
+				$(this).find(".currentDay").attr("disabled",false);
 			}
 			
 		})
-		$(".currentcheck").on("click",function(){
-			console.log($(this).is(":checked"));
-			if($(this).is(":checked") == true){
-				
-
-
-				$(".current").removeClass("on");
-				$(".current").removeClass("off");
-				$(".current").addClass("off");
-				
-				$(".currentDay").attr("disabled",true);
-				
-				
-				$(this).parent(".current").addClass("on");
-				$(this).parent(".current").find(".currentDay").attr("disabled",false);
-			}
-		});
 
 		/* 출항일 생성 */
 		$(".create").on("click",function(){

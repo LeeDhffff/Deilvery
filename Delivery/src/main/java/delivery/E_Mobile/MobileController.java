@@ -49,6 +49,12 @@ public class MobileController {
 	}
 
 	// 모바일 로딩창으로 이동 //
+	@RequestMapping("/Mobile_Modify.do")
+	public String Mobile_Modify() {
+		return "5.MobileLogin/MobileModify";
+	}
+
+	// 모바일 로딩창으로 이동 //
 	@RequestMapping("/Mobile_JoinComplete.do")
 	public String Mobile_JoinComplete() {
 		return "5.MobileLogin/MobileJoinComplete";
