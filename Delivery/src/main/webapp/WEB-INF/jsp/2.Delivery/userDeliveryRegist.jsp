@@ -198,7 +198,7 @@
     		}
     		
     		if(regist){
-	    		console.log("formData : ", $("#formData").serialize());
+// 	    		console.log("formData : ", $("#formData").serialize());
 				$.ajax({
 					url : "userDelRegist.do",
 					type : "POST",

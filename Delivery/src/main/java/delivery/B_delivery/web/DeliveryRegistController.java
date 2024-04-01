@@ -59,17 +59,12 @@ public class DeliveryRegistController {
 	
 	/************************** 회원파트 start!! ********************************/
 	
-	/* 사용자 배송신청 화면 진입 */
-	/* 경로수정 - (수정자 : 이동헌) */
-//	@RequestMapping("userDeliveryRegistMain.do")
-//	public String userDeliveryRegistMain(){
-//		return "2.Delivery/userDeliveryRegist";
-//	}
-	
 	/* PC사용자 배송신청 화면 진입 */
 	@RequestMapping(value = "userDeliveryRegistMain.do")
 	@ResponseBody
 	public ModelAndView userDeliveryRegistMain(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception{
+		
+		System.out.println("[inputMap] userDeliveryRegistMain : " + inputMap);
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -84,10 +79,8 @@ public class DeliveryRegistController {
 		
 		/* 접속한 member 정보 가져오기 (JANG) - 생략해도 됨 */
 		List<HashMap<String, String>> memInfo = delRegistService.memInfoList(inputMap);
-
 		
-		mav.addObject("memInfo", memInfo);
-		
+		mav.addObject("memInfo", memInfo);		
 		mav.setViewName("2.Delivery/userDeliveryRegist");
 		
 		return mav;
@@ -99,8 +92,7 @@ public class DeliveryRegistController {
 	@ResponseBody
 	public String userDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		
-		System.out.println("key : " + inputMap.keySet().toString());
-		System.out.println("values : " + inputMap.values().toString());
+		System.out.println("[inputMap] userDelRegist : " + inputMap);
 		
 		delRegistService.userDelRegist(inputMap);
 		
@@ -113,11 +105,12 @@ public class DeliveryRegistController {
 	@ResponseBody
 	public ModelAndView userDeliveryRegistResult(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		
+		System.out.println("[inputMap] userDeliveryRegistResult : " + inputMap);
+		
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("memId", inputMap.get("memId"));
-		mav.addObject("memNm", inputMap.get("memNm"));
-		
+		mav.addObject("memNm", inputMap.get("memNm"));		
 		mav.setViewName("2.Delivery/userDeliveryRegistResult");
 		
 		return mav;
@@ -131,6 +124,8 @@ public class DeliveryRegistController {
 		
 		ModelAndView mav = new ModelAndView();
 		
+		System.out.println("[inputMap] mUserDeliveryRegistMain : " + inputMap);
+		
 		/* memId를 세션값으로 삽입 - (수정자 : 이동헌) */
 		if(session.getAttribute("SESSION_MEM_ID") != null) {			
 			inputMap.put("memId", (String)(session.getAttribute("SESSION_MEM_ID")));	
@@ -141,11 +136,9 @@ public class DeliveryRegistController {
 		System.out.println("memId : " + inputMap.get("memId"));
 		
 		/* 접속한 member 정보 가져오기 (JANG) - 생략해도 됨 */
-		List<HashMap<String, String>> memInfo = delRegistService.memInfoList(inputMap);
+		List<HashMap<String, String>> memInfo = delRegistService.memInfoList(inputMap);		
 		
-		
-		mav.addObject("memInfo", memInfo);
-		
+		mav.addObject("memInfo", memInfo);		
 		mav.setViewName("7.MobileDelivery/mUserDeliveryRegist");
 		
 		return mav;
@@ -157,8 +150,7 @@ public class DeliveryRegistController {
 	@ResponseBody
 	public String mUserDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		
-		System.out.println("key : " + inputMap.keySet().toString());
-		System.out.println("values : " + inputMap.values().toString());
+		System.out.println("[inputMap] mUserDelRegist : " + inputMap);
 		
 		delRegistService.userDelRegist(inputMap);
 		
@@ -171,11 +163,12 @@ public class DeliveryRegistController {
 	@ResponseBody
 	public ModelAndView mUserDeliveryRegistResult(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		
+		System.out.println("[inputMap] mUserDeliveryRegistResult : " + inputMap);
+		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("memId", inputMap.get("memId"));
-		mav.addObject("memNm", inputMap.get("memNm"));
-		
+		mav.addObject("memNm", inputMap.get("memNm"));		
 		mav.setViewName("7.MobileDelivery/mUserDeliveryRegistResult");
 		
 		return mav;
@@ -197,13 +190,10 @@ public class DeliveryRegistController {
 		
 		ModelAndView mav = new ModelAndView();
 
-		// 관리자 검증 부분 구현 필요
+		System.out.println("[inputMap] adminDeliveryRegistMain : " + inputMap);
 		
-		
-		// 선택한 데이터 가지고 오기
-		
-		inputMap.put("inKey", inputMap.get("ik"));
-		
+		// 선택한 데이터 가지고 오기		
+		inputMap.put("inKey", inputMap.get("ik"));		
 		HashMap<String, String> ingDelRead = delRegistService.ingDeliveryRead(inputMap);
 		
 		// 박스정보 가지고 오기
@@ -227,8 +217,7 @@ public class DeliveryRegistController {
 	@ResponseBody
 	public String adminDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		
-		System.out.println("key : " + inputMap.keySet().toString());
-		System.out.println("values : " + inputMap.values().toString());
+		System.out.println("[inputMap] adminDelRegist : " + inputMap);
 		
 		String resultMsg = delRegistService.adminDelRegist(inputMap);
 		
@@ -251,6 +240,8 @@ public class DeliveryRegistController {
 		mav.addObject("result", ingDelRead);		
 		mav.setViewName("7.MobileDelivery/mAdminDeliveryRegist_A");
 		
+		System.out.println("[inputMap] mAdminDeliveryRegistMain : " + inputMap);
+		
 		return mav;
 	}
 	
@@ -267,6 +258,8 @@ public class DeliveryRegistController {
 		mav.addObject("inputMap", inputMap);
 		mav.addObject("packInfo", packInfo);
 		mav.setViewName("7.MobileDelivery/mAdminDeliveryRegist_B");
+		
+		System.out.println("[inputMap] mAdminDeliveryRegistB : " + inputMap);
 		
 		return mav;
 	}
@@ -285,7 +278,7 @@ public class DeliveryRegistController {
 		mav.addObject("outDayList", outDayList);
 		mav.setViewName("7.MobileDelivery/mAdminDeliveryRegist_C");
 		
-		System.out.println("inputMap c : " + inputMap);
+		System.out.println("[inputMap] mAdminDeliveryRegistC : " + inputMap);
 		
 		return mav;
 	}
@@ -296,8 +289,7 @@ public class DeliveryRegistController {
 	@ResponseBody
 	public String mAdminDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		
-		System.out.println("key : " + inputMap.keySet().toString());
-		System.out.println("values : " + inputMap.values().toString());
+		System.out.println("[inputMap] mAdminDelRegist : " + inputMap);
 		
 		String resultMsg = delRegistService.adminDelRegist(inputMap);
 		

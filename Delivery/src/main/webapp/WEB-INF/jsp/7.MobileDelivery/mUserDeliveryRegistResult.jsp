@@ -55,11 +55,12 @@
 	<!-- script setting -->
     <script>
     $(document).ready(function(){
-    	    	
+    	
     	/* 배송현황으로 이동 버튼 클릭 이벤트 설정 (JANG) */
     	$("#delStateBtn").on("click", function(evt){
     		
-    		$(".Delivery_Search").trigger("click");
+    		location.href = "Mobile_Delivery_Search.do";
+//     		$(".Delivery_Search").trigger("click");
     		
     	});
    	});	// document.ready end!!

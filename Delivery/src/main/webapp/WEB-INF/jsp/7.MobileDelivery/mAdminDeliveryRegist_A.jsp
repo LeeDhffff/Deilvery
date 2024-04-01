@@ -31,18 +31,25 @@
 <body>
     <div class="m_container">
         <header class="m_header">
-            <h3 class="arrow">
+            <h3 class="arrow" onclick="location.href='Mobile_Main.do';">
                 <a href="#">
                     <img src="images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>
-            <div class="m_headerTitle">배송조회-수정하기</div>
+            <c:choose>
+				<c:when test="${result.inKey ne '' && not empty result.inKey }">
+					<div class="m_headerTitle">물류접수-수정하기</div>
+				</c:when>
+				<c:otherwise>
+					<div class="m_headerTitle">물류접수</div>                            			
+				</c:otherwise>
+			</c:choose>            
         </header>        
         <section>  
-        	<form id="formData" name="formData" type="post">                                 
+        	<form id="formData" name="formData">                                 
             <div class="inputWrap">
                 <h5 class="inputName"><a href="#">신청일자<span>*</span></a></h5>
-                <input type="text" id="creDay" placeholder="선택">
+                <input type="text" id="creDay" name="creDay" placeholder="선택">
             </div>
             <div class="inputWrap">
                 <h5 class="inputName"><a href="#">수령인<span>*</span></a></h5>
@@ -73,8 +80,7 @@
             
             <!-- 파라메터 hidden 설정 -->
             <input type="hidden" id="inKey" name="inKey" value="${inputMap.inKey }"/>
-            <input type="hidden" id="arrDay" name="arrDay" value="${result.arrDay }"/>
-            
+            <input type="hidden" id="arrDay" name="arrDay" value="${result.arrDay }"/>           
             
             </form>                                   
         </section>
@@ -83,9 +89,14 @@
         </footer>
     </div>
    	
+	<!--	common Session jsp import	-->
+	<jsp:include page="/js/7.MobileDelivery/mCommon.jsp"></jsp:include>
+   	
    	<script>
+   	
    	$(document).ready(function(e){
-   		
+   		console.log("[내부 A] uid : ", uid, " // udi2 : ", uid2, " // level : ", level);
+   		chkAuth(uid, uid2, level);
    		const initCreDay = "${result.creDay}";
    		const initRecTarget = "${result.recTarget}";
    		
@@ -120,6 +131,7 @@
     			}
     		});
    			if(regist){
+   				console.log("formData A : ", $("#formData").serialize());
    				$.ajax({
    	   				url : "mAdminDeliveryRegistB.do",
    	   				type : "POST",

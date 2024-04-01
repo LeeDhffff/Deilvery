@@ -165,7 +165,8 @@
 		})
 		$(".register").on("click",function(){
 			if(uid != "null" || uid2 != "null"){
-// 				location.href="userDeliveryRegistMain.do";
+				// 경로 설정 (240331 장연우)
+				location.href="mAdminDeliveryRegistMain.do";
 			}
 			else if(uid == "null" && uid2 == "null"){
 				alert("로그인이 필요한 서비스입니다.")

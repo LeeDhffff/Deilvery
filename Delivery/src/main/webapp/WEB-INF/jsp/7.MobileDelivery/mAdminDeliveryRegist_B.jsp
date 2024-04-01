@@ -31,12 +31,19 @@
 <body>
     <div class="m_container">
         <header class="m_header">
-            <h3 class="arrow">
+            <h3 class="arrow" onclick="location.href='mAdminDeliveryRegistMain.do';">
                 <a href="#">
                     <img src="images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>
-            <div class="m_headerTitle">배송조회-수정하기</div>
+            <c:choose>
+				<c:when test="${inputMap.inKey ne '' && not empty inputMap.inKey }">
+					<div class="m_headerTitle">물류접수-수정하기</div>
+				</c:when>
+				<c:otherwise>
+					<div class="m_headerTitle">물류접수</div>                            			
+				</c:otherwise>
+			</c:choose>
         </header>        
         <section>
             <form name="fromData" id="formData" >            
@@ -85,13 +92,17 @@
             <button class="delete" id="boxDel">삭제</button>
             <button class="next" id="nextBtn">다음</button>
         </footer>
-    </div>
-    <div class="m_containerC"></div>
+    </div>    
 	
+	<!--	common Session jsp import	-->
+	<jsp:include page="/js/7.MobileDelivery/mCommon.jsp"></jsp:include>
+		
 	<!-- script setting -->
     <script>
     $(document).ready(function(){
     	console.log("페이지초기화!");
+    	console.log("[내부 B] uid : ", uid, " // udi2 : ", uid2, " // level : ", level);
+    	chkAuth(uid, uid2, level);
     	// box데이터 수정하러 들어왔을 때 대비해서 boxIndex 활용 방안 체크 다시할 것!!
 		let boxIndex = 0;
    		const chkIndex = $("input[class='boxSize']").length;    	
@@ -160,7 +171,7 @@
     		$("#lengthArr").val(lengthArr);
     		$("#weightArr").val(weightArr);
     		
-    		console.log("formData : ", $("#formData").serialize());
+    		console.log("formData B : ", $("#formData").serialize());
     		    		
    			$.ajax({
    				url : "mAdminDeliveryRegistC.do",
@@ -177,6 +188,25 @@
    			});
     		
    		});
+    	
+   		/* 데이터 가지고 뒤로가기 설정 (JANG) */
+    	$(".arrow").on("click", function(evt){  		
+    		console.log("click!");
+    		$.ajax({
+				url : "mAdminDeliveryRegistMain.do",
+				type : "POST",
+				async : false,
+				data : $("#formData").serialize(),
+				success : function(result, status, xhr){
+					$(".m_container").empty();
+   					$(".m_container").html(result);					
+				},
+				error : function(xhr, status, error){
+					console.log("xhr : ", xhr, " // status : ", status, " // error : ", error);
+					alert("관리자에게 문의해주세요.");
+				}
+			});    		
+    	});
     	
     	
    	});	// document.ready end!!

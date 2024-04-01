@@ -91,9 +91,9 @@
 						<a href="#">물류접수-수정</a>
 					</c:when>
 					<c:otherwise>
-						<a href="#">물류접수</a>                            			
+						<a href="#">물류접수</a>               			
 					</c:otherwise>
-				</c:choose>                
+				</c:choose>
                 </h1>
                 <div class="conWrap">
                 	<form id="formData" name="formData">

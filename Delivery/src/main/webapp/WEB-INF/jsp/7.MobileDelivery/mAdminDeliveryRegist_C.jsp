@@ -28,12 +28,19 @@
 <body>
 	<div class="m_container">
         <header class="m_header">
-            <h3 class="arrow">
+            <h3 class="arrow">      
                 <a href="#">
                     <img src="images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>
-            <div class="m_headerTitle">배송신청</div>
+            <c:choose>
+				<c:when test="${result.inKey ne '' && not empty result.inKey }">
+					<div class="m_headerTitle">물류접수-수정하기</div>
+				</c:when>
+				<c:otherwise>
+					<div class="m_headerTitle">물류접수</div>                            			
+				</c:otherwise>
+			</c:choose>
         </header>        
         <section>
         	<form id="formData" name="formData">
@@ -73,19 +80,24 @@
             </form>
         </section>
         <footer>   
-            <button id="returnBtn">미완료건으로 이동</button>
+            <button id="returnBtn" onclick="location.href='Mobile_M_DeliveryList.do';">미완료건으로 이동</button>
             <button id="adminDelRegBtn">저장 하기</button>
         </footer>
     </div>
     
+	<!--	common Session jsp import	-->
+<!-- 	동일한 화면에서 html만 바뀌기 때문에 include 필요 없음 -->
+<%-- 	<jsp:include page="/js/7.MobileDelivery/mCommon.jsp"></jsp:include> --%>
+	    
 	<!-- script setting -->
     <script>
     $(document).ready(function(){
     	console.log("페이지초기화C");
+    	console.log("[내부 C] uid : ", uid, " // udi2 : ", uid2, " // level : ", level);
+    	chkAuth(uid, uid2, level);
     	
     	/* 출항일(selectbox) change event 설정 (JANG) */    	
     	$(document).on("change", "#outDay", function(evt){
-    		console.log("change !!");
     		$("#arrDay").val($("select[name=outDay]").val());
     		$("#outKey").val($("select[name=outDay]").val());
     	});
@@ -110,7 +122,7 @@
 					alert(result);
 
 					/* redirect될 경로 설정 필요!! */
-					$(".nc_delivery").trigger("click");
+					location.href = "Mobile_M_DeliveryList.do";
 					
 				},
 				error : function(xhr, status, error){
@@ -126,9 +138,23 @@
     		$(".nc_delivery").trigger("click");
     	});
     	
-    	/* 뒤로화살표 클릭 이벤트 설정 (JANG) */
-    	$(".arrow").on("click", function(evt){
-    		console.log("뒤로!");
+    	/* 데이터 가지고 뒤로가기 설정 (JANG) */
+    	$(".arrow").on("click", function(evt){  		
+    		console.log("click!");
+    		$.ajax({
+				url : "mAdminDeliveryRegistB.do",
+				type : "POST",
+				async : false,
+				data : $("#formData").serialize(),
+				success : function(result, status, xhr){
+					$(".m_container").empty();
+   					$(".m_container").html(result);					
+				},
+				error : function(xhr, status, error){
+					console.log("xhr : ", xhr, " // status : ", status, " // error : ", error);
+					alert("관리자에게 문의해주세요.");
+				}
+			});    		
     	});
     	
    	});	// document.ready end!!   	

@@ -150,12 +150,14 @@
         </footer>
     </div>    
 	
+	<!--	common Session jsp import	-->
+	<jsp:include page="/js/7.MobileDelivery/mCommon.jsp"></jsp:include>
+		
 	<!-- script setting -->
-    <script>
-
-	
+    <script>    
     $(document).ready(function(){
     	console.log("페이지초기화!");
+    	chkAuth(uid, uid2, level);
     	
     	/* 배송신청 버튼 클릭 이벤트 설정 (JANG) */
     	$("#delRegistBtn").on("click", function(evt){
@@ -193,6 +195,14 @@
 	 			});
     		}
     	});
+    	
+	    	
+    	/* 뒤로가기 버튼 클릭 이벤트 설정 (JANG) */
+    	$(".arrow").on("click", function(evt){
+    		evt.preventDefault();
+    		location.href = "Mobile_Main.do";
+    	});
+    	
    	});	// document.ready end!!
  
     </script>
