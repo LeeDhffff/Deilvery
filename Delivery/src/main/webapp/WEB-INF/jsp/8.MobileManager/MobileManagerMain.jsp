@@ -36,7 +36,8 @@
                 <img src="./images/m_icon/logo_color.svg" alt="logo">
             </h1>            
             <ul class="header_option">
-                <li><img src="./images/m_icon/login.svg" alt="login"></li>
+                <li id="topc"><img src="./images/m_icon/pc_icon.svg" alt="pc"></li>
+                <li id="tologin"><img src="./images/m_icon/login.svg" alt="login"></li>
                 <li class="language">
                     <img src="./images/m_icon/globe-solid.svg" alt="language">
                     <select name="language">
@@ -127,13 +128,19 @@
 	$(document).on('ready',function(){
 		var width = window.outerWidth;
 		
-		if(width <= 767){
+// 		if(width <= 767){
 
-		}
-		else{
-			location.href = "Main.do";
-		}
+// 		}
+// 		else{
+// 			location.href = "Main.do";
+// 		}
 		
+		$("#topc").on("click",function(){
+			location.href = "Main.do";
+		})
+		$("#tologin").on("click",function(){
+			location.href = "Mobile_Login.do";
+		})
 
 		$("#Delivery_Search").on("click",function(){
 			if(uid != "null"){

@@ -11,7 +11,12 @@
 <html lang="kr">    
     <title>메인페이지</title>
 </head>
+<style>
+	#to_mobile{
+		margin-right:10px;
+	}
 
+</style>
 <%-- <jsp:include page="../alert.jsp"></jsp:include> --%>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -43,6 +48,7 @@
             </li>
         </ul>
         <ul class="header_option">
+        	<li id="to_mobile"><a href="#">모바일로 보기</a></li>
             <li id="id_status"><a href="LoginPage.do">로그인</a></li>
             <li class="language">
                 <a href="#">
@@ -170,6 +176,12 @@
 		$(".Outday_Search").on("click",function(){
 
       	   location.href = "Outday_List.do";
+		})
+		
+		
+		$("#to_mobile").on("click",function(){
+
+         	   location.href = "Mobile.do";
 		})
 	})
 </script>

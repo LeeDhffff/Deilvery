@@ -62,16 +62,30 @@
 	$(document).on('ready',function(){
 		var width = window.outerWidth;
 		
-		if(width <= 767){
+// 		if(width <= 767){
+		if(uid!="null" || uid2!="null"){ 
+			if(level > 1){
 
-			setTimeout(function() {
-					location.href = "Mobile_Login.do";
+				setTimeout(function() {
+					location.href = "Mobile_ManagerMain.do";
 				}, 1500);
-			
+			}
+			else{
+				setTimeout(function() {
+					location.href = "Mobile_Main.do";
+				}, 1500);
+			}
 		}
 		else{
-			location.href = "Main.do";
+			setTimeout(function() {
+				location.href = "Mobile_Main.do";
+			}, 1500);
 		}
+			
+// 		}
+// 		else{
+// 			location.href = "Main.do";
+// 		}
 		
 	})
 </script>

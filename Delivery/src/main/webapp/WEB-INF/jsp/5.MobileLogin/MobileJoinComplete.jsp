@@ -68,11 +68,11 @@
 	$(document).on('ready',function(){
 		var width = window.outerWidth;
 		
-		if(width <= 767){
-		}
-		else{
-			location.href = "Main.do";
-		}
+// 		if(width <= 767){
+// 		}
+// 		else{
+// 			location.href = "Main.do";
+// 		}
 
 		$(".id").text(chk_mods);
 

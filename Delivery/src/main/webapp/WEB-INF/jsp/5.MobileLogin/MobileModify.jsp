@@ -168,12 +168,12 @@
 	$(document).on('ready',function(){
 		var width = window.outerWidth;
 		
-		if(width <= 767){
+// 		if(width <= 767){
 
-		}
-		else{
-			location.href = "JoinPage.do";
-		}
+// 		}
+// 		else{
+// 			location.href = "JoinPage.do";
+// 		}
 		
 
 		$(".back").on("click",function(){

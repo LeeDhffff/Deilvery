@@ -88,10 +88,6 @@
 			location.href = "Main.do";
 		}
 
-		var width = window.outerWidth;
-		if(width < 767){
-			location.replace("Mobile_ManagerMain.do");
-		}
 		$(".register").on("click",function(){
 			location.href="adminDeliveryRegistMain.do";
 		})

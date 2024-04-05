@@ -106,12 +106,12 @@
 	$(document).on('ready',function(){
 		var width = window.outerWidth;
 		
-		if(width <= 767){
+// 		if(width <= 767){
 			
-		}
-		else{
-			location.href = "Main.do";
-		}
+// 		}
+// 		else{
+// 			location.href = "Main.do";
+// 		}
 		
 		Delivery_Search_O($("#memid").val(),$("#inkey").val());
 	})

@@ -32,7 +32,7 @@
 <body>
     <div class="m_container">
         <header class="m_header">
-            <h3 class="arrow">
+            <h3 class="arrow back">
                 <a href="#">
                     <img src="./images/m_icon/header_arrow.svg" alt="#">
                 </a>
@@ -83,14 +83,17 @@
 				   location.replace("Mobile_ManagerMain.do");
 			}
 		}
-		
+
+		$(".back").on("click",function(){
+			history.back();
+		})
 		$(document).on('ready', function(){
 
 			var width = window.outerWidth;
 			
-			if(width > 767){
-				location.replace("LoginPage.do");
-			}
+// 			if(width > 767){
+// 				location.replace("LoginPage.do");
+// 			}
 		
 			$("#none_id").on('click',function(){
 				location.href="Mobile_Login_B.do";
