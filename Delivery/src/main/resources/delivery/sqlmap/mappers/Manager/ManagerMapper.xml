@@ -30,7 +30,8 @@
 	<select id="Nocomplete_Select" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
 		{ call C_NC_DELIVERY(
 				#{MEM_ID},
-				#{MODE}
+				#{MODE},
+				#{PAGE}
 		) }
 	</select>
 	

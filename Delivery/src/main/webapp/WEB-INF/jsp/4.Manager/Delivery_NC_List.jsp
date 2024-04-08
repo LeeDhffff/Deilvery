@@ -117,8 +117,14 @@
 			   }
 			}
 
+
+		var page = Number(window.location.search.replaceAll("?p=","")) - 1;
+			console.log(page);
+		if(page == -1){
+			page = 0;
+		}
 		/* 페이지 시작하자마자 불러오기 */
-		delivery_nc();
+		delivery_nc(page);
 		
 
 		/* 테이블 목록 클릭시 */
@@ -130,14 +136,23 @@
 			location.href = "adminDeliveryRegistMain.do?ik=" +nc;
 		})
 		
+		/* 페이징 클릭시 */
+		$(document).on("click",".page",function(){
+			if($(this).hasClass("on") == false){
+				/* 해당 페이징으로 이동 */
+				location.href = "M_Delivery_NC_List.do?p=" +$(this).text();
+			}
+		})
+		 
 	})
 	
 	
 	/* 미완료된 배송신청목록 불러오기 */
-	function delivery_nc(){
+	function delivery_nc(Page){
 		var deliverydata = {
 				MEM_ID : uid,
-				MODE : 'N'
+				MODE : 'N',
+				PAGE : Page
 		};
 		$.ajax({
 			type: "POST",
@@ -150,6 +165,7 @@
 				$("#Nocomplete_Table > tbody").empty();
 				var tbodyData = "";
 
+				$(".pageControll").empty();
 				for(let i=0; i<result.length; i++ ){
 
 					tbodyData += "<tr>";
@@ -159,6 +175,19 @@
 					tbodyData += "</tr>";
 				}
 
+				var pageData = "";
+				var paging = Math.ceil(result[0].CNT / 10);
+				
+				for(let i=0; i<paging; i++ ){
+					var classname = "page";
+					if(i+1 == Page+1){
+						classname = "page on";
+					}
+
+					pageData += '<div class="'+classname+'">'+(String)(i+1)+'</div>';
+				}
+				
+				$(".pageControll").append(pageData);
 				$("#Nocomplete_Table > tbody").append(tbodyData);
 				$(".num").text(result.length);
 				
