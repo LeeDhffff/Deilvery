@@ -26,57 +26,64 @@
 
     <!-- import pretendard font -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
+    
+    <!-- import print.js -->
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://printjs-4de6.kxcdn.com/print.min.css">
+  
         
 </head>
 <body>
     <div class="outWrap">
         <div class="outCon">
             <div class="outTitleWrap">
-                <h3 class="outTitle"><a href="#">출력하기</a></h3>
+                <h3 class="outTitle" onclick="fnPrint();">출력하기</h3>	
                 <h3 class="icon cancelout">
                     <a href="#">
                         <img src="images/delivery/pc_icon/cancel_black.svg" alt="#">
                     </a>
                 </h3>
             </div>
-            <div class="outHeader">
-                <div class="left" id="qrCode">
+            <div id="contentWrap">
+            </div>
+<!--             <div class="outHeader"> -->
+<!--                 <div class="left" id="qrCode"> -->
 <!--                     <img src="images/delivery/pc_icon/QR.svg" alt="#" style="width:62px; height: 62px;"> -->
-                </div>
-                <div class="right">
-                    <div class="logo">
-                        <img src="images/delivery/pc_icon/logo_color.svg" alt="#">
-                    </div>
-                    <div class="bottom" style="display: flex;">
-                        <div>
-                            <h5>라오스·한국물류</h5>
-                            <h5>라오스어샬라샬라</h5>
-                        </div>
-                        <div>
-                            <h5>카카오로고</h5>
-                            <h5>EKLAOS</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="outBody">
-                <p>접수번호 :<br>
-                   접수번호 :
-                </p>
+<!--                 </div> -->
+<!--                 <div class="right"> -->
+<!--                     <div class="logo"> -->
+<!--                         <img src="images/delivery/pc_icon/logo_color.svg" alt="#"> -->
+<!--                     </div> -->
+<!--                     <div class="bottom" style="display: flex;"> -->
+<!--                         <div> -->
+<!--                             <h5>라오스·한국물류</h5> -->
+<!--                             <h5>라오스어샬라샬라</h5> -->
+<!--                         </div> -->
+<!--                         <div> -->
+<!--                             <h5>카카오로고</h5> -->
+<!--                             <h5>EKLAOS</h5> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--             <div class="outBody"> -->
+<!--                 <p>접수번호 :<br> -->
+<!--                    접수번호 : -->
+<!--                 </p> -->
 <!-- 			접수번호 동적 생성 설정 영역       -->
-                <h1>EK</h1>
-            </div>
-            <div class="outFoot">
-                <div class="top">
+<!--                 <h1>EK</h1> -->
+<!--             </div> -->
+<!--             <div class="outFoot"> -->
+<!--                 <div class="top"> -->
 <!--             접수코드 동적 생성 설정 영역 -->
 <!--                     <h5>No.EK18_231212-10</h5> -->
 <!--                     <h5>No.EK18_231212-10</h5> -->
-                </div>
-                <div class="bottom">
-                    <h5>Tel.020-1234-1234</h5>
-                    <h5>Tel.020-1234-1234</h5>
-                </div>                  
-            </div> 
+<!--                 </div> -->
+<!--                 <div class="bottom"> -->
+<!--                     <h5>Tel.020-1234-1234</h5> -->
+<!--                     <h5>Tel.020-1234-1234</h5> -->
+<!--                 </div>                   -->
+<!--             </div>  -->
         </div>
     </div>
 
@@ -229,7 +236,7 @@
 	<!-- script setting -->
     <script>
     $(document).ready(function(){
-    	console.log("페이지초기화!");
+    	console.log("페이지초기화!");    	
     	
     	/* 신청일자 datePicker 설정 (JANG) */
     	$("#creDay").datepicker();
@@ -386,8 +393,9 @@
     	
     	// 박스 출력버튼 연계 (이재원)
         $('.outTitleWrap > .icon.cancelout').click(function(){
-        	$(".outFoot > .top > h5").remove();
-        	$("#qrCode > img").remove();
+//         	$(".outFoot > .top > h5").remove();
+//         	$("#qrCode > img").remove();
+			$("#contentWrap").empty();
             $('.outWrap').css({'display':'none'});
         });
         
@@ -395,21 +403,64 @@
         $("#printBtn").on("click", function(evt){
         	evt.preventDefault();
         	const sjKeyArr = new Array();
+        	const qrInfoArr = new Array();
         	let sjNum = "";
         	let htmlStr = "";
         	let recTarget = ($("#recTarget").val() == 1) ? "본사" : "하우창고";
-        	let qrTxt = "수령인 : "+$("#recNm").val()+"\n연락처 : "+$("#recPhone").val()+"\n픽업지 : "+recTarget;
+        	let qrTxt = "";
         	
         	if($("input[name=sjKey]").length > 0){
 	        	$("input[name=sjKey]").each(function(index){
+	        		// QR Code 데이터 설정 영역
 	        		sjKeyArr.push($("input[name=sjKey]").eq(index).val());
-	        		htmlStr += "<h5>No."+$("input[name=sjKey]").eq(index).val()+"</h5>";
+	        		let txt = sjKeyArr[index].split("-");
+	        		qrTxt = "수령인 : "+$("#recNm").val()+"\n연락처 : "+$("#recPhone").val()+"\n픽업지 : "+recTarget+"\n박스번호 : "+txt[2];	        		
+	        		qrInfoArr.push({qrText : qrTxt, qrId : "qrCode_"+index});
+	        		
+	        		// html영역
+	        		htmlStr += '<div class="outHeader">';
+	        		htmlStr += '	<div class="left" id="qrCode_'+index+'">';
+	        		htmlStr += '	</div>'
+	        		htmlStr += '	<div class="right">';
+	        		htmlStr += '		<div class="logo">';
+	        		htmlStr += '			<img src="images/delivery/pc_icon/logo_color.svg" alt="#">';
+	        		htmlStr += '		</div>';
+	        		htmlStr += '		<div class="bottom" style="display: flex;">';
+	        		htmlStr += '			<div>';
+	        		htmlStr += '				<h5>라오스·한국물류</h5>';
+	        		htmlStr += '				<h5>라오스어 영역</h5>';
+	        		htmlStr += '			</div>';
+	        		htmlStr += '			<div>';
+	        		htmlStr += '				<h5>카카오로고</h5>';
+	        		htmlStr += '				<h5>EKLAOS</h5>';
+	        		htmlStr += '			</div>';
+	        		htmlStr += '		</div>';
+	        		htmlStr += '	</div>';
+	        		htmlStr += '</div>';
+	        		htmlStr += '<div class="outBody">';
+	        		htmlStr += '	<p> 접수번호 : <br></p>';
+	        		htmlStr += '	<h1>'+txt[0]+'</h1>';
+	        		htmlStr += '</div>';
+	        		htmlStr += '<div class="outFoot">';
+	        		htmlStr += '	<div class="top">';
+	        		htmlStr += '		<h5>No.'+$("input[name=sjKey]").eq(index).val()+'</h5>';
+	        		htmlStr += '	</div>';
+	        		htmlStr += '	<div class="bottom">';
+	        		htmlStr += '		<h5>Tel.020-1234-1234</h5>';
+	        		htmlStr += '	</div>';
+	        		htmlStr += '</div>'
+	        		htmlStr += '<hr/>';
+					// qrTxt 초기화 
+	        		qrTxt = "";
 	        	});
-	        	let txt = sjKeyArr[0].split("-");
 	        	
-	        	$(".outBody > h1").text(txt[0]);
-				$(".outFoot > .top").append(htmlStr);
-	        	qrCreate("qrCode", qrTxt);	        	
+	        	$("#contentWrap").append(htmlStr);
+	        	
+	        	// qrCode 동적 생성
+	        	for(let i=0; i<qrInfoArr.length; i++){
+	        		qrCreate(qrInfoArr[i].qrId, qrInfoArr[i].qrText);	        		
+	        	}
+				
 	            $('.outWrap').css({'display':'flex'});
         	}else{
         		
@@ -417,7 +468,6 @@
         	}
         	
         });
-    	
     	
     	/* 전체체크박스(allChk) 이벤트 설정 */
     	$("#allChk").on("change", function(evt){
@@ -441,7 +491,7 @@
    	   	
    	
    	/* qrCode 생성 함수 (JANG) */
-   	function qrCreate(id, txt){
+   	function qrCreate(id, txt){ 
    		var qrcode = new QRCode(id, {
    		    text: txt,
    		    width: 62,
@@ -452,6 +502,20 @@
    		});
    	}
    	
+   	
+    function fnPrint() {
+    	console.log("print 시작");
+    	
+// 		const style = '@page { margin-top: 20px } @media print { h1 { color: blue } }'
+
+		printJS({
+			printable: "contentWrap",
+			type: 'html',
+			css: "css/adminDeliverRegist/style.css",
+// 			style: style,
+// 			scanStyles: true
+        });
+	}
    	
     </script>
 </body>

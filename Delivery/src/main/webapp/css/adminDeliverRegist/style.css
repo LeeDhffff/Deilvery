@@ -256,7 +256,9 @@ table thead tr th input, table tbody tr td input
     background-color: #fff;   
     display: flex;
     flex-direction: column;
-    justify-content: space-around; 
+    justify-content: space-around;
+    /* (240413 JANG) */
+    overflow: scroll;
 }
 
 .outHeader, .outBody, .outFoot
