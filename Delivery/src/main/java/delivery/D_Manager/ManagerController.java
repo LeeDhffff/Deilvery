@@ -137,6 +137,20 @@ public class ManagerController {
 	}
 	
 
+	/* 미완료 배송신청 목록 불러오기 모바일 */
+	@RequestMapping(value = "/M_Nocomplete_Select.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String M_Nocomplete_Select(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		List<HashMap<String, String>> ManagerList = ManagerService.M_Nocomplete_Select(inputMap);
+		System.out.println(ManagerList);
+
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr = mapper.writeValueAsString(ManagerList);
+		return jsonStr;
+	}
+	
 	
 	
 

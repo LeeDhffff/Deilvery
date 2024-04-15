@@ -13,10 +13,10 @@
     <script src="https://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>    
     
     <!-- css import -->
-    <link href="css/userDeliveryRegist/userDeliveryRegistResultStyle.css" rel="stylesheet" type="text/css">
     <link href="css/userDeliveryRegist/common.css" rel="stylesheet" type="text/css">
     <link href="css/userDeliveryRegist/commonStyle.css" rel="stylesheet" type="text/css">
-    
+   <link href="css/userDeliveryRegist/userDeliveryRegistResultStyle.css" rel="stylesheet" type="text/css">
+     
     <!-- import font-awesome, line-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">

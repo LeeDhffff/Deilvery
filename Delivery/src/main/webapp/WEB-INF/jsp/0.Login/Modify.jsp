@@ -54,10 +54,10 @@
                             </div>
                         </div>
                         <div class="double">
-                            <div class="inputWrap password">
+                            <div class="inputWrap password first">
                                 <h5 class="inputName"><a href="#">현재 비밀번호<span>*</span></a></h5>
                                 <input type="password" class="join_pwd" id="join_PW_ORG" placeholder="현재 비밀번호를 입력해주세요">
-                            <input type="hidden" id="join_PW_HIDDEN" value="">
+                            	<input type="hidden" id="join_PW_HIDDEN" value="">
                             </div>
                             <div class="inputWrap password">
                                 <h5 class="inputName"><a href="#">변경 비밀번호<span>*</span></a></h5>
@@ -117,6 +117,9 @@
 		if(chk_mods != null && chk_mods != ""){
 
 			modidata = {MEM_ID : chk_mods[0], MEM_LEVEL : chk_mods[1]};
+			$(".password.first").hide();
+			$("#join_PW_HIDDEN").val("Y");
+			
 		}
 		else{
 			modidata = {MEM_ID : uid, MEM_LEVEL : level};
@@ -201,7 +204,7 @@
 				alert("아이디를 6자이상 입력해주세요");
 				$("#join_ID").focus();
 			}
-			else if($("#join_PW_ORG").val() == ''){
+			else if($("#join_PW_ORG").val() == '' && (chk_mods == null || chk_mods == "")){
 				alert("현재 비밀번호를 입력해주세요.");
 				$("#join_PW_ORG").focus();
 			}

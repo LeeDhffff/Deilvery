@@ -13,7 +13,14 @@
 </head>
 
 <style type="text/css">
-	
+	.beh{
+		background: #ebebff;
+	}
+	.hoi{
+	}
+	.man{
+		background: #ffcfcf;
+	}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -213,8 +220,20 @@
 					var tbodyData = "";
 
 					for(let i=0; i<result.length; i++ ){
-
-						tbodyData += "<tr><td><input type='checkbox'></td>";
+						
+						var classname = '';
+						if(result[i].LEVEL == '0'){
+							classname = 'beh';
+						}
+						else if(result[i].LEVEL == '1'){
+							classname = 'hoi';
+						}
+						else if(result[i].LEVEL == '2'){
+							classname = 'man';
+						}
+						
+						
+						tbodyData += "<tr class='"+classname+"'><td><input type='checkbox'></td>";
 						tbodyData += "<td class='tdnm'><input type='hidden' class='tdid' value='"+result[i].MEM_ID+"'>"+result[i].NAME+"</td>";
 						tbodyData += "<td>"+result[i].PHONE+"</td>";
 						tbodyData += "<td>"+result[i].USECOUNT+"</td>";

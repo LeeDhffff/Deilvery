@@ -115,11 +115,11 @@
                             <h3 class="conMainTitle">
                                 <a href="#">배송현황</a>
                                 <div class="buttonWrap">
-                                    <button class="qrcode">
-                                        <a href="#">
-                                            <img src="./images/pc_icon/qr_black.svg" alt="QR">
-                                        </a>
-                                    </button>
+<!--                                     <button class="qrcode"> -->
+<!--                                         <a href="#"> -->
+<!--                                             <img src="./images/pc_icon/qr_black.svg" alt="QR"> -->
+<!--                                         </a> -->
+<!--                                     </button> -->
                                     <button class="create">
                                         <a href="#">
                                             <img src="./images/pc_icon/save.svg" alt="저장하기">

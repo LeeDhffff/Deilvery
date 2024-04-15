@@ -90,5 +90,11 @@ public class ManagerServiceImpl implements ManagerService {
 		return ManagerMapper.Out_Day_File_UD(inputMap);
 	}
 
+	@Override
+	public List<HashMap<String, String>> M_Nocomplete_Select(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return ManagerMapper.M_Nocomplete_Select(inputMap);
+	}
+
 
 }

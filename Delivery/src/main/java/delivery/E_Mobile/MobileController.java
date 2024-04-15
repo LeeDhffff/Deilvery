@@ -30,31 +30,31 @@ public class MobileController {
 		return "5.MobileLogin/Load";
 	}
 
-	// 모바일 로딩창으로 이동 //
+	// 모바일 로그인페이지로 이동 //
 	@RequestMapping("/Mobile_Login.do")
 	public String Mobile_Login() {
 		return "5.MobileLogin/MobileLogin";
 	}
 
-	// 모바일 로딩창으로 이동 //
+	// 모바일 비회원 로그인페이지로 이동 //
 	@RequestMapping("/Mobile_Login_B.do")
 	public String Mobile_Login_B() {
 		return "5.MobileLogin/MobileLogin_B";
 	}
 
-	// 모바일 로딩창으로 이동 //
+	// 모바일 회원가입페이지로 이동 //
 	@RequestMapping("/Mobile_Join.do")
 	public String Mobile_Join() {
 		return "5.MobileLogin/MobileJoin";
 	}
 
-	// 모바일 로딩창으로 이동 //
+	// 모바일 회원정보 수정으로 이동 //
 	@RequestMapping("/Mobile_Modify.do")
 	public String Mobile_Modify() {
 		return "5.MobileLogin/MobileModify";
 	}
 
-	// 모바일 로딩창으로 이동 //
+	// 모바일 회원가입 완료페이지로 이동 //
 	@RequestMapping("/Mobile_JoinComplete.do")
 	public String Mobile_JoinComplete() {
 		return "5.MobileLogin/MobileJoinComplete";
@@ -155,6 +155,18 @@ public class MobileController {
 		return mav;
 	}
 	
+
+	/* 모바일 관리자용 비회원 배송신청목록페이지로 이동 */
+	@RequestMapping("/Mobile_M_Delivery_NC_List.do")
+	public ModelAndView Delivery_NC_List(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception  {
+
+		ModelAndView mav = new ModelAndView();
+		
+
+		mav.setViewName("8.MobileManager/MobileDeliveryNCList");
+		
+		return mav;
+	}
 
 	/* 모바일 관리자용 배송신청목록페이지로 이동 */
 	@RequestMapping("/Mobile_M_DeliveryList.do")

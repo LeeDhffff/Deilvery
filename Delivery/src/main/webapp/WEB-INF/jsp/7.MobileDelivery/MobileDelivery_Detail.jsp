@@ -13,7 +13,46 @@
 </head>
 
 <style type="text/css">
-	
+
+:root 
+{
+    --main-color: #E88100;
+    --sub-color: #006EBD;
+    --background-gray:#F1F1F1;
+    --color-dark: #222;
+    --color-white: #fff;
+    --input-color: #E5E5EC;    
+    --table-head: #F7F7FB;
+}
+.tableWrap{
+	width: 100%;
+}
+table 
+{
+    width: 100%;
+    border: 0;
+    box-sizing: border-box;
+    margin-bottom: 40px;
+}
+
+table thead 
+{
+    height: 50px;
+    background-color: var(--table-head);
+    color: #222;
+    font-weight: 500;
+}
+
+table tbody 
+{
+    background-color: #fff;
+    text-align: center;
+}
+
+table tbody tr td 
+{
+    height: 100px;
+}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -36,23 +75,40 @@
     <div class="pop">
         <div class="popCon">
             <div class="popHeader">
-                <div class="popTitle">QR코드</div>
+                <div class="popTitle">배송정보</div>
                 <h5 class="cancel">
                     <a href="#">
                         <img src="./images/m_icon/cancel_black.svg" alt="">
                     </a>
                 </h5>
             </div>
-            <div class="popBody">
-                <img src="./images/m_icon/QR.svg" alt="">
+            <div class="popBody qrBody">
+                <div class="tableWrap">
+                    <table id="Delivery_Information_Table">
+                        <thead>
+                            <tr>
+                                <th>접수번호</th>
+                                <th>박스수량</th>
+                                <th>출항일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+	                       		<td id="qr_number">EK1</td>
+	                       		<td id="qr_box">10</td>
+	                       		<td id="qr_outday">2024-04-10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             
         </div>        
     </div>     
     <div class="m_container">
         <header class="m_header">
-            <h3 class="arrow">
-                <a href="Mobile_Delivery_Search.do">
+            <h3 class="arrow back">
+                <a href="#">
                     <img src="./images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>
@@ -63,7 +119,7 @@
                 <a href="#">
                     배송 현황
                 </a>
-                <div class="qr">QR코드</div>
+                <div class="qr">배송정보</div>
             </h3>
             <input type="hidden" id="memid" value="${memid}">
             <input type="hidden" id="inkey" value="${inkey}">
@@ -113,6 +169,10 @@
 // 			location.href = "Main.do";
 // 		}
 		
+		$(".back").on("click",function(){
+			history.back();
+		})
+		
 		Delivery_Search_O($("#memid").val(),$("#inkey").val());
 	})
 	
@@ -133,6 +193,18 @@
 				var tbodyData2 = "";
 				$(".stepCon").removeClass("on");
 				$(".stepDate > a").text("미정");
+
+				if(result[0].SJ_KEY != null){
+					var sj = result[0].SJ_KEY.split("-");
+					var sjkey = sj[0] + '-' + sj[1] + '-' + sj[2] + '-' + sj[3];
+					$("#qr_number").text(sjkey);
+				}
+				else{
+					$("#qr_number").text("미접수");
+				}
+				
+				$("#qr_box").text(result[0].CNTBOX);
+				$("#qr_outday").text(result[0].ARR_DAY);
 				
 				for(let i=0; i<result.length; i++ ){
 					$($(".stepCon")[i]).find(".stepDate > a").text(result[i].OUT_TXT);

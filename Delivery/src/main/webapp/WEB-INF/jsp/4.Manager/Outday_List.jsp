@@ -49,16 +49,16 @@
                                     <img src="./images/pc_icon/plus_black.svg" alt="영수증출력하기">
                                 </a>
                             </button>
-                            <button class="bill">
-                                <a href="#">
-                                    <img src="./images/pc_icon/calculator.svg" alt="영수증출력하기">
-                                </a>
-                            </button>
-                            <button class="excel">
-                                <a href="#">
-                                    <img src="./images/pc_icon/down_black.svg" alt="영수증출력하기">
-                                </a>
-                            </button>
+<!--                             <button class="bill"> -->
+<!--                                 <a href="#"> -->
+<!--                                     <img src="./images/pc_icon/calculator.svg" alt="영수증출력하기"> -->
+<!--                                 </a> -->
+<!--                             </button> -->
+<!--                             <button class="excel"> -->
+<!--                                 <a href="#"> -->
+<!--                                     <img src="./images/pc_icon/down_black.svg" alt="영수증출력하기"> -->
+<!--                                 </a> -->
+<!--                             </button> -->
                         </div>                        
                     </h3>                                       
                     <div class="wrap">

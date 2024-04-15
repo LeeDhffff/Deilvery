@@ -90,12 +90,12 @@
         <section id="section_date">                                   
             <h3 class="sectionMainTitle">
                 <a href="#">
-                    반갑습니다 <span clas="id">이재원</span> 회원님
+                    반갑습니다 <span class="id">이재원</span> 회원님
                 </a>
             </h3>
             <h5 class="sectionSubTitle">
                 <a href="#">
-                    회원님의 운송장 번호는 <span class="num">2024010845</span> 입니다.
+<!--                     회원님의 운송장 번호는 <span class="num">2024010845</span> 입니다. -->
                 </a>
             </h5>
 
@@ -112,6 +112,7 @@
 	var uid = '<%=(String)session.getAttribute("SESSION_MEM_ID")%>';
 	var uid2 = '<%=(String)session.getAttribute("SESSION_PROTO_ID")%>';
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
+	var name = '<%=(String)session.getAttribute("SESSION_MEM_NM")%>';
 
 	$(document).on('ready',function(){
 		var width = window.outerWidth;
@@ -123,6 +124,7 @@
 // 			location.href = "Main.do";
 // 		}
 		
+		$(".id").text(name);
 		Delivery_Search();
 		
 		$("#Search").on("click",function(){
@@ -179,7 +181,7 @@
 					wrapString += ' </div>';
 					wrapString += ' <div class="infoCon current">';
 					wrapString += '     <h5 class="subTxt"><a href="#">배송현황</a></h5>';
-					wrapString += ' 	<h1 class="subTxt hid"><input type="hidden" class="T_IN_KEY" value="'+result[i].IN_KEY+'"><a class="detail" href="#">배송현황확인하기(클릭)</a></h1>';
+					wrapString += ' 	<h1 class="subTxt hid"><input type="hidden" class="T_MEM_ID" value="'+result[i].MEM_ID+'"><input type="hidden" class="T_IN_KEY" value="'+result[i].IN_KEY+'"><a class="detail" href="#">배송현황확인하기(클릭)</a></h1>';
 					wrapString += ' </div>';
 					wrapString += ' <div class="infoCheck">배송내역 확인하기</div>';
 					

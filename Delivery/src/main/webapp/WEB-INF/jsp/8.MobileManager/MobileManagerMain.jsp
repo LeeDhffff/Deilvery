@@ -13,7 +13,9 @@
 </head>
 
 <style type="text/css">
-	
+	#tologout{
+		display:none;
+	}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -38,6 +40,7 @@
             <ul class="header_option">
                 <li id="topc"><img src="./images/m_icon/pc_icon.svg" alt="pc"></li>
                 <li id="tologin"><img src="./images/m_icon/login.svg" alt="login"></li>
+                <li id="tologout"><img src="./images/m_icon/logout.svg" alt="logout"></li>
                 <li class="language">
                     <img src="./images/m_icon/globe-solid.svg" alt="language">
                     <select name="language">
@@ -92,20 +95,26 @@
                     </button>
                 </div> 
                 <div class="buttonCon">
+                    <button class="nc_register">
+                        <a href="#">
+                            <span class="icon nc_register"></span>
+                            미완료 배송신청
+                        </a>
+                    </button>
                     <button class="register">
                         <a href="#">
                             <span class="icon register"></span>
                             물류접수하기
                         </a>
                     </button>
+                </div>
+                <div class="buttonCon">
                     <button class="outdate">
                         <a href="#">
                             <span class="icon outdate"></span>
                             출항일 관리
                         </a>
                     </button>
-                </div>
-                <div class="buttonCon">
                     <button class="customer">
                         <a href="#">
                             <span class="icon customer"></span>
@@ -134,6 +143,11 @@
 // 		else{
 // 			location.href = "Main.do";
 // 		}
+
+		if(uid != "null" || uid2 != "null"){
+			$("#tologin").remove();
+			$("#tologout").show();
+		}
 		
 		$("#topc").on("click",function(){
 			location.href = "Main.do";
@@ -180,6 +194,32 @@
 			}
 		})
 		
+		/* 미완료 배송신청으로 이동 */
+		$(".nc_register").on("click",function(){
+			if(uid != "null" || uid2 != "null"){
+				
+				location.href="Mobile_M_Delivery_NC_List.do";
+			}
+			else if(uid == "null" && uid2 == "null"){
+				alert("로그인이 필요한 서비스입니다.")
+			}
+		})
+		
+		$("#tologout").on("click",function(){
+
+				$.ajax({
+					type: "POST",
+					url : "./Logout.do",
+					data: {},
+					async: false,
+		            success: function(datas){
+// 		            	alert(datas);
+
+		         	   location.href = "Mobile_Main.do";
+		            }
+					
+				})	
+		})
 	})
 </script>
 </html>

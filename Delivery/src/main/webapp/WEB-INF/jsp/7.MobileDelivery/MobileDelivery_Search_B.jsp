@@ -33,8 +33,8 @@
 <body>
       <div class="m_container">
         <header class="m_header">
-            <h3 class="arrow">
-                <a href="Mobile_Main.do">
+            <h3 class="arrow back">
+                <a href="#">
                     <img src="./images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>
@@ -50,6 +50,10 @@
             <div class="inputWrap">
                 <h5 class="inputName"><a href="#">수령인 전화 번호<span>*</span></a></h5>
                 <input type="text" id="B_PHONE" oninput="oninputPhone(this)" maxlength="13" placeholder="라오스 수령인 전화번호를 입력해주세요">
+            </div>
+            <div class="inputWrap">
+                <h5 class="inputName"><a href="#">출항예정일<span>*</span></a></h5>
+                <input type="text" id="B_OUT_DAY" placeholder="출항예정일을 입력해주세요">
             </div>
                                      
         </section>
@@ -75,6 +79,20 @@
 // 			location.href = "Main.do";
 // 		}
 		
+		$(".back").on("click",function(){
+			history.back();
+		})
+		$('#B_OUT_DAY').datepicker(
+				{
+					changeMonth : true,
+					changeYear : true,
+					showMonthAfterYear : true,
+					dayNamesMin :  ['일', '월', '화', '수', '목', '금','토'],
+				    monthNames: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+				    monthNamesShort: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+					dateFormat : 'yy-mm-dd',
+				});
+// 		$('#B_OUT_DAY').datepicker('setDate','today');
 		
 		$("#Search").on("click",function(){
 			var BHW = {
@@ -90,7 +108,7 @@
 	            success: function(datas){
 	            	console.log(datas);
 	            	if(datas == 'Y'){
-	            		location.href= "Mobile_Delivery_Search_B_CHK.do?nm=" + encodeURI(encodeURIComponent($("#B_NM").val())) + "&ph=" + $("#B_PHONE").val();
+	            		location.href= "Mobile_Delivery_Search_B_CHK.do?nm=" + encodeURI(encodeURIComponent($("#B_NM").val())) + "&ph=" + $("#B_PHONE").val()+ "&od=" + $("#B_OUT_DAY").val();
 	            	}
 	            	else{
 	            		alert("해당 정보로 신청한 배송정보가 없습니다.")

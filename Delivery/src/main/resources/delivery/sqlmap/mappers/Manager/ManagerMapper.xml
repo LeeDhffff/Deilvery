@@ -35,6 +35,12 @@
 		) }
 	</select>
 	
+	<select id="M_Nocomplete_Select" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call C_NC_DELIVERY_MOBILE(
+				#{MEM_ID}
+		) }
+	</select>
+	
 	
 	<select id="Out_Day_List" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
 		{ call C_OUTDAY_LIST(

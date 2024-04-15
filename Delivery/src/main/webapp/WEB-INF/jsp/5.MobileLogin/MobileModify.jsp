@@ -97,7 +97,7 @@
                     <img src="./images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>
-            <div class="m_headerTitle">회원가입</div>
+            <div class="m_headerTitle">회원정보 수정</div>
         </header>        
         <section class="first">
             <h3 class="sectionMainTitle">
@@ -122,7 +122,7 @@
                     <img src="./images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>
-            <div class="m_headerTitle">회원가입</div>
+            <div class="m_headerTitle">회원정보 수정</div>
         </header>        
         <section class="second">
             <div class="inputWrap id">
@@ -152,7 +152,7 @@
             </div>                                  
         </section>
         <footer class="second">
-            <button class="join" id="join">가입 하기</button>
+            <button class="join" id="join">회원정보 수정하기</button>
         </footer>
     </div>
 </body>

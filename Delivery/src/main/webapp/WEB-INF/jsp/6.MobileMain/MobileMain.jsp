@@ -13,7 +13,9 @@
 </head>
 
 <style type="text/css">
-	
+	#tologout{
+		display:none;
+	}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -38,6 +40,7 @@
             <ul class="header_option">
                 <li id="topc"><img src="./images/m_icon/pc_icon.svg" alt="pc"></li>
                 <li id="tologin"><img src="./images/m_icon/login.svg" alt="login"></li>
+                <li id="tologout"><img src="./images/m_icon/logout.svg" alt="logout"></li>
                 <li class="language">
                     <img src="./images/m_icon/globe-solid.svg" alt="language">
                     <select name="language">
@@ -141,6 +144,10 @@
 // 		else{
 // 			location.href = "Main.do";
 // 		}
+		if(uid != "null" || uid2 != "null"){
+			$("#tologin").remove();
+			$("#tologout").show();
+		}
 		
 		if(level == '2'){
 			location.href = "Mobile_ManagerMain.do";
@@ -177,6 +184,21 @@
 			}
 		})
 		
+		$("#tologout").on("click",function(){
+
+				$.ajax({
+					type: "POST",
+					url : "./Logout.do",
+					data: {},
+					async: false,
+		            success: function(datas){
+// 		            	alert(datas);
+
+		         	   location.href = "Mobile_Main.do";
+		            }
+					
+				})	
+		})
 	})
 </script>
 </html>

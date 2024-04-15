@@ -35,7 +35,8 @@
 	<select id="Delivery_Select_B" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
 		{ call B_APPLICATION_SELECT_B(
 				#{MEM_NM},
-				#{MEM_PHONE}
+				#{MEM_PHONE},
+				#{OUT_DAY}
 		) }
 	</select>
 	

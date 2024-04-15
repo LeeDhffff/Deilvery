@@ -88,7 +88,7 @@
                     배송 현황
                 </a>
                 <div class="qrbutton">
-                	<div class="qr">QR코드</div>
+<!--                 	<div class="qr">QR코드</div> -->
                     <h5 class="icon delete">
                         <img src="./images/m_icon/delete_orange.svg" alt="#">
                     </h5>

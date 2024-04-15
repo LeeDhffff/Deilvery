@@ -42,7 +42,7 @@
     <div class="qrWrap">
         <div class="qrCon">
             <div class="qrHeader">
-                <h3 class="qrTitle"><a href="#">QR코드</a></h3>
+                <h3 class="qrTitle"><a href="#">배송정보</a></h3>
                 <h3 class="icon cancelqr">
                     <a href="#">
                         <img src="./images/pc_icon/cancel_black.svg" alt="#">
@@ -50,7 +50,24 @@
                 </h3>
             </div>
             <div class="qrBody">
-                <img src="./images/pc_icon/QR.svg" alt="#">
+                <div class="tableWrap">
+                    <table id="Delivery_Information_Table">
+                        <thead>
+                            <tr>
+                                <th>접수번호</th>
+                                <th>박스수량</th>
+                                <th>출항일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+	                       		<td id="qr_number">EK1</td>
+	                       		<td id="qr_box">10</td>
+	                       		<td id="qr_outday">2024-04-10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -112,7 +129,7 @@
                     </h3>
                     <h5 class="conSubTitle">
                         <p>
-                            회원님의 운송장번호는 2024010845 입니다.<br>
+<!--                             회원님의 운송장번호는 2024010845 입니다.<br> -->
                             <span style="color:var(--main-color); font-weight: 600;">해당 물건은 현재 한국물류창고에 접수되어 출항대기 상태입니다.</span>
                         </p>
                     </h5>                   
@@ -153,7 +170,7 @@
                         <div class="currentWrap one">
                             <h3 class="conMainTitle">
                                 <a href="#">배송현황</a>
-                                <button class="qr">QR코드</button>
+                                <button class="qr">배송정보</button>
                             </h3>
                             <div class="currentCon">
                                 <div class="current one on">
@@ -222,7 +239,7 @@
                         <div class="currentWrap two">
                             <h3 class="conMainTitle">
                                 <a href="#">배송현황</a>
-                                <button class="qr">QR코드</button>
+                                <button class="qr">배송정보</button>
                             </h3>
                             <div class="currentCon">
                                 <div class="current one on">
@@ -300,6 +317,11 @@
 	
 	
 	var lok =  window.location.search.replaceAll("?nm=","").split("&ph=");
+
+	var lok2 =  lok[1].split("&od=");
+	lok[1] =  lok2[0];
+	lok[2] =  lok2[1];
+	
 	var name = decodeURI(decodeURIComponent(lok[0]));
 	
 	// 	var chk_mods = decodeURI(decodeURIComponent()));
@@ -333,7 +355,8 @@
 	function Delivery_Search(){
 		var deliverydata = {
 				MEM_NM : name,
-				MEM_PHONE : lok[1]
+				MEM_PHONE : lok[1],
+				OUT_DAY : lok[2]
 		};
 		$.ajax({
 			type: "POST",
@@ -383,6 +406,7 @@
 // 						number += lncost;
 // 					}
 
+						number = result[i].COST;
 					if(i == result.length - 1){
 						tbodyData += "<td>$"+result[i].COST+"</td>";
 						tbodyData += '<td class="currentClickOne" style="cursor:pointer;">한국물류창고 (클릭)</td>';
@@ -408,7 +432,6 @@
 				MEM_ID : uid,
 				IN_KEY : key
 		};
-		console.log(deliverydata);
 		$.ajax({
 			type: "POST",
 			url : "./Delivery_Select_D.do",
@@ -426,16 +449,18 @@
 
 //		 				$500 (kg*$1.5 or 용적중량 *$1.5 중 비싼 비용으로 계산)
 //		 				용적중량 : 가로*세로*높이*0.00022 
-						var kgcost = result[i].WEIGHT * 1.5;
-						var lncost = result[i].WIDTH * result[i].HEIGHT * result[i].LENGTH * 0.00022;
+// 						var kgcost = result[i].WEIGHT * 1.5;
+// 						var lncost = result[i].WIDTH * result[i].HEIGHT * result[i].LENGTH * 0.00022;
 						
-						console.log(kgcost,lncost);
-						if(kgcost >= lncost){
-							number += kgcost;
-						}
-						else{
-							number += lncost;
-						}
+// 						console.log(kgcost,lncost);
+// 						if(kgcost >= lncost){
+// 							number += kgcost;
+// 						}
+// 						else{
+// 							number += lncost;
+// 						}
+						
+						number = result[i].COST;
 						
 						tbodyData2 += "<tr>";
 						tbodyData2 += "<td>"+result[i].ARR_DAY+"</td>";
@@ -473,6 +498,18 @@
 				$(".current").removeClass("on");
 				$(".condition").removeClass("on");
 				$(".currentDay > a").text("미정");
+				
+				if(result[0].SJ_KEY != null){
+					var sj = result[0].SJ_KEY.split("-");
+					var sjkey = sj[0] + '-' + sj[1] + '-' + sj[2] + '-' + sj[3];
+					$("#qr_number").text(sjkey);
+				}
+				else{
+					$("#qr_number").text("미접수");
+				}
+				
+				$("#qr_box").text(result[0].CNTBOX);
+				$("#qr_outday").text(result[0].ARR_DAY);
 				
 				for(let i=0; i<result.length; i++ ){
 					$($(".currentCon > .current")[i]).find(".currentDay > a").text(result[i].OUT_TXT);

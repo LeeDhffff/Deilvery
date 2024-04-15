@@ -1,0 +1,80 @@
+:root 
+{
+    --main-color: #E88100;
+    --sub-color: #006EBD;
+    --color-dark: #000;
+    --color-white: #fff;
+    --input-color: #dadada;
+    --font-color: #222;
+    --background-gray:#f7f7f7;
+}
+
+body { position: relative;}
+
+section 
+{
+    padding: 40px 32px;
+}
+
+.sectionMainTitle 
+{ 
+    font-size: 16px; 
+    margin-bottom: 24px;
+}
+
+.countWrap 
+{
+    display: flex;
+    align-items: center;
+    height: 80px;
+    background-color: var(--main-color);
+    margin-bottom: 24px;
+    color: #fff;
+    padding:0 24px;
+    justify-content: space-between;
+}
+
+.countWrap .date { font-weight: 400; font-size: 14px;}
+.countWrap .txt { font-weight: 500; font-size: 18px;}
+.countWrap .count { font-weight: 700; font-size: 28px;}
+
+.currentfoWrap
+{
+    max-height:440px;
+    overflow-y: scroll;
+}
+
+.currentHeader 
+{
+    background-color: var(--sub-color);
+    height: 40px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+}
+
+.currentHeader h5 a 
+{
+    color: #fff;
+}
+
+.tableWrap table
+{
+    width: 100%;
+}
+
+.tableWrap table thead 
+{
+    background-color: #F7F7FB;
+    height: 40px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.tableWrap table tbody tr td
+{
+    height: 40px;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+}

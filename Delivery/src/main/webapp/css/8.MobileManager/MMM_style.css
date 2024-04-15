@@ -180,6 +180,17 @@ section
     height: 36px;
     margin: 0 auto 10px;
 } 
+
+.buttonCon button.nc_register a span.icon.nc_register 
+{
+    background-image: url(../../images/m_icon/write_orange.svg);
+    width: 36px;
+    background-size: 100%;
+    display: block;
+    height: 36px;
+    margin: 0 auto 10px;
+} 
+
 .buttonCon button.outdate a span.icon.outdate 
 {
     background-image: url(../../images/m_icon/callendar_orange.svg);

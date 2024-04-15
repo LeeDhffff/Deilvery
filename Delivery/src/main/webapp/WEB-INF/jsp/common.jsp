@@ -181,7 +181,7 @@
 		
 		$("#to_mobile").on("click",function(){
 
-         	   location.href = "Mobile.do";
+         	   location.href = "Mobile_Main.do";
 		})
 	})
 </script>

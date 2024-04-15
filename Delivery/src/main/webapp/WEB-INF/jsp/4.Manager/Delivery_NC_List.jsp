@@ -189,7 +189,7 @@
 				
 				$(".pageControll").append(pageData);
 				$("#Nocomplete_Table > tbody").append(tbodyData);
-				$(".num").text(result.length);
+				$(".num").text(result[0].CNT);
 				
             }
 		})

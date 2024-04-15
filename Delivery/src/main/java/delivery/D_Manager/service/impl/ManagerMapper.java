@@ -16,6 +16,7 @@ public interface ManagerMapper {
 	String Mem_Pw_Chk(HashMap<String, Object> inputMap) throws Exception;
 
 	List<HashMap<String, String>> Nocomplete_Select(HashMap<String, Object> inputMap) throws Exception;
+	List<HashMap<String, String>> M_Nocomplete_Select(HashMap<String, Object> inputMap) throws Exception;
 
 	List<HashMap<String, String>> Out_Day_List(HashMap<String, Object> inputMap) throws Exception;
 	HashMap<String, String> Outday_Select(HashMap<String, Object> inputMap) throws Exception;

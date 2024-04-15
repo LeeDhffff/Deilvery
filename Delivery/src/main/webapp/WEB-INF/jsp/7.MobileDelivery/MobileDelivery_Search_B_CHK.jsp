@@ -80,8 +80,8 @@
     </div>   
     <div class="m_container">
         <header class="m_header">
-            <h3 class="arrow">
-                <a href="Mobile_Main.do">
+            <h3 class="arrow back">
+                <a href="#">
                     <img src="./images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>
@@ -90,12 +90,12 @@
         <section id="section_date">                                   
             <h3 class="sectionMainTitle">
                 <a href="#">
-                    반갑습니다 <span clas="id">이재원</span> 회원님
+                    반갑습니다 <span class="id">이재원</span> 회원님
                 </a>
             </h3>
             <h5 class="sectionSubTitle">
                 <a href="#">
-                    회원님의 운송장 번호는 <span class="num">2024010845</span> 입니다.
+<!--                     회원님의 운송장 번호는 <span class="num">2024010845</span> 입니다. -->
                 </a>
             </h5>
 
@@ -111,6 +111,11 @@
 
 
 	var lok =  window.location.search.replaceAll("?nm=","").split("&ph=");
+
+	var lok2 =  lok[1].split("&od=");
+	lok[1] =  lok2[0];
+	lok[2] =  lok2[1];
+	
 	var name = decodeURI(decodeURIComponent(lok[0]));
 
 	$(document).on('ready',function(){
@@ -122,9 +127,12 @@
 // 		else{
 // 			location.href = "Main.do";
 // 		}
-		
+		$(".id").text(name);
 		Delivery_Search();
-		
+
+		$(".back").on("click",function(){
+			history.back();
+		})
 		$("#Search").on("click",function(){
 			Delivery_Search();
 		});
@@ -144,7 +152,8 @@
 	function Delivery_Search(){
 		var deliverydata = {
 				MEM_NM : name,
-				MEM_PHONE : lok[1]
+				MEM_PHONE : lok[1],
+				OUT_DAY : lok[2]
 		};
 		$.ajax({
 			type: "POST",
