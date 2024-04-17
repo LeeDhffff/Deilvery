@@ -53,8 +53,8 @@
                 <input type="password" id="login_PW" placeholder="비밀번호를 입력해주세요">
             </div>
             <div class="inputWrap check">
-                <input type="checkbox">
-                <h5><a href="#">자동 로그인</a></h5>
+                <input type="checkbox" id="idsave">
+                <h5><a href="#" id="idsaveA">자동 로그인</a></h5>
             </div>
             <button class="login" id="loginbutton">로그인</button>
             <button class="uncustomer" id="none_id">비회원으로 입장하기</button>
@@ -84,6 +84,12 @@
 			}
 		}
 
+		$("#idsaveA").on("click",function(){
+			$('#idsave').prop('checked',function(){
+		        return !$(this).prop('checked');
+		    });
+		});
+		
 		$(".back").on("click",function(){
 			history.back();
 		})
@@ -114,7 +120,9 @@
 					
 					var logindata = {
 							MEM_ID : $("#login_ID").val(),
-							MEM_PW : $("#login_PW").val()
+							MEM_PW : $("#login_PW").val(),
+							CHK : ($("#idsave").prop("checked") == true) ? "Y"
+									: "N"
 					};
 					$.ajax({
 						type: "POST",

@@ -17,6 +17,9 @@ public interface LoginMapper {
 	// 로그인
 	HashMap<String, String> Login(HashMap<String, Object> inputMap) throws Exception;
 
+	// 자동로그인
+	HashMap<String, String> AutoLogin(HashMap<String, Object> inputMap) throws Exception;
+	
 	// 비회원 로그인
 	HashMap<String, String> Login_B(HashMap<String, Object> inputMap) throws Exception;
 	

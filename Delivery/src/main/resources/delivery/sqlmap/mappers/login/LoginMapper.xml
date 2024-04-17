@@ -44,6 +44,11 @@
 				#{MEM_PW}
 		) }
 	</select>
+	<select id="AutoLogin" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call A_AUTO_LOGIN(
+				#{MEM_ID}
+		) }
+	</select>
 	<select id="Login_B" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
 		{ call A_LOGIN_B(
 				#{MEM_NM},

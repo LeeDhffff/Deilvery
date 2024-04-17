@@ -79,9 +79,28 @@
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
 	
 
- 
+	
 	$(document).on('ready',function(){
+		if(uid == 'null' && uid2== 'null'){
+			$.ajax({
+				type: "POST",
+				url : "./AutoLogin.do",
+				data: {},
+				async: false,
+		        success: function(datas){
+				   var result = JSON.parse(datas);
 
+		           if(result.MSG == 'Y'){
+			     	   location.reload();   
+		           }
+		           else{
+		        	   console.log("아님");
+		           }
+		        }
+				
+			})	
+		}
+		
 		var width = window.outerWidth;
 		if(width <= 767){
 

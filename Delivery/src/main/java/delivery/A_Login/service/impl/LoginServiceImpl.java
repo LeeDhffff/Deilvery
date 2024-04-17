@@ -32,6 +32,7 @@ public class LoginServiceImpl implements LoginService {
 		return LoginMapper.Login(inputMap);
 	}
 
+	
 	@Override
 	public HashMap<String, String> Login_B(HashMap<String, Object> inputMap) throws Exception {
 		// TODO Auto-generated method stub
@@ -54,6 +55,12 @@ public class LoginServiceImpl implements LoginService {
 	public String find_pw_change(HashMap<String, Object> inputMap) throws Exception {
 		// TODO Auto-generated method stub
 		return LoginMapper.find_pw_change(inputMap);
+	}
+
+	@Override
+	public HashMap<String, String> AutoLogin(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return LoginMapper.AutoLogin(inputMap);
 	}
 
 }

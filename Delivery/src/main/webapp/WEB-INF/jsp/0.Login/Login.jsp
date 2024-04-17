@@ -50,8 +50,8 @@
                             <input type="password" id="login_PW">
                         </div>
                         <div class="inputWrap check">
-                            <input type="checkbox" class="checkBox">
-                            <h5 class="inputName"><a href="#">아이디 저장</a></h5>
+                            <input type="checkbox" class="checkBox" id="idsave">
+                            <h5 class="inputName"><a href="#" id="idsaveA">아이디 저장</a></h5>
                         </div>
                         <div class="inputWrap login">
                             <button class="login" id="loginbutton">로그인</button>
@@ -92,7 +92,12 @@
 		if(width < 767){
 			location.replace("Mobile_Login.do");
 		}
-
+		$("#idsaveA").on("click",function(){
+			$('#idsave').prop('checked',function(){
+		        return !$(this).prop('checked');
+		    });
+		});
+		
 		$("#none_id").on('click',function(){
 			location.href="LoginPage_B.do";
 		});
@@ -110,9 +115,12 @@
 			}
 			else{
 				
+				
 				var logindata = {
 						MEM_ID : $("#login_ID").val(),
-						MEM_PW : $("#login_PW").val()		
+						MEM_PW : $("#login_PW").val(),
+						CHK : ($("#idsave").prop("checked") == true) ? "Y"
+							: "N"
 				};
 				$.ajax({
 					type: "POST",
