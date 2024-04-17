@@ -242,7 +242,7 @@ table thead tr th input, table tbody tr td input
     width: 100%; 
     height:100%;
     background-color: rgba(17,17,17,0.6);
-    position: absolute;
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -251,14 +251,15 @@ table thead tr th input, table tbody tr td input
 
 .outCon 
 {
-    width: 400px;
-    height: 400px;
+/*     width: 400px; */
+/*     height: 400px; */
+    height: 447px;
     background-color: #fff;   
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     /* (240413 JANG) */
-    overflow: scroll;
+/*     overflow: scroll; */
 }
 
 .outHeader, .outBody, .outFoot
@@ -267,7 +268,7 @@ table thead tr th input, table tbody tr td input
     align-items: center;
     justify-content: space-around;
     border-bottom: 1px solid #222;
-    padding: 20px 0;
+    height: calc(100% / 3);
 }
 
 .outBody h1 
@@ -284,6 +285,7 @@ table thead tr th input, table tbody tr td input
 {
     display: flex;
     padding: 20px 40px;
+    box-shadow: 0 6px 6px rgba(0,0,0,0.1);
 }
 
 .outTitle 
@@ -291,6 +293,43 @@ table thead tr th input, table tbody tr td input
     margin: 0 auto;
     font-size: 24px;
 }
+
+/* 송장 프린터 관련 추가 시작 (240414 이재원,장연우) */
+#contentWrap 
+{
+    overflow-y: scroll; 
+    -ms-overflow-style: none;
+}
+
+#contentWrap::-webkit-scrollbar
+{
+    display:none;
+}
+
+.outContent
+{
+    height: 378px;
+    width: 378px;
+    box-sizing: border-box;
+    padding: 20px 0;
+    border-bottom: 1px solid #222;
+}
+
+@media print {		
+    @page {			
+        size: 10cm 10cm;
+    }		
+    html, body 
+    { 
+        border:0; 
+        margin:0; 
+        padding:0; 
+    }		
+    #printable 
+    { display:block; }		
+    #non-printable { display:none; }		
+}
+/* 송장 프린터 관련 추가 종료 (240414 이재원,장연우) */
 
 
 /* 반응형 구간 */
