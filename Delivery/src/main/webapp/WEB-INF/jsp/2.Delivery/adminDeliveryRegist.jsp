@@ -418,38 +418,39 @@
 	        		qrInfoArr.push({qrText : qrTxt, qrId : "qrCode_"+index});
 	        		
 	        		// html영역
-	        		htmlStr += '<div class="outHeader">';
-	        		htmlStr += '	<div class="left" id="qrCode_'+index+'">';
+	        		htmlStr += '<div class="outContent" id="printable" style="page-break-before:always">';
+	        		htmlStr += '	<div class="outHeader">';
+	        		htmlStr += '		<div class="left" id="qrCode_'+index+'">';
+	        		htmlStr += '		</div>'
+	        		htmlStr += '		<div class="right">';
+	        		htmlStr += '			<div class="logo">';
+	        		htmlStr += '				<img src="images/delivery/pc_icon/logo_color.svg" alt="#">';
+	        		htmlStr += '			</div>';
+	        		htmlStr += '			<div class="bottom" style="display: flex;">';
+	        		htmlStr += '				<div>';
+	        		htmlStr += '					<h5>라오스·한국물류</h5>';
+	        		htmlStr += '					<h5>라오스어 영역</h5>';
+	        		htmlStr += '				</div>';
+	        		htmlStr += '				<div>';
+	        		htmlStr += '					<h5>카카오로고</h5>';
+	        		htmlStr += '					<h5>EKLAOS</h5>';
+	        		htmlStr += '				</div>';
+	        		htmlStr += '			</div>';
+	        		htmlStr += '		</div>';
+	        		htmlStr += '	</div>';
+	        		htmlStr += '	<div class="outBody">';
+	        		htmlStr += '		<p> 접수번호 : <br></p>';
+	        		htmlStr += '		<h1>'+txt[0]+'</h1>';
+	        		htmlStr += '	</div>';
+	        		htmlStr += '	<div class="outFoot">';
+	        		htmlStr += '		<div class="top">';
+	        		htmlStr += '			<h5>No.'+$("input[name=sjKey]").eq(index).val()+'</h5>';
+	        		htmlStr += '		</div>';
+	        		htmlStr += '		<div class="bottom">';
+	        		htmlStr += '			<h5>Tel.020-1234-1234</h5>';
+	        		htmlStr += '		</div>';
 	        		htmlStr += '	</div>'
-	        		htmlStr += '	<div class="right">';
-	        		htmlStr += '		<div class="logo">';
-	        		htmlStr += '			<img src="images/delivery/pc_icon/logo_color.svg" alt="#">';
-	        		htmlStr += '		</div>';
-	        		htmlStr += '		<div class="bottom" style="display: flex;">';
-	        		htmlStr += '			<div>';
-	        		htmlStr += '				<h5>라오스·한국물류</h5>';
-	        		htmlStr += '				<h5>라오스어 영역</h5>';
-	        		htmlStr += '			</div>';
-	        		htmlStr += '			<div>';
-	        		htmlStr += '				<h5>카카오로고</h5>';
-	        		htmlStr += '				<h5>EKLAOS</h5>';
-	        		htmlStr += '			</div>';
-	        		htmlStr += '		</div>';
-	        		htmlStr += '	</div>';
 	        		htmlStr += '</div>';
-	        		htmlStr += '<div class="outBody">';
-	        		htmlStr += '	<p> 접수번호 : <br></p>';
-	        		htmlStr += '	<h1>'+txt[0]+'</h1>';
-	        		htmlStr += '</div>';
-	        		htmlStr += '<div class="outFoot">';
-	        		htmlStr += '	<div class="top">';
-	        		htmlStr += '		<h5>No.'+$("input[name=sjKey]").eq(index).val()+'</h5>';
-	        		htmlStr += '	</div>';
-	        		htmlStr += '	<div class="bottom">';
-	        		htmlStr += '		<h5>Tel.020-1234-1234</h5>';
-	        		htmlStr += '	</div>';
-	        		htmlStr += '</div>'
-	        		htmlStr += '<hr/>';
 					// qrTxt 초기화 
 	        		qrTxt = "";
 	        	});
