@@ -47,7 +47,7 @@
     <div class="pop">
         <div class="popCon first">
             <div class="popHeader">
-                <div class="popTitle">이메일로 전송한 인증번호 6자리를 입력해주세요</div>
+                <div class="popTitle">인증번호 4자리를 입력해주세요</div>
                 <h5 class="cancel">
                     <a href="#">
                         <img src="./images/m_icon/cancel_black.svg" alt="">
@@ -56,13 +56,13 @@
             </div>
             <div class="popBody">
                 <div class="top">
-                    <input type="text" id="join_EMAIL_NUM" maxlength="6" placeholder="">
-                    <div class="count" id="timer"></div>
-                    <input type="hidden" id="join_EMAIL_NUM_CHK" value="">
+                    <input type="text" placeholder="4993">
+                    <div class="count">03:45</div>
                 </div>
                 <div class="bottom">
                     <h5><a href="#">인증번호가 도착하지 않았다면?</a></h5>
-                    <button id="emailcheck">인증번호 다시 받기</button>
+                    <button>인증번호 다시 받기</button>
+                    <input type="hidden" id="join_PHONE_NUM_CHK" value="Y">
                 </div>
             </div>
             <div class="popFooter">
@@ -110,11 +110,7 @@
             <div class="inputWrap">
                 <h5 class="inputName"><a href="#">휴대폰 번호<span>*</span></a></h5>
                 <input type="text" oninput="oninputPhone(this)" maxlength="13" id="join_PHONE"  placeholder="'-'구분없이 입력해주세요">
-            </div>
-            <div class="inputWrap">
-                <h5 class="inputName"><a href="#">이메일<span>*</span></a></h5>
-                <input type="text" id="join_EMAIL" placeholder="이메일">
-            </div>                                           
+            </div>                                   
         </section>
         <footer class="first">
             <button class="numResive" id="P_Number">인증번호 받기</button>
@@ -149,7 +145,11 @@
                     영문 대문자와 소문자, 숫자, 특수문자 중 2가지 이상을 조합하여
                     6~20자로 입력해주세요.
                 </p>
-            </div>                           
+            </div> 
+            <div class="inputWrap">
+                <h5 class="inputName"><a href="#">이메일<span>*</span></a></h5>
+                <input type="text" id="join_EMAIL" placeholder="이메일">
+            </div>                                  
         </section>
         <footer class="second">
             <button class="join" id="join">가입 하기</button>
@@ -232,71 +232,6 @@
 			}
 		});
 		
-		var mmkey = "";
-		$("#emailcheck").on("click",function(){
-			
-			var maildata = {
-				EMAIL : $("#join_EMAIL").val()
-			}
-
-			$.ajax({
-				type: "POST",
-				url : "./Mail.do",
-				data: maildata,
-				async: false,
-	            success: function(datas){
-	            	var result = JSON.parse(datas);
-	            	mmkey = result.code;
-	            	
-
-					$("#emailcodecheck").prop("disabled",false);
-					$("#join_EMAIL_NUM").prop("disabled",false);
-					var time = 180;
-					var timer = setInterval(function() {
-						time = time - 1;
-						console.log(time,time / 60);
-						
-						var min = Math.floor(time/ 60);
-						var sec = String(time % 60).padStart(2, "0");;
-						$("#timer").text(min + ":" + sec);
-
-						if(time < 0){
-							mmkey = "";
-							clearInterval(timer);
-							$("#timer").text("");
-						}
-					}, 1000);
-					
-					
-
-					$("#Next_Join").on("click",function(){
-						if($("#join_EMAIL_NUM").val() == ""){
-							alert("인증번호를 입력해주세요.");
-						}
-						else if(mmkey == ""){
-							alert("이메일 인증버튼을 눌러주세요.");
-						}
-						else if($("#join_EMAIL_NUM").val().length < 6){
-							alert("인증번호는 6자리입니다.")
-						}
-						else if($("#join_EMAIL_NUM").val() != mmkey){
-							alert("인증번호가 일치하지 않습니다. 다시 이메일을 인증해주세요.");
-							mmkey = "";
-							time = 0;
-						}
-						else if($("#join_EMAIL_NUM").val() == mmkey){
-							alert("인증되었습니다.");
-							$("#join_EMAIL_NUM_CHK").val("Y");
-							time = 0;
-							$("#join_EMAIL").prop("disabled",true);
-							$("#emailcheck").prop("disabled",true);
-							$("#join_EMAIL_NUM").prop("disabled",true);
-						}
-					})
-	            }
-				
-			})	
-		})
 
 		$("#join").on("click",function(){
 			if($("#join_NM").val() == ''){
@@ -319,9 +254,9 @@
 				alert("패스워드가 일치하지 않습니다.");
 				$("#join_PW_CHK").focus();
 			}
-			else if($("#join_EMAIL_NUM_CHK").val() != 'Y'){
+			else if($("#join_PHONE_NUM_CHK").val() != 'Y'){
 				alert("휴대폰 인증을 진행해주세요.");
-				$("#join_EMAIL_NUM_CHK").focus();
+				$("#join_PHONE_NUM_CHK").focus();
 			}
 			else if($("#join_EMAIL").val() == ''){
 				alert("이메일을 입력해주세요.");

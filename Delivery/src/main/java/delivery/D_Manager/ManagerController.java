@@ -4,17 +4,8 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Properties;
-import java.util.Random;
 
 import javax.annotation.Resource;
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeUtility;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -25,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -382,98 +372,5 @@ public class ManagerController {
 		String jsonStr = mapper.writeValueAsString(ListDays);
 		
 		return jsonStr;
-	}
-	
-
-	/* Javamail 실행 */
-	@RequestMapping(value = "/Mail.do" , produces = "application/text; charset=utf-8")
-	@ResponseBody
-	public String Mail(@RequestParam HashMap<String, Object> inputMap, Model model) throws Exception {
-
-		Random random = new Random();
-		int createNum = 0;
-		String ranNum = "";
-		int letter = 6;
-		String resultNum = "";
-		
-		for(int i=0; i<letter; i++) {
-			createNum = random.nextInt(9);
-			ranNum = Integer.toString(createNum);
-			resultNum += ranNum;
-		}
-		
-		String msg = sendMail((String)(inputMap.get("EMAIL")),resultNum);
-
-	    
-	    HashMap<String, Object> mav = new HashMap<String, Object>();
-		mav.put("resultMsg", msg);
-		mav.put("code", resultNum);
-
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonStr = mapper.writeValueAsString(mav);
-
-	    System.out.println(msg);
-		return jsonStr;
-	}
-	
-	
-	
-	public static String sendMail(String toMail, String _Key) {
-
-	    System.out.println("이메일 전송 시작.");
-
-	    String subject = "EK Logistics 인증키입니다.";
-	    String fromMail = "ehdgjs1411@naver.com";
-	    String fromName = "EK Logistics";
-	    String _email = "ehdgjs1411@naver.com";
-	    String _password = "onyxsky_123";
-
-	    // mail contents
-	    StringBuffer contents = new StringBuffer();
-	    contents.append("<h1>Hello</h1>\n");
-	    contents.append("<p>Nice to meet you ~! :)</p><br>");
-	    contents.append("<p>your code : )</p><br>");
-	    contents.append("<p><h2><b></b>"+_Key +"</h2></p><br>");
-	    contents.append("<p>good bye.</p><br>");
-	    
-	    // mail properties
-	    Properties props = new Properties();
-	    props.put("mail.smtp.host", "smtp.naver.com"); // use naver
-	    props.put("mail.smtp.port", "587"); // set port gamil은 465
-
-	    props.put("mail.smtp.auth", "true");
-	    props.put("mail.smtp.starttls.enable", "true"); // use TLS
-
-	    Session mailSession = Session.getInstance(props,
-	            new javax.mail.Authenticator() { // set authenticator
-	                protected PasswordAuthentication getPasswordAuthentication() {
-	                    return new PasswordAuthentication(_email, _password);
-	                }
-	            });
-
-	    try {
-	        MimeMessage message = new MimeMessage(mailSession);
-
-	        message.setFrom(new InternetAddress(fromMail, MimeUtility.encodeText(fromName, "UTF-8", "B"))); // 한글의 경우 encoding 필요
-	        message.setRecipients(
-	            Message.RecipientType.TO, 
-	            InternetAddress.parse(toMail)
-	        );
-	        message.setSubject(subject);
-	        message.setContent(contents.toString(), "text/html;charset=UTF-8"); // 내용 설정 (HTML 형식)
-	        message.setSentDate(new java.util.Date());
-
-	        Transport t = mailSession.getTransport("smtp");
-	        t.connect(_email, _password);
-	        t.sendMessage(message, message.getAllRecipients());
-	        t.close();
-
-	        return "done";
-
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        
-	        return "fail";
-	    }
 	}
 }
