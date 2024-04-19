@@ -401,8 +401,9 @@ public class ManagerController {
 			ranNum = Integer.toString(createNum);
 			resultNum += ranNum;
 		}
-		
-		String msg = sendMail((String)(inputMap.get("EMAIL")),resultNum);
+
+		HashMap<String, String> Emailid = ManagerService.Emailinfo(inputMap);
+		String msg = sendMail((String)(inputMap.get("EMAIL")),resultNum,Emailid);
 
 	    
 	    HashMap<String, Object> mav = new HashMap<String, Object>();
@@ -418,15 +419,19 @@ public class ManagerController {
 	
 	
 	
-	public static String sendMail(String toMail, String _Key) {
-
+	public static String sendMail(String toMail, String _Key, HashMap<String, String> emaillist) {
+		
+		
+		
 	    System.out.println("이메일 전송 시작.");
 
 	    String subject = "EK Logistics 인증키입니다.";
-	    String fromMail = "ehdgjs1411@naver.com";
 	    String fromName = "EK Logistics";
-	    String _email = "ehdgjs1411@naver.com";
-	    String _password = "onyxsky_123";
+
+	    
+	    String fromMail = emaillist.get("ID");
+	    String _email = emaillist.get("ID");
+	    String _password = emaillist.get("PW");
 
 	    // mail contents
 	    StringBuffer contents = new StringBuffer();

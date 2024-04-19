@@ -110,4 +110,12 @@
 				#{REC_SERVICE}
 		) }
 	</select>
+	
+	<select id="Emailinfo" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			ID AS ID
+			,PW AS PW
+		FROM EMAIL
+	</select>
+	
 </mapper>

@@ -96,5 +96,11 @@ public class ManagerServiceImpl implements ManagerService {
 		return ManagerMapper.M_Nocomplete_Select(inputMap);
 	}
 
+	@Override
+	public HashMap<String, String> Emailinfo(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return ManagerMapper.Emailinfo(inputMap);
+	}
+
 
 }
