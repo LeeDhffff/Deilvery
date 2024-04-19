@@ -7,8 +7,19 @@ $(document).ready(function(){
 		else if($('#join_PHONE').val().length <= 0){
 			alert("전화번호를 입력해주세요.");
 		}
+		else if($('#join_EMAIL').val().length <= 0){
+			alert("이메일을 입력해주세요.");
+		}
 		else{
-        	$('.pop').css({'display':'flex'});
+			if($("#join_EMAIL_NUM_CHK").val() == ""){
+	        	$('.pop').css({'display':'flex'});
+				$("#emailcheck").trigger("click");
+			}
+			else{
+				$(".first").css("display","none");
+				$(".second").css("display","block");
+				$("header.second").css("display","flex");
+			}
 		}
     });
 
