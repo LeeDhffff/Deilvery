@@ -102,5 +102,17 @@ public class ManagerServiceImpl implements ManagerService {
 		return ManagerMapper.Emailinfo(inputMap);
 	}
 
+	@Override
+	public List<HashMap<String, String>> Delivery_receipt(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return ManagerMapper.Delivery_receipt(inputMap);
+	}
+
+	@Override
+	public List<HashMap<String, String>> Delivery_receipt_D(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return ManagerMapper.Delivery_receipt_D(inputMap);
+	}
+
 
 }

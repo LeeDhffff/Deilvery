@@ -27,6 +27,9 @@
 <!--FileSaver savaAs 이용 -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script> -->
 
+    <!-- import print.js -->
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://printjs-4de6.kxcdn.com/print.min.css">
         
 <style>
 	#print_grayback{
@@ -86,6 +89,25 @@
 		margin: 10px 10px 10px 0px;
 	    cursor: pointer;
 	}
+	
+	#EXCEL_QR1 > img{
+		margin : 0 auto;
+	}
+	
+	@media print {
+	* {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+    }
+    html, body {
+    margin:0;
+    padding:0;
+    page-break-after: avoid;
+    page-break-before: avoid
+  }
+    .print_table { border:2px solid black; border-collapse: collapse;}
+	.print_table > thead > tr > th, .print_table > tbody > tr > td {border:1px solid black; }
+}
 </style>
 
 </head>
@@ -96,23 +118,27 @@
         	<div id="print_header"><h2 class="print_title">인쇄 페이지</h2><button class="print_X">X</button></div>
         	<div id="print_button_header"><button class="printbutton" id="print_excel">엑셀로 받기</button><button class="printbutton" id="print_button">인쇄</button></div>
         	<div id="print_div">
+        		<input type="hidden" id="EXCEL_IN_KEY">
         		<table class="print_table" id="print_table_1">
         			<tr style="text-align:center;"><th class="print_table_header" style="font-size:30px;" colspan="9">INVOICE</th></tr>
         			<tr style="text-align:center;"><td style="width:20%; font-weight:bold; " colspan="2" rowspan="2">NOY</td><td></td><td>ຕູ້ທີ່1 ເດືອນ11</td><td style="background: #d7d7d7; font-weight:bold;" colspan="5">EK Logistics</td></tr>
-        			<tr style="text-align:center;"><td>고객님 귀하</td><td></td><td colspan="5">Pakthang Village, Sikhotavong District Vientiane Captital, Lao P.D.R</td></tr>
-        			<tr style="text-align:center;"><td style="background:aliceblue; width:10%;">접수번호:<br />ລະຫັດ</td><td style="background:bisque;font-weight:bold; width: 30%; font-size:20px;" colspan="3">EK01</td><td colspan="5">TEL: +856 2099118282(LAO) / +856 2055533327(KR) <br />+856 2054155374(LAO)</td></tr>
-        			<tr style="text-align:center;"><td style="background:aliceblue;">전화번호:ເບີໂທ</td><td colspan="3">111-1111-1111</td><td rowspan="2" style="background:aliceblue; ">운임ລວມ</td><td colspan="2" rowspan="2"></td><td style="background:bisque;font-weight:bold; " colspan="2">담당직원 서명 ຜູ້ສົ່ງເຄືອງ</td></tr>
-        			<tr style="text-align:center;"><td style="background:aliceblue;">이용연도:ປີ</td><td colspan="3">2024</td><td style="color:darkgray; font-weight:bold; " colspan="2" rowspan="2">Signiture</td></tr>
-        			<tr style="text-align:center;"><td style="background:aliceblue;">물품수량:ຈ/ນແກັດ</td><td colspan="3">111</td><td style="background:aliceblue; ">할인율ສ່ວນຫຼຸດ</td><td colspan="2">0%</td></tr>
-        			<tr style="text-align:center;"><td style="background:aliceblue;">출항 월:ເດືອນ</td><td style="background:bisque;" colspan="3">11</td><td style="background:aliceblue;">할인금액 ລວມສ່ວນຫຼຸດ</td><td style="color:cornflowerblue; " colspan="2">0$</td><td style="background:gold;font-weight:bold; " colspan="2">고객/수령인 서명 ຜູ້ຮັບເຄືອງ</td></tr>
-        			<tr style="text-align:center;"><td colspan="4" rowspan="2">이용에 감사드립니다. 더 나은 서비스로 보답하겠습니다.</td><td style="font-weight:bold;  " colspan="1" rowspan="2">청구액 ລວມຕ້ອງຈ່າຍ</td><td  style="color:red; font-weight:bold;  " colspan="2" rowspan="2">111,111,111</td><td style="color:darkgray; font-weight:bold; " colspan="2" rowspan="2">Signiture</td></tr>
+        			<tr style="text-align:center;"><td>고객님 귀하</td><td id="EXCEL_NAME"></td><td id="EXCEL_ADDRESS" colspan="5">Pakthang Village, Sikhotavong District Vientiane Captital, Lao P.D.R</td></tr>
+        			<tr style="text-align:center;"><td style="background:aliceblue; width:10%;">접수번호:<br />ລະຫັດ</td><td id="EXCEL_EK" style="background:bisque;font-weight:bold; width: 30%; font-size:20px;" colspan="3">EK01</td><td colspan="5">TEL: +856 2099118282(LAO) / +856 2055533327(KR) <br />+856 2054155374(LAO)</td></tr>
+        			<tr style="text-align:center;"><td style="background:aliceblue;">전화번호:ເບີໂທ</td><td id="EXCEL_PHONE" colspan="3">111-1111-1111</td><td rowspan="2" style="background:aliceblue; ">운임ລວມ</td><td id="EXCEL_TR_COST"  colspan="2" rowspan="2">10$</td><td style="background:bisque;font-weight:bold; " colspan="2">담당직원 서명 ຜູ້ສົ່ງເຄືອງ</td></tr>
+        			<tr style="text-align:center;"><td style="background:aliceblue;">이용연도:ປີ</td><td id="EXCEL_YEAR" colspan="3">2024</td><td style="color:darkgray; font-weight:bold; " colspan="2" rowspan="2">Signiture</td></tr>
+        			<tr style="text-align:center;"><td style="background:aliceblue;">물품수량:ຈ/ນແກັດ</td><td id="EXCEL_COUNT" colspan="3">111</td><td style="background:aliceblue; ">할인율ສ່ວນຫຼຸດ</td><td colspan="2">0%</td></tr>
+        			<tr style="text-align:center;"><td style="background:aliceblue;">출항 월:ເດືອນ</td><td id="EXCEL_MONTH" style="background:bisque;" colspan="3">11</td><td style="background:aliceblue;">할인금액 ລວມສ່ວນຫຼຸດ</td><td style="color:cornflowerblue; " colspan="2">0$</td><td style="background:gold;font-weight:bold; " colspan="2">고객/수령인 서명 ຜູ້ຮັບເຄືອງ</td></tr>
+        			<tr style="text-align:center;"><td colspan="4" rowspan="2">이용에 감사드립니다. 더 나은 서비스로 보답하겠습니다.</td><td style="font-weight:bold;" colspan="1" rowspan="2">청구액 ລວມຕ້ອງຈ່າຍ</td><td  id="EXCEL_COST" style="color:red; font-weight:bold;  " colspan="2" rowspan="2">111,111,111</td><td style="color:darkgray; font-weight:bold; " colspan="2" rowspan="2">Signiture</td></tr>
         			<tr></tr>
         			<tr style="text-align:center; height:150px;"><td colspan="4">
         				※이용약관에 따라 운임은 중량과 부피 기반 환산금액중 높은쪽으로 청구되며, 
         				최소 운임은 10$ 입니다.(소수점 단위 반올림)
 						※ອີງຕາມຂໍ້ກຳນົດ ແລະເງື່ອນໄຂ, ຄ່າຂົນສົ່ງແມ່ນຄິດໄລ່ ຕາມຂະໜາດ ,ນ້ຳໜັກ,ແລະ ປະລິມານ ຂອງສີນຄ້າ , 
 						ຄ່າຂົນສົ່ງຂັ້ນຕ່ຳແມ່ນ $10.
-        			</td><td colspan="5">(USD)   (KIP)</td></tr>
+        			</td><td colspan="5">
+        			<div id="EXCEL_QR1"></div>
+<!--         			(USD)    -->
+        			(KIP)</td></tr>
         			<tr style="text-align:center;"><td rowspan="2" colspan="4">원화결제 →하나은행 : 윤병인 369-810087-61207<br />ບັນຊີ ຢູ່ ເກົາຫຼີ </td><td colspan="5">BCEL BANK : MR HOUMPHAN SIHAPANYA</td></tr>
         			<tr style="text-align:center;"><td colspan="3">010-12-01-01761708-001 (USD)</td><td colspan="2">010-12-0001761708-001 (KIP)</td></tr>
         		</table>
@@ -159,7 +185,51 @@
 		})
 		
 		$("#print_excel").on("click",function(){
-			fnExcelDownload("print_table_1","print_table_2","테스트");
+// 			fnExcelDownload("print_table_1","print_table_2","테스트");
+
+			
+			var Ddatas = [];
+			for(let i=0; i<$("#print_table_2 > tbody > tr").length; i++){
+				var Ddata = {};
+				$(".tr" + i + " > td").each(function(i){
+					Ddata["CELL" + i] = $(this).text();
+				});
+				Ddatas.push(Ddata);
+			}
+			var deliverydata = {
+					IN_KEY : 		$("#EXCEL_IN_KEY").val(),
+					EXCEL_NAME : 	$("#EXCEL_NAME").text(),
+					EXCEL_ADDRESS : $("#EXCEL_ADDRESS").text(),
+					EXCEL_PHONE : 	$("#EXCEL_PHONE").text(),
+					EXCEL_YEAR : 	$("#EXCEL_YEAR").text(),
+					EXCEL_COUNT : 	$("#EXCEL_COUNT").text(),
+					EXCEL_MONTH:	$("#EXCEL_MONTH").text(),
+					EXCEL_TR_COST: 	$("#EXCEL_TR_COST").text(),
+					EXCEL_COST:		$("#EXCEL_COST").text(),
+					EXCEL_EK:		$("#EXCEL_EK").text(),
+					EXCEL_COST:		$("#EXCEL_COST").text(),
+					EXCEL_TABLE_NUM: $("#print_table_2 > tbody > tr").length,
+					EXCEL_TABLE : Ddatas
+			};
+			console.log(deliverydata);
+			
+			$.ajax({
+				type: "POST",
+				url : "./Excel.do",
+				data: deliverydata,
+				async: false,
+	            success: function(datas){
+	            	alert(datas);
+	            }
+			})
+
+		})
+		
+		
+		$("#print_button").on("click",function(){
+
+			startPrint('print_div');
+			
 		})
 	})
 	
@@ -253,5 +323,36 @@ function fnExcelDownload(id,id2, title) {
     }
 
 };
+
+// var prtContent; // 프린트 하고 싶은 영역
+// var initBody;  // body 내용 원본
+
+// 프린트하고 싶은 영역의 id 값을 통해 출력 시작
+function startPrint (div_id) {
+// 	prtContent = document.getElementById(div_id);
+// 	window.onbeforeprint = beforePrint;
+// 	window.onafterprint = afterPrint;
+// 	window.print();
+
+	printJS({
+		printable: div_id,
+		type: 'html',
+		css: "css/3.Manager/printstyle.css",
+		imageStyle : "width:100%; height:100%;"
+// 		style: '',
+// 		scanStyles: true
+    });
+}
+
+// // 웹페이지 body 내용을 프린트하고 싶은 내용으로 교체
+// function beforePrint(){
+// 	initBody = document.body.innerHTML;
+// 	document.body.innerHTML = prtContent.innerHTML;
+// }
+
+// // 프린트 후, 웹페이지 body 복구
+// function afterPrint(){
+// 	document.body.innerHTML = initBody;
+// }
 </script>
 </html>

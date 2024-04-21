@@ -118,4 +118,14 @@
 		FROM EMAIL
 	</select>
 	
+	<select id="Delivery_receipt" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call C_PRINT_SELECT(
+			#{IN_KEY}
+		)}
+	</select>
+	<select id="Delivery_receipt_D" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call C_PRINT_SELECT_D(
+			#{IN_KEY}
+		)}
+	</select>
 </mapper>

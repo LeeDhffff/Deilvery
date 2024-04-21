@@ -13,7 +13,6 @@
 </head>
 
 <style type="text/css">
-	
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -23,6 +22,10 @@
 
 <link rel="stylesheet" href="./css/common.css">  
 <link rel="stylesheet" href="./css/3.Manager/AppList_style.css">   
+
+<!-- qrCode.js import -->
+<script src="js/qrcode.js"></script>
+    
 <!-- import font-awesome, line-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
@@ -95,7 +98,9 @@
                             <table id = "Delivery_Table">
                                 <thead>
                                     <tr>
-                                        <th><input type="checkbox" class="List_Check All"></th>
+                                        <th>
+<!--                                         <input type="checkbox" class="List_Check All"> -->
+                                        </th>
                                         <th>출항일</th>
                                         <th>수령인</th>
                                         <th>픽업지</th>
@@ -160,35 +165,116 @@
 		});
 		
 
-		$(document).on("click",".List_Check.sub",function(){
-			if($(this).prop("checked") == true){
-				if($("input:checkbox[name=List_Check]:checked").length == $("input:checkbox[name=List_Check]").length){
-					$(".List_Check.All").prop("checked",true);
-				}
-			}
-			else{
-				$(".List_Check.All").prop("checked",false);		
-			}
-		});
+// 		$(document).on("click",".List_Check.sub",function(){
+// 			if($(this).prop("checked") == true){
+// 				if($("input:checkbox[name=List_Check]:checked").length == $("input:checkbox[name=List_Check]").length){
+// 					$(".List_Check.All").prop("checked",true);
+// 				}
+// 			}
+// 			else{
+// 				$(".List_Check.All").prop("checked",false);		
+// 			}
+// 		});
 
 		
 
 		/* 인쇄페이지 열기(팝업) */
 		$(".bill").on("click",function(){
-			$("#print_grayback").show();
+			
+			if($(".List_Check.sub:checked").length <= 0){	
+				alert("출력할 항목을 선택해주세요.")
+			}
+			else{
+				$("#print_grayback").show();
+				
+				var deliverydata = {
+						IN_KEY : $($(".List_Check.sub:checked")[0]).parents("tr").find(".in_key").val(),
+				};
+				$.ajax({
+					type: "POST",
+					url : "./Delivery_receipt.do",
+					data: deliverydata,
+					async: false,
+		            success: function(datas){
+						
+						$.ajax({
+							type: "POST",
+							url : "./Delivery_receipt_D.do",
+							data: deliverydata,
+							async: false,
+				            success: function(datas2){
+								var A_result = JSON.parse(datas);
+								var D_result = JSON.parse(datas2);
+								console.log(A_result,D_result);
+				            	
+								$("#EXCEL_NAME").text(A_result[0].REC_NM);
+								$("#EXCEL_ADDRESS").text(A_result[0].REC_ADDR);
+								$("#EXCEL_PHONE").text(A_result[0].REC_PHONE);
+								$("#EXCEL_YEAR").text(A_result[0].CRE_DAY.substr(0,4));
+								$("#EXCEL_COUNT").text(D_result.length);
+								$("#EXCEL_MONTH").text(A_result[0].ARR_DAY.substr(5,2));
+								$("#EXCEL_IN_KEY").val(A_result[0].IN_KEY);
+								
+								$("#EXCEL_TR_COST").text(D_result.length * 10 + "$");
+								
+								if(D_result.length > 0){
+
+									const cn1 = D_result[0].COST.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+									$("#EXCEL_COST").text(cn1);
+									$("#EXCEL_EK").text(D_result[0].SJ_KEY.substring(0,3));
+
+// 						        	const qrInfoArr = new Array();
+					        		var qrTxt = "수령인 : "+A_result[0].REC_NM+"\n연락처 : "+A_result[0].REC_PHONE+"\n픽업지 : "+A_result[0].REC_TARGET;	        		
+// 					        		qrInfoArr.push({qrText : qrTxt, qrId : "qrCode_"+index});
+									$("#EXCEL_QR1").empty();
+					        		qrCreate("EXCEL_QR1", qrTxt);	      
+								}
+								else{
+									$("#EXCEL_COST").text("");
+									$("#EXCEL_EK").text("");
+								}
+								
+								$("#print_table_2 > tbody").empty();
+								var PrintString = '';
+								
+								for(let i=0; i<D_result.length; i++){
+									PrintString += '<tr class="tr'+i+'">';
+									PrintString += '<td>'+A_result[0].REC_TXT+'</td>';
+									PrintString += '<td>'+D_result[i].WEIGHT+'</td>';
+									PrintString += '<td>'+D_result[i].WIDTH+'</td>';
+									PrintString += '<td>'+D_result[i].LENGTH+'</td>';
+									PrintString += '<td>'+D_result[i].HEIGHT+'</td>';
+									PrintString += '<td>'+D_result[i].WEIGHT+'</td>';
+									PrintString += '<td>'+D_result[i].COST+'</td>';
+									PrintString += '<td>'+D_result[i].WEIGHT+'</td>';
+									PrintString += '<td>10$</td>';
+									PrintString += '</tr>';
+									
+								};
+								$("#print_table_2 > tbody").append(PrintString);
+				            }
+						});
+		            }
+				});
+			}
+			
 		})
 		
 		ChangeSearch();
 		
 
 		/* 테이블 목록 클릭시 */
-		$(document).on("click","#Delivery_Table > tbody > tr",function(){
+		$(document).on("click","#Delivery_Table > tbody > tr > td",function(){
+
+			if($(this).attr("class") != "checktd"){
 			var nc = $(this).find(".in_key").val();
 			
 
 			/* 미완료 배송신청으로 이동 */
 			location.href = "adminDeliveryRegistMain.do?ik=" +nc;
+			}
 		})
+		
 	})
 	
 	
@@ -215,7 +301,7 @@
 
 				for(let i=0; i<result.length; i++ ){
 
-					tbodyData += "<tr><td><input type='checkbox' name='List_Check' class='List_Check sub'>";
+					tbodyData += "<tr><td class='checktd'><input type='radio' name='List_Check' class='List_Check sub'>";
 					tbodyData += "<td><input type='hidden' class='in_key' value='"+result[i].IN_KEY+"'>"+result[i].OUT_DAY+"</td>";
 					tbodyData += "<td>"+result[i].REC_NM+"</td>";
 					tbodyData += "<td>"+result[i].REC_TARGET+"</td>";
@@ -230,6 +316,16 @@
             }
 		})
 	}
-
+	/* qrCode 생성 함수 (JANG) */
+   	function qrCreate(id, txt){ 
+   		var qrcode = new QRCode(id, {
+   		    text: txt,
+   		    width: 100,
+   		    height: 100,
+   		    colorDark : "#000000",
+   		    colorLight : "#ffffff",
+   		    correctLevel : QRCode.CorrectLevel.H
+   		});
+   	}
 </script>
 </html>

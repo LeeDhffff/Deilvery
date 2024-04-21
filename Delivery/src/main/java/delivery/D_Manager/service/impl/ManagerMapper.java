@@ -28,7 +28,9 @@ public interface ManagerMapper {
 
 	
 	List<HashMap<String, String>> Deilvery_Now_List(HashMap<String, Object> inputMap) throws Exception;
-	
+
+	List<HashMap<String, String>> Delivery_receipt (HashMap<String, Object> inputMap) throws Exception;
+	List<HashMap<String, String>> Delivery_receipt_D (HashMap<String, Object> inputMap) throws Exception;
 
 	HashMap<String, String> Emailinfo(HashMap<String, Object> inputMap) throws Exception;
 	
