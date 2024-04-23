@@ -112,10 +112,8 @@
 	</select>
 	
 	<select id="Emailinfo" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
-		SELECT
-			ID AS ID
-			,PW AS PW
-		FROM EMAIL
+		{ call C_EMAIL(
+		) }
 	</select>
 	
 	<select id="Delivery_receipt" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">

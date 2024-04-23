@@ -220,6 +220,7 @@
 				async: false,
 	            success: function(datas){
 	            	alert(datas);
+	            	console.log(datas);
 	            }
 			})
 

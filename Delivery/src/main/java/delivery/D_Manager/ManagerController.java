@@ -3,11 +3,9 @@ package delivery.D_Manager;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
@@ -27,15 +25,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.ss.usermodel.SheetConditionalFormatting;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -486,8 +483,8 @@ public class ManagerController {
 	    
 	    // mail properties
 	    Properties props = new Properties();
-	    props.put("mail.smtp.host", "smtp.naver.com"); // use naver
-	    props.put("mail.smtp.port", "587"); // set port gamil은 465
+	    props.put("mail.smtp.host", "smtp.gmail.com"); // use naver
+	    props.put("mail.smtp.port", "587"); // set port gamil은 465, naver는 587
 
 	    props.put("mail.smtp.auth", "true");
 	    props.put("mail.smtp.starttls.enable", "true"); // use TLS
@@ -531,20 +528,28 @@ public class ManagerController {
 	@ResponseBody
 	public String exceldownload(@RequestParam HashMap<String, Object> inputMap, Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		excel(inputMap,response,model);
+		String txt = excel(inputMap,response,model);
 		
-		return "엑셀 파일이 다운로드 폴더에 저장되었습니다.";
+		if(txt.equals("Y")) {
+			return "엑셀 파일이 다운로드 폴더에 저장되었습니다.";
+		}
+		else {
+			return "엑셀 파일을 다운로드 하는데 문제가 발생하였습니다.\n열려있는 엑셀창을 닫아주세요.";
+		}
+		
+		
 	}
 	
 
 
-    public static void excel(HashMap<String, Object> inputMap , HttpServletResponse response, Map<String, Object> model) throws Exception{
+    public static String excel(HashMap<String, Object> inputMap , HttpServletResponse response, Map<String, Object> model) throws Exception{
     	 // 빈 Workbook 생성
-        XSSFWorkbook workbook = new XSSFWorkbook();
+        Workbook workbook = new HSSFWorkbook();
+    	
         System.out.println(inputMap);
         // 빈 Sheet를 생성
-        XSSFSheet sheet = workbook.createSheet((String)(inputMap.get("IN_KEY")));
-        String fileNm = "EK Logistics_"+(String)(inputMap.get("IN_KEY"))+".xlsx";
+        Sheet sheet = workbook.createSheet((String)(inputMap.get("IN_KEY")));
+        String fileNm = "EK Logistics_"+(String)(inputMap.get("IN_KEY"))+".xls";
         
         // Sheet를 채우기 위한 데이터들을 Map에 저장
         Map<String, Object[]> data = new TreeMap<>();
@@ -553,12 +558,17 @@ public class ManagerController {
         data.put("3", new Object[]{"2"});
         data.put("4", new Object[]{"3"});
         data.put("5", new Object[]{"4"});
-
+        
+        
         // data에서 keySet를 가져온다. 이 Set 값들을 조회하면서 데이터들을 sheet에 입력한다.
         Set<String> keyset = data.keySet();
         int rownum = 0;
         // (세로form~ 세로to , 가로from~가로to)
+        
+
         sheet.addMergedRegion(new CellRangeAddress(0,1,0,8));
+        
+        
         sheet.addMergedRegion(new CellRangeAddress(2,3,0,1));
         sheet.addMergedRegion(new CellRangeAddress(2,2,4,8));
         sheet.addMergedRegion(new CellRangeAddress(3,3,4,8));
@@ -591,63 +601,155 @@ public class ManagerController {
         sheet.addMergedRegion(new CellRangeAddress(14,14,4,6));
         sheet.addMergedRegion(new CellRangeAddress(14,14,7,8));
         
-        CellStyle TestStyle = workbook.createCellStyle();
-        Font TestFont = workbook.createFont();
+        CellStyle HeadStyle = workbook.createCellStyle();
+        Font HeadFont = workbook.createFont();
+        HeadStyle.setWrapText(true);
+        HeadStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyle.setBorderRight(HSSFCellStyle.BORDER_MEDIUM);
+        HeadStyle.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
+        HeadStyle.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
+        HeadStyle.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM);
+        HeadFont.setFontHeight((short)(20*20)); //사이즈
+        HeadFont.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadStyle.setFont(HeadFont);
 
-//        Object[] objArr = data.get("1");
-//        Row row = sheet.createRow(0);
-//        Cell cell = row.createCell(0);
+        CellStyle HeadStyle2 = workbook.createCellStyle();
+        Font HeadFont2 = workbook.createFont();
+        HeadStyle2.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyle2.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyle2.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyle2.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyle2.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyle2.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFont2.setFontHeight((short)(10*20)); //사이즈
+        HeadFont2.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadStyle2.setFont(HeadFont2);
+
+        CellStyle HeadStyle3 = workbook.createCellStyle();
+        Font HeadFont3 = workbook.createFont();
+        HeadStyle3.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyle3.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyle3.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyle3.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyle3.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyle3.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFont3.setFontHeight((short)(10*20)); //사이즈
+        HeadStyle3.setFont(HeadFont3);
+
+        CellStyle HeadStyleEK = workbook.createCellStyle();
+        Font HeadFontEK = workbook.createFont();
+        HeadStyleEK.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleEK.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleEK.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleEK.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleEK.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleEK.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFontEK.setFontHeight((short)(16*20)); //사이즈
+        HeadFontEK.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadStyleEK.setFont(HeadFontEK);
+
+        CellStyle HeadStyleNormal = workbook.createCellStyle();
+        Font HeadFontNormal = workbook.createFont();
+        HeadStyleNormal.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleNormal.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleNormal.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormal.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormal.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormal.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFontNormal.setFontHeight((short)(10*20)); //사이즈
+        HeadStyleNormal.setFont(HeadFontNormal);
         
-//        TestFont.setBoldweight(Font.BOLDWEIGHT_BOLD);
-//        TestStyle.setFont(TestFont);
-//        
-//        
-//        // 이렇게 해당 cell에 주입하고 싶은 Style객체를 주입하면 끝입니다. 
         
-//        cell.setCellStyle(TestStyle);
-//
-//        System.out.println((String)objArr[0]);
-//        cell.setCellValue((String)objArr[0]);
-//
-//        System.out.println((String)objArr[1]);
-//        cell.setCellValue((String)objArr[1]);
-        // 알아야할 점, TreeMap을 통해 생성된 keySet는 for를 조회시, 키값이 오름차순으로 조회된다.
-//        for (String key : keyset) {
-//            Row row = sheet.createRow(rownum++);
-//            Object[] objArr = data.get(key);
-//            int cellnum = 0;
-//            System.out.println(key);
-//            for (Object obj : objArr) {
-//                Cell cell = row.createCell(cellnum++);
-//
-//                System.out.println(cellnum +" : "+ obj);
+        for(int i=0; i<9; i++) {
+        	sheet.setColumnWidth(i, 3395);
+        }
+
+		
+        
+        
+        		//***************************1,2번째 row *****************************//
         		Row row = sheet.createRow(0);
-        		row.createCell(0).setCellValue("INVOICE");
-        		row = sheet.createRow(2);
-        		row.createCell(0).setCellValue("NOY");
-        		row.createCell(3).setCellValue("ຕູ້ທີ່1 ເດືອນ11");
-        		row.createCell(4).setCellValue("EK Logistics");
-        		row = sheet.createRow(3);
-        		row.createCell(2).setCellValue("고객님 귀하");
-        		row.createCell(3).setCellValue((String)(inputMap.get("EXCEL_NAME")));
-        		row.createCell(4).setCellValue((String)(inputMap.get("EXCEL_ADDRESS")));
+        		Cell cell = null;
+        		row = sheet.createRow(1);
+        		for(int j=0; j<2; j++) {
+	        		for(int i=0; i<9; i++) {
+	        			cell = sheet.getRow(j).createCell(i);
+	        			sheet.getRow(j).getCell(i).setCellStyle(HeadStyle);
+	        		}
+        		}
+        		sheet.getRow(0).getCell(0).setCellValue("INVOICE");
+                System.out.println("1,2번쨰 완료.");
         		
+        		//***************************3번째 row *****************************//
+        		row = sheet.createRow(2);
+        		row.createCell(3).setCellValue("ຕູ້ທີ່1 ເດືອນ11");
+        		sheet.getRow(2).getCell(3).setCellStyle(HeadStyleNormal);
+        		for(int i=4; i<9; i++) {
+        			cell = sheet.getRow(2).createCell(i);
+        			sheet.getRow(2).getCell(i).setCellStyle(HeadStyle2);
+        		}
+        		row.getCell(4).setCellValue("EK Logistics");
+                System.out.println("3번쨰 완료.");
+        		//***************************4번째 row *****************************//
+        		row = sheet.createRow(3);
+        		for(int j=2; j<4; j++) {
+	        		for(int i=0; i<2; i++) {
+	        			cell = sheet.getRow(j).createCell(i);
+	        			sheet.getRow(j).getCell(i).setCellStyle(HeadStyle2);
+	        		}
+        		}
+        		row.getCell(0).setCellValue("NOY");
+        		
+        		row.createCell(2).setCellValue("고객님 귀하");
+        		sheet.getRow(3).getCell(2).setCellStyle(HeadStyleNormal);
+        		row.createCell(3).setCellValue((String)(inputMap.get("EXCEL_NAME")));
+        		sheet.getRow(3).getCell(3).setCellStyle(HeadStyleNormal);
+        		row.createCell(4).setCellValue((String)(inputMap.get("EXCEL_ADDRESS")));
+        		sheet.getRow(3).getCell(4).setCellStyle(HeadStyleNormal);
+                System.out.println("4번쨰 완료.");
+        		
+        		//***************************5번째 row *****************************//
         		row = sheet.createRow(4);
         		row.createCell(0).setCellValue("접수번호:");
-        		row.createCell(1).setCellValue((String)(inputMap.get("EXCEL_EK")));
-        		row.createCell(4).setCellValue("TEL: +856 2099118282(LAO) / +856 2055533327(KR)");
-                
+    			sheet.getRow(4).getCell(0).setCellStyle(HeadStyle2);
+        		for(int i=4; i<9; i++) {
+        			cell = sheet.getRow(4).createCell(i);
+        			sheet.getRow(4).getCell(i).setCellStyle(HeadStyleNormal);
+        		}
+        		row.getCell(4).setCellValue("TEL: +856 2099118282(LAO) / +856 2055533327(KR)");
+                System.out.println("5번쨰 완료.");
+        		//***************************6번째 row *****************************//
         		row = sheet.createRow(5);
-        		row.createCell(0).setCellValue("ລະຫັດ");
-        		row.createCell(4).setCellValue("+856 2054155374(LAO)");
 
+        		for(int j=4; j<5; j++) {
+	        		for(int i=1; i<4; i++) {
+	        			cell = sheet.getRow(j).createCell(i);
+	        			sheet.getRow(j).getCell(i).setCellStyle(HeadStyleEK);
+	        		}
+        		}
+        		sheet.getRow(4).getCell(1).setCellValue((String)(inputMap.get("EXCEL_EK")));
+        		
+        		row.createCell(0).setCellValue("ລະຫັດ");
+    			sheet.getRow(5).getCell(0).setCellStyle(HeadStyle2);
+        		for(int i=4; i<9; i++) {
+        			cell = sheet.getRow(5).createCell(i);
+        			sheet.getRow(5).getCell(i).setCellStyle(HeadStyleNormal);
+        		}
+        		row.getCell(4).setCellValue("+856 2054155374(LAO)");
+                System.out.println("6번쨰 완료.");
+        		
+        		//***************************7번째 row *****************************//
         		row = sheet.createRow(6);
+        		
         		row.createCell(0).setCellValue("전화번호:ເບີໂທ");
         		row.createCell(1).setCellValue((String)(inputMap.get("EXCEL_PHONE")));
         		row.createCell(4).setCellValue("운임ລວມ");
         		row.createCell(5).setCellValue((String)(inputMap.get("EXCEL_TR_COST")));
         		row.createCell(7).setCellValue("담당직원 서명 ຜູ້ສົ່ງເຄືອງ");
-        		
+
+                System.out.println("7번쨰 완료.");
+    
                 row = sheet.createRow(7);
                 row.createCell(0).setCellValue("이용연도:ປີ");
         		row.createCell(1).setCellValue((String)(inputMap.get("EXCEL_YEAR")));
@@ -705,25 +807,23 @@ public class ManagerController {
                 	}
                 }
                 
-                //                if (obj instanceof String) {
-//                    cell.setCellValue((String)obj);
-//                    TestStyle.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
-//                    TestStyle.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
-//                    cell.setCellStyle(TestStyle);
-//                }
-//            }
-//        }
+                
 
+    	
+    	
         try (FileOutputStream out = new FileOutputStream(new File(filePath, fileNm))) {
             workbook.write(out);
+            
+            return "Y";
         } catch (IOException e) {
             e.printStackTrace();
+            return "N";
         }
     }
-//	public static XSSFWorkbook excel(HashMap<String, Object> inputMap , HttpServletResponse response, Map<String, Object> model) throws Exception{
+//	public static HSSFWorkbook excel(HashMap<String, Object> inputMap , HttpServletResponse response, Map<String, Object> model) throws Exception{
 //			
 //		//List<HntTabs>
-//				XSSFWorkbook workbook = new XSSFWorkbook();
+//				HSSFWorkbook workbook = new HSSFWorkbook();
 //		        
 //		        // 변수 가져오기
 //		        String sheetTitle = String.valueOf(inputMap.get("Title"));
@@ -734,7 +834,7 @@ public class ManagerController {
 //
 //		        
 //		        // 시트 생성
-//				XSSFSheet sheet = workbook.createSheet(sheetTitle);
+//				HSSFSheet sheet = workbook.createSheet(sheetTitle);
 //
 //		        Locale locale = (Locale) model.get("locale");
 //		        String workbookName = (String) model.get("workbookName");
@@ -777,10 +877,10 @@ public class ManagerController {
 //	            response.setHeader("Content-Transfer-Encoding", "binary");
 //
 //	            OutputStream os = null;
-//	            SXSSFWorkbook workbook2 = null;
+//	            SHSSFWorkbook workbook2 = null;
 //
 //		        try {
-//		        	workbook2 = new SXSSFWorkbook(workbook);
+//		        	workbook2 = new SHSSFWorkbook(workbook);
 //		            os = response.getOutputStream();
 //		            
 //		            // 파일생성
