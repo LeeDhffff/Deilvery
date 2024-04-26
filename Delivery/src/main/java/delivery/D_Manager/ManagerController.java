@@ -26,9 +26,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -563,15 +565,15 @@ public class ManagerController {
         // data에서 keySet를 가져온다. 이 Set 값들을 조회하면서 데이터들을 sheet에 입력한다.
         Set<String> keyset = data.keySet();
         int rownum = 0;
-        // (세로form~ 세로to , 가로from~가로to)
         
-
+        // (세로form~ 세로to , 가로from~가로to)
         sheet.addMergedRegion(new CellRangeAddress(0,1,0,8));
         
         
         sheet.addMergedRegion(new CellRangeAddress(2,3,0,1));
         sheet.addMergedRegion(new CellRangeAddress(2,2,4,8));
         sheet.addMergedRegion(new CellRangeAddress(3,3,4,8));
+        sheet.addMergedRegion(new CellRangeAddress(4,5,0,0));
         sheet.addMergedRegion(new CellRangeAddress(4,5,1,3));
         sheet.addMergedRegion(new CellRangeAddress(4,4,4,8));
         sheet.addMergedRegion(new CellRangeAddress(5,5,4,8));
@@ -612,31 +614,98 @@ public class ManagerController {
         HeadStyle.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM);
         HeadFont.setFontHeight((short)(20*20)); //사이즈
         HeadFont.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadFont.setColor(HSSFColor.BLACK.index);
         HeadStyle.setFont(HeadFont);
 
-        CellStyle HeadStyle2 = workbook.createCellStyle();
+        CellStyle HeadStyleWhiteBold = workbook.createCellStyle();
+        Font HeadFontWhite = workbook.createFont();
+        HeadStyleWhiteBold.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleWhiteBold.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleWhiteBold.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleWhiteBold.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleWhiteBold.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleWhiteBold.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFontWhite.setFontHeight((short)(10*20)); //사이즈
+        HeadFontWhite.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadFontWhite.setColor(HSSFColor.BLACK.index);
+        HeadStyleWhiteBold.setFont(HeadFontWhite);
+
+        CellStyle HeadStyleGreyBold = workbook.createCellStyle();
+        Font HeadFontGrey = workbook.createFont();
+        HeadStyleGreyBold.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleGreyBold.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleGreyBold.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleGreyBold.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleGreyBold.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleGreyBold.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFontGrey.setFontHeight((short)(10*20)); //사이즈
+        HeadFontGrey.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadFontGrey.setColor(HSSFColor.BLACK.index);
+        HeadStyleGreyBold.setFont(HeadFontGrey);
+        HeadStyleGreyBold.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        HeadStyleGreyBold.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        
+        CellStyle HeadStyleBlue = workbook.createCellStyle();
         Font HeadFont2 = workbook.createFont();
-        HeadStyle2.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-        HeadStyle2.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
-        HeadStyle2.setBorderRight(HSSFCellStyle.BORDER_THIN);
-        HeadStyle2.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-        HeadStyle2.setBorderTop(HSSFCellStyle.BORDER_THIN);
-        HeadStyle2.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadStyleBlue.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleBlue.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleBlue.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleBlue.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleBlue.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleBlue.setBorderBottom(HSSFCellStyle.BORDER_THIN);
         HeadFont2.setFontHeight((short)(10*20)); //사이즈
-        HeadFont2.setBoldweight(Font.BOLDWEIGHT_BOLD);
-        HeadStyle2.setFont(HeadFont2);
-
-        CellStyle HeadStyle3 = workbook.createCellStyle();
+//        HeadFont2.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadFont2.setColor(HSSFColor.BLACK.index);
+        HeadStyleBlue.setFont(HeadFont2);
+        HeadStyleBlue.setWrapText(true);
+        HeadStyleBlue.setFillForegroundColor(IndexedColors.PALE_BLUE.getIndex());
+        HeadStyleBlue.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        
+        CellStyle HeadStyleBlueBold = workbook.createCellStyle();
+        Font HeadFont2Bold = workbook.createFont();
+        HeadStyleBlueBold.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleBlueBold.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleBlueBold.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleBlueBold.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleBlueBold.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleBlueBold.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFont2Bold.setFontHeight((short)(10*20)); //사이즈
+        HeadFont2Bold.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadFont2Bold.setColor(HSSFColor.BLACK.index);
+        HeadStyleBlueBold.setFont(HeadFont2Bold);
+        HeadStyleBlueBold.setFillForegroundColor(IndexedColors.PALE_BLUE.getIndex());
+        HeadStyleBlueBold.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        
+        CellStyle HeadStyleYellowBold = workbook.createCellStyle();
         Font HeadFont3 = workbook.createFont();
-        HeadStyle3.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-        HeadStyle3.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
-        HeadStyle3.setBorderRight(HSSFCellStyle.BORDER_THIN);
-        HeadStyle3.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-        HeadStyle3.setBorderTop(HSSFCellStyle.BORDER_THIN);
-        HeadStyle3.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadStyleYellowBold.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleYellowBold.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleYellowBold.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleYellowBold.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleYellowBold.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleYellowBold.setBorderBottom(HSSFCellStyle.BORDER_THIN);
         HeadFont3.setFontHeight((short)(10*20)); //사이즈
-        HeadStyle3.setFont(HeadFont3);
+        HeadFont3.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadFont3.setColor(HSSFColor.BLACK.index);
+        HeadStyleYellowBold.setFillForegroundColor(IndexedColors.YELLOW.getIndex());
+        HeadStyleYellowBold.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        HeadStyleYellowBold.setFont(HeadFont3);
 
+        CellStyle HeadStyleOrangeBold = workbook.createCellStyle();
+        Font HeadFont4 = workbook.createFont();
+        HeadStyleOrangeBold.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleOrangeBold.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleOrangeBold.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleOrangeBold.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleOrangeBold.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleOrangeBold.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFont4.setFontHeight((short)(10*20)); //사이즈
+        HeadFont4.setColor(HSSFColor.BLACK.index);
+        HeadFont4.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadStyleOrangeBold.setFillForegroundColor(IndexedColors.LIGHT_ORANGE.getIndex());
+        HeadStyleOrangeBold.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        HeadStyleOrangeBold.setFont(HeadFont4);
+        
         CellStyle HeadStyleEK = workbook.createCellStyle();
         Font HeadFontEK = workbook.createFont();
         HeadStyleEK.setAlignment(HSSFCellStyle.ALIGN_CENTER);
@@ -647,7 +716,10 @@ public class ManagerController {
         HeadStyleEK.setBorderBottom(HSSFCellStyle.BORDER_THIN);
         HeadFontEK.setFontHeight((short)(16*20)); //사이즈
         HeadFontEK.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadFontEK.setColor(HSSFColor.BLACK.index);
         HeadStyleEK.setFont(HeadFontEK);
+        HeadStyleEK.setFillForegroundColor(IndexedColors.LIGHT_ORANGE.getIndex());
+        HeadStyleEK.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 
         CellStyle HeadStyleNormal = workbook.createCellStyle();
         Font HeadFontNormal = workbook.createFont();
@@ -658,23 +730,97 @@ public class ManagerController {
         HeadStyleNormal.setBorderTop(HSSFCellStyle.BORDER_THIN);
         HeadStyleNormal.setBorderBottom(HSSFCellStyle.BORDER_THIN);
         HeadFontNormal.setFontHeight((short)(10*20)); //사이즈
+        HeadFontNormal.setColor(HSSFColor.BLACK.index);
         HeadStyleNormal.setFont(HeadFontNormal);
-        
-        
-        for(int i=0; i<9; i++) {
-        	sheet.setColumnWidth(i, 3395);
-        }
+        HeadStyleNormal.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        HeadStyleNormal.setFillForegroundColor(IndexedColors.WHITE.getIndex());
 
-		
+        CellStyle HeadStyleNormalRed = workbook.createCellStyle();
+        Font HeadFontNormalRed = workbook.createFont();
+        HeadStyleNormalRed.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleNormalRed.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleNormalRed.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalRed.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalRed.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalRed.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFontNormalRed.setFontHeight((short)(10*20)); //사이즈
+        HeadFontNormalRed.setColor(HSSFColor.RED.index);
+        HeadFontNormalRed.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadStyleNormalRed.setFont(HeadFontNormalRed);
+        HeadStyleNormalRed.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        HeadStyleNormalRed.setFillForegroundColor(IndexedColors.WHITE.getIndex());
+
+        CellStyle HeadStyleNormalBlue = workbook.createCellStyle();
+        Font HeadFontNormalBlue = workbook.createFont();
+        HeadStyleNormalBlue.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleNormalBlue.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleNormalBlue.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalBlue.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalBlue.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalBlue.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFontNormalBlue.setFontHeight((short)(10*20)); //사이즈
+        HeadFontNormalBlue.setColor(HSSFColor.PALE_BLUE.index);
+        HeadStyleNormalBlue.setFont(HeadFontNormalBlue);
+        HeadStyleNormalBlue.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        HeadStyleNormalBlue.setFillForegroundColor(IndexedColors.WHITE.getIndex());
         
+        
+        CellStyle SignitureStyleNormal = workbook.createCellStyle();
+        Font SignitureFontNormal = workbook.createFont();
+        SignitureStyleNormal.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        SignitureStyleNormal.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        SignitureStyleNormal.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        SignitureStyleNormal.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        SignitureStyleNormal.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        SignitureStyleNormal.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        SignitureFontNormal.setFontHeight((short)(10*20)); //사이즈
+        SignitureFontNormal.setColor(HSSFColor.GREY_40_PERCENT.index);
+        SignitureFontNormal.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        SignitureStyleNormal.setFont(SignitureFontNormal);
+        
+        CellStyle HeadStyleLong = workbook.createCellStyle();
+        Font HeadFontLong = workbook.createFont();
+        HeadStyleLong.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleLong.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleLong.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleLong.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleLong.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleLong.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadStyleLong.setWrapText(true);
+        HeadFontLong.setFontHeight((short)(10*20)); //사이즈
+        HeadStyleLong.setFont(HeadFontLong);
+
+        CellStyle HeadStyleBorderLeft = workbook.createCellStyle();
+        HeadStyleBorderLeft.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
+
+        CellStyle HeadStyleBorderTopBottom = workbook.createCellStyle();
+        HeadStyleBorderTopBottom.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
+        HeadStyleBorderTopBottom.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM);
+
+        CellStyle HeadStyleBorderTop = workbook.createCellStyle();
+        HeadStyleBorderTop.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
+        
+        sheet.setColumnWidth(0, 7000);
+        for(int i=1; i<9; i++) {
+        	sheet.setColumnWidth(i, 4000);
+        }
+        sheet.setColumnWidth(4, 6000);
         
         		//***************************1,2번째 row *****************************//
-        		Row row = sheet.createRow(0);
+        		int length = Integer.valueOf((String)inputMap.get("EXCEL_TABLE_NUM"));
+        		Row row = null;
         		Cell cell = null;
-        		row = sheet.createRow(1);
+        		for(int j=0; j<18 + length; j++) {
+            		row = sheet.createRow(j);
+	        		for(int i=0; i<10; i++) {
+	        			cell = sheet.getRow(j).createCell(i);
+	        		}
+	        		sheet.getRow(j).setHeight((short)400);
+        		}
+                sheet.getRow(12).setHeight((short)1300);
+                
         		for(int j=0; j<2; j++) {
 	        		for(int i=0; i<9; i++) {
-	        			cell = sheet.getRow(j).createCell(i);
 	        			sheet.getRow(j).getCell(i).setCellStyle(HeadStyle);
 	        		}
         		}
@@ -682,134 +828,246 @@ public class ManagerController {
                 System.out.println("1,2번쨰 완료.");
         		
         		//***************************3번째 row *****************************//
-        		row = sheet.createRow(2);
-        		row.createCell(3).setCellValue("ຕູ້ທີ່1 ເດືອນ11");
+                sheet.getRow(2).getCell(3).setCellValue("ຕູ້ທີ່1 ເດືອນ11");
         		sheet.getRow(2).getCell(3).setCellStyle(HeadStyleNormal);
         		for(int i=4; i<9; i++) {
-        			cell = sheet.getRow(2).createCell(i);
-        			sheet.getRow(2).getCell(i).setCellStyle(HeadStyle2);
+        			sheet.getRow(2).getCell(i).setCellStyle(HeadStyleGreyBold);
         		}
-        		row.getCell(4).setCellValue("EK Logistics");
+        		sheet.getRow(2).getCell(4).setCellValue("EK Logistics");
                 System.out.println("3번쨰 완료.");
         		//***************************4번째 row *****************************//
-        		row = sheet.createRow(3);
+        		sheet.getRow(2).getCell(0).setCellValue("NOY");
+        		
         		for(int j=2; j<4; j++) {
 	        		for(int i=0; i<2; i++) {
-	        			cell = sheet.getRow(j).createCell(i);
-	        			sheet.getRow(j).getCell(i).setCellStyle(HeadStyle2);
+	        			sheet.getRow(j).getCell(i).setCellStyle(HeadStyleWhiteBold);
 	        		}
         		}
-        		row.getCell(0).setCellValue("NOY");
         		
-        		row.createCell(2).setCellValue("고객님 귀하");
+        		sheet.getRow(3).getCell(2).setCellValue("고객님 귀하");
         		sheet.getRow(3).getCell(2).setCellStyle(HeadStyleNormal);
-        		row.createCell(3).setCellValue((String)(inputMap.get("EXCEL_NAME")));
+        		sheet.getRow(3).getCell(3).setCellValue((String)(inputMap.get("EXCEL_NAME")));
         		sheet.getRow(3).getCell(3).setCellStyle(HeadStyleNormal);
-        		row.createCell(4).setCellValue((String)(inputMap.get("EXCEL_ADDRESS")));
+        		sheet.getRow(3).getCell(4).setCellValue((String)(inputMap.get("EXCEL_ADDRESS")));
         		sheet.getRow(3).getCell(4).setCellStyle(HeadStyleNormal);
                 System.out.println("4번쨰 완료.");
         		
         		//***************************5번째 row *****************************//
-        		row = sheet.createRow(4);
-        		row.createCell(0).setCellValue("접수번호:");
-    			sheet.getRow(4).getCell(0).setCellStyle(HeadStyle2);
+        		sheet.getRow(4).getCell(0).setCellValue("접수번호:\nລະຫັດ");
+    			sheet.getRow(4).getCell(0).setCellStyle(HeadStyleBlue);
+    			sheet.getRow(5).getCell(0).setCellStyle(HeadStyleBlue);
+    			sheet.getRow(4).getCell(4).setCellValue("TEL: +856 2099118282(LAO) / +856 2055533327(KR)");
         		for(int i=4; i<9; i++) {
-        			cell = sheet.getRow(4).createCell(i);
         			sheet.getRow(4).getCell(i).setCellStyle(HeadStyleNormal);
         		}
-        		row.getCell(4).setCellValue("TEL: +856 2099118282(LAO) / +856 2055533327(KR)");
                 System.out.println("5번쨰 완료.");
         		//***************************6번째 row *****************************//
-        		row = sheet.createRow(5);
 
         		for(int j=4; j<5; j++) {
 	        		for(int i=1; i<4; i++) {
-	        			cell = sheet.getRow(j).createCell(i);
 	        			sheet.getRow(j).getCell(i).setCellStyle(HeadStyleEK);
 	        		}
         		}
         		sheet.getRow(4).getCell(1).setCellValue((String)(inputMap.get("EXCEL_EK")));
         		
-        		row.createCell(0).setCellValue("ລະຫັດ");
-    			sheet.getRow(5).getCell(0).setCellStyle(HeadStyle2);
         		for(int i=4; i<9; i++) {
-        			cell = sheet.getRow(5).createCell(i);
         			sheet.getRow(5).getCell(i).setCellStyle(HeadStyleNormal);
         		}
-        		row.getCell(4).setCellValue("+856 2054155374(LAO)");
+        		sheet.getRow(5).getCell(4).setCellValue("+856 2054155374(LAO)");
                 System.out.println("6번쨰 완료.");
         		
         		//***************************7번째 row *****************************//
-        		row = sheet.createRow(6);
+    			sheet.getRow(6).getCell(0).setCellStyle(HeadStyleBlue);
         		
-        		row.createCell(0).setCellValue("전화번호:ເບີໂທ");
-        		row.createCell(1).setCellValue((String)(inputMap.get("EXCEL_PHONE")));
-        		row.createCell(4).setCellValue("운임ລວມ");
-        		row.createCell(5).setCellValue((String)(inputMap.get("EXCEL_TR_COST")));
-        		row.createCell(7).setCellValue("담당직원 서명 ຜູ້ສົ່ງເຄືອງ");
+    			sheet.getRow(6).getCell(0).setCellValue("전화번호:ເບີໂທ");
+        		for(int i=1; i<4; i++) {
+        			sheet.getRow(6).getCell(i).setCellStyle(HeadStyleNormal);
+        		}
+        		
+        		sheet.getRow(6).getCell(1).setCellValue((String)(inputMap.get("EXCEL_PHONE")));
+        		sheet.getRow(6).getCell(4).setCellValue("운임ລວມ");
+        		sheet.getRow(6).getCell(5).setCellValue((String)(inputMap.get("EXCEL_TR_COST")));
+        		sheet.getRow(6).getCell(7).setCellValue("담당직원 서명 ຜູ້ສົ່ງເຄືອງ");
 
                 System.out.println("7번쨰 완료.");
-    
-                row = sheet.createRow(7);
-                row.createCell(0).setCellValue("이용연도:ປີ");
-        		row.createCell(1).setCellValue((String)(inputMap.get("EXCEL_YEAR")));
-                row.createCell(7).setCellValue("Signiture");
-                
-                row = sheet.createRow(8);
-                row.createCell(0).setCellValue("물품수량:ຈ/ນແກັດ");
-        		row.createCell(1).setCellValue((String)(inputMap.get("EXCEL_COUNT")));
-                row.createCell(4).setCellValue("할인율ສ່ວນຫຼຸດ");
-                row.createCell(7).setCellValue("고객/수령인 서명 ຜູ້ຮັບເຄືອງ");
-                
-                row = sheet.createRow(9);
-                row.createCell(0).setCellValue("출항 월:ເດືອນ");
-        		row.createCell(1).setCellValue((String)(inputMap.get("EXCEL_MONTH")));
-                row.createCell(4).setCellValue("할인금액 ລວມສ່ວນຫຼຸດ");
-                row.createCell(7).setCellValue("고객/수령인 서명 ຜູ້ຮັບເຄືອງ");
-                
-                row = sheet.createRow(10);
-                row.createCell(0).setCellValue("이용에 감사드립니다. 더 나은 서비스로 보답하겠습니다.");
-        		row.createCell(5).setCellValue((String)(inputMap.get("EXCEL_COST")));
-                row.createCell(4).setCellValue("청구액 ລວມຕ້ອງຈ່າຍ");
-                row.createCell(7).setCellValue("Signiture");
-                
-                row = sheet.createRow(12);
-                row.createCell(0).setCellValue("※이용약관에 따라 운임은 중량과 부피 기반 환산금액중 높은쪽으로 청구되며, 최소 운임은 10$ 입니다.(소수점 단위 반올림) ※ອີງຕາມຂໍ້ກຳນົດ ແລະເງື່ອນໄຂ, ຄ່າຂົນສົ່ງແມ່ນຄິດໄລ່ ຕາມຂະໜາດ ,ນ້ຳໜັກ,ແລະ ປະລິມານ");
-                row.createCell(4).setCellValue("(KIP)");
 
-                row = sheet.createRow(13);
-                row.createCell(0).setCellValue("원화결제 →하나은행 : 윤병인 369-810087-61207");
-                row.createCell(4).setCellValue("BCEL BANK : MR HOUMPHAN SIHAPANYA");
-
-                row = sheet.createRow(14);
-                row.createCell(0).setCellValue("ບັນຊີ ຢູ່ ເກົາຫຼີ");
-                row.createCell(4).setCellValue("010-12-01-01761708-001 (USD)");
-                row.createCell(7).setCellValue("010-12-0001761708-001 (KIP)");
+        		//***************************8번째 row *****************************//
                 
+                sheet.getRow(7).getCell(0).setCellValue("이용연도:ປີ");
+    			sheet.getRow(7).getCell(0).setCellStyle(HeadStyleBlue);
+    			sheet.getRow(7).getCell(1).setCellValue((String)(inputMap.get("EXCEL_YEAR")));
+        		for(int i=1; i<4; i++) {
+        			sheet.getRow(7).getCell(i).setCellStyle(HeadStyleNormal);
+        		}
+        		for(int j=6; j<8; j++) {
+        			sheet.getRow(j).getCell(4).setCellStyle(HeadStyleBlue);
+	        		
+        		}
+        		for(int j=6; j<8; j++) {
+	        		for(int i=5; i<7; i++) {
+	        			sheet.getRow(j).getCell(i).setCellStyle(HeadStyleNormal);
+	        		}
+        		}
+        		for(int j=7; j<9; j++) {
+        			sheet.getRow(6).getCell(j).setCellStyle(HeadStyleOrangeBold);
+	        		
+        		}
+        		
+        		sheet.getRow(7).getCell(7).setCellValue("Signiture");
 
-                row = sheet.createRow(16);
-                row.createCell(0).setCellValue("내품");
-                row.createCell(1).setCellValue("중량");
-                row.createCell(2).setCellValue("장");
-                row.createCell(3).setCellValue("폭");
-                row.createCell(4).setCellValue("고");
-                row.createCell(5).setCellValue("용적중량");
-                row.createCell(6).setCellValue("기준가");
-                row.createCell(7).setCellValue("청구중량");
-                row.createCell(8).setCellValue("청구운임");
+        		for(int j=7; j<9; j++) {
+	        		for(int i=7; i<9; i++) {
+	        			sheet.getRow(j).getCell(i).setCellStyle(SignitureStyleNormal);
+	        		}
+        		}
+
+                System.out.println("8번쨰 완료.");
+
+        		//***************************9번째 row *****************************//
                 
+        		sheet.getRow(8).getCell(0).setCellValue("물품수량:ຈ/ນແກັດ");
+    			sheet.getRow(8).getCell(0).setCellStyle(HeadStyleBlue);
+        		sheet.getRow(8).getCell(1).setCellValue((String)(inputMap.get("EXCEL_COUNT")));
+        		for(int i=1; i<4; i++) {
+        			sheet.getRow(8).getCell(i).setCellStyle(HeadStyleNormal);
+        		}
+        		sheet.getRow(8).getCell(4).setCellValue("할인율ສ່ວນຫຼຸດ");
+    			sheet.getRow(8).getCell(4).setCellStyle(HeadStyleBlue);
+        		sheet.getRow(8).getCell(5).setCellValue("0%");
+    			for(int i=5; i<7; i++) {
+        			sheet.getRow(8).getCell(i).setCellStyle(HeadStyleNormal);
+        		}
+
+                System.out.println("9번쨰 완료.");
+
+        		//***************************10번째 row *****************************//
+                
+        		sheet.getRow(9).getCell(0).setCellValue("출항 월:ເດືອນ");
+    			sheet.getRow(9).getCell(0).setCellStyle(HeadStyleBlue);
+        		sheet.getRow(9).getCell(1).setCellValue((String)(inputMap.get("EXCEL_MONTH")));
+    			sheet.getRow(9).getCell(1).setCellStyle(HeadStyleNormal);
+        		sheet.getRow(9).getCell(4).setCellValue("할인금액 ລວມສ່ວນຫຼຸດ");
+    			sheet.getRow(9).getCell(4).setCellStyle(HeadStyleBlue);
+        		sheet.getRow(9).getCell(5).setCellValue("0$");
+        		for(int i=5; i<7; i++) {
+        			sheet.getRow(9).getCell(i).setCellStyle(HeadStyleNormalBlue);
+        		}
+        		sheet.getRow(9).getCell(7).setCellValue("고객/수령인 서명 ຜູ້ຮັບເຄືອງ");
+    			sheet.getRow(9).getCell(7).setCellStyle(HeadStyleYellowBold);
+    			sheet.getRow(9).getCell(8).setCellStyle(HeadStyleYellowBold);
+                System.out.println("10번쨰 완료.");
+
+        		//***************************11번째, 12번째 row *****************************//
+        		sheet.getRow(10).getCell(0).setCellValue("이용에 감사드립니다. 더 나은 서비스로 보답하겠습니다.");
+        		for(int j=10; j<12; j++) {
+	        		for(int i=0; i<4; i++) {
+	        			sheet.getRow(j).getCell(i).setCellStyle(HeadStyleNormal);
+	        		}
+        		}
+        		sheet.getRow(10).getCell(4).setCellValue("청구액 ລວມຕ້ອງຈ່າຍ");
+        		for(int i=10; i<12; i++) {
+        			sheet.getRow(i).getCell(4).setCellStyle(HeadStyleWhiteBold);
+        		}
+        		sheet.getRow(10).getCell(5).setCellValue((String)(inputMap.get("EXCEL_COST")));
+        		
+        		for(int j=10; j<12; j++) {
+        			for(int i=5; i<7; i++) {
+	        			sheet.getRow(j).getCell(i).setCellStyle(HeadStyleNormalRed);
+	        		}
+        		}
+        		sheet.getRow(10).getCell(7).setCellValue("Signiture");
+
+        		for(int j=10; j<12; j++) {
+	        		for(int i=7; i<9; i++) {
+	        			sheet.getRow(j).getCell(i).setCellStyle(SignitureStyleNormal);
+	        		}
+        		}
+
+
+                System.out.println("11,12번쨰 완료.");
+
+        		//***************************13번째 row *****************************//
+        		sheet.getRow(12).getCell(0).setCellValue("※이용약관에 따라 운임은 중량과 부피 기반 환산금액중 높은쪽으로 청구되며,\n 최소 운임은 10$ 입니다.(소수점 단위 반올림) \n※ອີງຕາມຂໍ້ກຳນົດ ແລະເງື່ອນໄຂ, ຄ່າຂົນສົ່ງແມ່ນຄິດໄລ່ ຕາມຂະໜາດ ,ນ້ຳໜັກ,ແລະ ປະລິມານ");
+        		
+        		for(int i=0; i<4; i++) {
+        			sheet.getRow(12).getCell(i).setCellStyle(HeadStyleLong);
+        		}
+        		
+        		sheet.getRow(12).getCell(4).setCellValue("(KIP)");
+        		for(int i=4; i<9; i++) {
+        			sheet.getRow(12).getCell(i).setCellStyle(HeadStyleNormal);
+        		}
+
+
+                System.out.println("13번쨰 완료.");
+
+        		//***************************14번째 row *****************************//
+        		sheet.getRow(13).getCell(0).setCellValue("원화결제 →하나은행 : 윤병인 369-810087-61207");
+        		for(int i=0; i<4; i++) {
+        			sheet.getRow(13).getCell(i).setCellStyle(HeadStyleNormal);
+        		}
+        		sheet.getRow(13).getCell(4).setCellValue("BCEL BANK : MR HOUMPHAN SIHAPANYA");
+        		for(int i=4; i<9; i++) {
+        			sheet.getRow(13).getCell(i).setCellStyle(HeadStyleNormal);
+        		}
+                System.out.println("14번쨰 완료.");
+
+        		//***************************15번째 row *****************************//
+        		sheet.getRow(14).getCell(0).setCellValue("ບັນຊີ ຢູ່ ເກົາຫຼີ");
+        		for(int i=0; i<4; i++) {
+        			sheet.getRow(14).getCell(i).setCellStyle(HeadStyleNormal);
+        		}
+                sheet.getRow(14).getCell(4).setCellValue("010-12-01-01761708-001 (USD)");
+                sheet.getRow(14).getCell(7).setCellValue("010-12-0001761708-001 (KIP)");
+                for(int i=4; i<9; i++) {
+        			sheet.getRow(14).getCell(i).setCellStyle(HeadStyleNormal);
+        		}
+
+                System.out.println("15번쨰 완료.");
+
+        		//***************************테두리 작업 *****************************//
+                
+                for(int i=0; i<9; i++) {
+        			sheet.getRow(15).getCell(i).setCellStyle(HeadStyleBorderTopBottom);
+                	
+                }
+
+                for(int i=0; i<15; i++) {
+        			sheet.getRow(i).getCell(9).setCellStyle(HeadStyleBorderLeft);
+                	
+                }
+        		//***************************17번째 row *****************************//
+                sheet.getRow(16).getCell(0).setCellValue("내품");
+                sheet.getRow(16).getCell(1).setCellValue("중량");
+                sheet.getRow(16).getCell(2).setCellValue("장");
+                sheet.getRow(16).getCell(3).setCellValue("폭");
+                sheet.getRow(16).getCell(4).setCellValue("고");
+                sheet.getRow(16).getCell(5).setCellValue("용적중량");
+                sheet.getRow(16).getCell(6).setCellValue("기준가");
+                sheet.getRow(16).getCell(7).setCellValue("청구중량");
+                sheet.getRow(16).getCell(8).setCellValue("청구운임");
+                for(int i=0; i<9; i++) {
+        			sheet.getRow(16).getCell(i).setCellStyle(HeadStyleBlueBold);
+                	
+                }
                 int rowNumber = 17;
-                int length = Integer.valueOf((String)inputMap.get("EXCEL_TABLE_NUM"));
                 for(int i=0; i<length; i++) {
-                	row = sheet.createRow(rowNumber + i);
                 	for(int j=0; j<9; j++) {
-                		 row.createCell(j).setCellValue((String)(inputMap.get("EXCEL_TABLE[" + Integer.toString(i) +"][CELL"+ Integer.toString(j) + "]")));
+                		sheet.getRow(rowNumber + i).getCell(j).setCellValue((String)(inputMap.get("EXCEL_TABLE[" + Integer.toString(i) +"][CELL"+ Integer.toString(j) + "]")));
+            			sheet.getRow(rowNumber + i).getCell(j).setCellStyle(HeadStyleNormal);
                 	}
                 }
-                
-                
 
-    	
+
+                for(int i=0; i<9; i++) {
+        			sheet.getRow(rowNumber + length).getCell(i).setCellStyle(HeadStyleBorderTop);
+                	
+                }
+
+                for(int i=rowNumber-1; i<rowNumber + length; i++) {
+        			sheet.getRow(i).getCell(9).setCellStyle(HeadStyleBorderLeft);
+                	
+                }
     	
         try (FileOutputStream out = new FileOutputStream(new File(filePath, fileNm))) {
             workbook.write(out);
