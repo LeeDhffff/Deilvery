@@ -187,6 +187,9 @@
 		$("#print_excel").on("click",function(){
 // 			fnExcelDownload("print_table_1","print_table_2","테스트");
 
+			const imageData = $("#EXCEL_QR1").find("canvas")[0].toDataURL("image/png", 0.5);
+			
+			console.log(imageData);
 			
 			var Ddatas = [];
 			for(let i=0; i<$("#print_table_2 > tbody > tr").length; i++){
@@ -209,6 +212,7 @@
 					EXCEL_EK:		$("#EXCEL_EK").text(),
 					EXCEL_COST:		$("#EXCEL_COST").text(),
 					EXCEL_TABLE_NUM: $("#print_table_2 > tbody > tr").length,
+					EXCEL_QR : imageData,
 					EXCEL_TABLE : Ddatas
 			};
 			console.log(deliverydata);

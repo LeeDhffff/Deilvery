@@ -267,7 +267,7 @@
 		$(document).on("click","#Delivery_Table > tbody > tr > td",function(){
 
 			if($(this).attr("class") != "checktd"){
-			var nc = $(this).find(".in_key").val();
+			var nc = $(this).parent("tr").find(".in_key").val();
 			
 
 			/* 미완료 배송신청으로 이동 */

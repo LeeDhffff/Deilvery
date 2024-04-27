@@ -1,16 +1,16 @@
 package delivery.D_Manager;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
-import java.util.Set;
-import java.util.TreeMap;
 
 import javax.annotation.Resource;
 import javax.mail.Message;
@@ -24,17 +24,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.ClientAnchor;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Drawing;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Picture;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.util.IOUtils;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -542,7 +550,7 @@ public class ManagerController {
 		
 	}
 	
-
+	private static final String BASE64_PNG_PRE_FIX = "data:image/png;base64,";
 
     public static String excel(HashMap<String, Object> inputMap , HttpServletResponse response, Map<String, Object> model) throws Exception{
     	 // 빈 Workbook 생성
@@ -553,17 +561,28 @@ public class ManagerController {
         Sheet sheet = workbook.createSheet((String)(inputMap.get("IN_KEY")));
         String fileNm = "EK Logistics_"+(String)(inputMap.get("IN_KEY"))+".xls";
         
-        // Sheet를 채우기 위한 데이터들을 Map에 저장
-        Map<String, Object[]> data = new TreeMap<>();
-        data.put("1", new Object[]{"INVOICE"});
-        data.put("2", new Object[]{"WOW"});
-        data.put("3", new Object[]{"2"});
-        data.put("4", new Object[]{"3"});
-        data.put("5", new Object[]{"4"});
-        
-        
-        // data에서 keySet를 가져온다. 이 Set 값들을 조회하면서 데이터들을 sheet에 입력한다.
-        Set<String> keyset = data.keySet();
+        String imageData = (String)(inputMap.get("EXCEL_QR"));
+        String encodingStr = imageData.replace(BASE64_PNG_PRE_FIX, "");
+		byte[] decodeImg = Base64.decodeBase64(encodingStr);
+		InputStream in = null;
+		FileOutputStream fos = null;
+		File imageFile = null;
+		
+		String fileCommonPath = "D:\\upload\\deliveryFile";
+		
+		FileUtils.forceMkdir(new File(fileCommonPath)); //디렉토리 미 존재시 생성
+		imageFile = new File(fileCommonPath + "/"+(String)(inputMap.get("IN_KEY"))+".png");
+		fos = new FileOutputStream(imageFile);
+		fos.write(decodeImg);
+
+		in = new FileInputStream(imageFile);
+		byte[] bytes = IOUtils.toByteArray(in);
+		int pictureIdx = workbook.addPicture(bytes, SXSSFWorkbook.PICTURE_TYPE_PNG);
+
+		final CreationHelper helper = workbook.getCreationHelper();
+		final Drawing drawing = sheet.createDrawingPatriarch();
+		final ClientAnchor anchor = helper.createClientAnchor();
+	
         int rownum = 0;
         
         // (세로form~ 세로to , 가로from~가로to)
@@ -702,7 +721,7 @@ public class ManagerController {
         HeadFont4.setFontHeight((short)(10*20)); //사이즈
         HeadFont4.setColor(HSSFColor.BLACK.index);
         HeadFont4.setBoldweight(Font.BOLDWEIGHT_BOLD);
-        HeadStyleOrangeBold.setFillForegroundColor(IndexedColors.LIGHT_ORANGE.getIndex());
+        HeadStyleOrangeBold.setFillForegroundColor(IndexedColors.CORAL.getIndex());
         HeadStyleOrangeBold.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
         HeadStyleOrangeBold.setFont(HeadFont4);
         
@@ -718,7 +737,7 @@ public class ManagerController {
         HeadFontEK.setBoldweight(Font.BOLDWEIGHT_BOLD);
         HeadFontEK.setColor(HSSFColor.BLACK.index);
         HeadStyleEK.setFont(HeadFontEK);
-        HeadStyleEK.setFillForegroundColor(IndexedColors.LIGHT_ORANGE.getIndex());
+        HeadStyleEK.setFillForegroundColor(IndexedColors.CORAL.getIndex());
         HeadStyleEK.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 
         CellStyle HeadStyleNormal = workbook.createCellStyle();
@@ -735,6 +754,21 @@ public class ManagerController {
         HeadStyleNormal.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
         HeadStyleNormal.setFillForegroundColor(IndexedColors.WHITE.getIndex());
 
+
+        CellStyle HeadStyleNormalMonth = workbook.createCellStyle();
+        Font HeadFontNormalMonth = workbook.createFont();
+        HeadStyleNormalMonth.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleNormalMonth.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleNormalMonth.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalMonth.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalMonth.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalMonth.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFontNormalMonth.setFontHeight((short)(10*20)); //사이즈
+        HeadFontNormalMonth.setColor(HSSFColor.BLACK.index);
+        HeadStyleNormalMonth.setFont(HeadFontNormalMonth);
+        HeadStyleNormalMonth.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        HeadStyleNormalMonth.setFillForegroundColor(IndexedColors.CORAL.getIndex());
+        
         CellStyle HeadStyleNormalRed = workbook.createCellStyle();
         Font HeadFontNormalRed = workbook.createFont();
         HeadStyleNormalRed.setAlignment(HSSFCellStyle.ALIGN_CENTER);
@@ -764,6 +798,20 @@ public class ManagerController {
         HeadStyleNormalBlue.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
         HeadStyleNormalBlue.setFillForegroundColor(IndexedColors.WHITE.getIndex());
         
+
+        CellStyle HeadStyleNormalDown = workbook.createCellStyle();
+        Font HeadFontNormalDown = workbook.createFont();
+        HeadStyleNormalDown.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleNormalDown.setVerticalAlignment(HSSFCellStyle.VERTICAL_BOTTOM); //높이 아래 정렬
+        HeadStyleNormalDown.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalDown.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalDown.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalDown.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFontNormalDown.setFontHeight((short)(10*20)); //사이즈
+        HeadFontNormalDown.setColor(HSSFColor.BLACK.index);
+        HeadStyleNormalDown.setFont(HeadFontNormalDown);
+        HeadStyleNormalDown.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        HeadStyleNormalDown.setFillForegroundColor(IndexedColors.WHITE.getIndex());
         
         CellStyle SignitureStyleNormal = workbook.createCellStyle();
         Font SignitureFontNormal = workbook.createFont();
@@ -817,7 +865,7 @@ public class ManagerController {
 	        		}
 	        		sheet.getRow(j).setHeight((short)400);
         		}
-                sheet.getRow(12).setHeight((short)1300);
+                sheet.getRow(12).setHeight((short)1800);
                 
         		for(int j=0; j<2; j++) {
 	        		for(int i=0; i<9; i++) {
@@ -929,7 +977,7 @@ public class ManagerController {
     			sheet.getRow(8).getCell(0).setCellStyle(HeadStyleBlue);
         		sheet.getRow(8).getCell(1).setCellValue((String)(inputMap.get("EXCEL_COUNT")));
         		for(int i=1; i<4; i++) {
-        			sheet.getRow(8).getCell(i).setCellStyle(HeadStyleNormal);
+        			sheet.getRow(8).getCell(i).setCellStyle(HeadStyleWhiteBold);
         		}
         		sheet.getRow(8).getCell(4).setCellValue("할인율ສ່ວນຫຼຸດ");
     			sheet.getRow(8).getCell(4).setCellStyle(HeadStyleBlue);
@@ -945,7 +993,7 @@ public class ManagerController {
         		sheet.getRow(9).getCell(0).setCellValue("출항 월:ເດືອນ");
     			sheet.getRow(9).getCell(0).setCellStyle(HeadStyleBlue);
         		sheet.getRow(9).getCell(1).setCellValue((String)(inputMap.get("EXCEL_MONTH")));
-    			sheet.getRow(9).getCell(1).setCellStyle(HeadStyleNormal);
+    			sheet.getRow(9).getCell(1).setCellStyle(HeadStyleNormalMonth);
         		sheet.getRow(9).getCell(4).setCellValue("할인금액 ລວມສ່ວນຫຼຸດ");
     			sheet.getRow(9).getCell(4).setCellStyle(HeadStyleBlue);
         		sheet.getRow(9).getCell(5).setCellValue("0$");
@@ -966,7 +1014,7 @@ public class ManagerController {
         		}
         		sheet.getRow(10).getCell(4).setCellValue("청구액 ລວມຕ້ອງຈ່າຍ");
         		for(int i=10; i<12; i++) {
-        			sheet.getRow(i).getCell(4).setCellStyle(HeadStyleWhiteBold);
+        			sheet.getRow(i).getCell(4).setCellStyle(HeadStyleBlueBold);
         		}
         		sheet.getRow(10).getCell(5).setCellValue((String)(inputMap.get("EXCEL_COST")));
         		
@@ -992,10 +1040,19 @@ public class ManagerController {
         		for(int i=0; i<4; i++) {
         			sheet.getRow(12).getCell(i).setCellStyle(HeadStyleLong);
         		}
-        		
+
+    			anchor.setRow1(12);
+        		anchor.setCol1(6);
+
+    			// 이미지 그리기
+    			final Picture pict = drawing.createPicture(anchor, pictureIdx);
+
+    			// 이미지 사이즈 비율 설정
+    			pict.resize();
+    			
         		sheet.getRow(12).getCell(4).setCellValue("(KIP)");
         		for(int i=4; i<9; i++) {
-        			sheet.getRow(12).getCell(i).setCellStyle(HeadStyleNormal);
+        			sheet.getRow(12).getCell(i).setCellStyle(HeadStyleNormalDown);
         		}
 
 
@@ -1076,7 +1133,9 @@ public class ManagerController {
         } catch (IOException e) {
             e.printStackTrace();
             return "N";
-        }
+        }finally {
+			imageFile.delete();
+		}
     }
 //	public static HSSFWorkbook excel(HashMap<String, Object> inputMap , HttpServletResponse response, Map<String, Object> model) throws Exception{
 //			
