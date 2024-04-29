@@ -87,11 +87,7 @@
 		}
 
 	$(document).on('ready', function(){
-		var width = window.outerWidth;
 		
-		if(width < 767){
-			location.replace("Mobile_Login.do");
-		}
 		$("#idsaveA").on("click",function(){
 			$('#idsave').prop('checked',function(){
 		        return !$(this).prop('checked');

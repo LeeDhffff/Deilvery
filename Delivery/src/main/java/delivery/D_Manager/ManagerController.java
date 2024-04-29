@@ -498,7 +498,8 @@ public class ManagerController {
 
 	    props.put("mail.smtp.auth", "true");
 	    props.put("mail.smtp.starttls.enable", "true"); // use TLS
-
+	    props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+	    
 	    Session mailSession = Session.getInstance(props,
 	            new javax.mail.Authenticator() { // set authenticator
 	                protected PasswordAuthentication getPasswordAuthentication() {

@@ -40,5 +40,10 @@
 		) }
 	</select>
 	
+	<select id="Status_Select" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call A_STATUS(
+				#{MEM_ID}
+		) }
+	</select>
 	
 </mapper>

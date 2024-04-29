@@ -28,7 +28,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
-
+<script src="./js/pageChange.js"></script>
 
 </head>
 
@@ -48,7 +48,7 @@
             </li>
         </ul>
         <ul class="header_option">
-        	<li id="to_mobile"><a href="#">모바일로 보기</a></li>
+<!--         	<li id="to_mobile"><a href="#">모바일로 보기</a></li> -->
             <li id="id_status"><a href="LoginPage.do">로그인</a></li>
             <li class="language">
                 <a href="#">
@@ -101,12 +101,7 @@
 			})	
 		}
 		
-		var width = window.outerWidth;
-		if(width <= 767){
 
-// 			location.href = "Mobile.do";
-			
-		}
 
 		if(uid=="null" && uid2=="null"){ 
 		}

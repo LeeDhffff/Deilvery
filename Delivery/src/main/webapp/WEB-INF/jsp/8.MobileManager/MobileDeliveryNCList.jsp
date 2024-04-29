@@ -11,7 +11,7 @@
 <html lang="kr">    
     <title>EK Logistics</title>
 </head>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -26,6 +26,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
+<script src="./js/pageChange.js"></script>
+
 </head>
 
 <body>
@@ -42,10 +44,10 @@
         <section>                                   
             <div class="countWrap">
                 <div class="countCon">
-                    <h5 class="date">2024-02-27</h5>
+                    <h5 class="date"></h5>
                     <h3 class="txt">미완료 배송 신청 건수</h3>
                 </div>
-                <h1 class="count">3건</h1>
+                <h1 class="count">0건</h1>
             </div>
                    
             <div class="currentWrap">
@@ -61,22 +63,7 @@
                                 <th>신청일자</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>2</td>
-                                <td>이재원</td>
-                                <td>2024-02-27</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>이동헌</td>
-                                <td>2024-02-27</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>장연우</td>
-                                <td>2024-02-27</td>
-                            </tr>                            
+                        <tbody>                            
                         </tbody>
                     </table>
                 </div>   
@@ -92,14 +79,7 @@
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
 
 	$(document).on('ready',function(){
-		var width = window.outerWidth;
 		
-// 		if(width <= 767){
-
-// 		}
-// 		else{
-// 			location.href = "Main.do";
-// 		}
 
 		
 		$(".back").on("click",function(){

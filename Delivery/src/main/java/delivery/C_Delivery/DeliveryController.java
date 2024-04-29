@@ -138,4 +138,19 @@ public class DeliveryController {
 		String jsonStr = mapper.writeValueAsString(LoginList);
 		return jsonStr;
 	}
+	
+
+	/* 이용횟수, 돈, 다가올 출항일  불러오기. */
+	@RequestMapping(value = "/Status_Select.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Status_Select(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		HashMap<String, String> DeliveryList = DeliveryService.Status_Select(inputMap);
+		System.out.println(DeliveryList);
+
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr = mapper.writeValueAsString(DeliveryList);
+		return jsonStr;
+	}
 }

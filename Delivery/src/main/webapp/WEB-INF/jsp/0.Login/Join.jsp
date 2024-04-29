@@ -128,12 +128,6 @@
 <script type="text/javascript">
 	$(document).on('ready',function(){
 
-		var width = window.outerWidth;
-		if(width <= 767){
-
-			location.href = "Mobile_Join.do";
-			
-		}
 		$("#chk_id").on("click",function(){
 			
 			if($("#join_ID").val() != '' && $("#join_ID").val().length >= 6){

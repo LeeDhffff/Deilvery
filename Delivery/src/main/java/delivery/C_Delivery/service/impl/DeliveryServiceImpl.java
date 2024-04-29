@@ -49,6 +49,12 @@ public class DeliveryServiceImpl implements DeliveryService {
 		// TODO Auto-generated method stub
 		return DeliveryMapper.Delivery_Select_O(inputMap);
 	}
+
+	@Override
+	public HashMap<String, String> Status_Select(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return DeliveryMapper.Status_Select(inputMap);
+	}
 	
 
 }

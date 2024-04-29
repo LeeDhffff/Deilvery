@@ -11,7 +11,7 @@
 <html lang="kr">    
     <title>EK Logistics - 출항일 검색</title>
 </head>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
 	
 </style>
@@ -28,6 +28,7 @@
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
 <script src="./js/8.MobileManager/MemberList_index.js"></script>
+<script src="./js/pageChange.js"></script>
 
 </head>
 
@@ -43,7 +44,7 @@
                 </h5>
             </div>
             <div class="popBody">
-                <h3 class="tabCon on"><a href="#">이용 횟수</a></h3>     
+                <h3 class="tabCon"><a href="#">이용 횟수</a></h3>     
                 <h3 class="tabCon"><a href="#">배송비 총 금액</a></h3>          
             </div>
             <button class="popButton">적용하기</button>            
@@ -97,14 +98,7 @@
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
 
 	$(document).on('ready',function(){
-		var width = window.outerWidth;
 		
-// 		if(width <= 767){
-
-// 		}
-// 		else{
-// 			location.href = "Main.do";
-// 		}
 
 		$(".back").on("click",function(){
 			history.back();
@@ -126,7 +120,9 @@
 	/* 회원 리스트 불러오기 */
 	function selectList(){
 			var deliverydata = {
-					MEM_ID : uid
+					MEM_ID : uid,
+					COUNT : $("#chk_count option:selected").val(),
+					TOTALCOST : $("#chk_cost option:selected").val()
 			};
 			$.ajax({
 				type: "POST",

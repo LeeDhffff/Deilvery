@@ -11,7 +11,7 @@
 <html lang="kr">    
     <title>EK Logistics - 출항일 검색</title>
 </head>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
 	.currentcheck{
 		display:none;
@@ -48,6 +48,7 @@
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
 <script src="./js/8.MobileManager/Outday_index.js"></script>
+<script src="./js/pageChange.js"></script>
 </head>
 
 <body>
@@ -97,37 +98,43 @@
             <div class="stepWrap">
                 <div class="stepCon current one on">
                     <h5 class="stepTxt"><a href="#">한국물류창고</a></h5>
-                    <input class="stepDate currentDay" type="text">
+                    <input class="stepDate currentDay" type="text" placeholder="날짜">
+                    <input class="stepDate currentMessage" type="text" placeholder="비고">
 	          		<input type="hidden" class="currentSeq" placeholder="" value="1">
                     <input type="radio" name="radiooutkey" class="currentcheck">                     
                 </div>
                 <div class="stepCon current two">
                     <h5 class="stepTxt"><a href="#">출항시작(미정)</a></h5>
-                    <input class="stepDate currentDay" type="text">
+                    <input class="stepDate currentDay" type="text" placeholder="날짜">
+                    <input class="stepDate currentMessage" type="text" placeholder="비고">
 	          		<input type="hidden" class="currentSeq" placeholder="" value="2">
                     <input type="radio" name="radiooutkey" class="currentcheck">   
                 </div>
                 <div class="stepCon current three">
                     <h5 class="stepTxt"><a href="#">태국도착</a></h5>
-                    <input class="stepDate currentDay" type="text">
+                    <input class="stepDate currentDay" type="text" placeholder="날짜">
+                    <input class="stepDate currentMessage" type="text" placeholder="비고">
 	          		<input type="hidden" class="currentSeq" placeholder="" value="3">
                     <input type="radio" name="radiooutkey" class="currentcheck">   
                 </div>
                 <div class="stepCon current four">
                     <h5 class="stepTxt"><a href="#">라오스출발</a></h5>
-                    <input class="stepDate currentDay" type="text">
+                    <input class="stepDate currentDay" type="text" placeholder="날짜">
+                    <input class="stepDate currentMessage" type="text" placeholder="비고">
 	          		<input type="hidden" class="currentSeq" placeholder="" value="4">
                     <input type="radio" name="radiooutkey" class="currentcheck">   
                 </div>
                 <div class="stepCon current five">
                     <h5 class="stepTxt"><a href="#">라오스도착</a></h5>
-                    <input class="stepDate currentDay" type="text">
+                    <input class="stepDate currentDay" type="text" placeholder="날짜">
+                    <input class="stepDate currentMessage" type="text" placeholder="비고">
 	          		<input type="hidden" class="currentSeq" placeholder="" value="5">
                     <input type="radio" name="radiooutkey" class="currentcheck">   
                 </div>
                 <div class="stepCon current six">
                     <h5 class="stepTxt"><a href="#">배출시작</a></h5>
-                    <input class="stepDate currentDay" type="text">
+                    <input class="stepDate currentDay" type="text" placeholder="날짜">
+                    <input class="stepDate currentMessage" type="text" placeholder="비고">
 	          		<input type="hidden" class="currentSeq" placeholder="" value="6">
                     <input type="radio" name="radiooutkey" class="currentcheck">   
                 </div>
@@ -149,14 +156,7 @@
 	var outkey = window.location.search.replaceAll("?ok=","");
 	
 	$(document).on('ready',function(){
-		var width = window.outerWidth;
 		
-// 		if(width <= 767){
-
-// 		}
-// 		else{
-// 			location.href = "Main.do";
-// 		}
 
 		$(".back").on("click",function(){
 			history.back();
@@ -247,8 +247,9 @@
 	    		     		 	form.append("OUT_DAY",$("#Out_Day").val());
 	    		     		 	form.append("CHK",$(".current.on").find(".currentSeq").val());
 	    		     		 	form.append("OUT_TXT",$(".current.on").find(".currentDay").val());
+	    		     		 	form.append("OUT_TXT_SUB",$(".current.on").find(".currentMessage").val());
 	    		     		 	form.append("MODE","U");
-
+	    		     		 	
 	    		     		 	form.append("uploadFile",null);
 //	     		     		 	$("#Out_Day_Out_Image")[0].files[0]
 	    		            	$.ajax({
@@ -286,6 +287,7 @@
 		     		 	form.append("OUT_DAY",$("#Out_Day").val());
 		     		 	form.append("CHK",$(".current.on").find(".currentSeq").val());
 		     		 	form.append("OUT_TXT",$(".current.on").find(".currentDay").val());
+		     		 	form.append("OUT_TXT_SUB",$(".current.on").find(".currentMessage").val());
 		     		 	form.append("MODE","U");
 
 		     		 	form.append("uploadFile",null);
@@ -352,6 +354,7 @@
 		     		 	form.append("OUT_DAY",$("#Out_Day").val());
 		     		 	form.append("CHK",$(".current.on").find(".currentSeq").val());
 		     		 	form.append("OUT_TXT",$(".current.on").find(".currentDay").val());
+		     		 	form.append("OUT_TXT_SUB",$(".current.on").find(".currentMessage").val());
 		     		 	form.append("MODE","D");
 
 		     		 	form.append("uploadFile",null);
@@ -413,6 +416,7 @@
 						
 						for(let i=0; i<filesdata.length; i++){
 							$(".current."+setting[i]).find(".currentDay").val(filesdata[i].OUT_TXT);
+							$(".current."+setting[i]).find(".currentMessage").val(filesdata[i].OUT_TXT_SUB);
 						}
 						
 						

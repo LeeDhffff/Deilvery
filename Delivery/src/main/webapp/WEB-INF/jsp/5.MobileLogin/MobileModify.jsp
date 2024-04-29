@@ -11,7 +11,7 @@
 <html lang="kr">    
     <title>EK Logistics</title>
 </head>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
 	header.first{
 		display: flex;
@@ -40,6 +40,7 @@
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
 <!-- <script src="./js/5.MobileLogin/MJ_index.js"></script> -->
+<script src="./js/pageChange.js"></script>
 
 </head>
 
@@ -56,8 +57,8 @@
             </div>
             <div class="popBody">
                 <div class="top">
-                    <input type="text" placeholder="4993">
-                    <div class="count">03:45</div>
+                    <input type="text" placeholder="">
+                    <div class="count"></div>
                 </div>
                 <div class="bottom">
                     <h5><a href="#">인증번호가 도착하지 않았다면?</a></h5>
@@ -81,7 +82,7 @@
             <div class="popBody">
                 <h3>
                     <a id="chk_id_text" href="#">
-                        jaewonlee 아이디는<br> 사용 가능한 아이디입니다.
+                         아이디는<br> 사용 가능한 아이디입니다.
                     </a>
                 </h3>
             </div>
@@ -166,14 +167,6 @@
 	var chk_mods = window.location.search.replaceAll("?id=","").split("&level=");
 	
 	$(document).on('ready',function(){
-		var width = window.outerWidth;
-		
-// 		if(width <= 767){
-
-// 		}
-// 		else{
-// 			location.href = "JoinPage.do";
-// 		}
 		
 
 		$(".back").on("click",function(){

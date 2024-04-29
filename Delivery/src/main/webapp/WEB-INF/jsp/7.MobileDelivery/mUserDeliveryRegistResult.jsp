@@ -22,7 +22,7 @@
 
     <!-- import pretendard font -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
-        
+        <script src="./js/pageChange.js"></script>
 </head>
 <body>
 	<div class="m_container">

@@ -86,7 +86,7 @@
 				location.href = "Main_Manager.do";
 		   }
 		}
-
+		
 
 		
 		$("button > a").on("click",function(e){

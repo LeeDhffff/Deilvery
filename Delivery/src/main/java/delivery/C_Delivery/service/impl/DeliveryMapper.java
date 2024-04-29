@@ -20,4 +20,6 @@ public interface DeliveryMapper {
 
 	String Delivery_Select_B_CHK(HashMap<String, Object> inputMap) throws Exception;
 	List<HashMap<String, String>> Delivery_Select_B(HashMap<String, Object> inputMap) throws Exception;
+	
+	HashMap<String, String> Status_Select(HashMap<String, Object> inputMap) throws Exception;
 }

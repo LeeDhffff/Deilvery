@@ -12,6 +12,7 @@
     <title>EK Logistics</title>
 </head>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
 
 :root 
@@ -67,6 +68,7 @@ table tbody tr td
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
 <script src="./js/6.MobileDelivery/MDD_index.js"></script>
+<script src="./js/pageChange.js"></script>
 
 </head>
 
@@ -93,11 +95,6 @@ table tbody tr td
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-	                       		<td id="qr_number">EK1</td>
-	                       		<td id="qr_box">10</td>
-	                       		<td id="qr_outday">2024-04-10</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -126,27 +123,33 @@ table tbody tr td
             <div class="stepWrap">
                 <div class="stepCon on">
                     <h5 class="stepTxt"><a href="#">한국물류창고</a></h5>
-                    <h5 class="stepDate"><a href="#">2024-01-12</a></h5>
+                    <h5 class="stepDate"><a href="#"></a></h5>
+                    <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
                     <h5 class="stepTxt"><a href="#">출항시작(미정)</a></h5>
-                    <h5 class="stepDate"><a href="#">2024-01-12</a></h5>
+                    <h5 class="stepDate"><a href="#"></a></h5>
+                    <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
                     <h5 class="stepTxt"><a href="#">태국도착</a></h5>
-                    <h5 class="stepDate"><a href="#">2024-01-12</a></h5>
+                    <h5 class="stepDate"><a href="#"></a></h5>
+                    <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
                     <h5 class="stepTxt"><a href="#">라오스출발</a></h5>
-                    <h5 class="stepDate"><a href="#">2024-01-12</a></h5>
+                    <h5 class="stepDate"><a href="#"></a></h5>
+                    <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
                     <h5 class="stepTxt"><a href="#">라오스도착</a></h5>
-                    <h5 class="stepDate"><a href="#">2024-01-12</a></h5>
+                    <h5 class="stepDate"><a href="#"></a></h5>
+                    <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
                     <h5 class="stepTxt"><a href="#">배출시작</a></h5>
-                    <h5 class="stepDate"><a href="#">2024-01-12</a></h5>
+                    <h5 class="stepDate"><a href="#"></a></h5>
+                    <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
             </div>    
         </section>
@@ -162,12 +165,6 @@ table tbody tr td
 	$(document).on('ready',function(){
 		var width = window.outerWidth;
 		
-// 		if(width <= 767){
-			
-// 		}
-// 		else{
-// 			location.href = "Main.do";
-// 		}
 		
 		$(".back").on("click",function(){
 			history.back();
@@ -208,6 +205,7 @@ table tbody tr td
 				
 				for(let i=0; i<result.length; i++ ){
 					$($(".stepCon")[i]).find(".stepDate > a").text(result[i].OUT_TXT);
+					$($(".stepCon")[i]).find(".stepCurrent > a").text(result[i].OUT_TXT_SUB);
 					
 					if(result.length -1  == i){
 						$($(".stepCon")[i]).addClass("on");

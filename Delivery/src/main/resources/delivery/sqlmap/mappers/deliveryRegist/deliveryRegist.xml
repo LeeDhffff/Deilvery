@@ -12,7 +12,7 @@
 			MEM_ID AS memId
 			,NAME AS memNm
 			,LEVEL AS memLv
-		FROM MEMBER
+		FROM member
 		WHERE MEM_ID = #{memId};		
 	</select>
 	
@@ -24,7 +24,7 @@
 	<!-- 회원 배송신청 등록 -->
 	<insert id="userDelRegist" parameterType="hashmap">
 		/* userDelRegist */
-		INSERT INTO APPLICATION(
+		INSERT INTO application(
 			IN_KEY
 			,MEM_ID
 			,TYPE
@@ -82,7 +82,7 @@
 			,ARR_DAY AS arrDay
 			,CHK AS chk
 			,PASSWORD AS password
-		FROM APPLICATION
+		FROM application
 		WHERE IN_KEY = #{inKey};
 	</select>
 	
@@ -93,7 +93,7 @@
 			OUT_KEY AS outKey
 			,OUT_DAY AS outDay
 			,OUT_TXT AS outTxt
-		FROM OUT_DAY;
+		FROM out_day;
 	</select>
 	
 	<!-- 박스정보 가져오기 -->
@@ -108,7 +108,7 @@
 			,WEIGHT AS weight
 			,COST AS cost
 			,OUT_KEY AS outKey
-		FROM SJ_NUM
+		FROM sj_num
 		WHERE IN_KEY = #{inKey}
 		ORDER BY CAST(SUBSTR(SJ_KEY, 13) AS INTEGER) DESC
 	</select>
@@ -118,7 +118,7 @@
 	<!-- 관리자 배송신청 등록 -->
 	<insert id="adminDelRegist" parameterType="hashmap">
 		/* adminDelRegist */
-		INSERT INTO APPLICATION(
+		INSERT INTO appliaction(
 			IN_KEY
 			,MEM_ID
 			,TYPE
@@ -154,7 +154,7 @@
 	<!-- 관리자 배송신청 수정 -->
 	<update id="adminDelUpdate" parameterType="hashmap">
 		/* adminDelUpdate */
-		UPDATE APPLICATION
+		UPDATE application
 		SET		
 			REC_NM = #{recNm}
 			,REC_PHONE = #{recPhone} 
@@ -173,7 +173,7 @@
 	<select id="cntInKey" parameterType="hashmap" resultType="java.lang.Integer">
 		/* cntInKey */
 		SELECT COUNT(*) AS cnt
-		FROM APPLICATION
+		FROM application
 		WHERE SUBSTR(IN_KEY,3,8) = #{inKeyDay};
 	</select>
 	
@@ -181,11 +181,11 @@
 	<select id="lastInKey" parameterType="hashmap" resultType="java.lang.String">
 		/* lastInKey */
 		SELECT IN_KEY AS inKey
-		FROM APPLICATION
+		FROM application
 		WHERE SUBSTR(IN_KEY,3,8) = #{inKeyDay}
 		AND SUBSTR(IN_KEY, 11) = (
 			SELECT MAX(cast(SUBSTR(IN_KEY,11) AS INTEGER)) 
-			FROM APPLICATION
+			FROM application
 			WHERE SUBSTR(IN_KEY,3,8) = #{inKeyDay}
 		);
 	</select>
@@ -195,14 +195,14 @@
 	<select id="cntTotalPacketInfo" parameterType="hashmap" resultType="java.lang.Integer">
 		/* cntTotalPacketInfo */
 		SELECT IFNULL(MAX(SN),0) AS sn
-		FROM SJ_NUM
+		FROM sj_num
 		WHERE OUT_KEY = #{outKey};
 	</select>
 	
 	<!-- 박스정보 등록 -->
 	<insert id="packetInfoRegist" parameterType="hashmap">
 		/* packetInfoRegist */
-		INSERT INTO SJ_NUM(
+		INSERT INTO sj_num(
 			SJ_KEY
 			,IN_KEY
 			,SN
@@ -229,7 +229,7 @@
 	<!-- 등록된 박스정보 삭제 -->
 	<delete id="delPacketInfo" parameterType="hashmap">
 		/* delPacketInfo */
-		UPDATE SJ_NUM
+		UPDATE sj_num
 		SET IN_KEY = #{outKey}
 		WHERE IN_KEY = #{inKey};
 	</delete>

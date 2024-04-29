@@ -61,11 +61,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-	                       		<td id="qr_number">EK1</td>
-	                       		<td id="qr_box">10</td>
-	                       		<td id="qr_outday">2024-04-10</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div> 
@@ -96,20 +91,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>2024-01-20</td>
-                                <td>이재원</td>
-                                <td>2024-01-10</td>
-                                <td>$100</td>
-                                <td>W*H*L(50CM*40CM*30CM) / 무게 7KG</td>
-                            </tr>
-                            <tr>
-                                <td>2024-01-20</td>
-                                <td>윤도균</td>
-                                <td>2024-01-10</td>
-                                <td>$100</td>
-                                <td>W*H*L(50CM*40CM*30CM) / 무게 7KG</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div> 
@@ -131,7 +112,7 @@
                     <h5 class="conSubTitle">
                         <p>
 <!--                             회원님의 운송장번호는 2024010845 입니다.<br> -->
-                            <span style="color:var(--main-color); font-weight: 600;">해당 물건은 현재 한국물류창고에 접수되어 출항대기 상태입니다.</span>
+                            <span id="status" style="color:var(--main-color); font-weight: 600;"></span>
                         </p>
                     </h5>                   
                     <div class="wrap">
@@ -148,22 +129,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>2024-01-20</td>
-                                        <td>이재원</td>
-                                        <td>2024-01-10</td>
-                                        <td>$100</td>
-                                        <td class="currentClickOne" style="cursor:pointer;">한국물류창고 (클릭)</td>
-                                        <td class="historyCheck">확인하기</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2024-01-20</td>
-                                        <td>윤도균</td>
-                                        <td>2024-01-10</td>
-                                        <td>$100</td>
-                                        <td class="currentClickTwo" style="cursor:pointer;">한국물류창고 (클릭)</td>
-                                        <td>확인하기</td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div> 
@@ -181,8 +146,8 @@
                                         </a>
                                     </div>
                                     <h5 class="currentTitle"><a href="#">한국 물류창고</a></h5>
-                                    <h5 class="currentDay"><a href="#">2024-01-12</a></h5>
-                                    <h5 class="currentMessage"><a href="#">해당 물건은 현재 한국물류창고에 접수되어 출항대기 상태입니다.</a></h5>                                    
+                                    <h5 class="currentDay"><a href="#"></a></h5>
+                                    <h5 class="currentMessage"><a href="#"></a></h5>                                    
                                 </div>
                                 <div class="current two">
                                     <div class="condition">
@@ -191,8 +156,8 @@
                                         </a>
                                     </div>
                                     <h5 class="currentTitle"><a href="#">출항시작(미정)</a></h5>
-                                    <h5 class="currentDay"><a href="#">2024-01-12</a></h5>
-                                    <h5 class="currentMessage"><a href="#">해당 물건은 현재 한국물류창고에 접수되어 출항대기 상태입니다.</a></h5>
+                                    <h5 class="currentDay"><a href="#"></a></h5>
+                                    <h5 class="currentMessage"><a href="#"></a></h5>
                                 </div>
                                 <div class="current three">
                                     <div class="condition">
@@ -201,8 +166,8 @@
                                         </a>
                                     </div>
                                     <h5 class="currentTitle"><a href="#">태국도착</a></h5>
-                                    <h5 class="currentDay"><a href="#">2024-01-12</a></h5>
-                                    <h5 class="currentMessage"><a href="#">해당 물건은 현재 한국물류창고에 접수되어 출항대기 상태입니다.</a></h5>
+                                    <h5 class="currentDay"><a href="#"></a></h5>
+                                    <h5 class="currentMessage"><a href="#"></a></h5>
                                 </div>
                                 <div class="current four">
                                     <div class="condition">
@@ -211,8 +176,8 @@
                                         </a>
                                     </div>
                                     <h5 class="currentTitle"><a href="#">라오스 출발</a></h5>
-                                    <h5 class="currentDay"><a href="#">2024-01-12</a></h5>
-                                    <h5 class="currentMessage"><a href="#">해당 물건은 현재 한국물류창고에 접수되어 출항대기 상태입니다.</a></h5>
+                                    <h5 class="currentDay"><a href="#"></a></h5>
+                                    <h5 class="currentMessage"><a href="#"></a></h5>
                                 </div>
                                 <div class="current five">
                                     <div class="condition">
@@ -221,8 +186,8 @@
                                         </a>
                                     </div>
                                     <h5 class="currentTitle"><a href="#">라오스 도착</a></h5>
-                                    <h5 class="currentDay"><a href="#">2024-01-12</a></h5>
-                                    <h5 class="currentMessage"><a href="#">해당 물건은 현재 한국물류창고에 접수되어 출항대기 상태입니다.</a></h5>
+                                    <h5 class="currentDay"><a href="#"></a></h5>
+                                    <h5 class="currentMessage"><a href="#"></a></h5>
                                 </div>
                                 <div class="current six">
                                     <div class="condition">
@@ -231,8 +196,8 @@
                                         </a>
                                     </div>
                                     <h5 class="currentTitle"><a href="#">배출 시작</a></h5>
-                                    <h5 class="currentDay"><a href="#">2024-01-12</a></h5>
-                                    <h5 class="currentMessage"><a href="#">해당 물건은 현재 한국물류창고에 접수되어 출항대기 상태입니다.</a></h5>
+                                    <h5 class="currentDay"><a href="#"></a></h5>
+                                    <h5 class="currentMessage"><a href="#"></a></h5>
                                 </div>
                             </div>
                         </div>  
@@ -250,8 +215,8 @@
                                         </a>
                                     </div>
                                     <h5 class="currentTitle"><a href="#">한국 물류창고</a></h5>
-                                    <h5 class="currentDay"><a href="#">2024-01-12</a></h5>
-                                    <h5 class="currentMessage"><a href="#">해당 물건은 현재 한국물류창고에 접수되어 출항대기 상태입니다.</a></h5>                                    
+                                    <h5 class="currentDay"><a href="#"></a></h5>
+                                    <h5 class="currentMessage"><a href="#"></a></h5>                                    
                                 </div>
                                 <div class="current two on">
                                     <div class="condition ">
@@ -260,8 +225,8 @@
                                         </a>
                                     </div>
                                     <h5 class="currentTitle"><a href="#">출항시작(미정)</a></h5>
-                                    <h5 class="currentDay"><a href="#">2024-01-12</a></h5>
-                                    <h5 class="currentMessage"><a href="#">해당 물건은 현재 한국물류창고에 접수되어 출항대기 상태입니다.</a></h5>
+                                    <h5 class="currentDay"><a href="#"></a></h5>
+                                    <h5 class="currentMessage"><a href="#"></a></h5>
                                 </div>
                                 <div class="current three">
                                     <div class="condition">
@@ -270,8 +235,8 @@
                                         </a>
                                     </div>
                                     <h5 class="currentTitle"><a href="#">태국도착</a></h5>
-                                    <h5 class="currentDay"><a href="#">2024-01-12</a></h5>
-                                    <h5 class="currentMessage"><a href="#">해당 물건은 현재 한국물류창고에 접수되어 출항대기 상태입니다.</a></h5>
+                                    <h5 class="currentDay"><a href="#"></a></h5>
+                                    <h5 class="currentMessage"><a href="#"></a></h5>
                                 </div>
                                 <div class="current four">
                                     <div class="condition">
@@ -280,8 +245,8 @@
                                         </a>
                                     </div>
                                     <h5 class="currentTitle"><a href="#">라오스 출발</a></h5>
-                                    <h5 class="currentDay"><a href="#">2024-01-12</a></h5>
-                                    <h5 class="currentMessage"><a href="#">해당 물건은 현재 한국물류창고에 접수되어 출항대기 상태입니다.</a></h5>
+                                    <h5 class="currentDay"><a href="#"></a></h5>
+                                    <h5 class="currentMessage"><a href="#"></a></h5>
                                 </div>
                                 <div class="current five">
                                     <div class="condition">
@@ -290,8 +255,8 @@
                                         </a>
                                     </div>
                                     <h5 class="currentTitle"><a href="#">라오스 도착</a></h5>
-                                    <h5 class="currentDay"><a href="#">2024-01-12</a></h5>
-                                    <h5 class="currentMessage"><a href="#">해당 물건은 현재 한국물류창고에 접수되어 출항대기 상태입니다.</a></h5>
+                                    <h5 class="currentDay"><a href="#"></a></h5>
+                                    <h5 class="currentMessage"><a href="#"></a></h5>
                                 </div>
                                 <div class="current six">
                                     <div class="condition">
@@ -300,8 +265,7 @@
                                         </a>
                                     </div>
                                     <h5 class="currentTitle"><a href="#">배출 시작</a></h5>
-                                    <h5 class="currentDay"><a href="#">2024-01-12</a></h5>
-                                    <h5 class="currentMessage"><a href="#">해당 물건은 현재 한국물류창고에 접수되어 출항대기 상태입니다.</a></h5>
+                                    <h5 class="currentDay"><a href="#"></a></h5>
                                 </div>
                             </div>
                         </div> 
@@ -411,7 +375,12 @@
 				}
 
 				$("#Delivery_Table > tbody").append(tbodyData);
-				
+				if(result.length <= 0){
+					$("#status").text("회원님께서 배송신청한 물건이 없습니다.");
+				}
+				else{
+// 					$("#status").text("해당 물건은 현재 한국물류창고에 접수되어 출항대기 상태입니다.");
+				}
             }
 			
 		})	
@@ -492,6 +461,7 @@
 				$(".current").removeClass("on");
 				$(".condition").removeClass("on");
 				$(".currentDay > a").text("미정");
+				$(".currentMessage > a").text("");
 				
 				if(result[0].SJ_KEY != null){
 					var sj = result[0].SJ_KEY.split("-");
@@ -507,6 +477,7 @@
 				
 				for(let i=0; i<result.length; i++ ){
 					$($(".currentCon > .current")[i]).find(".currentDay > a").text(result[i].OUT_TXT);
+					$($(".currentCon > .current")[i]).find(".currentMessage > a").text(result[i].OUT_TXT_SUB);
 					
 					if(result.length -1  == i){
 						$($(".currentCon > .current")[i]).addClass("on");

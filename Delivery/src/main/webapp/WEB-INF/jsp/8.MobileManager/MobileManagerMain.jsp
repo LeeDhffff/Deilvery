@@ -11,7 +11,7 @@
 <html lang="kr">    
     <title>EK Logistics</title>
 </head>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
 	#tologout{
 		display:none;
@@ -29,6 +29,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
+<script src="./js/pageChange.js"></script>
+
 </head>
 
 <body>
@@ -38,7 +40,7 @@
                 <img src="./images/m_icon/logo_color.svg" alt="logo">
             </h1>            
             <ul class="header_option">
-                <li id="topc"><img src="./images/m_icon/pc_icon.svg" alt="pc"></li>
+<!--                 <li id="topc"><img src="./images/m_icon/pc_icon.svg" alt="pc"></li> -->
                 <li id="tologin"><img src="./images/m_icon/login.svg" alt="login"></li>
                 <li id="tologout"><img src="./images/m_icon/logout.svg" alt="logout"></li>
                 <li class="language">
@@ -74,7 +76,7 @@
                     <h5 class="icon">
                         <img src="./images/m_icon/notice_orange.svg" alt="#">
                     </h5>
-                    <h5 class="txt">금주 예상 출항일은 <span class="date">24-03-12</span> 입니다.</h5>
+                    <h5 class="txt">금주 예상 출항일은 <span id="dateOut" class="date"></span> 입니다.</h5>
                 </div>
             </div>
 
@@ -135,14 +137,7 @@
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
 
 	$(document).on('ready',function(){
-		var width = window.outerWidth;
 		
-// 		if(width <= 767){
-
-// 		}
-// 		else{
-// 			location.href = "Main.do";
-// 		}
 
 		if(uid != "null" || uid2 != "null"){
 			$("#tologin").remove();
@@ -170,6 +165,21 @@
 			
 		})
 		
+		
+		$.ajax({
+			type: "POST",
+			url : "./Status_Select.do",
+			data: {MEM_ID : uid},
+			async: false,
+            success: function(datas){
+            	var result = JSON.parse(datas);
+            	
+            	$("#totalcost").text(result.COST);
+            	$("#totaluse").text(result.COUNTS);
+            	$("#dateOut").text(result.OUT_DAYS);
+            }
+			
+		})	
 		
 		$(".outdate").on("click",function(){
 			if(uid != "null"){

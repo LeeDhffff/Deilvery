@@ -55,16 +55,16 @@
                     <div class="wrap">
                         <div class="triple">
                             <div class="inputWrap">
-                                <select name="" id="">
+                                <select class="search" name="" id="chk_count">
                                     <option value="">이용횟수</option>
-                                    <option value="">많은순서</option>
-                                    <option value="">적은순서</option>
+                                    <option value="Y">많은순서</option>
+                                    <option value="N">적은순서</option>
                                 </select>
                             </div>
                             <div class="inputWrap">
-                                <select name="" id="">
+                                <select class="search" name="" id="chk_cost">
                                     <option value="">배송비 총 금액</option>
-                                    <option value="">높은순서</option>
+                                    <option value="Y">높은순서</option>
                                     <option value="">낮은순서</option>
                                 </select>
                             </div>
@@ -87,83 +87,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>이재원</td>
-                                        <td>010-2222-3333</td>
-                                        <td>10</td>
-                                        <td>$1,000,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>이재원</td>
-                                        <td>010-2222-3333</td>
-                                        <td>10</td>
-                                        <td>$1,000,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>이재원</td>
-                                        <td>010-2222-3333</td>
-                                        <td>10</td>
-                                        <td>$1,000,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>이재원</td>
-                                        <td>010-2222-3333</td>
-                                        <td>10</td>
-                                        <td>$1,000,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>이재원</td>
-                                        <td>010-2222-3333</td>
-                                        <td>10</td>
-                                        <td>$1,000,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>이재원</td>
-                                        <td>010-2222-3333</td>
-                                        <td>10</td>
-                                        <td>$1,000,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>이재원</td>
-                                        <td>010-2222-3333</td>
-                                        <td>10</td>
-                                        <td>$1,000,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>이재원</td>
-                                        <td>010-2222-3333</td>
-                                        <td>10</td>
-                                        <td>$1,000,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>이재원</td>
-                                        <td>010-2222-3333</td>
-                                        <td>10</td>
-                                        <td>$1,000,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>이재원</td>
-                                        <td>010-2222-3333</td>
-                                        <td>10</td>
-                                        <td>$1,000,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>이재원</td>
-                                        <td>010-2222-3333</td>
-                                        <td>10</td>
-                                        <td>$1,000,000</td>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -201,12 +125,18 @@
 			
 		});
 		selectList();
+		
+		$(".search").on("change",function(){
+			selectList();
+		})
 	})
 	
 	/* 회원 리스트 불러오기 */
 	function selectList(){
 			var deliverydata = {
-					MEM_ID : uid
+					MEM_ID : uid,
+					COUNT : $("#chk_count option:selected").val(),
+					TOTALCOST : $("#chk_cost option:selected").val()
 			};
 			$.ajax({
 				type: "POST",

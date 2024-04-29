@@ -11,7 +11,7 @@
 <html lang="kr">    
     <title>EK Logistics</title>
 </head>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
 	#tologout{
 		display:none;
@@ -29,6 +29,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
+<script src="./js/pageChange.js"></script>
+
 </head>
 
 <body>
@@ -38,7 +40,7 @@
                 <img src="./images/m_icon/logo_color.svg" alt="logo">
             </h1>            
             <ul class="header_option">
-                <li id="topc"><img src="./images/m_icon/pc_icon.svg" alt="pc"></li>
+<!--                 <li id="topc"><img src="./images/m_icon/pc_icon.svg" alt="pc"></li> -->
                 <li id="tologin"><img src="./images/m_icon/login.svg" alt="login"></li>
                 <li id="tologout"><img src="./images/m_icon/logout.svg" alt="logout"></li>
                 <li class="language">
@@ -74,7 +76,7 @@
                     <h5 class="icon">
                         <img src="./images/m_icon/notice_orange.svg" alt="#">
                     </h5>
-                    <h5 class="txt">금주 예상 출항일은 <span class="date">24-03-12</span> 입니다.</h5>
+                    <h5 class="txt">금주 예상 출항일은 <span id="dateOut" class="date"></span> 입니다.</h5>
                 </div>
             </div>
 
@@ -104,7 +106,7 @@
                 <button class="cost">
                     <div class="txt">
                         <h5>누적 배송 금액</h5>
-                        <h1>2,400,000원</h1>
+                        <h1 id="totalcost"></h1>
                     </div>
                     <a href="#">
                         <span class="icon cost">
@@ -115,7 +117,7 @@
                 <button class="use">
                     <div class="txt">
                         <h5>누적 이용 횟수</h5>
-                        <h1>12회</h1>
+                        <h1 id="totaluse"></h1>
                     </div>
                     <a href="#">
                         <span class="icon use">
@@ -156,14 +158,7 @@
 			})	
 		}
 		
-		var width = window.outerWidth;
 		
-// 		if(width <= 767){
-
-// 		}
-// 		else{
-// 			location.href = "Main.do";
-// 		}
 		if(uid != "null" || uid2 != "null"){
 			$("#tologin").remove();
 			$("#tologout").show();
@@ -173,6 +168,22 @@
 			location.href = "Mobile_ManagerMain.do";
 		}
 
+		$.ajax({
+			type: "POST",
+			url : "./Status_Select.do",
+			data: {MEM_ID : uid},
+			async: false,
+            success: function(datas){
+            	var result = JSON.parse(datas);
+            	
+            	$("#totalcost").text(result.COST);
+            	$("#totaluse").text(result.COUNTS);
+            	$("#dateOut").text(result.OUT_DAYS);
+            }
+			
+		})	
+		
+		
 		$("#topc").on("click",function(){
 			location.href = "Main.do";
 		})

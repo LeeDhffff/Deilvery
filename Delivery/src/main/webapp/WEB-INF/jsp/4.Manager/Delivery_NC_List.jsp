@@ -40,7 +40,7 @@
                 </h1>
                 <h1 class="noticeNum">
                     <a href="#">
-                        <span class="date">2024-02-27</span> 미완료 배송 신청 건수는 총 <span class="num">3</span>건 입니다.
+                        <span class="date"></span> 미완료 배송 신청 건수는 총 <span class="num">0</span>건 입니다.
                     </a>
                 </h1>
                 <div class="conWrap">
@@ -58,25 +58,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>이재원</td>
-                                        <td>2024-01-10</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>윤도균</td>
-                                        <td>2024-01-10</td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div class="pageControll">
-                            <div class="page on">1</div>
-                            <div class="page">2</div>
-                            <div class="page">3</div>
-                            <div class="page">4</div>
-                            <div class="page">5</div>
                         </div>
 
                     </div> <!-- wrap -->

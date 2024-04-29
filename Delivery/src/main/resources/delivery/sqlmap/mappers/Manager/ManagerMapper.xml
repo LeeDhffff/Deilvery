@@ -4,7 +4,9 @@
 	
 	<select id="Member_Select" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
 		{ call B_MEM_LIST(
-				#{MEM_ID}
+				#{MEM_ID},
+				#{COUNT},
+				#{TOTALCOST}
 		) }
 	</select>
 	
@@ -81,6 +83,7 @@
 				#{OUT_KEY},
 				#{CHK},
 				#{OUT_TXT},
+				#{OUT_TXT_SUB},
 				#{PATH},
 				#{SAVE_NM},
 				#{ORGIN_NM}
@@ -93,6 +96,7 @@
 				#{OUT_SEQ},
 				#{CHK},
 				#{OUT_TXT},
+				#{OUT_TXT_SUB},
 				#{PATH},
 				#{SAVE_NM},
 				#{ORGIN_NM},

@@ -91,6 +91,12 @@ public class DeliveryRegistController {
 	@RequestMapping(value = "/userDelRegist.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String userDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		if(session.getAttribute("SESSION_MEM_ID") != null) {			
+			inputMap.put("memId", (String)(session.getAttribute("SESSION_MEM_ID")));	
+		}
+		else if(session.getAttribute("SESSION_PROTO_ID") != null) {			
+			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));	
+		}
 		
 		System.out.println("[inputMap] userDelRegist : " + inputMap);
 		
@@ -149,6 +155,12 @@ public class DeliveryRegistController {
 	@RequestMapping(value = "/mUserDelRegist.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String mUserDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		if(session.getAttribute("SESSION_MEM_ID") != null) {			
+			inputMap.put("memId", (String)(session.getAttribute("SESSION_MEM_ID")));	
+		}
+		else if(session.getAttribute("SESSION_PROTO_ID") != null) {			
+			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));	
+		}
 		
 		System.out.println("[inputMap] mUserDelRegist : " + inputMap);
 		
@@ -216,6 +228,12 @@ public class DeliveryRegistController {
 	@RequestMapping(value = "/adminDelRegist.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String adminDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		if(session.getAttribute("SESSION_MEM_ID") != null) {			
+			inputMap.put("memId", (String)(session.getAttribute("SESSION_MEM_ID")));	
+		}
+		else if(session.getAttribute("SESSION_PROTO_ID") != null) {			
+			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));	
+		}
 		
 		System.out.println("[inputMap] adminDelRegist : " + inputMap);
 		
@@ -288,7 +306,12 @@ public class DeliveryRegistController {
 	@RequestMapping(value = "/mAdminDelRegist.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String mAdminDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
-		
+		if(session.getAttribute("SESSION_MEM_ID") != null) {			
+			inputMap.put("memId", (String)(session.getAttribute("SESSION_MEM_ID")));	
+		}
+		else if(session.getAttribute("SESSION_PROTO_ID") != null) {			
+			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));	
+		}
 		System.out.println("[inputMap] mAdminDelRegist : " + inputMap);
 		
 		String resultMsg = delRegistService.adminDelRegist(inputMap);

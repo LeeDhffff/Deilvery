@@ -11,7 +11,7 @@
 <html lang="kr">    
     <title>EK Logistics</title>
 </head>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
 	
 </style>
@@ -28,7 +28,7 @@
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
 <script src="./js/6.MobileDelivery/MD_index.js"></script>
-
+<script src="./js/pageChange.js"></script>
 </head>
 
 <body>
@@ -45,34 +45,6 @@
             </div>
             <div class="popBody">
                 <div class="table">
-                    <div class="tableCon">
-                        <h3 class="date"><a href="#">접수일 : <span class="date">2024-01-08</span></a></h3>
-                        <h3 class="con"><a href="#">W*H*L(50cm*40cm*30cm)/무게7kg</a></h3>
-                    </div>
-                    <div class="tableCon">
-                        <h3 class="date"><a href="#">접수일 : <span class="date">2024-01-08</span></a></h3>
-                        <h3 class="con"><a href="#">W*H*L(50cm*40cm*30cm)/무게7kg</a></h3>
-                    </div>
-                    <div class="tableCon">
-                        <h3 class="date"><a href="#">접수일 : <span class="date">2024-01-08</span></a></h3>
-                        <h3 class="con"><a href="#">W*H*L(50cm*40cm*30cm)/무게7kg</a></h3>
-                    </div>
-                    <div class="tableCon">
-                        <h3 class="date"><a href="#">접수일 : <span class="date">2024-01-08</span></a></h3>
-                        <h3 class="con"><a href="#">W*H*L(50cm*40cm*30cm)/무게7kg</a></h3>
-                    </div>
-                    <div class="tableCon">
-                        <h3 class="date"><a href="#">접수일 : <span class="date">2024-01-08</span></a></h3>
-                        <h3 class="con"><a href="#">W*H*L(50cm*40cm*30cm)/무게7kg</a></h3>
-                    </div>
-                    <div class="tableCon">
-                        <h3 class="date"><a href="#">접수일 : <span class="date">2024-01-08</span></a></h3>
-                        <h3 class="con"><a href="#">W*H*L(50cm*40cm*30cm)/무게7kg</a></h3>
-                    </div>
-                    <div class="tableCon">
-                        <h3 class="date"><a href="#">접수일 : <span class="date">2024-01-08</span></a></h3>
-                        <h3 class="con"><a href="#">W*H*L(50cm*40cm*30cm)/무게7kg</a></h3>
-                    </div>
                 </div>
             </div>
             
@@ -90,7 +62,7 @@
         <section id="section_date">                                   
             <h3 class="sectionMainTitle">
                 <a href="#">
-                    반갑습니다 <span class="id">이재원</span> 회원님
+                    반갑습니다 <span class="id"></span> 회원님
                 </a>
             </h3>
             <h5 class="sectionSubTitle">
@@ -117,12 +89,6 @@
 	$(document).on('ready',function(){
 		var width = window.outerWidth;
 		
-// 		if(width <= 767){
-			
-// 		}
-// 		else{
-// 			location.href = "Main.do";
-// 		}
 		
 		$(".id").text(name);
 		Delivery_Search();

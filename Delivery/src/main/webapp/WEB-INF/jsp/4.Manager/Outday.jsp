@@ -76,20 +76,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>2024-01-20</td>
-                                <td>이재원</td>
-                                <td>2024-01-10</td>
-                                <td>$100</td>
-                                <td>W*H*L(50CM*40CM*30CM) / 무게 7KG</td>
-                            </tr>
-                            <tr>
-                                <td>2024-01-20</td>
-                                <td>윤도균</td>
-                                <td>2024-01-10</td>
-                                <td>$100</td>
-                                <td>W*H*L(50CM*40CM*30CM) / 무게 7KG</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div> 
@@ -145,8 +131,8 @@
                                         </a>
                                     </div>
                                     <h5 class="currentTitle"><a href="#">한국물류창고</a></h5>
-                                    <input type="text" class="currentDay" placeholder="">
-                                    <input type="text" class="currentMessage" placeholder="한국물류창고:출항대기">
+                                    <input type="text" class="currentDay" placeholder="날짜">
+                                    <input type="text" class="currentMessage" placeholder="비고">
                             		<input type="hidden" class="currentSeq" placeholder="" value="1">
                                     <input type="radio" name="radiooutkey" class="currentcheck">                                                                       
                                 </div>
@@ -157,8 +143,8 @@
                                         </a>
                                     </div>
                                     <h5 class="currentTitle"><a href="#">출항시작(미정)</a></h5>
-                                    <input type="text" class="currentDay" placeholder="">
-                                    <input type="text" class="currentMessage" placeholder="한국물류창고:출항대기">
+                                    <input type="text" class="currentDay" placeholder="날짜">
+                                    <input type="text" class="currentMessage" placeholder="비고">
                             		<input type="hidden" class="currentSeq" placeholder="" value="2">
                                     <input type="radio" name="radiooutkey" class="currentcheck">
                                 </div>
@@ -169,8 +155,8 @@
                                         </a>
                                     </div>
                                     <h5 class="currentTitle"><a href="#">태국도착</a></h5>
-                                    <input type="text" class="currentDay" placeholder="">
-                                    <input type="text" class="currentMessage" placeholder="한국물류창고:출항대기">
+                                    <input type="text" class="currentDay" placeholder="날짜">
+                                    <input type="text" class="currentMessage" placeholder="비고">
                             		<input type="hidden" class="currentSeq" placeholder="" value="3">
                                     <input type="radio" name="radiooutkey" class="currentcheck">  
                                 </div>
@@ -181,8 +167,8 @@
                                         </a>
                                     </div>
                                     <h5 class="currentTitle"><a href="#">라오스 출발</a></h5>
-                                    <input type="text" class="currentDay" placeholder="">
-                                    <input type="text" class="currentMessage" placeholder="한국물류창고:출항대기">
+                                    <input type="text" class="currentDay" placeholder="날짜">
+                                    <input type="text" class="currentMessage" placeholder="비고">
                             		<input type="hidden" class="currentSeq" placeholder="" value="4">
                                     <input type="radio" name="radiooutkey" class="currentcheck">  
                                 </div>
@@ -193,8 +179,8 @@
                                         </a>
                                     </div>
                                     <h5 class="currentTitle"><a href="#">라오스 도착</a></h5>
-                                    <input type="text" class="currentDay" placeholder="">
-                                    <input type="text" class="currentMessage" placeholder="한국물류창고:출항대기">
+                                    <input type="text" class="currentDay" placeholder="날짜">
+                                    <input type="text" class="currentMessage" placeholder="비고">
                             		<input type="hidden" class="currentSeq" placeholder="" value="5">
                                     <input type="radio" name="radiooutkey" class="currentcheck">  
                                 </div>
@@ -205,8 +191,8 @@
                                         </a>
                                     </div>
                                     <h5 class="currentTitle"><a href="#">배출 시작</a></h5>
-                                    <input type="text" class="currentDay" placeholder="">
-                                    <input type="text" class="currentMessage" placeholder="한국물류창고:출항대기">
+                                    <input type="text" class="currentDay" placeholder="날짜">
+                                    <input type="text" class="currentMessage" placeholder="비고">
                             		<input type="hidden" class="currentSeq" placeholder="" value="6">
                                     <input type="radio" name="radiooutkey" class="currentcheck">  
                                 </div>
@@ -276,9 +262,14 @@
 			$(".modify").remove();
 			$(".delete").remove();
 		}
-		
+		$(".condition").on("click",function(){
+			if($(this).parent(".current").find(".currentcheck").prop("disabled") == false){
+				$(this).parent(".current").find(".currentcheck").prop("checked",true);	
+			}
+			$(this).parent(".current").find(".currentcheck").trigger("click");
+			
+		})
 		$(".currentcheck").on("click",function(){
-			console.log($(this).is(":checked"));
 			if($(this).is(":checked") == true){
 				
 
@@ -296,9 +287,18 @@
 				$(this).parent(".current").addClass("on");
 				$(this).parent(".current").find(".condition").addClass("on");
 				$(this).parent(".current").find(".currentDay").attr("disabled",false);
+				$(this).parent(".current").find(".currentMessage").attr("disabled",false);
 			}
 		});
 
+		$(".bottomButton").on("click",function(){
+			if(outkey == null || outkey == ''){
+				$(".create").trigger("click");
+			}
+			else{
+				$(".modify").trigger("click");
+			}
+		});
 		/* 출항일 생성 */
 		$(".create").on("click",function(){
 				if($("#Out_Day").val() == ''){
@@ -336,6 +336,7 @@
 	    		     		 	form.append("OUT_DAY",$("#Out_Day").val());
 	    		     		 	form.append("CHK",$(".current.on").find(".currentSeq").val());
 	    		     		 	form.append("OUT_TXT",$(".current.on").find(".currentDay").val());
+	    		     		 	form.append("OUT_TXT_SUB",$(".current.on").find(".currentMessage").val());
 	    		     		 	form.append("MODE","U");
 
 	    		     		 	form.append("uploadFile",null);
@@ -375,6 +376,7 @@
 		     		 	form.append("OUT_DAY",$("#Out_Day").val());
 		     		 	form.append("CHK",$(".current.on").find(".currentSeq").val());
 		     		 	form.append("OUT_TXT",$(".current.on").find(".currentDay").val());
+		     		 	form.append("OUT_TXT_SUB",$(".current.on").find(".currentMessage").val());
 		     		 	form.append("MODE","U");
 
 		     		 	form.append("uploadFile",null);
@@ -409,6 +411,7 @@
 						MEM_ID  : uid,
 						OUT_KEY : $("#Out_Key").val(),
 						OUT_TXT : "",
+						OUT_TXT_SUB : "",
 						MODE : "D"
 					};
 					
@@ -441,6 +444,7 @@
 		     		 	form.append("OUT_DAY",$("#Out_Day").val());
 		     		 	form.append("CHK",$(".current.on").find(".currentSeq").val());
 		     		 	form.append("OUT_TXT",$(".current.on").find(".currentDay").val());
+		     		 	form.append("OUT_TXT_SUB",$(".current.on").find(".currentMessage").val());
 		     		 	form.append("MODE","D");
 
 		     		 	form.append("uploadFile",null);
@@ -502,6 +506,7 @@
 						
 						for(let i=0; i<filesdata.length; i++){
 							$(".current."+setting[i]).find(".currentDay").val(filesdata[i].OUT_TXT);
+							$(".current."+setting[i]).find(".currentMessage").val(filesdata[i].OUT_TXT_SUB);
 						}
 						
 						

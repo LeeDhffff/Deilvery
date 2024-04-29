@@ -12,6 +12,7 @@
     <title>EK Logistics</title>
 </head>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
 	
 </style>
@@ -27,7 +28,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
-
+<script src="./js/pageChange.js"></script>
 </head>
 
 <body>
@@ -72,12 +73,6 @@
 	$(document).on('ready',function(){
 		var width = window.outerWidth;
 		
-// 		if(width <= 767){
-			
-// 		}
-// 		else{
-// 			location.href = "Main.do";
-// 		}
 		
 		$(".back").on("click",function(){
 			history.back();
