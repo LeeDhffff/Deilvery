@@ -160,6 +160,15 @@ section
     height: 36px;
     margin: 0 auto 10px;
 } 
+.buttonCon button.company a span.icon.truckBlack 
+{
+    background-image: url(../../images/m_icon/truck_orange.svg);
+    width: 36px;
+    background-size: 100%;
+    display: block;
+    height: 36px;
+    margin: 0 auto 10px;
+} 
 
 .buttonCon button.search a span.icon.searchBlack 
 {

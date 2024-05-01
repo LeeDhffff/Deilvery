@@ -83,10 +83,10 @@
             <div class="menuWrap">
                 <div class="mainTitle">배송 메뉴</div>
                 <div class="buttonCon">
-                    <button class="register" id="register">
+                    <button class="register">
                         <a href="#">
-                            <span class="icon truckBlack"></span>
-                            배송신청
+                            <span class="icon register"></span>
+                            물류접수하기
                         </a>
                     </button>
                     <button class="search" id="Delivery_Search">
@@ -103,34 +103,29 @@
                             미완료 배송신청
                         </a>
                     </button>
-                    <button class="register">
-                        <a href="#">
-                            <span class="icon register"></span>
-                            물류접수하기
-                        </a>
-                    </button>
-                </div>
-                <div class="buttonCon">
                     <button class="outdate">
                         <a href="#">
                             <span class="icon outdate"></span>
                             출항일 관리
                         </a>
                     </button>
-                    <button class="register" id="delivery_company">
+                </div>
+                <div class="buttonCon">
+                    
+                    <button class="company" id="delivery_company">
                         <a href="#">
                             <span class="icon truckBlack"></span>
                             택배사 관리
                         </a>
-                    </button>                    
-                </div>
-                <div class="buttonCon">
+                    </button>
                     <button class="customer">
                         <a href="#">
                             <span class="icon customer"></span>
                             고객 관리
                         </a>
-                    </button>                    
+                    </button>                      
+                </div>
+                <div class="buttonCon">                  
                 </div>
             </div> 
                          
@@ -202,7 +197,7 @@
 			}
 			
 		})
-		$("#register").on("click",function(){
+		$(".register").on("click",function(){
 			if(uid != "null" || uid2 != "null"){
 				// 경로 설정 (240331 장연우)
 				location.href="mAdminDeliveryRegistMain.do";
