@@ -180,7 +180,7 @@ public class MobileController {
 		return mav;
 	}
 
-	/* 모바일 관리자용 배송신청목록페이지로 이동 */
+	/* 모바일 관리자용 출항일 리스트 페이지로 이동 */
 	@RequestMapping("/Mobile_M_OutdayList.do")
 	public ModelAndView OutdayList(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception  {
 
@@ -192,7 +192,7 @@ public class MobileController {
 		return mav;
 	}
 
-	/* 모바일 관리자용 배송신청목록페이지로 이동 */
+	/* 모바일 관리자용 출항일 생성 페이지로 이동 */
 	@RequestMapping("/Mobile_M_Outday.do")
 	public ModelAndView MobileOutday(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception  {
 
@@ -204,7 +204,19 @@ public class MobileController {
 		return mav;
 	}
 	
-	/* 모바일 관리자용 배송신청목록페이지로 이동 */
+	/* 모바일 관리자용 택배사 관리 페이지로 이동 */
+	@RequestMapping("/Mobile_DeliveryCompanyList.do")
+	public ModelAndView DeliveryCompanyList(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception  {
+
+		ModelAndView mav = new ModelAndView();
+		
+
+		mav.setViewName("8.MobileManager/MobileDeliveryCompanyList");
+		
+		return mav;
+	}
+	
+	/* 모바일 관리자용 회원 관리 페이지로 이동 */
 	@RequestMapping("/Mobile_M_MemberList.do")
 	public ModelAndView MemberList(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception  {
 

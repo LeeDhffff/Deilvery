@@ -121,24 +121,44 @@
                                 <input type="text" id="recPhone" name="recPhone" value="${result.recPhone }" placeholder="라오스 수령인 전화번호를 입력해주세요">
                             </div>
                         </div> 
-
-                        <div class="inputWrap">
-                            <h5 class="inputName"><a href="#">픽업지 선택<span>*</span></a></h5>
-                            <select name="recTarget" id="recTarget">
-                                <option value="1">본사</option>
-                                <option value="2">하우 창고</option>
-                            </select>
-                        </div>
-
-                        <div class="double">
-                            <div class="inputWrap">
-                                <h5 class="inputName"><a href="#">본사주소</a></h5>
-                                <input type="text" id="bon" name="recAddr" id="recAddr" placeholder="Pakthang Villsge, Sikhot District T3, Dongnatong Vientiane, LAO P.D.R">
+	                    <div class="inputWrap">
+	                    	<h5 class="inputName"><a href="#">픽업지 선택<span>*</span></a></h5>
+	                        <select name="recTarget" id="recTarget">
+	                            <option value="1">본사</option>
+	                            <option value="2">하우 창고</option>
+	                            <option value="3">지방배송</option>
+	                        </select>
+	                    </div>
+	                    <div class="double" id="target_1">
+	                    	<div class="inputWrap">
+		                    	 <h5 class="inputName"><a href="#">본사주소</a></h5>
+                                <input type="text" value="Pakthang Villsge, Sikhot District T3, Dongnatong Vientiane, LAO P.D.R" readonly>
                             </div>
                             <div class="inputWrap">
                                 <h5 class="inputName"><a href="#">하우 창고 주소</a></h5>
-                                <input type="text" id="hou" name="recHou" id="recHou" placeholder="Pakthang Villsge, Sikhot District T3, Dongnatong Vientiane, LAO P.D.R">
+                                <input type="text" value="phonpapao village , Sisatttanak Dostrict,Vientiane" readonly>
                                 <h5 class="inputAlarm"><a href="#">※하우창고에서 수령시 배출일 (9시~17시) 하루동안만 개봉되며 미수령시 본사로 이동됩니다.</a></h5>
+	                    	</div>
+	                    </div>
+                        <div class="double" id="target_3">                            
+                            <div class="inputWrap">
+                            <h5 class="inputName"><a href="#">택배사<span>*</span></a></h5>                            
+                            <select name="recAddr" id="recAddr">
+                            	<c:forEach var="item" items="${shipComList }">
+                            		<c:choose>
+                            			<c:when test="${item.target eq result.recAddr }">
+                            				<option value="${item.target }" selected>${item.tName }</option>
+                            			</c:when>
+                            			<c:otherwise>
+                            				<option value="${item.target }">${item.tName }</option>                            			
+                            			</c:otherwise>
+                            		</c:choose>                            		
+                            	</c:forEach>
+                            </select>
+                        </div>
+                            <div class="inputWrap">
+                                <h5 class="inputName"><a href="#">상세주소</a></h5>
+                                <input type="text" name="recHou" id="recHou" value="${result.recHou}">
                             </div>
                         </div> 
 
@@ -210,7 +230,7 @@
                             			<c:otherwise>
                             				<option value="${item.outKey }">${item.outDay }</option>                            			
                             			</c:otherwise>
-                            		</c:choose>                            		
+                            		</c:choose>
                             	</c:forEach>
                             </select>                            
                         </div>
@@ -237,16 +257,32 @@
     <script>
     $(document).ready(function(){
     	console.log("페이지초기화!");    	
+    	$("#target_3").hide();
     	
     	/* 신청일자 datePicker 설정 (JANG) */
     	$("#creDay").datepicker();
     	$("#creDay").datepicker("option", "dateFormat", "yy-mm-dd");
     	$("#creDay").datepicker("setDate", "${result.creDay}");
     	
-    	/* 본사, 하우창고 선택 설정 (JANG) */
+    	/* 본사, 하우창고, 지방배송 선택 설정 (JANG) */
     	if("${result.recTarget}" != "" && "${result.recTarget}" != null){
 	    	$("#recTarget").val("${result.recTarget}").prop("selected", true);
+	    	if($("#recTarget").val() == 3){
+	    		$("#target_1").hide();
+    			$("#target_3").show();
+	    	}
     	}
+    	
+    	/* 지방배송 선택 설정 (JANG) */
+    	$("#recTarget").on("change", function(evt){
+    		if($(this).val() == 1 || $(this).val() == 2){
+    			$("#target_1").show();
+    			$("#target_3").hide();
+    		}else{
+    			$("#target_1").hide();
+    			$("#target_3").show();
+    		}
+    	});
     	
     	// box데이터 수정하러 들어왔을 때 대비해서 boxIndex 활용 방안 체크 다시할 것!!
 		let boxIndex = 0;
@@ -334,7 +370,7 @@
     			regist = false;
     		}else{
     			$("#formData > .wrap > .double > .inputWrap > input").each(function(index){ 
-	    			if(($(this).val() == null || $(this).val() == '') && $(this).attr("id") != "bon" && $(this).attr("id") != "hou" && $(this).attr("id") != "width" && $(this).attr("id") != "length" && $(this).attr("id") != "height" && $(this).attr("id") != "weight" ){
+	    			if(($(this).val() == null || $(this).val() == '') && $(this).attr("id") != "width" && $(this).attr("id") != "length" && $(this).attr("id") != "height" && $(this).attr("id") != "weight" && $(this).attr("id") != "recHou"){
 	    				const text = $(this).siblings(".inputName").children().text();
 	    				console.log('text : ', text);
 	    				alert(text+' 정보를 입력해주세요.');
@@ -344,7 +380,18 @@
 	    			}
 	    		}); 
     		}
-    			
+    		
+    		/* memId 추가 (240429 장연우) */
+    		if($("#memId").val() == '' || $("#memId").val() == null){
+    			$("#memId").val(uid);
+    		}
+    		
+    		/* 지방, 하우 선택하는 경우 택배사, 상세주소 값 초기화 (240501 JANG) */
+    		if($("#recTarget").val() == 1 || $("#recTarget").val() == 2){
+    			$("#recAddr").val("");
+    			$("#recHou").val("");
+    		}
+    		
     		if(regist){
 	    		console.log("formData : ", $("#formData").serialize());
 				$.ajax({
@@ -406,8 +453,17 @@
         	const qrInfoArr = new Array();
         	let sjNum = "";
         	let htmlStr = "";
-        	let recTarget = ($("#recTarget").val() == 1) ? "본사" : "하우창고";
+        	let recTarget = $("#recTarget").val();
         	let qrTxt = "";
+        	
+        	//QR코드 수령지 정보 설정 추가 (240501 JANG)
+        	if(recTarget == 1){
+        		recTarget = "본사";
+        	}else if(recTarget ==2){
+        		recTarget = "하우창고";
+        	}else{
+        		recTarget = $("#recAddr option:checked").text() + " / " + $("#recHou").val();
+        	}        	
         	
         	if($("input[name=sjKey]").length > 0){
 	        	$("input[name=sjKey]").each(function(index){

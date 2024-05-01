@@ -13,6 +13,22 @@
 </head>
 
 <style type="text/css">
+	.tron{
+		background: #ffecdb;
+		border: 2px solid black;
+	}
+	.modify{
+		background: white;
+		width:40px;
+		height:30px;
+		border: 1px solid #ffaa40;
+	    padding: 2px;
+	    cursor: pointer;
+	    border-radius: 5px;
+	}
+	.modify:hover{
+		background: #ffaa40;
+	}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -66,6 +82,7 @@
                                     <option value="">픽업지를 선택하세요</option>
                                     <option value="1">본사</option>
                                     <option value="2">하우창고</option>
+                                    <option value="3">지방배송</option>
                                 </select>
                             </div>
                             <div class="inputWrap">
@@ -86,11 +103,11 @@
                                     <img src="./images/pc_icon/calculator.svg" alt="영수증출력하기">
                                 </a>
                             </button>
-                            <button class="excel">
-                                <a href="#">
-                                    <img src="./images/pc_icon/down_black.svg" alt="영수증출력하기">
-                                </a>
-                            </button>
+<!--                             <button class="excel"> -->
+<!--                                 <a href="#"> -->
+<!--                                     <img src="./images/pc_icon/down_black.svg" alt="영수증출력하기"> -->
+<!--                                 </a> -->
+<!--                             </button> -->
                         </div>                        
                     </h3>                                       
                     <div class="wrap">
@@ -98,15 +115,16 @@
                             <table id = "Delivery_Table">
                                 <thead>
                                     <tr>
-                                        <th>
+<!--                                         <th> -->
 <!--                                         <input type="checkbox" class="List_Check All"> -->
-                                        </th>
+<!--                                         </th> -->
                                         <th>출항일</th>
                                         <th>수령인</th>
                                         <th>픽업지</th>
                                         <th>배송현황</th>
                                         <th>배송완료 여부</th>
                                         <th>배송서비스</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -208,7 +226,7 @@
 								console.log(A_result,D_result);
 				            	
 								$("#EXCEL_NAME").text(A_result[0].REC_NM);
-								$("#EXCEL_ADDRESS").text(A_result[0].REC_ADDR);
+								$("#EXCEL_ADDRESS").text(A_result[0].REC_HOU);
 								$("#EXCEL_PHONE").text(A_result[0].REC_PHONE);
 								$("#EXCEL_YEAR").text(A_result[0].CRE_DAY.substr(0,4));
 								$("#EXCEL_COUNT").text(D_result.length);
@@ -264,17 +282,27 @@
 		
 
 		/* 테이블 목록 클릭시 */
-		$(document).on("click","#Delivery_Table > tbody > tr > td",function(){
+		$(document).on("click","#Delivery_Table > tbody > tr",function(){
+			if($(this).find(".List_Check").prop("checked") == false){
+				$("#Delivery_Table > tbody > tr").removeClass("tron");
+				$(this).addClass("tron");
+				$(this).find(".List_Check").prop("checked",true);
+			}
+			else{
+				$("#Delivery_Table > tbody > tr").removeClass("tron");
+				$(this).find(".List_Check").prop("checked",false);	
+			}
+		})
+		$(document).on("click",".modify",function(){
 
-			if($(this).attr("class") != "checktd"){
-			var nc = $(this).parent("tr").find(".in_key").val();
+// 			if($(this).attr("class") != "checktd"){
+			var nc = $(this).parents("tr").find(".in_key").val();
 			
 
 			/* 미완료 배송신청으로 이동 */
 			location.href = "adminDeliveryRegistMain.do?ik=" +nc;
-			}
+// 			}
 		})
-		
 	})
 	
 	
@@ -301,13 +329,15 @@
 
 				for(let i=0; i<result.length; i++ ){
 
-					tbodyData += "<tr><td class='checktd'><input type='radio' name='List_Check' class='List_Check sub'>";
+					tbodyData += "<tr>";
 					tbodyData += "<td><input type='hidden' class='in_key' value='"+result[i].IN_KEY+"'>"+result[i].OUT_DAY+"</td>";
 					tbodyData += "<td>"+result[i].REC_NM+"</td>";
 					tbodyData += "<td>"+result[i].REC_TARGET+"</td>";
 					tbodyData += "<td>"+result[i].NOW_DELIVERY+"</td>";
 					tbodyData += "<td>"+result[i].MAXCHK+"</td>";
 					tbodyData += "<td>"+result[i].SERVICE+"</td>";
+					tbodyData += "<td><input type='radio' name='List_Check' class='List_Check sub' style='display:none;'><button class='modify'><img src='./images/pc_icon/modify_black.svg'></button></td>";
+					
 					tbodyData += "</tr>";
 				}
 

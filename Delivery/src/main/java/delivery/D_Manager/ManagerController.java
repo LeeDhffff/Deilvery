@@ -114,6 +114,12 @@ public class ManagerController {
 		return "4.Manager/Outday";
 	}
 
+	/* 택배사 관리페이지로 이동 */
+	@RequestMapping("/DeliveryCompanyList.do")
+	public String DeliveryCompany() {
+		return "4.Manager/Delivery_CompanyList";
+	}
+	
 	/* 회원 목록가져오기 */
 	@RequestMapping(value = "/Member_Select.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
@@ -434,6 +440,67 @@ public class ManagerController {
 		String jsonStr = mapper.writeValueAsString(ManagerList);
 		return jsonStr;
 	}
+	
+	/* 택배사 사용하는것만 불러오기 */
+//	@RequestMapping(value = "/DeliveryCompanyList_Select.do" , produces = "application/text; charset=utf-8")
+//	@ResponseBody
+//	public String DeliveryCompanyList_Select(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+//
+//		System.out.println("inputMap" + inputMap);
+//		List<HashMap<String, String>> ManagerList = ManagerService.DeliveryCompanyList_Select(inputMap);
+//		System.out.println(ManagerList);
+//
+//		ObjectMapper mapper = new ObjectMapper();
+//		String jsonStr = mapper.writeValueAsString(ManagerList);
+//		return jsonStr;
+//	}
+	
+	/* 택배사 검색 */
+	@RequestMapping(value = "/DeliveryCompanyList_Search.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String DeliveryCompanyList_Search(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		List<HashMap<String, String>> ManagerList = ManagerService.DeliveryCompanyList_Search(inputMap);
+		System.out.println(ManagerList);
+
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr = mapper.writeValueAsString(ManagerList);
+		return jsonStr;
+	}
+	
+
+	/* 택배사 특정 타겟 정보 불러오기 */
+	@RequestMapping(value = "/DeliveryCompanyList_Load.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String DeliveryCompanyList_Load(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		HashMap<String, String> ManagerList = ManagerService.DeliveryCompanyList_Load(inputMap);
+		System.out.println(ManagerList);
+
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr = mapper.writeValueAsString(ManagerList);
+		return jsonStr;
+	}
+	
+
+
+	@RequestMapping(value = "/DeliveryCompanyList_IUD.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String DeliveryCompanyList_IUD(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		String LoginList = ManagerService.DeliveryCompanyList_IUD(inputMap);
+//		System.out.println(LoginList.get("resultMsg"));
+
+//		ObjectMapper mapper = new ObjectMapper();
+//		String jsonStr = mapper.writeValueAsString(LoginList);
+		return LoginList;
+	}
+	
+	
+	
 	
 	/* Javamail 실행 */
 	@RequestMapping(value = "/Mail.do" , produces = "application/text; charset=utf-8")

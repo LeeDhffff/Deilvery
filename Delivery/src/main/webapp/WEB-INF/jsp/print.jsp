@@ -88,8 +88,17 @@
 		border: 1px solid black;
 		margin: 10px 10px 10px 0px;
 	    cursor: pointer;
+        min-width: 70px;
 	}
-	
+	#print_excel{
+		background: green;
+	    color: white;
+	    
+	}
+	#print_button{
+	    color: white;
+    	background: #ff5a5a;
+	}
 	#EXCEL_QR1 > img{
 		margin : 0 auto;
 	}

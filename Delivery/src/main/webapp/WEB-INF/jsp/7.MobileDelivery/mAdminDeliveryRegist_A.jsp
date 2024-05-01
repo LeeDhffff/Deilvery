@@ -26,7 +26,7 @@
 
     <!-- import pretendard font -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
-    <script src="./js/pageChange.js"></script>
+    <script src="./js/pageChange.js"></script>    
 </head>
 <body>
     <div class="m_container">
@@ -46,7 +46,7 @@
 			</c:choose>            
         </header>        
         <section>  
-        	<form id="formData" name="formData">                                 
+        	<form id="formData" name="formData">                              
             <div class="inputWrap">
                 <h5 class="inputName"><a href="#">신청일자<span>*</span></a></h5>
                 <input type="text" id="creDay" name="creDay" placeholder="선택">
@@ -64,24 +64,45 @@
                 <select name="recTarget" id="recTarget">
                     <option value="1">본사</option>
                     <option value="2">하우 창고</option>
+                    <option value="3">지방배송</option>
                 </select>
             </div>
 
             
-            <div class="inputWrap address">
+            <div class="inputWrap address target_1">
                 <h5 class="inputName"><a href="#">본사주소</a></h5>
                 <div>Pakthang Villsge, Sikhot District T3, Dongnatong Vientiane, LAO P.D.R</div>
             </div>
-            <div class="inputWrap address">
+            <div class="inputWrap address target_1">
                 <h5 class="inputName"><a href="#">하우 창고 주소</a></h5>
                 <div>phonpapao village ,  Sisatttanak Dostrict,Vientiane </div>
                 <h5 class="inputAlarm"><a href="#">※하우창고에서 수령시 배출일 (9시~17시) 하루동안만 개봉되며 미수령시 본사로 이동됩니다.</a></h5>
             </div>
             
+            <div class="inputWrap target_3">
+                <h5 class="inputName"><a href="#">택배사</a></h5>
+				<select name="recAddr" id="recAddr">
+                	<c:forEach var="item" items="${shipComList }">
+                		<c:choose>
+                			<c:when test="${item.target eq result.recAddr }">
+                	        	<option value="${item.target }" selected>${item.tName }</option>
+                			</c:when>
+                			<c:otherwise>
+								<option value="${item.target }">${item.tName }</option>                            			
+                            </c:otherwise>
+                        </c:choose>                            		
+					</c:forEach>
+				</select>
+            </div>
+            <div class="inputWrap target_3">
+                <h5 class="inputName"><a href="#">상세주소</a></h5>
+                <input type="text" name="recHou" id="recHou" value="${result.recHou}">
+            </div>
+            
             <!-- 파라메터 hidden 설정 -->
             <input type="hidden" id="inKey" name="inKey" value="${inputMap.inKey }"/>
             <input type="hidden" id="arrDay" name="arrDay" value="${result.arrDay }"/>           
-            
+            <input type="hidden" id="memId" name="memId" />
             </form>                                   
         </section>
         <footer>
@@ -93,8 +114,8 @@
 	<jsp:include page="/js/7.MobileDelivery/mCommon.jsp"></jsp:include>
    	
    	<script>
-   	
    	$(document).ready(function(e){
+   		$(".target_3").hide();
    		console.log("[내부 A] uid : ", uid, " // udi2 : ", uid2, " // level : ", level);
    		chkAuth(uid, uid2, level);
    		const initCreDay = "${result.creDay}";
@@ -107,11 +128,26 @@
 	    	$("#creDay").datepicker("setDate", "${result.creDay}");
     	}
     	
-    	/* 본사, 하우창고 선택 설정 (JANG) */
+    	/* 본사, 하우창고, 지방배송 선택 설정 (JANG) */
     	if(initRecTarget != ''){
-	    	$("#recTarget").val("${result.recTarget}").prop("selected", true);    		
+	    	$("#recTarget").val("${result.recTarget}").prop("selected", true);
+	    	if($("#recTarget").val() == 3){
+	    		$(".target_1").hide();
+    			$(".target_3").show();
+	    	}
     	}
    		
+    	/* 지방배송 선택 설정 (JANG) */
+    	$("#recTarget").on("change", function(evt){
+    		if($(this).val() == 1 || $(this).val() == 2){
+    			$(".target_1").show();
+    			$(".target_3").hide();
+    		}else{
+    			$(".target_1").hide();
+    			$(".target_3").show();
+    		}
+    	});
+    	
     	/* 다음버튼 클릭 이벤트 설정(JANG) */
    		$("#nextBtn").on("click", function(e){
    			let regist = true;
@@ -121,7 +157,7 @@
    			const recTargetVal = $("#recTarget").val();
    			
    			$("#formData > .inputWrap > input").each(function(index){    			    			
-    			if(($(this).val() == null || $(this).val() == '')){
+    			if(($(this).val() == null || $(this).val() == '') && $(this).attr("id") != "recHou"){
     				const text = $(this).siblings(".inputName").children().text();
     				console.log('text : ', text);
     				alert(text+' 정보를 입력해주세요.');
@@ -130,6 +166,18 @@
     				return false;
     			}
     		});
+   			
+   			/* memId 추가 (240429 장연우) */
+    		if($("#memId").val() == '' || $("#memId").val() == null){
+    			$("#memId").val(uid);
+    		}
+    		
+    		/* 지방, 하우 선택하는 경우 택배사, 상세주소 값 초기화 (240501 JANG) */
+    		if($("#recTarget").val() == 1 || $("#recTarget").val() == 2){
+    			$("#recAddr").val("");
+    			$("#recHou").val("");
+    		}
+   			
    			if(regist){
    				console.log("formData A : ", $("#formData").serialize());
    				$.ajax({

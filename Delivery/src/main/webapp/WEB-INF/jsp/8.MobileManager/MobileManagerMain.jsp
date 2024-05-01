@@ -83,7 +83,7 @@
             <div class="menuWrap">
                 <div class="mainTitle">배송 메뉴</div>
                 <div class="buttonCon">
-                    <button class="register">
+                    <button class="register" id="register">
                         <a href="#">
                             <span class="icon truckBlack"></span>
                             배송신청
@@ -117,6 +117,14 @@
                             출항일 관리
                         </a>
                     </button>
+                    <button class="register" id="delivery_company">
+                        <a href="#">
+                            <span class="icon truckBlack"></span>
+                            택배사 관리
+                        </a>
+                    </button>                    
+                </div>
+                <div class="buttonCon">
                     <button class="customer">
                         <a href="#">
                             <span class="icon customer"></span>
@@ -194,10 +202,19 @@
 			}
 			
 		})
-		$(".register").on("click",function(){
+		$("#register").on("click",function(){
 			if(uid != "null" || uid2 != "null"){
 				// 경로 설정 (240331 장연우)
 				location.href="mAdminDeliveryRegistMain.do";
+			}
+			else if(uid == "null" && uid2 == "null"){
+				alert("로그인이 필요한 서비스입니다.")
+			}
+		})
+		$("#delivery_company").on("click",function(){
+			if(uid != "null" || uid2 != "null"){
+				// 경로 설정 (240331 장연우)
+				location.href="Mobile_DeliveryCompanyList.do";
 			}
 			else if(uid == "null" && uid2 == "null"){
 				alert("로그인이 필요한 서비스입니다.")

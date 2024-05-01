@@ -91,12 +91,6 @@ public class DeliveryRegistController {
 	@RequestMapping(value = "/userDelRegist.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String userDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
-		if(session.getAttribute("SESSION_MEM_ID") != null) {			
-			inputMap.put("memId", (String)(session.getAttribute("SESSION_MEM_ID")));	
-		}
-		else if(session.getAttribute("SESSION_PROTO_ID") != null) {			
-			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));	
-		}
 		
 		System.out.println("[inputMap] userDelRegist : " + inputMap);
 		
@@ -155,12 +149,6 @@ public class DeliveryRegistController {
 	@RequestMapping(value = "/mUserDelRegist.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String mUserDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
-		if(session.getAttribute("SESSION_MEM_ID") != null) {			
-			inputMap.put("memId", (String)(session.getAttribute("SESSION_MEM_ID")));	
-		}
-		else if(session.getAttribute("SESSION_PROTO_ID") != null) {			
-			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));	
-		}
 		
 		System.out.println("[inputMap] mUserDelRegist : " + inputMap);
 		
@@ -207,16 +195,20 @@ public class DeliveryRegistController {
 		// 선택한 데이터 가지고 오기		
 		inputMap.put("inKey", inputMap.get("ik"));		
 		HashMap<String, String> ingDelRead = delRegistService.ingDeliveryRead(inputMap);
-		
+		System.out.println("ingDelRead : " + ingDelRead);
 		// 박스정보 가지고 오기
 		List<HashMap<String, String>> packInfo = delRegistService.packInfoList(inputMap);
 		
 		// 출항일 데이터 가지고 오기
 		List<HashMap<String, String>> outDayList = delRegistService.outDayList(inputMap);
+		
+		// 택배사 데이터 가지고 오기
+		List<HashMap<String, String>> shipComList = delRegistService.shipComList(inputMap);
 
 		mav.addObject("result", ingDelRead);
 		mav.addObject("outDayList", outDayList);
 		mav.addObject("packInfo", packInfo);
+		mav.addObject("shipComList", shipComList);
 		
 		mav.setViewName("2.Delivery/adminDeliveryRegist");
 		
@@ -228,12 +220,6 @@ public class DeliveryRegistController {
 	@RequestMapping(value = "/adminDelRegist.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String adminDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
-		if(session.getAttribute("SESSION_MEM_ID") != null) {			
-			inputMap.put("memId", (String)(session.getAttribute("SESSION_MEM_ID")));	
-		}
-		else if(session.getAttribute("SESSION_PROTO_ID") != null) {			
-			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));	
-		}
 		
 		System.out.println("[inputMap] adminDelRegist : " + inputMap);
 		
@@ -255,7 +241,11 @@ public class DeliveryRegistController {
 		
 		HashMap<String, String> ingDelRead = delRegistService.ingDeliveryRead(inputMap);
 		
+		// 택배사 데이터 가지고 오기
+		List<HashMap<String, String>> shipComList = delRegistService.shipComList(inputMap);
+		
 		mav.addObject("result", ingDelRead);		
+		mav.addObject("shipComList", shipComList);		
 		mav.setViewName("7.MobileDelivery/mAdminDeliveryRegist_A");
 		
 		System.out.println("[inputMap] mAdminDeliveryRegistMain : " + inputMap);
@@ -306,12 +296,7 @@ public class DeliveryRegistController {
 	@RequestMapping(value = "/mAdminDelRegist.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
 	public String mAdminDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
-		if(session.getAttribute("SESSION_MEM_ID") != null) {			
-			inputMap.put("memId", (String)(session.getAttribute("SESSION_MEM_ID")));	
-		}
-		else if(session.getAttribute("SESSION_PROTO_ID") != null) {			
-			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));	
-		}
+		
 		System.out.println("[inputMap] mAdminDelRegist : " + inputMap);
 		
 		String resultMsg = delRegistService.adminDelRegist(inputMap);

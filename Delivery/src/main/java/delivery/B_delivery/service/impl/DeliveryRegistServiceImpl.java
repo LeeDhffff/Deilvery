@@ -86,6 +86,13 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 		return delRegistMapper.outDayList(inputMap);
 	}
 	
+	/* 택배사 조회 */
+	@Override
+	public List<HashMap<String, String>> shipComList(HashMap<String, Object> inputMap) throws Exception {
+		
+		return delRegistMapper.shipComList(inputMap);
+	}
+	
 	/* 박스정보 가져오기 */
 	@Override
 	public List<HashMap<String, String>> packInfoList(HashMap<String, Object> inputMap) throws Exception {

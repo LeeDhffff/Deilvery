@@ -114,5 +114,29 @@ public class ManagerServiceImpl implements ManagerService {
 		return ManagerMapper.Delivery_receipt_D(inputMap);
 	}
 
+//	@Override
+//	public List<HashMap<String, String>> DeliveryCompanyList_Select(HashMap<String, Object> inputMap) throws Exception {
+//		// TODO Auto-generated method stub
+//		return ManagerMapper.DeliveryCompanyList_Select(inputMap);
+//	}
+
+	@Override
+	public List<HashMap<String, String>> DeliveryCompanyList_Search(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return ManagerMapper.DeliveryCompanyList_Search(inputMap);
+	}
+
+	@Override
+	public String DeliveryCompanyList_IUD(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return ManagerMapper.DeliveryCompanyList_IUD(inputMap);
+	}
+
+	@Override
+	public HashMap<String, String> DeliveryCompanyList_Load(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return ManagerMapper.DeliveryCompanyList_Load(inputMap);
+	}
+
 
 }

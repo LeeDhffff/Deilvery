@@ -33,6 +33,8 @@ public interface DeliveryRegistMapper {
 	public HashMap<String, String> ingDeliveryRead(HashMap<String, Object> inputMap) throws Exception;
 	/* 출항일 조회 */
 	public List<HashMap<String, String>> outDayList(HashMap<String, Object> inputMap) throws Exception;
+	/* 택배사 조회 */
+	public List<HashMap<String, String>> shipComList(HashMap<String, Object> inputMap) throws Exception;
 	/* 박스정보 가져오기 */
 	public List<HashMap<String, String>> packInfoList(HashMap<String, Object> inputMap) throws Exception;
 		

@@ -96,6 +96,16 @@
 		FROM out_day;
 	</select>
 	
+	<!-- 택배사 조회 -->
+	<select id="shipComList" parameterType="hashmap" resultType="hashmap">
+		/* shipComList */
+		SELECT 
+			TARGET AS target
+			,T_NAME AS tName
+		FROM delivery_company
+		WHERE USEAGE = 'Y';
+	</select>
+	
 	<!-- 박스정보 가져오기 -->
 	<select id="packInfoList" parameterType="hashmap" resultType="hashmap">
 		/* packInfoList */
@@ -114,11 +124,10 @@
 	</select>
 	
 	
-	
 	<!-- 관리자 배송신청 등록 -->
 	<insert id="adminDelRegist" parameterType="hashmap">
 		/* adminDelRegist */
-		INSERT INTO appliaction(
+		INSERT INTO application(
 			IN_KEY
 			,MEM_ID
 			,TYPE
@@ -127,8 +136,6 @@
 			,REC_TARGET
 			,REC_ADDR
 			,REC_HOU
-			,REC_TXT
-			,GOO_COORDINATE
 			,CRE_DAY
 			,ARR_DAY
 			,CHK
@@ -142,8 +149,6 @@
 			,#{recTarget}
 			,#{recAddr}
 			,#{recHou}
-			,#{recTxt}
-			,#{gooCoordinate}
 			,#{creDay}
 			,#{arrDay}
 			,'Y'

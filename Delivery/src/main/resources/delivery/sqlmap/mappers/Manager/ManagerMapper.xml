@@ -130,4 +130,28 @@
 			#{IN_KEY}
 		)}
 	</select>
+<!-- 	<select id="DeliveryCompanyList_Select" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap"> -->
+<!-- 		{ call C_COMPANY_DELIVERY( -->
+<!-- 		)} -->
+<!-- 	</select> -->
+	<select id="DeliveryCompanyList_Search" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call C_COMPANY_DELIVERY_SELECT(
+			#{T_NAME},
+			#{USE}
+		)}
+	</select>
+	<select id="DeliveryCompanyList_Load" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call C_COMPANY_DELIVERY_LOAD(
+			#{TARGET}
+		)}
+	</select>
+	<select id="DeliveryCompanyList_IUD" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call C_COMPANY_DELIVERY_IUD(
+				#{TARGET},
+				#{T_NAME},
+				#{USE},
+				#{MODE}
+		) }
+	</select>
+	
 </mapper>

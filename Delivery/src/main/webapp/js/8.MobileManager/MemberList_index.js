@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     $('.icon.filter').click(function(){
-        $('.pop').css({'display':'flex'});
+        $('#pop1').css({'display':'flex'});
     });
 
     $('.cancel').click(function(){
@@ -15,7 +15,13 @@ $(document).ready(function(){
     //tab
 
     $('.tabCon').click(function(){
-        $(this).addClass('on');
-        $('.tabCon').not(this).removeClass('on');
+		if($(this).hasClass('on') == false){
+		    $(this).addClass('on');
+	        //$('.tabCon').not(this).removeClass('on');	
+		}
+		else{
+			$(this).removeClass('on');
+	        //$('.tabCon').not(this).removeClass('on');	
+		}
     });
 });

@@ -94,7 +94,7 @@
     <div class="m_container">
         <header class="m_header first">
             <h3 class="arrow back">
-                <a href="Mobile_Login.do">
+                <a href="#">
                     <img src="./images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>

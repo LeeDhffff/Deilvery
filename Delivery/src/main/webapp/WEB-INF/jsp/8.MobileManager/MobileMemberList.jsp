@@ -33,7 +33,7 @@
 </head>
 
 <body>
-   <div class="pop">
+   <div id="pop1" class="pop">
         <div class="popCon">
             <div class="popHeader">
                 <div class="popTitle">고객관리 필터</div>
@@ -44,8 +44,8 @@
                 </h5>
             </div>
             <div class="popBody">
-                <h3 class="tabCon"><a href="#">이용 횟수</a></h3>     
-                <h3 class="tabCon"><a href="#">배송비 총 금액</a></h3>          
+                <h3 class="tabCon" id="count"><a href="#">이용 횟수</a></h3>     
+                <h3 class="tabCon" id="totalcost"><a href="#">배송비 총 금액</a></h3>          
             </div>
             <button class="popButton">적용하기</button>            
         </div>        
@@ -103,6 +103,12 @@
 		$(".back").on("click",function(){
 			history.back();
 		})
+		
+		
+		$(".popButton").on("click",function(){
+			selectList();
+			$(".pop").hide();
+		})
 
 
 		/* 테이블 클릭시 해당 회원 정보 열람 / 수정페이지로 이동 */
@@ -121,8 +127,10 @@
 	function selectList(){
 			var deliverydata = {
 					MEM_ID : uid,
-					COUNT : $("#chk_count option:selected").val(),
-					TOTALCOST : $("#chk_cost option:selected").val()
+					COUNT : ($("#count").hasClass("on") == true) ? 'Y'
+							: 'N',
+					TOTALCOST : ($("#totalcost").hasClass("on") == true) ? 'Y'
+							: 'N'
 			};
 			$.ajax({
 				type: "POST",
