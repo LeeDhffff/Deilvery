@@ -289,51 +289,13 @@ public class ManagerController {
 	/* 출항일 파일 삽입 (현재 사용여부 X) */
 	@RequestMapping(value = "Out_Day_File_Insert.do", produces = "application/text; charset=utf-8")
 	@ResponseBody
-	public String Out_Day_File_Insert(@RequestParam("uploadFile") List<MultipartFile> uploadFile, @RequestParam HashMap<String, Object> inputMap, HttpServletRequest request, MultipartHttpServletRequest mRequest,
+	public String Out_Day_File_Insert(@RequestParam HashMap<String, Object> inputMap, HttpServletRequest request,
 			HttpSession session) throws Exception {
 
 
-		System.out.println("uploadFile.size : "+uploadFile.size());
-		
-		String path1 = "D:\\DeliveryUpload\\outdayFile";
-		File savePath1 = new File(path1);
-		if(!savePath1.exists()) savePath1.mkdir();
-
-		
-		SimpleDateFormat now = new SimpleDateFormat("yyyyMMddhhmmss");		
-		
-		for(int i=0; i<uploadFile.size(); i++) {
-			
-			String today = now.format(System.currentTimeMillis());
-			String oName = uploadFile.get(i).getOriginalFilename();
-			String ext = oName.substring(oName.lastIndexOf(".")+1);
-			if(!oName.equals("")) {
-				oName = today+"_"+oName.substring(oName.lastIndexOf("\\")+1);
-			}
-			System.out.println("oName : " + oName + ", " + "확장자 : " + ext);
-
-			inputMap.put("PATH", path1);
-
-			File saveFile = new File(path1, oName);
-			try {
-				if(!oName.equals("")) {
-					uploadFile.get(i).transferTo(saveFile);
-					inputMap.put("SAVE_NM", oName);
-					inputMap.put("ORGIN_NM", uploadFile.get(i).getOriginalFilename());
-					System.out.println("업로드 성공 :" + "ORGIN_NM");
-				}
-				else {
-					System.out.println("해당파일 없음 :" + "ORGIN_NM");
-				}
-			}catch(Exception e) {
-				System.out.println(e.getMessage());
-			}				
-		}	
-		if(uploadFile.size() == 0) {
-			inputMap.put("PATH", "");
-			inputMap.put("ORGIN_NM", "");
-			inputMap.put("SAVE_NM", "");
-		}
+		inputMap.put("PATH", "");
+		inputMap.put("ORGIN_NM", "");
+		inputMap.put("SAVE_NM", "");
 		
 		System.out.println("출항일 현황 등록 input: " + inputMap);
 		String ListDays = ManagerService.Out_Day_File_Insert(inputMap);
@@ -345,57 +307,79 @@ public class ManagerController {
 		
 		return jsonStr;
 	}
+//	@RequestMapping(value = "Out_Day_File_Insert.do", produces = "application/text; charset=utf-8")
+//	@ResponseBody
+//	public String Out_Day_File_Insert(@RequestParam("uploadFile") List<MultipartFile> uploadFile, @RequestParam HashMap<String, Object> inputMap, HttpServletRequest request, MultipartHttpServletRequest mRequest,
+//			HttpSession session) throws Exception {
+//
+//
+//		System.out.println("uploadFile.size : "+uploadFile.size());
+//		
+//		String path1 = "D:\\DeliveryUpload\\outdayFile";
+//		File savePath1 = new File(path1);
+//		if(!savePath1.exists()) savePath1.mkdir();
+//
+//		
+//		SimpleDateFormat now = new SimpleDateFormat("yyyyMMddhhmmss");		
+//		
+//		for(int i=0; i<uploadFile.size(); i++) {
+//			
+//			String today = now.format(System.currentTimeMillis());
+//			String oName = uploadFile.get(i).getOriginalFilename();
+//			String ext = oName.substring(oName.lastIndexOf(".")+1);
+//			if(!oName.equals("")) {
+//				oName = today+"_"+oName.substring(oName.lastIndexOf("\\")+1);
+//			}
+//			System.out.println("oName : " + oName + ", " + "확장자 : " + ext);
+//
+//			inputMap.put("PATH", path1);
+//
+//			File saveFile = new File(path1, oName);
+//			try {
+//				if(!oName.equals("")) {
+//					uploadFile.get(i).transferTo(saveFile);
+//					inputMap.put("SAVE_NM", oName);
+//					inputMap.put("ORGIN_NM", uploadFile.get(i).getOriginalFilename());
+//					System.out.println("업로드 성공 :" + "ORGIN_NM");
+//				}
+//				else {
+//					System.out.println("해당파일 없음 :" + "ORGIN_NM");
+//				}
+//			}catch(Exception e) {
+//				System.out.println(e.getMessage());
+//			}				
+//		}	
+//		if(uploadFile.size() == 0) {
+//			inputMap.put("PATH", "");
+//			inputMap.put("ORGIN_NM", "");
+//			inputMap.put("SAVE_NM", "");
+//		}
+//		
+//		System.out.println("출항일 현황 등록 input: " + inputMap);
+//		String ListDays = ManagerService.Out_Day_File_Insert(inputMap);
+//		System.out.println("출항일 현황 등록 result: " + ListDays);
+//
+//		
+//		ObjectMapper mapper = new ObjectMapper();
+//		String jsonStr = mapper.writeValueAsString(ListDays);
+//		
+//		return jsonStr;
+//	}
 	
 
 	/* 출항일 파일 수정/삭제 (현재 사용여부 X) */
 	@RequestMapping(value = "Out_Day_File_UD.do", produces = "application/text; charset=utf-8")
 	@ResponseBody
-	public String Out_Day_File_UD(@RequestParam("uploadFile") List<MultipartFile> uploadFile, @RequestParam HashMap<String, Object> inputMap, HttpServletRequest request, MultipartHttpServletRequest mRequest,
+	public String Out_Day_File_UD(@RequestParam HashMap<String, Object> inputMap, HttpServletRequest request,
 			HttpSession session) throws Exception {
-
+			
+		System.out.println("Out_Day_File_UD 체크 :: "+ inputMap + inputMap.get("MODE"));
 		
 		if(inputMap.get("MODE").equals("U")) {
-		System.out.println("uploadFile.size : "+uploadFile.size());
-		
-		String path1 = "D:\\DeliveryUpload\\outdayFile";
-		File savePath1 = new File(path1);
-		if(!savePath1.exists()) savePath1.mkdir();
-
-		
-		SimpleDateFormat now = new SimpleDateFormat("yyyyMMddhhmmss");	
-		for(int i=0; i<uploadFile.size(); i++) {
 			
-			String today = now.format(System.currentTimeMillis());
-			String oName = uploadFile.get(i).getOriginalFilename();
-			String ext = oName.substring(oName.lastIndexOf(".")+1);
-			if(!oName.equals("")) {
-				oName = today+"_"+oName.substring(oName.lastIndexOf("\\")+1);
-			}
-			System.out.println("oName : " + oName + ", " + "확장자 : " + ext);
-
-			inputMap.put("PATH", path1);
-
-			File saveFile = new File(path1, oName);
-			try {
-				if(!oName.equals("")) {
-					uploadFile.get(i).transferTo(saveFile);
-					inputMap.put("ORGIN_NM", oName);
-					inputMap.put("SAVE_NM", uploadFile.get(i).getOriginalFilename());
-					System.out.println("업로드 성공 :" + "ORGIN_NM");
-				}
-				else {
-					System.out.println("해당파일 없음 :" + "ORGIN_NM");
-				}
-			}catch(Exception e) {
-				System.out.println(e.getMessage());
-			}				
-		}	
-
-		if(uploadFile.size() == 0) {
 			inputMap.put("PATH", "");
 			inputMap.put("ORGIN_NM", "");
 			inputMap.put("SAVE_NM", "");
-		}
 		
 		}
 		else if(inputMap.get("MODE").equals("D")){
@@ -413,6 +397,71 @@ public class ManagerController {
 		
 		return jsonStr;
 	}
+//	@RequestMapping(value = "Out_Day_File_UD.do", produces = "application/text; charset=utf-8")
+//	@ResponseBody
+//	public String Out_Day_File_UD(@RequestParam("uploadFile") List<MultipartFile> uploadFile, @RequestParam HashMap<String, Object> inputMap, HttpServletRequest request, MultipartHttpServletRequest mRequest,
+//			HttpSession session) throws Exception {
+//
+//		
+//		if(inputMap.get("MODE").equals("U")) {
+//		System.out.println("uploadFile.size : "+uploadFile.size());
+//		
+//		String path1 = "D:\\DeliveryUpload\\outdayFile";
+//		File savePath1 = new File(path1);
+//		if(!savePath1.exists()) savePath1.mkdir();
+//
+//		
+//		SimpleDateFormat now = new SimpleDateFormat("yyyyMMddhhmmss");	
+//		for(int i=0; i<uploadFile.size(); i++) {
+//			
+//			String today = now.format(System.currentTimeMillis());
+//			String oName = uploadFile.get(i).getOriginalFilename();
+//			String ext = oName.substring(oName.lastIndexOf(".")+1);
+//			if(!oName.equals("")) {
+//				oName = today+"_"+oName.substring(oName.lastIndexOf("\\")+1);
+//			}
+//			System.out.println("oName : " + oName + ", " + "확장자 : " + ext);
+//
+//			inputMap.put("PATH", path1);
+//
+//			File saveFile = new File(path1, oName);
+//			try {
+//				if(!oName.equals("")) {
+//					uploadFile.get(i).transferTo(saveFile);
+//					inputMap.put("ORGIN_NM", oName);
+//					inputMap.put("SAVE_NM", uploadFile.get(i).getOriginalFilename());
+//					System.out.println("업로드 성공 :" + "ORGIN_NM");
+//				}
+//				else {
+//					System.out.println("해당파일 없음 :" + "ORGIN_NM");
+//				}
+//			}catch(Exception e) {
+//				System.out.println(e.getMessage());
+//			}				
+//		}	
+//
+//		if(uploadFile.size() == 0) {
+//			inputMap.put("PATH", "");
+//			inputMap.put("ORGIN_NM", "");
+//			inputMap.put("SAVE_NM", "");
+//		}
+//		
+//		}
+//		else if(inputMap.get("MODE").equals("D")){
+//			inputMap.put("PATH", "");
+//			inputMap.put("ORGIN_NM", "");
+//			inputMap.put("SAVE_NM", "");
+//		}
+//		System.out.println("출항일 현황 등록 input: " + inputMap);
+//		String ListDays = ManagerService.Out_Day_File_UD(inputMap);
+//		System.out.println("출항일 현황 등록 result: " + ListDays);
+//
+//		
+//		ObjectMapper mapper = new ObjectMapper();
+//		String jsonStr = mapper.writeValueAsString(ListDays);
+//		
+//		return jsonStr;
+//	}
 	
 
 	@RequestMapping(value = "/Delivery_receipt.do" , produces = "application/text; charset=utf-8")

@@ -282,6 +282,7 @@
 				$(".condition").addClass("off");
 				
 				$(".currentDay").attr("disabled",true);
+				$(".currentMessage").attr("disabled",true);
 				
 				
 				$(this).parent(".current").addClass("on");
@@ -329,25 +330,23 @@
 	    	            	else{
 	    	            		$("#Out_Key").val(data);
 	    	            		
-	    	            		var form = new FormData();
-	    						form.append("MEM_ID",uid);
-	    		     		 	form.append("OUT_SEQ",$(".current.on").find(".currentSeq").val());
-	    		     		 	form.append("OUT_KEY",$("#Out_Key").val());
-	    		     		 	form.append("OUT_DAY",$("#Out_Day").val());
-	    		     		 	form.append("CHK",$(".current.on").find(".currentSeq").val());
-	    		     		 	form.append("OUT_TXT",$(".current.on").find(".currentDay").val());
-	    		     		 	form.append("OUT_TXT_SUB",$(".current.on").find(".currentMessage").val());
-	    		     		 	form.append("MODE","U");
-
-	    		     		 	form.append("uploadFile",null);
+	    	            		var form ={//= new FormData();
+		    						MEM_ID:		uid,
+		    		     		 	OUT_SEQ:	$(".current.on").find(".currentSeq").val(),
+		    		     		 	OUT_KEY:	$("#Out_Key").val(),
+		    		     		 	OUT_DAY:	$("#Out_Day").val(),
+		    		     		 	CHK:		$(".current.on").find(".currentSeq").val(),
+		    		     		 	OUT_TXT:	$(".current.on").find(".currentDay").val(),
+		    		     		 	OUT_TXT_SUB:$(".current.on").find(".currentMessage").val(),
+		    		     		 	MODE:		"U"
+	    	            		}
+// 	    		     		 	form.append("uploadFile",null);
 //	     		     		 	$("#Out_Day_Out_Image")[0].files[0]
 	    		            	$.ajax({
 	    		    				type: "POST",
 	    		    				url : "./Out_Day_File_UD.do",
 	    		    				data: form,
 	    		    				async: false,
-	    		    				processData : false,
-	    		    				contentType : false,
 	    		    	            success: function(datas){
 	    		    	            	alert(datas);
 	    		    	    			location.href="Outday.do?ok=" + data;
@@ -369,25 +368,22 @@
 				}
 				else{
 					
-		     		 	var form = new FormData();
-						form.append("MEM_ID",uid);
-		     		 	form.append("OUT_SEQ",$(".current.on").find(".currentSeq").val());
-		     		 	form.append("OUT_KEY",$("#Out_Key").val());
-		     		 	form.append("OUT_DAY",$("#Out_Day").val());
-		     		 	form.append("CHK",$(".current.on").find(".currentSeq").val());
-		     		 	form.append("OUT_TXT",$(".current.on").find(".currentDay").val());
-		     		 	form.append("OUT_TXT_SUB",$(".current.on").find(".currentMessage").val());
-		     		 	form.append("MODE","U");
-
-		     		 	form.append("uploadFile",null);
+					var form ={//= new FormData();
+    						MEM_ID:		uid,
+    		     		 	OUT_SEQ:	$(".current.on").find(".currentSeq").val(),
+    		     		 	OUT_KEY:	$("#Out_Key").val(),
+    		     		 	OUT_DAY:	$("#Out_Day").val(),
+    		     		 	CHK:		$(".current.on").find(".currentSeq").val(),
+    		     		 	OUT_TXT:	$(".current.on").find(".currentDay").val(),
+    		     		 	OUT_TXT_SUB:$(".current.on").find(".currentMessage").val(),
+    		     		 	MODE:		"U"
+	            		}
 // 		     		 	$("#Out_Day_Out_Image")[0].files[0]
 		            	$.ajax({
 		    				type: "POST",
 		    				url : "./Out_Day_File_UD.do",
 		    				data: form,
 		    				async: false,
-		    				processData : false,
-		    				contentType : false,
 		    	            success: function(datas){
 		    	            	alert(datas);
 		    	            	searchOutDay($("#Out_Key").val());
@@ -437,25 +433,24 @@
 				alert("해당 항목은 삭제할수 없습니다.")
 			}
 			else if(confirm("해당 배송현황을 삭제하시겠습니까?")){
-		     		 	var form = new FormData();
-						form.append("MEM_ID",uid);
-		     		 	form.append("OUT_SEQ",$(".current.on").find(".currentSeq").val());
-		     		 	form.append("OUT_KEY",$("#Out_Key").val());
-		     		 	form.append("OUT_DAY",$("#Out_Day").val());
-		     		 	form.append("CHK",$(".current.on").find(".currentSeq").val());
-		     		 	form.append("OUT_TXT",$(".current.on").find(".currentDay").val());
-		     		 	form.append("OUT_TXT_SUB",$(".current.on").find(".currentMessage").val());
-		     		 	form.append("MODE","D");
+				var form ={//= new FormData();
+						MEM_ID:		uid,
+		     		 	OUT_SEQ:	$(".current.on").find(".currentSeq").val(),
+		     		 	OUT_KEY:	$("#Out_Key").val(),
+		     		 	OUT_DAY:	$("#Out_Day").val(),
+		     		 	CHK:		$(".current.on").find(".currentSeq").val(),
+		     		 	OUT_TXT:	$(".current.on").find(".currentDay").val(),
+		     		 	OUT_TXT_SUB:$(".current.on").find(".currentMessage").val(),
+		     		 	MODE:		"D"
+            		}
 
-		     		 	form.append("uploadFile",null);
+// 		     		 	form.append("uploadFile",null);
 // 		     		 	$("#Out_Day_Out_Image")[0].files[0]
 		            	$.ajax({
 		    				type: "POST",
 		    				url : "./Out_Day_File_UD.do",
 		    				data: form,
 		    				async: false,
-		    				processData : false,
-		    				contentType : false,
 		    	            success: function(datas){
 		    	            	alert(datas);
 		    	            	searchOutDay($("#Out_Key").val());
@@ -532,6 +527,8 @@
 		
 		$(".currentDay").attr("disabled",true);
 		$(".currentDay").val("");
+		$(".currentMessage").attr("disabled",true);
+		$(".currentMessage").val("");
 		$(".currentcheck").attr("disabled",true);
 		$(".currentcheck").prop("checked",false);
 		
@@ -541,6 +538,7 @@
 			$(".current.one").removeClass("off");
 			$(".current.one").addClass("on");
 			$(".current.one").find(".currentDay").attr("disabled",false);
+			$(".current.one").find(".currentMessage").attr("disabled",false);
 			$(".current.one").find(".currentcheck").attr("disabled",false);
 			$(".current.one").find(".currentcheck").prop("checked",true);
 			$(".current.one").find(".condition").removeClass("off");
@@ -551,6 +549,7 @@
 				$(".current."+setting[chk]).removeClass("off");
 				$(".current."+setting[chk]).addClass("on");
 				$(".current."+setting[chk]).find(".currentDay").attr("disabled",false);
+				$(".current."+setting[chk]).find(".currentMessage").attr("disabled",false);
 				$(".current."+setting[chk-1]).find(".currentcheck").attr("disabled",false);
 				$(".current."+setting[chk]).find(".currentcheck").attr("disabled",false);
 				$(".current."+setting[chk]).find(".currentcheck").prop("checked",true);
@@ -562,6 +561,7 @@
 			$(".current.six").removeClass("off");
 			$(".current.six").addClass("on");
 			$(".current.six").find(".currentDay").attr("disabled",false);
+			$(".current.six").find(".currentMessage").attr("disabled",false);
 			$(".current.six").find(".currentcheck").attr("disabled",false);
 			$(".current.five").find(".currentcheck").attr("disabled",true);
 			$(".current.six").find(".currentcheck").prop("checked",true);
