@@ -124,7 +124,7 @@
 				menubar += '    <a class="Outday_Search" href="#">출항일 생성</a>';
 				menubar += "</li>";
 				menubar += "<li>";
-				menubar += '    <a href="DeliveryCompanyList.do">배송사 관리</a>';
+				menubar += '    <a href="DeliveryCompanyList.do">택배사 관리</a>';
 				menubar += "</li>";
 				menubar += "<li>";
 				menubar += '    <a href="MemberListPage.do">고객관리</a>';

@@ -45,6 +45,9 @@ $(document).on("ready",function(){
 		if(page.indexOf(nowpage) >= 0){
 			location.href = mobilepage[page.indexOf(nowpage)] + search;
 		}
+		else if(nowpage == ''){
+			location.href = "Mobile_Main.do";
+		}
 	}
 	else{
 		if(mobilepage.indexOf(nowpage) >= 0){
