@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
@@ -649,8 +650,8 @@ public class ManagerController {
 	    }
 	}
 
-//    public static String filePath = "D:\\upload\\deliveryFile";
-	public static String filePath = "..\\upload";
+    public static String filePath = "D:\\upload\\deliveryFile"; // 윈도우 경로
+//	public static String filePath = "/upload"; // 우분투 경로
 	private static final String BASE64_PNG_PRE_FIX = "data:image/png;base64,";
     
 	@RequestMapping(value = "/Excel.do" , produces = "application/text; charset=utf-8")
@@ -674,26 +675,19 @@ public class ManagerController {
     	 // 빈 Workbook 생성
         Workbook workbook = new HSSFWorkbook();
     	
-        System.out.println(inputMap);
-        System.out.println("엑셀 저장 : inputMap - " + inputMap);
         // 빈 Sheet를 생성
         Sheet sheet = workbook.createSheet((String)(inputMap.get("IN_KEY")));
         String fileNm = "EK Logistics_"+(String)(inputMap.get("IN_KEY"))+".xls";
 
-        System.out.println("엑셀 이미지저장 : fileNm - " + fileNm);
         String imageData = (String)(inputMap.get("EXCEL_QR"));
-        System.out.println("엑셀 이미지저장 : imageData - " + imageData);
         String encodingStr = imageData.replace(BASE64_PNG_PRE_FIX, "");
-        System.out.println("엑셀 이미지저장 : encodingStr - " + encodingStr);
         byte[] decodeImg = null;
         try{
         	decodeImg = Base64.getDecoder().decode(encodingStr);
-            System.out.println("메서드종료");
     	}catch(Exception e){
     		e.getStackTrace();
     	}
 		
-        System.out.println("메서드종료: decodeImg - " + decodeImg);
 		InputStream in = null;
 		FileOutputStream fos = null;
 		File imageFile = null;
@@ -705,6 +699,7 @@ public class ManagerController {
 		try {
 			FileUtils.forceMkdir(new File(filePath));
 			imageFile = new File(filePath + "/"+(String)(inputMap.get("IN_KEY"))+".png");
+
 			fos = new FileOutputStream(imageFile);
 			fos.write(decodeImg);
 
@@ -1293,18 +1288,25 @@ public class ManagerController {
 	@ResponseBody
 	public void exceldownload2(@RequestParam HashMap<String, Object> inputMap, Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-    	String path = filePath + "\\" +(String)(inputMap.get("fileNm"));
+    	String path = "";
+    	if(filePath.equals("D:\\upload\\deliveryFile")) {
+    		path = filePath + "\\" +(String)(inputMap.get("fileNm"));
+    	}
+    	else {
+    		path = filePath + "/" +(String)(inputMap.get("fileNm"));
+    	}
+    			
 		File file = new File(path);
 		
     	 try{
     	    	
     	        
-    			System.out.println(" getName : " + file.getName());
+    			System.out.println(" getName : " + URLEncoder.encode(file.getName(), "UTF-8"));
 
     			System.out.println(" path : " + path);
     			long fileLength = file.length();
     	        response.setContentType("application/vnd.ms-excel;");
-    			response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
+    			response.setHeader("Content-Disposition", "attachment; filename=" + (String)(inputMap.get("fileNm")) );
 
 
 				FileInputStream fileInputStream = new FileInputStream(path);		
