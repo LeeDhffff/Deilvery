@@ -151,7 +151,7 @@
 			     	   location.reload();   
 		           }
 		           else{
-		        	   console.log("아님");
+// 		        	   console.log("아님");
 		           }
 		        }
 				

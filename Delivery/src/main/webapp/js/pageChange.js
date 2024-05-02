@@ -15,7 +15,9 @@ $(document).on("ready",function(){
 	if(nowpage.indexOf("/Delivery/") >= 0){
 		nowpage = nowpage.replace("/Delivery/","");	
 	}
-	
+	else if(nowpage.indexOf("/") >= 0){
+		nowpage = nowpage.replace("/","");	
+	}
 	
 	var width = window.outerWidth;
 	

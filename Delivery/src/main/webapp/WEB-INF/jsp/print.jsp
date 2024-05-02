@@ -225,15 +225,20 @@
 					EXCEL_TABLE : Ddatas
 			};
 			console.log(deliverydata);
-			
 			$.ajax({
 				type: "POST",
 				url : "./Excel.do",
 				data: deliverydata,
 				async: false,
 	            success: function(datas){
-	            	alert(datas);
-	            	console.log(datas);
+// 	            	alert(datas);
+// 	            	console.log(datas);
+					if(datas != "엑셀 파일을 다운로드 하는데 문제가 발생하였습니다"){
+		            	location.href="Excel2.do?fileNm="+encodeURI(datas);
+					}
+					else{
+						alert(datas);
+					}
 	            }
 			})
 

@@ -488,7 +488,7 @@
 	                 htmlStr += '               <img src="images/delivery/pc_icon/krText.png" alt="#" style="width:100%;">';                 
 	                 htmlStr += '            </div>';              
 	                 htmlStr += '            <div style="width:50%;">';
-	                 htmlStr += '               <img src="images/delivery/pc_icon/kakaoEklaos.png" alt="#" style="width:100%;">';                 
+	                 htmlStr += '               <img src="images/delivery/pc_icon/kakaoEklaosWhite.png" alt="#" style="width:100%;">';                 
 	                 htmlStr += '            </div>';              
 	                 htmlStr += '         </div>';
 	                 htmlStr += '      </div>';

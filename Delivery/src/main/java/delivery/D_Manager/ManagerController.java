@@ -1,11 +1,14 @@
 package delivery.D_Manager;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
+import java.io.OutputStream;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -48,8 +50,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -584,7 +584,7 @@ public class ManagerController {
 	}
 	
 	
-	
+	@ResponseBody
 	public static String sendMail(String toMail, String _Key, HashMap<String, String> emaillist) {
 		
 		
@@ -649,7 +649,9 @@ public class ManagerController {
 	    }
 	}
 
-    public static String filePath = "C:\\Users\\USERPC\\Downloads";
+//    public static String filePath = "D:\\upload\\deliveryFile";
+	public static String filePath = "..\\upload";
+	private static final String BASE64_PNG_PRE_FIX = "data:image/png;base64,";
     
 	@RequestMapping(value = "/Excel.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody
@@ -657,43 +659,63 @@ public class ManagerController {
 		
 		String txt = excel(inputMap,response,model);
 		
-		if(txt.equals("Y")) {
-			return "엑셀 파일이 다운로드 폴더에 저장되었습니다.";
+		if(txt.equals("N")) {
+			return "엑셀 파일을 다운로드 하는데 문제가 발생하였습니다";
 		}
 		else {
-			return "엑셀 파일을 다운로드 하는데 문제가 발생하였습니다.\n열려있는 엑셀창을 닫아주세요.";
+			return txt;
 		}
 		
 		
 	}
-	
-	private static final String BASE64_PNG_PRE_FIX = "data:image/png;base64,";
-
-    public static String excel(HashMap<String, Object> inputMap , HttpServletResponse response, Map<String, Object> model) throws Exception{
+//	
+//
+    public static String excel(HashMap<String, Object> inputMap , HttpServletResponse response, Map<String, Object> model){
     	 // 빈 Workbook 생성
         Workbook workbook = new HSSFWorkbook();
     	
         System.out.println(inputMap);
+        System.out.println("엑셀 저장 : inputMap - " + inputMap);
         // 빈 Sheet를 생성
         Sheet sheet = workbook.createSheet((String)(inputMap.get("IN_KEY")));
         String fileNm = "EK Logistics_"+(String)(inputMap.get("IN_KEY"))+".xls";
-        
+
+        System.out.println("엑셀 이미지저장 : fileNm - " + fileNm);
         String imageData = (String)(inputMap.get("EXCEL_QR"));
+        System.out.println("엑셀 이미지저장 : imageData - " + imageData);
         String encodingStr = imageData.replace(BASE64_PNG_PRE_FIX, "");
-		byte[] decodeImg = Base64.decodeBase64(encodingStr);
+        System.out.println("엑셀 이미지저장 : encodingStr - " + encodingStr);
+        byte[] decodeImg = null;
+        try{
+        	decodeImg = Base64.getDecoder().decode(encodingStr);
+            System.out.println("메서드종료");
+    	}catch(Exception e){
+    		e.getStackTrace();
+    	}
+		
+        System.out.println("메서드종료: decodeImg - " + decodeImg);
 		InputStream in = null;
 		FileOutputStream fos = null;
 		File imageFile = null;
 		
-		String fileCommonPath = "D:\\upload\\deliveryFile";
-		
-		FileUtils.forceMkdir(new File(fileCommonPath)); //디렉토리 미 존재시 생성
-		imageFile = new File(fileCommonPath + "/"+(String)(inputMap.get("IN_KEY"))+".png");
-		fos = new FileOutputStream(imageFile);
-		fos.write(decodeImg);
 
-		in = new FileInputStream(imageFile);
-		byte[] bytes = IOUtils.toByteArray(in);
+        System.out.println("엑셀 이미지저장 : 경로 - " + filePath);
+        
+        byte[] bytes = null;
+		try {
+			FileUtils.forceMkdir(new File(filePath));
+			imageFile = new File(filePath + "/"+(String)(inputMap.get("IN_KEY"))+".png");
+			fos = new FileOutputStream(imageFile);
+			fos.write(decodeImg);
+
+	        System.out.println("엑셀 이미지저장 : 완료");
+			in = new FileInputStream(imageFile);
+			bytes = IOUtils.toByteArray(in);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} //디렉토리 미 존재시 생성
+		
 		int pictureIdx = workbook.addPicture(bytes, SXSSFWorkbook.PICTURE_TYPE_PNG);
 
 		final CreationHelper helper = workbook.getCreationHelper();
@@ -1242,18 +1264,83 @@ public class ManagerController {
         			sheet.getRow(i).getCell(9).setCellStyle(HeadStyleBorderLeft);
                 	
                 }
-    	
-        try (FileOutputStream out = new FileOutputStream(new File(filePath, fileNm))) {
-            workbook.write(out);
-            
-            return "Y";
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "N";
-        }finally {
-			imageFile.delete();
-		}
+
+        try{
+	        FileOutputStream fileO = new FileOutputStream(new File(filePath, fileNm));
+	
+	        workbook.write(fileO);
+	        in.close();
+        	fos.close();
+	        fileO.close();
+        	return fileNm;
+        	
+	    }catch(Exception e){
+	  		e.getStackTrace();
+        	return "N";
+	  	}
+        finally {
+   		 System.gc();
+   		 System.runFinalization();
+        	if(imageFile.delete()){
+//    			System.out.println("이미지파일삭제 성공");
+    		}else{
+//    			System.out.println("이미지파일삭제 실패");
+    		}
+        }
     }
+    
+    @RequestMapping(value = "/Excel2.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public void exceldownload2(@RequestParam HashMap<String, Object> inputMap, Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+    	String path = filePath + "\\" +(String)(inputMap.get("fileNm"));
+		File file = new File(path);
+		
+    	 try{
+    	    	
+    	        
+    			System.out.println(" getName : " + file.getName());
+
+    			System.out.println(" path : " + path);
+    			long fileLength = file.length();
+    	        response.setContentType("application/vnd.ms-excel;");
+    			response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
+
+
+				FileInputStream fileInputStream = new FileInputStream(path);		
+				OutputStream out = response.getOutputStream();
+	            
+				int read=0;
+				byte[] buffer = new byte[1024];
+				while((read = fileInputStream.read(buffer)) > -1) {
+					out.write(buffer, 0, read);
+//    					workbook.write(out);
+				}
+				out.flush();
+
+				fileInputStream.close();
+				out.close();
+				
+
+    		}
+			catch(Exception ex) {
+				throw new RuntimeException("파일 저장 에러");
+
+			}
+    	 finally {
+    		 System.gc();
+    		 System.runFinalization();
+    		 if(file.delete()){
+//	    			System.out.println("파일삭제 성공");
+	    		}else{
+//	    			System.out.println("파일삭제 실패");
+	    		}
+    	 }
+		
+		
+	}
+
+   
 //	public static HSSFWorkbook excel(HashMap<String, Object> inputMap , HttpServletResponse response, Map<String, Object> model) throws Exception{
 //			
 //		//List<HntTabs>
