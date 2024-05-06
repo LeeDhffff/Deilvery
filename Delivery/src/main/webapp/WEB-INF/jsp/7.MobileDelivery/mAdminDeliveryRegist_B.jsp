@@ -132,6 +132,7 @@
 	    		
 	    		$(".boxInfoWrap").append(htmlStr);
 	    		$("input[class='boxSize']").val("");
+	    		cost();
     		}
     	});
     	
@@ -142,6 +143,7 @@
     		$("input[name=boxIndex]").each(function(index){
 	    		if($(this).is(":checked")){
 	    			$(this).parent().remove();
+		    		cost();
 	    		}
     		});
     	});
@@ -211,6 +213,31 @@
     	
    	});	// document.ready end!!
    	
+   	function cost(){
+    	var number = 0;
+    	$(".boxInfoCon").each(function(){
+    		var width = $(this).find("input[name=width]").val();
+    		var height = $(this).find("input[name=height]").val();
+    		var length = $(this).find("input[name=length]").val();
+    		var weight = $(this).find("input[name=weight]").val();
+    		
+//			$500 (kg*$1.5 or 용적중량 *$1.5 중 비싼 비용으로 계산)
+// 			용적중량 : 가로*세로*높이*0.00022 
+			
+			var kgcost = weight * 1.5;
+			var lncost = Math.round(width * height * length * 0.00022 * 1.5);
+		
+// 			console.log(kgcost,lncost);
+			if(kgcost >= lncost){
+				number += kgcost;
+			}
+			else{
+				number += lncost;
+			}
+    	});
+    	
+    	$("#cost").val(number);
+    }
     </script>
 </body>
 </html>

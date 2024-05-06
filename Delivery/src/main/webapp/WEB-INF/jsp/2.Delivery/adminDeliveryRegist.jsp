@@ -258,7 +258,6 @@
     $(document).ready(function(){
     	console.log("페이지초기화!");    	
     	$("#target_3").hide();
-    	
     	/* 신청일자 datePicker 설정 (JANG) */
     	$("#creDay").datepicker();
     	$("#creDay").datepicker("option", "dateFormat", "yy-mm-dd");
@@ -316,6 +315,7 @@
 	    		$("#tBody").append(htmlStr);
 	    		console.log("chkIndex : ", chkIndex);
 	    		$("input[class='boxSize']").val("");
+	    		cost();
     		}
     	});
     	
@@ -435,6 +435,7 @@
     		$("input[name=boxIndex]").each(function(index){
     			$(this).parent().siblings(".boxIndex").text(index+1);
     		});
+    		cost();
     	});    	
 
     	
@@ -574,6 +575,34 @@
         });
 	}
    	
+    
+    // 용적용량 자동계산기
+    function cost(){
+    	var number = 0;
+    	$("#tBody > tr").each(function(){
+    		var width = $(this).find("input[name=width]").val();
+    		var height = $(this).find("input[name=height]").val();
+    		var length = $(this).find("input[name=length]").val();
+    		var weight = $(this).find("input[name=weight]").val();
+    		
+//			$500 (kg*$1.5 or 용적중량 *$1.5 중 비싼 비용으로 계산)
+// 			용적중량 : 가로*세로*높이*0.00022 
+			
+			var kgcost = weight * 1.5;
+			var lncost = Math.round(width * height * length * 0.00022 * 1.5);
+		
+// 			console.log(kgcost,lncost);
+			if(kgcost >= lncost){
+				number += kgcost;
+			}
+			else{
+				number += lncost;
+			}
+    	});
+    	
+    	$("#cost").val(number);
+    }
+    
     </script>
 </body>
 </html>
