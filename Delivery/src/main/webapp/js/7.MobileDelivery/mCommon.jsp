@@ -2,9 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <script>
-	const uid = '<%=(String)session.getAttribute("SESSION_MEM_ID")%>';
-	const uid2 = '<%=(String)session.getAttribute("SESSION_PROTO_ID")%>';
-	const level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';	
+	uid = '<%=(String)session.getAttribute("SESSION_MEM_ID")%>';
+	uid2 = '<%=(String)session.getAttribute("SESSION_PROTO_ID")%>';
+	level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';	
 // 	console.log("uid : ", uid, " // udi2 : ", uid2, " // level : ", level);
 	
 	function chkAuth(uid, uid2, level){		

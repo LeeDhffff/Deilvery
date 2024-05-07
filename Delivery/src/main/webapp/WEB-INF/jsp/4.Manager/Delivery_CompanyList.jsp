@@ -256,42 +256,50 @@
 			$(this).addClass("tron");
 			
 		});
+		
+// 		더블클릭 이벤트
 		$(document).on("dblclick","#Company_Table > tbody > tr",function(){
 			
+// 			수정 팝업창을 연다
 			$(".pop_container").show();
 			reset('U');
 		});
 		
-		
+// 		등록 창
 		$(".create").on("click",function(){
 			$(".pop_container").show();
 			reset('I');
 		})
 		
+// 		팝업 닫기
 		$(".popup_X").on("click",function(){
 			$(".pop_container").hide();
 			reset('I');
 		})
 		
-		
+// 		등록하기
 		$("#T_create").on("click",function(){
 			createMode('I');
 		})
 		
+// 		수정하기
 		$("#T_modify").on("click",function(){
 			createMode('U');
 		})
 		
+// 		삭제하기
 		$("#T_delete").on("click",function(){
 			createMode('D');
 		})
 		selectList();
 		
+// 		검색
 		$(".search").on("change",function(){
 			selectList();
 		})
 	})
 	
+// 	파라미터 리셋
 	function reset(mode){
 		
 		if(mode == 'I'){
@@ -335,6 +343,7 @@
 		
 	}
 	
+// 	택배사 등록/수정/삭제 요청 (I : 등록, U : 수정, D : 삭제)
 	function createMode(mode){
 		var deliverydata = {
 				TARGET : 0,
@@ -368,6 +377,7 @@
 			}
 		}
 	}
+// 	택배사 등록/수정/삭제
 	function create(data,mode){
 
 		$.ajax({
@@ -383,7 +393,7 @@
             }
 		})
 	}
-	/* 회원 리스트 불러오기 */
+	/* 택배사 리스트 불러오기 */
 	function selectList(){
 			var deliverydata = {
 					T_NAME : $("#S_T_NAME").val(),
