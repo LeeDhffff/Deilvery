@@ -117,6 +117,26 @@
     .print_table { border:2px solid black; border-collapse: collapse;}
 	.print_table > thead > tr > th, .print_table > tbody > tr > td {border:1px solid black; }
 }
+.printbuttonMove{
+	width: 30px;
+    height: 31px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: white;
+    background: brown;
+}
+.nextButton{
+	margin: 10px 10px 10px 0px;
+	display:flex;
+}
+.now_In_key{
+	width: 105px;
+    height: 29px;
+    line-height: 30px;
+    border: 1px solid #9b9b9b;
+    padding-left: 5px;
+    padding-right: 5px;
+}
 </style>
 
 </head>
@@ -125,19 +145,28 @@
 	<div id="print_grayback">
         <div id="print_popup">
         	<div id="print_header"><h2 class="print_title">인쇄 페이지</h2><button class="print_X">X</button></div>
-        	<div id="print_button_header"><button class="printbutton" id="print_excel">엑셀로 받기</button><button class="printbutton" id="print_button">인쇄</button></div>
+        	<div id="print_button_header">
+	        	<button class="printbutton" id="print_excel">엑셀로 받기</button>
+	        	<button class="printbutton" id="print_button">인쇄</button>
+	        	<div class="nextButton">
+		        	<button class="printbuttonMove" id="print_before"><</button>
+		        	<h4 class="now_In_key"></h4>
+		        	<span class="now_num" style="display:none;">0</span>
+		        	<button class="printbuttonMove" id="print_after">></button>
+	        	</div>
+        	</div>
         	<div id="print_div">
         		<input type="hidden" id="EXCEL_IN_KEY">
         		<table class="print_table" id="print_table_1">
         			<tr style="text-align:center;"><th class="print_table_header" style="font-size:30px;" colspan="9">INVOICE</th></tr>
         			<tr style="text-align:center;"><td style="width:20%; font-weight:bold; " colspan="2" rowspan="2">NOY</td><td></td><td>ຕູ້ທີ່1 ເດືອນ11</td><td style="background: #d7d7d7; font-weight:bold;" colspan="5">EK Logistics</td></tr>
         			<tr style="text-align:center;"><td>고객님 귀하</td><td id="EXCEL_NAME"></td><td id="EXCEL_ADDRESS" colspan="5">Pakthang Village, Sikhotavong District Vientiane Captital, Lao P.D.R</td></tr>
-        			<tr style="text-align:center;"><td style="background:aliceblue; width:10%;">접수번호:<br />ລະຫັດ</td><td id="EXCEL_EK" style="background:bisque;font-weight:bold; width: 30%; font-size:20px;" colspan="3">EK01</td><td colspan="5">TEL: +856 2099118282(LAO) / +856 2055533327(KR) <br />+856 2054155374(LAO)</td></tr>
-        			<tr style="text-align:center;"><td style="background:aliceblue;">전화번호:ເບີໂທ</td><td id="EXCEL_PHONE" colspan="3">111-1111-1111</td><td rowspan="2" style="background:aliceblue; ">운임ລວມ</td><td id="EXCEL_TR_COST"  colspan="2" rowspan="2">10$</td><td style="background:bisque;font-weight:bold; " colspan="2">담당직원 서명 ຜູ້ສົ່ງເຄືອງ</td></tr>
-        			<tr style="text-align:center;"><td style="background:aliceblue;">이용연도:ປີ</td><td id="EXCEL_YEAR" colspan="3">2024</td><td style="color:darkgray; font-weight:bold; " colspan="2" rowspan="2">Signiture</td></tr>
-        			<tr style="text-align:center;"><td style="background:aliceblue;">물품수량:ຈ/ນແກັດ</td><td id="EXCEL_COUNT" colspan="3">111</td><td style="background:aliceblue; ">할인율ສ່ວນຫຼຸດ</td><td colspan="2">0%</td></tr>
-        			<tr style="text-align:center;"><td style="background:aliceblue;">출항 월:ເດືອນ</td><td id="EXCEL_MONTH" style="background:bisque;" colspan="3">11</td><td style="background:aliceblue;">할인금액 ລວມສ່ວນຫຼຸດ</td><td style="color:cornflowerblue; " colspan="2">0$</td><td style="background:gold;font-weight:bold; " colspan="2">고객/수령인 서명 ຜູ້ຮັບເຄືອງ</td></tr>
-        			<tr style="text-align:center;"><td colspan="4" rowspan="2">이용에 감사드립니다. 더 나은 서비스로 보답하겠습니다.</td><td style="font-weight:bold;" colspan="1" rowspan="2">청구액 ລວມຕ້ອງຈ່າຍ</td><td  id="EXCEL_COST" style="color:red; font-weight:bold;  " colspan="2" rowspan="2">111,111,111</td><td style="color:darkgray; font-weight:bold; " colspan="2" rowspan="2">Signiture</td></tr>
+        			<tr style="text-align:center;"><td style="background:aliceblue; width:10%;">접수번호:<br />ລະຫັດ</td><td id="EXCEL_EK" style="background:bisque;font-weight:bold; width: 30%; font-size:20px;" colspan="3"></td><td colspan="5">TEL: +856 2099118282(LAO) / +856 2055533327(KR) <br />+856 2054155374(LAO)</td></tr>
+        			<tr style="text-align:center;"><td style="background:aliceblue;">전화번호:ເບີໂທ</td><td id="EXCEL_PHONE" colspan="3"></td><td rowspan="2" style="background:aliceblue; ">운임ລວມ</td><td id="EXCEL_TR_COST"  colspan="2" rowspan="2"></td><td style="background:bisque;font-weight:bold; " colspan="2">담당직원 서명 ຜູ້ສົ່ງເຄືອງ</td></tr>
+        			<tr style="text-align:center;"><td style="background:aliceblue;">이용연도:ປີ</td><td id="EXCEL_YEAR" colspan="3"></td><td style="color:darkgray; font-weight:bold; " colspan="2" rowspan="2">Signiture</td></tr>
+        			<tr style="text-align:center;"><td style="background:aliceblue;">물품수량:ຈ/ນແກັດ</td><td id="EXCEL_COUNT" colspan="3"></td><td style="background:aliceblue; ">할인율ສ່ວນຫຼຸດ</td><td colspan="2">0%</td></tr>
+        			<tr style="text-align:center;"><td style="background:aliceblue;">출항 월:ເດືອນ</td><td id="EXCEL_MONTH" style="background:bisque;" colspan="3"></td><td style="background:aliceblue;">할인금액 ລວມສ່ວນຫຼຸດ</td><td style="color:cornflowerblue; " colspan="2">0$</td><td style="background:gold;font-weight:bold; " colspan="2">고객/수령인 서명 ຜູ້ຮັບເຄືອງ</td></tr>
+        			<tr style="text-align:center;"><td colspan="4" rowspan="2">이용에 감사드립니다. 더 나은 서비스로 보답하겠습니다.</td><td style="font-weight:bold;" colspan="1" rowspan="2">청구액 ລວມຕ້ອງຈ່າຍ</td><td  id="EXCEL_COST" style="color:red; font-weight:bold;  " colspan="2" rowspan="2"></td><td style="color:darkgray; font-weight:bold; " colspan="2" rowspan="2">Signiture</td></tr>
         			<tr></tr>
         			<tr style="text-align:center; height:150px;"><td colspan="4">
         				※이용약관에 따라 운임은 중량과 부피 기반 환산금액중 높은쪽으로 청구되며, 
@@ -156,9 +185,17 @@
         				<tr style="background:aliceblue;"><th>내품</th><th>중량</th><th>장</th><th>폭</th><th>고</th><th>용적중량</th><th>기준가</th><th>청구중량</th><th>청구운임</th></tr>
         			</thead>
         			<tbody>
-        				<tr><td>샘성</td><td>100</td><td>100</td><td>100</td><td>100</td><td>100</td><td>100</td><td>100</td><td>100</td></tr>
         			</tbody>
         		</table>
+        		
+        		<div>
+        		<table class="print_table" id="print_table_H1" style="display:none;">
+        			<tbody>
+        			</tbody>
+        		</table>
+        		<table class="print_table" id="print_table_H2" style="display:none;">
+        		</table>
+        		</div>
         	</div>
         </div>
     </div>
@@ -196,39 +233,101 @@
 		$("#print_excel").on("click",function(){
 // 			fnExcelDownload("print_table_1","print_table_2","테스트");
 
-			const imageData = $("#EXCEL_QR1").find("canvas")[0].toDataURL("image/png", 0.5);
-			
-			console.log(imageData);
-			
-			var Ddatas = [];
-			for(let i=0; i<$("#print_table_2 > tbody > tr").length; i++){
-				var Ddata = {};
-				$(".tr" + i + " > td").each(function(i){
-					Ddata["CELL" + i] = $(this).text();
-				});
-				Ddatas.push(Ddata);
-			}
-			var deliverydata = {
-					IN_KEY : 		$("#EXCEL_IN_KEY").val(),
-					EXCEL_NAME : 	$("#EXCEL_NAME").text(),
-					EXCEL_ADDRESS : $("#EXCEL_ADDRESS").text(),
-					EXCEL_PHONE : 	$("#EXCEL_PHONE").text(),
-					EXCEL_YEAR : 	$("#EXCEL_YEAR").text(),
-					EXCEL_COUNT : 	$("#EXCEL_COUNT").text(),
-					EXCEL_MONTH:	$("#EXCEL_MONTH").text(),
-					EXCEL_TR_COST: 	$("#EXCEL_TR_COST").text(),
-					EXCEL_COST:		$("#EXCEL_COST").text(),
-					EXCEL_EK:		$("#EXCEL_EK").text(),
-					EXCEL_COST:		$("#EXCEL_COST").text(),
-					EXCEL_TABLE_NUM: $("#print_table_2 > tbody > tr").length,
+
+			var tbody_length = $("#print_table_H2 > tbody").length;
+			var deliverydata = [];
+			for(let j=0; j<tbody_length; j++){
+
+				var now_inkey  = $($("#print_table_H2 > tbody")[j]).attr("class");
+				const imageData = ($("#qr_" + now_inkey).find("canvas")[0] != null) ? $("#qr_" + now_inkey).find("canvas")[0].toDataURL("image/png", 0.5)
+								: "";
+				console.log(imageData);
+				
+				var Ddatas = [];
+				var sub_length = $("#print_table_H2 > ." + now_inkey + " > tr").length
+				for(let k=0; k<sub_length; k++){
+					var sol = $("#print_table_H2 > ." + now_inkey + " > tr")[k];
+					var Ddata = {};
+					Ddata["CELL0"] = $(sol).find(".rec_txt").text();
+					Ddata["CELL1"] = $(sol).find(".weight").text();
+					Ddata["CELL2"] = $(sol).find(".width").text();
+					Ddata["CELL3"] = $(sol).find(".length").text();
+					Ddata["CELL4"] = $(sol).find(".height").text();
+					Ddata["CELL5"] = $(sol).find(".weight2").text();
+					Ddata["CELL6"] = $(sol).find(".cost").text();
+					Ddata["CELL7"] = $(sol).find(".weight3").text();
+					Ddata["CELL8"] = "10$";
+					
+					Ddatas.push(Ddata);
+				}
+				
+				var d_data = {
+					IN_KEY : 		$("#print_table_H1 > tbody > " + "." + now_inkey + " > .in_key").text(),
+					EXCEL_NAME : 	$("#print_table_H1 > tbody > " + "." + now_inkey + " > .rec_nm").text(),
+					EXCEL_ADDRESS : $("#print_table_H1 > tbody > " + "." + now_inkey + " > .rec_hou").text(),
+					EXCEL_PHONE : 	$("#print_table_H1 > tbody > " + "." + now_inkey + " > .rec_phone").text(),
+					EXCEL_YEAR : 	$("#print_table_H1 > tbody > " + "." + now_inkey + " > .cre_day").text(),
+					EXCEL_COUNT : 	$("#print_table_H1 > tbody > " + "." + now_inkey + " > .count").text(),
+					EXCEL_MONTH:	$("#print_table_H1 > tbody > " + "." + now_inkey + " > .arr_day").text(),
+					EXCEL_TR_COST: 	$("#print_table_H1 > tbody > " + "." + now_inkey + " > .tr_cost").text(),
+					EXCEL_COST:		$("#print_table_H1 > tbody > " + "." + now_inkey + " > .cost").text(),
+					EXCEL_EK:		$("#print_table_H1 > tbody > " + "." + now_inkey + " > .ek").text(),
+					EXCEL_TABLE_NUM: $("." + now_inkey + " > tr").length,
 					EXCEL_QR : imageData,
 					EXCEL_TABLE : Ddatas
-			};
+				}
+				deliverydata.push(d_data);
+			}
+			
+			
+			
+			
+			
+			
+			
 			console.log(deliverydata);
+			var parsing = "";
+			for(let i=0; i<deliverydata.length; i++){
+				
+				parsing += deliverydata[i].IN_KEY;
+				parsing += "_,_"+ deliverydata[i].EXCEL_NAME;
+				parsing += "_,_"+ deliverydata[i].EXCEL_ADDRESS;
+				parsing += "_,_"+ deliverydata[i].EXCEL_PHONE;
+				parsing += "_,_"+ deliverydata[i].EXCEL_YEAR;
+				parsing += "_,_"+ deliverydata[i].EXCEL_COUNT;
+				parsing += "_,_"+ deliverydata[i].EXCEL_MONTH;
+				parsing += "_,_"+ deliverydata[i].EXCEL_TR_COST;
+				parsing += "_,_"+ deliverydata[i].EXCEL_COST;
+				parsing += "_,_"+ deliverydata[i].EXCEL_EK;
+				parsing += "_,_"+ deliverydata[i].EXCEL_TABLE_NUM;
+				parsing += "_,_";
+					
+				for(let j=0; j<deliverydata[i].EXCEL_TABLE.length; j++){
+						for(let m=0; m<9; m++){
+							parsing +=  deliverydata[i].EXCEL_TABLE[j]["CELL" + m];
+							if(m != 8){
+								parsing += "_";
+							}
+						}
+					if(j != deliverydata[i].EXCEL_TABLE.length - 1){
+						parsing += "]"
+					}
+						
+				}
+				parsing += "_,_"+ deliverydata[i].EXCEL_QR;
+// 				if(i != deliverydata.length - 1){
+					parsing += "|"
+// 				}
+				
+			}
+
+			var parsingdeliverydata = {
+				EXCELDATAS : parsing
+			};
 			$.ajax({
 				type: "POST",
 				url : "./Excel.do",
-				data: deliverydata,
+				data: parsingdeliverydata,
 				async: false,
 	            success: function(datas){
 // 	            	alert(datas);
@@ -245,6 +344,27 @@
 		})
 		
 		
+		$("#print_after").on("click",function(){
+			var nowinkey = $(".now_In_key").text();
+			var nownum = Number($(".now_num").text());
+			var length = $("#print_table_H2 > tbody").length;
+			if(nownum < length-1){
+				PrintPageLoad($($("#print_table_H2 > tbody")[nownum + 1]).attr("class"));
+				$(".now_num").text(nownum + 1)
+				$(".now_In_key").text($($("#print_table_H2 > tbody")[nownum + 1]).attr("class"))
+			}
+		})
+		$("#print_before").on("click",function(){
+			var nowinkey = $(".now_In_key").text();
+			var nownum = Number($(".now_num").text());
+			var length = $("#print_table_H2 > tbody").length;
+			if(nownum > 0){
+				PrintPageLoad($($("#print_table_H2 > tbody")[nownum - 1]).attr("class"));
+				$(".now_num").text(nownum - 1)
+				$(".now_In_key").text($($("#print_table_H2 > tbody")[nownum - 1]).attr("class"))
+			}
+		})
+		
 		$("#print_button").on("click",function(){
 
 			startPrint('print_div');
@@ -252,100 +372,50 @@
 		})
 	})
 	
-// 	const excelDownload = document.querySelector('#print_excel');
+	function PrintPageLoad(in_key){
+		
+		
+			$("#EXCEL_NAME").text($("#print_table_H1 > tbody > " + "." + in_key + " > .rec_nm").text());
+			$("#EXCEL_ADDRESS").text($("#print_table_H1 > tbody > " + "." + in_key + " > .rec_hou").text());
+			$("#EXCEL_PHONE").text($("#print_table_H1 > tbody > " + "." + in_key + " > .rec_phone").text());
+			$("#EXCEL_YEAR").text($("#print_table_H1 > tbody > " + "." + in_key + " > .cre_day").text());
+			$("#EXCEL_COUNT").text($("#print_table_H1 > tbody > " + "." + in_key + " > .count").text());
+			$("#EXCEL_MONTH").text($("#print_table_H1 > tbody > " + "." + in_key + " > .arr_day").text());
+			$("#EXCEL_IN_KEY").val($("#print_table_H1 > tbody > " + "." + in_key + " > .in_key").text());
+			$("#EXCEL_EK").text($("#print_table_H1 > tbody > " + "." + in_key + " > .ek").text());
+		
+			$("#EXCEL_TR_COST").text($("#print_table_H1 > tbody > " + "." + in_key + " > .tr_cost").text());
+			$("#EXCEL_COST").text($("#print_table_H1 > tbody > " + "." + in_key + " > .cost").text());
+			
+			$("#EXCEL_QR1").empty();
+    		qrCreate("EXCEL_QR1", $("#print_table_H1 > tbody > " + "." + in_key + " > .qrTxt").text());	     
+			
+		
+			$("#print_table_2 > tbody").empty();
+			var PrintString = '';
 
-// 	document.addEventListener('DOMContentLoaded', ()=>{
-// 	    excelDownload.addEventListener('click', exportExcel);
-// 	});
-// 	function exportExcel(){ 
-// 	  // step 1. workbook 생성
-// 	  var wb = XLSX.utils.book_new();
+			console.log($("#print_table_H2 > ." + in_key + " > tr").length);
+			
+			for(let i=0; i<$("#print_table_H2 > ." + in_key + " > tr").length; i++){
+				var sol = $("#print_table_H2 > ." + in_key + " > tr")[i];
+				PrintString += '<tr class="tr'+i+'">';
+				PrintString += '<td>'+$(sol).find(".rec_txt").text()+'</td>';
+				PrintString += '<td>'+$(sol).find(".weight").text()+'</td>';
+				PrintString += '<td>'+$(sol).find(".width").text()+'</td>';
+				PrintString += '<td>'+$(sol).find(".length").text()+'</td>';
+				PrintString += '<td>'+$(sol).find(".height").text()+'</td>';
+				PrintString += '<td>'+$(sol).find(".weight2").text()+'</td>';
+				PrintString += '<td>'+$(sol).find(".cost").text()+'</td>';
+				PrintString += '<td>'+$(sol).find(".weight3").text()+'</td>';
+				PrintString += '<td>10$</td>';
+				PrintString += '</tr>';
+			
+			};
+			$("#print_table_2 > tbody").append(PrintString);
+	}
 	
-// 	  // step 2. 시트 만들기 
-// 	  var newWorksheet = excelHandler.getWorksheet();
 	
-// 	  // step 3. workbook에 새로만든 워크시트에 이름을 주고 붙인다.  
-// 	  XLSX.utils.book_append_sheet(wb, newWorksheet, excelHandler.getSheetName());
 	
-// 	  // step 4. 엑셀 파일 만들기 
-// 	  var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
-	
-// 	  // step 5. 엑셀 파일 내보내기 
-// 	  saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), excelHandler.getExcelFileName());
-// }
-
-// var excelHandler = {
-//     getExcelFileName : function(){
-//         return 'table-test.xlsx';	//파일명
-//     },
-//     getSheetName : function(){
-//         return 'Table Test Sheet';	//시트명
-//     },
-//     getExcelData : function(){
-//         return document.getElementById('print_table_1'); 	//TABLE id
-//     },
-//     getWorksheet : function(){
-//         return XLSX.utils.table_to_sheet(this.getExcelData());
-//     }
-// }
-
-// function s2ab(s) { 
-//   var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
-//   var view = new Uint8Array(buf);  //create uint8array as viewer
-//   for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
-//   return buf;    
-// }
-
-// 엑셀 다운로드
-function fnExcelDownload(id,id2, title) {
-    var tab_text = '<html xmlns:x="urn:schemas-microsoft-com:office:excel">';
-    tab_text += '<head><meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">';
-    tab_text += '<xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>'
-    tab_text += '<x:Name>invoice</x:Name>';
-    tab_text += '<x:WorksheetOptions><x:Panes></x:Panes></x:WorksheetOptions></x:ExcelWorksheet>';
-    tab_text += '</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>';
-    tab_text += "<table border='1px'>";
-    var exportTable = $('#' + id).clone();
-    var exportTable2 = $('#' + id2).clone();
-    exportTable.find('input').each(function (index, elem) { $(elem).remove(); });
-    tab_text += exportTable.html();
-
-    tab_text += '</table><br />';
-    tab_text += "<table border='1px'>";
-    exportTable2.find('input').each(function (index, elem) { $(elem).remove(); });
-    tab_text += exportTable2.html();
-    tab_text += '</table></body></html>';
-    var data_type = 'data:application/vnd.ms-excel';
-    var ua = window.navigator.userAgent;
-    var msie = ua.indexOf("MSIE ");
-    var fileName = title + '.xls';
-
-    // IE 환경에서 다운로드
-    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
-    if (window.navigator.msSaveBlob) {
-    var blob = new Blob([tab_text], {
-    type: "application/csv;charset=utf-8;"
-    });
-    navigator.msSaveBlob(blob, fileName);
-    }
-    } else {
-    var blob2 = new Blob([tab_text], {
-    type: "application/csv;charset=utf-8;"
-    });
-    var filename = fileName;
-    var elem = window.document.createElement('a');
-    elem.href = window.URL.createObjectURL(blob2);
-    elem.download = filename;
-    document.body.appendChild(elem);
-    elem.click();
-    document.body.removeChild(elem);
-    }
-
-};
-
-// var prtContent; // 프린트 하고 싶은 영역
-// var initBody;  // body 내용 원본
-
 // 프린트하고 싶은 영역의 id 값을 통해 출력 시작
 function startPrint (div_id) {
 // 	prtContent = document.getElementById(div_id);

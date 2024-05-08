@@ -217,13 +217,22 @@ public class DeliveryRegistController {
 	}
 	
 	/* PC관리자 배송신청 등록 */
-	@RequestMapping(value = "/adminDelRegist.do" , produces = "application/text; charset=utf-8")
+	@RequestMapping(value = "adminDelRegist.do", produces = "application/text; charset=utf-8" )
 	@ResponseBody
 	public String adminDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		
 		System.out.println("[inputMap] adminDelRegist : " + inputMap);
 		
-		String resultMsg = delRegistService.adminDelRegist(inputMap);
+		String ik = (String) inputMap.get("inKey");
+		String resultMsg = delRegistService.adminDelRegist(inputMap);				
+		System.out.println("ik : "+ ik + " // resultMsg : " + resultMsg);
+		
+		if(ik != "" && ik != null && ik.length()!=0) {
+			resultMsg = ik+"="+resultMsg;
+			System.out.println("inkey 있음 : " + resultMsg);
+		}else {
+			System.out.println("inkey 없음 : " + resultMsg);
+		}
 		
 		return resultMsg;
 		
@@ -244,6 +253,7 @@ public class DeliveryRegistController {
 		// 택배사 데이터 가지고 오기
 		List<HashMap<String, String>> shipComList = delRegistService.shipComList(inputMap);
 		
+		mav.addObject("inputMap", inputMap);
 		mav.addObject("result", ingDelRead);		
 		mav.addObject("shipComList", shipComList);		
 		mav.setViewName("7.MobileDelivery/mAdminDeliveryRegist_A");
@@ -259,7 +269,9 @@ public class DeliveryRegistController {
 	public ModelAndView mAdminDeliveryRegistB(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		
 		ModelAndView mav = new ModelAndView();
-				
+		
+		inputMap.put("ik", inputMap.get("inKey"));
+		
 		// 박스정보 가지고 오기
 		List<HashMap<String, String>> packInfo = delRegistService.packInfoList(inputMap);
 

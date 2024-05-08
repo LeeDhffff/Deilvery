@@ -57,7 +57,7 @@
             </div>
             <div class="inputWrap">
                 <h5 class="inputName"><a href="#">휴대폰 번호<span>*</span></a></h5>
-                <input type="text" id="recPhone" name="recPhone" value="${result.recPhone }" placeholder="라오스 수령인 전화번호를 입력해주세요">
+                <input type="text" id="recPhone" name="recPhone" value="${result.recPhone }" placeholder="라오스 수령인 전화번호를 입력해주세요" oninput="oninputPhone(this);">
             </div>
             <div class="inputWrap">
                 <h5 class="inputName"><a href="#">픽업지 선택<span>*</span></a></h5>
@@ -185,7 +185,8 @@
    	   				type : "POST",
    	   				data : $("#formData").serialize(),
    	   				async : false,
-   	   				success : function(result, status, xhr){   					
+   	   				success : function(result, status, xhr){
+   	   					$(".m_container").empty();
    	   					$(".m_container").html(result);
    	   				},
    	   				error : function(xhr, status, error){
@@ -196,6 +197,13 @@
    		});
    		
    	});
+   	
+    // Join.jsp 참고 (이동헌)
+    function oninputPhone(target) {
+        target.value = target.value
+            .replace(/[^0-9]/g, '')
+            .replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]{4})([0-9]{4})/g, "$1-$2-$3");
+    }
    	
     </script>
 </body>

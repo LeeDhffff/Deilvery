@@ -106,6 +106,7 @@
                 	<form id="formData" name="formData">
                 	<input type="hidden" value="${result.inKey}" id="inKey" name="inKey" />
                 	<input type="hidden" value="${result.memId}" id="memId" name="memId" />
+                	<input type="hidden" value="${result.memId}" id="memId" name="memId" />
                     <div class="wrap">
                         <div class="inputWrap">
                             <h5 class="inputName"><a href="#">신청일자<span>*</span></a></h5>
@@ -118,7 +119,7 @@
                             </div>
                             <div class="inputWrap">
                                 <h5 class="inputName"><a href="#">휴대폰 번호<span>*</span></a></h5>
-                                <input type="text" id="recPhone" name="recPhone" value="${result.recPhone }" placeholder="라오스 수령인 전화번호를 입력해주세요">
+                                <input type="text" id="recPhone" name="recPhone" value="${result.recPhone }" placeholder="라오스 수령인 전화번호를 입력해주세요" oninput="oninputPhone(this);">
                             </div>
                         </div> 
 	                    <div class="inputWrap">
@@ -168,10 +169,10 @@
                                     <h5 class="inputName"><a href="#">박스크기<span>*</span></a></h5>
                                     <button class="boxSave" id="boxSaveBtn">저장하기</button>
                                 </div>                                
-                                <input type="text" id="width" class="boxSize" placeholder="가로">
-                                <input type="text" id="length" class="boxSize" placeholder="세로">
-                                <input type="text" id="height" class="boxSize" placeholder="높이">
-                                <input type="text" id="weight" class="boxSize" placeholder="무게">
+                                <input type="text" id="width" class="boxSize" placeholder="가로" oninput="fnChkNum(this);">
+                                <input type="text" id="length" class="boxSize" placeholder="세로" oninput="fnChkNum(this);">
+                                <input type="text" id="height" class="boxSize" placeholder="높이" oninput="fnChkNum(this);">
+                                <input type="text" id="weight" class="boxSize" placeholder="무게" oninput="fnChkNum(this);">
                             </div>
                             <div class="inputWrap">
                                 <div class="inputHeader" style="display: flex;">
@@ -183,6 +184,7 @@
                                 <input type="hidden" id="lengthArr" name="lengthArr" placeholder="세로">
                                 <input type="hidden" id="heightArr" name="heightArr" placeholder="높이">
                                 <input type="hidden" id="weightArr" name="weightArr" placeholder="무게">
+                                <input type="hidden" id="sjKeyArr" name="sjKeyArr" placeholder="sjKey">
                                     <table>
                                         <thead>
                                             <tr>
@@ -212,6 +214,15 @@
                             </div>
                         </div>
 
+<!--                         <div class="double"> -->
+<!--                             <div class="inputWrap"> -->
+<!--                                 <h5 class="inputName">CBM : <span id="cbm"></span></h5>                                 -->
+<!--                             </div> -->
+<!--                             <div class="inputWrap"> -->
+<!--                                 <h5 class="inputName">총박스 수 : <span id="totBox"></span></h5>                                 -->
+<!--                             </div> -->
+<!--                         </div>  -->
+                        
                         <div class="inputWrap full">
                             <h5 class="inputName"><a href="#">예상 물류 비용<span>*</span></a></h5>
                             <input type="text" id="cost" name="cost" value="${packInfo[0].cost }" placeholder="$500 (kg*$1.5 or 용적중량 *$1.5 중 비싼 비용으로 계산) / 용적중량 : 가로*세로*높이*0.00022 ">
@@ -224,7 +235,7 @@
                             <select name="outDay" id="outDay">
                             	<c:forEach var="item" items="${outDayList }">
                             		<c:choose>
-                            			<c:when test="${item.outDay eq result.arrDay }">
+                            			<c:when test="${item.outKey eq result.arrDay }">
                             				<option value="${item.outKey }" selected>${item.outDay }</option>
                             			</c:when>
                             			<c:otherwise>
@@ -256,8 +267,11 @@
 	<!-- script setting -->
     <script>
     $(document).ready(function(){
-    	console.log("페이지초기화!");    	
+    	console.log("페이지초기화!");
     	$("#target_3").hide();
+//     	fnCalCbm();
+//     	$("#totBox").text($("input[name=boxIndex]").length);
+    	
     	/* 신청일자 datePicker 설정 (JANG) */
     	$("#creDay").datepicker();
     	$("#creDay").datepicker("option", "dateFormat", "yy-mm-dd");
@@ -316,6 +330,9 @@
 	    		console.log("chkIndex : ", chkIndex);
 	    		$("input[class='boxSize']").val("");
 	    		cost();
+// 	    		fnCalCbm();
+// 	    		$("#totBox").text($("input[name=boxIndex]").length);   		
+	    		
     		}
     	});
     	
@@ -330,6 +347,7 @@
    		const heightArr = new Array();
    		const weightArr = new Array();
    		const lengthArr = new Array();
+   		const sjKeyArr = new Array();
     	$("#adminDelRegBtn").on("click", function(evt){
     		
     		evt.preventDefault();
@@ -349,10 +367,14 @@
     		$("input[name='weight']").each(function(index){
     			weightArr.push($("input[name='weight']").eq(index).val());
     		});
+    		$("input[name='sjKey']").each(function(index){
+    			sjKeyArr.push($("input[name='sjKey']").eq(index).val());
+    		});
     		$("#widthArr").val(widthArr);
     		$("#heightArr").val(heightArr);
     		$("#lengthArr").val(lengthArr);
     		$("#weightArr").val(weightArr);
+    		$("#sjKeyArr").val(sjKeyArr);
     		
     		/* 필수값 유효성 검사 */
     		let regist = true;
@@ -398,13 +420,13 @@
 					url : "adminDelRegist.do",
 					type : "POST",
 					async : false,
-					data : $("#formData").serialize(),
+					data : $("#formData").serialize(),					
 					success : function(result, status, xhr){
 						console.log("result : ", result);
-						alert(result);
-	
-						/* redirect될 경로 설정 필요!! */
-						$(".nc_delivery").trigger("click");
+						let resultMsg = result.split("=");
+						alert(resultMsg[1]);
+						
+ 						location.href = "adminDeliveryRegistMain.do?ik="+resultMsg[0];
 						
 					},
 					error : function(xhr, status, error){
@@ -436,6 +458,8 @@
     			$(this).parent().siblings(".boxIndex").text(index+1);
     		});
     		cost();
+//     		fnCalCbm();
+//     		$("#totBox").text($("input[name=boxIndex]").length);
     	});    	
 
     	
@@ -543,7 +567,7 @@
     	$("#returnBtn").on("click", function(evt){
     		evt.preventDefault();
     		$(".nc_delivery").trigger("click");
-    	});
+    	});    	
     	
    	});	// document.ready end!!
    	   	
@@ -600,9 +624,43 @@
 			}
     	});
     	
-    	$("#cost").val(number);
+    	$("#cost").val(number.toFixed(5));
     }
     
+    // Join.jsp 참고 (이동헌)
+    function oninputPhone(target) {
+        target.value = target.value
+            .replace(/[^0-9]/g, '')
+            .replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]{4})([0-9]{4})/g, "$1-$2-$3");
+    }
+    
+ 	// 숫자와 마침표만 입력 정규식 체크 (JANG)
+    function fnChkNum(elem){    	
+    	elem.value = elem.value.replace(/[^0-9.]+(.[^0-9]+)?/,'');
+    }
+ 	
+ 	// cbm계산 : 총가로 * 총세로 * 총높이 * 0.000001 (JANG) - 사용X(240508)
+ 	function fnCalCbm(){
+ 		console.log("func start!!");
+ 		let totWidth = 0;
+ 		let totHeight = 0;
+ 		let totLength = 0;
+ 		
+ 		$(".boxIndex").each(function(index){
+ 			totWidth += parseFloat($("input[name='width']").eq(index).val());
+ 			totHeight += parseFloat($("input[name='height']").eq(index).val());
+ 			totLength += parseFloat($("input[name='length']").eq(index).val());
+//  			console.log("width[",index,"] : ", $("input[name='width']").eq(index).val());
+//  			console.log("height[",index,"] : ", $("input[name='height']").eq(index).val());
+//  			console.log("length[",index,"] : ", $("input[name='length']").eq(index).val());
+//  			console.log("totWidth : ", totWidth, " // totHeight : ", totHeight, " // totLength : ", totLength);
+ 		});
+ 		
+ 		cbm = totWidth * totHeight * totLength * 0.000001;
+ 		console.log("cbm : ", cbm);
+ 		$("#cbm").text(cbm.toFixed(6));
+ 	} 	
+
     </script>
 </body>
 </html>

@@ -119,7 +119,8 @@
 				data : $("#formData").serialize(),
 				success : function(result, status, xhr){
 					console.log("result : ", result);
-					alert(result);
+					let resultMsg = result.split("=");
+					alert(resultMsg[1]);
 
 					/* redirect될 경로 설정 필요!! */
 					location.href = "Mobile_M_DeliveryList.do";
@@ -135,7 +136,7 @@
     	/* 미확인 배송신청으로 돌아가기 (JANG) */
     	$("#returnBtn").on("click", function(evt){
     		evt.preventDefault();
-    		$(".nc_delivery").trigger("click");
+    		location.href = "Mobile_M_DeliveryList.do";
     	});
     	
     	/* 데이터 가지고 뒤로가기 설정 (JANG) */

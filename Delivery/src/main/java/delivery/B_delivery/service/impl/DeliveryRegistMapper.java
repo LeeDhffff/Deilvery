@@ -51,6 +51,8 @@ public interface DeliveryRegistMapper {
 	public int cntTotalPacketInfo(HashMap<String, Object> inputMap) throws Exception;
 	/* 박스 정보 등록 */
 	public void packetInfoRegist(HashMap<String, Object> inputMap) throws Exception;
+	/* 등록된 박스 정보 수정 */
+	public void packetInfoDelete(HashMap<String, Object> inputMap) throws Exception;
 	/* 등록된 박스 정보 삭제 */
 	public void delPacketInfo(HashMap<String, Object> inputMap) throws Exception;
 }

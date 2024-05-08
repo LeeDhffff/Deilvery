@@ -31,7 +31,7 @@
 <body>
     <div class="m_container">
         <header class="m_header">
-            <h3 class="arrow" onclick="location.href='mAdminDeliveryRegistMain.do';">
+            <h3 class="arrow">
                 <a href="#">
                     <img src="images/m_icon/header_arrow.svg" alt="#">
                 </a>
@@ -49,10 +49,10 @@
             <form name="fromData" id="formData" >            
             <div class="inputWrap">
                 <h5 class="inputName"><a href="#">박스크기<span>*</span></a></h5>
-                <input type="text" id="width" class="boxSize" placeholder="가로">
-                <input type="text" id="length" class="boxSize" placeholder="세로">
-                <input type="text" id="height" class="boxSize" placeholder="높이">
-                <input type="text" id="weight" class="boxSize" placeholder="무게">
+                <input type="text" id="width" class="boxSize" placeholder="가로" oninput="fnChkNum(this);">
+                <input type="text" id="length" class="boxSize" placeholder="세로" oninput="fnChkNum(this);">
+                <input type="text" id="height" class="boxSize" placeholder="높이" oninput="fnChkNum(this);">
+                <input type="text" id="weight" class="boxSize" placeholder="무게" oninput="fnChkNum(this);">
             </div>
             <button class="boxSave" id="boxSaveBtn">저장하기</button>
                    
@@ -82,6 +82,7 @@
             <input type="hidden" id="recPhone" name="recPhone" value="${inputMap.recPhone }"/>
             <input type="hidden" id="recTarget" name="recTarget" value="${inputMap.recTarget }"/>
             <input type="hidden" id="inKey" name="inKey" value="${inputMap.inKey }"/>
+            <input type="hidden" id="ik" name="ik" value="${inputMap.inKey }"/>
             <input type="hidden" id="creDay" name="creDay" value="${inputMap.creDay }"/>
             <input type="hidden" id="cost" name="cost" value="${packInfo[0].cost }"/>
             <input type="hidden" id="outKey" name="outKey" value="${packInfo[0].outKey }"/>
@@ -236,8 +237,14 @@
 			}
     	});
     	
-    	$("#cost").val(number);
+    	$("#cost").val(number.toFixed(5));
     }
+   	
+ 	// 숫자와 마침표만 입력 정규식 체크 (JANG)
+    function fnChkNum(elem){    	
+    	elem.value = elem.value.replace(/[^0-9.]+(.[^0-9]+)?/,'');
+    }
+ 	
     </script>
 </body>
 </html>

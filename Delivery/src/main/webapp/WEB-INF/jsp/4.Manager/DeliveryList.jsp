@@ -29,6 +29,14 @@
 	.modify:hover{
 		background: #ffaa40;
 	}
+	tr{
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+}
+출처: https://fresh-mint.tistory.com/entry/css-드래그-방지 [민트코딩:티스토리]
+	}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -203,77 +211,124 @@
 				alert("출력할 항목을 선택해주세요.")
 			}
 			else{
-				$("#print_grayback").show();
-				
-				var deliverydata = {
-						IN_KEY : $($(".List_Check.sub:checked")[0]).parents("tr").find(".in_key").val(),
-				};
-				$.ajax({
-					type: "POST",
-					url : "./Delivery_receipt.do",
-					data: deliverydata,
-					async: false,
-		            success: function(datas){
-						
-						$.ajax({
-							type: "POST",
-							url : "./Delivery_receipt_D.do",
-							data: deliverydata,
-							async: false,
-				            success: function(datas2){
-								var A_result = JSON.parse(datas);
-								var D_result = JSON.parse(datas2);
-								console.log(A_result,D_result);
-				            	
-								$("#EXCEL_NAME").text(A_result[0].REC_NM);
-								$("#EXCEL_ADDRESS").text(A_result[0].REC_HOU);
-								$("#EXCEL_PHONE").text(A_result[0].REC_PHONE);
-								$("#EXCEL_YEAR").text(A_result[0].CRE_DAY.substr(0,4));
-								$("#EXCEL_COUNT").text(D_result.length);
-								$("#EXCEL_MONTH").text(A_result[0].ARR_DAY.substr(5,2));
-								$("#EXCEL_IN_KEY").val(A_result[0].IN_KEY);
-								
-								$("#EXCEL_TR_COST").text(D_result.length * 10 + "$");
-								
-								if(D_result.length > 0){
+				$("#print_table_H1").empty();
+				$("#print_table_H2").empty();
+				var StartIn_key = "";
+				var checkNot = 0;
+				for(let prt = 0; prt < $(".List_Check.sub:checked").length; prt++){
+					
+					var deliverydata = {
+							IN_KEY : $($(".List_Check.sub:checked")[prt]).parents("tr").find(".in_key").val(),
+					};
+					$.ajax({
+						type: "POST",
+						url : "./Delivery_receipt.do",
+						data: deliverydata,
+						async: false,
+			            success: function(datas){
+							
+							$.ajax({
+								type: "POST",
+								url : "./Delivery_receipt_D.do",
+								data: deliverydata,
+								async: false,
+					            success: function(datas2){
+									var A_result = JSON.parse(datas);
+									var D_result = JSON.parse(datas2);
+									if(D_result.length > 0){
+										
+									var HiddenPrint = "";
+									HiddenPrint += '<tbody class="'+A_result[0].IN_KEY+'">';
+									for(let i=0; i<D_result.length; i++){
+										
+										var cost = 0;
+										var lncost = Math.round((D_result[i].WIDTH * D_result[i].LENGTH * D_result[i].HEIGHT * 0.00022) * 100) / 100;
+										var kgcost = D_result[i].WEIGHT * 1.5;
+										if(kgcost >= lncost * 1.5){
+											cost = kgcost;
+										}
+										else{
+											cost = Math.round(lncost * 1.5);
+										}
+										
+										HiddenPrint += '<tr>';
+										HiddenPrint += '<td class="rec_txt">'+A_result[0].REC_TXT+'</td>';
+										HiddenPrint += '<td class="weight">'+D_result[i].WEIGHT+'</td>';
+										HiddenPrint += '<td class="width">'+D_result[i].WIDTH+'</td>';
+										HiddenPrint += '<td class="length">'+D_result[i].LENGTH+'</td>';
+										HiddenPrint += '<td class="height">'+D_result[i].HEIGHT+'</td>';
+										HiddenPrint += '<td class="weight2">'+lncost+'</td>';
+										HiddenPrint += '<td class="cost">'+cost+'</td>';
+										HiddenPrint += '<td class="weight3">'+D_result[i].WEIGHT+'</td>';
+										HiddenPrint += '<td>10$</td>';
+										HiddenPrint += '</tr>';
+									};
+									HiddenPrint += '</tbody>';
+									$("#print_table_H2").append(HiddenPrint);
 
-									const cn1 = D_result[0].COST.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-									$("#EXCEL_COST").text(cn1);
-									$("#EXCEL_EK").text(D_result[0].SJ_KEY.substring(0,3));
+									var HiddenMain = "";
+									HiddenMain += '<tr class="'+A_result[0].IN_KEY+'">';
+									HiddenMain += '<td class="rec_nm">'+A_result[0].REC_NM+'</td>';
+									HiddenMain += '<td class="rec_hou">'+A_result[0].REC_HOU+'</td>';
+									HiddenMain += '<td class="rec_phone">'+A_result[0].REC_PHONE+'</td>';
+									HiddenMain += '<td class="cre_day">'+A_result[0].CRE_DAY.substr(0,4)+'</td>';
+									HiddenMain += '<td class="count">'+D_result.length+'</td>';
+									HiddenMain += '<td class="arr_day">'+A_result[0].ARR_DAY.substr(5,2)+'</td>';
+									HiddenMain += '<td class="in_key">'+A_result[0].IN_KEY+'</td>';
+									HiddenMain += '<td class="tr_cost">'+D_result.length * 10 + '$</td>';
+									var qrTxt = "";
+									if(D_result.length > 0){
 
-// 						        	const qrInfoArr = new Array();
-					        		var qrTxt = "수령인 : "+A_result[0].REC_NM+"\n연락처 : "+A_result[0].REC_PHONE+"\n픽업지 : "+A_result[0].REC_TARGET;	        		
-// 					        		qrInfoArr.push({qrText : qrTxt, qrId : "qrCode_"+index});
-									$("#EXCEL_QR1").empty();
-					        		qrCreate("EXCEL_QR1", qrTxt);	      
-								}
-								else{
-									$("#EXCEL_COST").text("");
-									$("#EXCEL_EK").text("");
-								}
-								
-								$("#print_table_2 > tbody").empty();
-								var PrintString = '';
-								
-								for(let i=0; i<D_result.length; i++){
-									PrintString += '<tr class="tr'+i+'">';
-									PrintString += '<td>'+A_result[0].REC_TXT+'</td>';
-									PrintString += '<td>'+D_result[i].WEIGHT+'</td>';
-									PrintString += '<td>'+D_result[i].WIDTH+'</td>';
-									PrintString += '<td>'+D_result[i].LENGTH+'</td>';
-									PrintString += '<td>'+D_result[i].HEIGHT+'</td>';
-									PrintString += '<td>'+D_result[i].WEIGHT+'</td>';
-									PrintString += '<td>'+D_result[i].COST+'</td>';
-									PrintString += '<td>'+D_result[i].WEIGHT+'</td>';
-									PrintString += '<td>10$</td>';
-									PrintString += '</tr>';
+										const cn1 = D_result[0].COST.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+										HiddenMain += '<td class="cost">'+cn1+'</td>';
+										HiddenMain += '<td class="ek">'+D_result[0].SJ_KEY.substring(0,3)+'</td>';
+
+//	 						        	const qrInfoArr = new Array();
+						        		qrTxt = "수령인 : "+A_result[0].REC_NM+"\n연락처 : "+A_result[0].REC_PHONE+"\n픽업지 : "+A_result[0].REC_TARGET;	        		
+//	 					        		qrInfoArr.push({qrText : qrTxt, qrId : "qrCode_"+index});
+	// 									$("#EXCEL_QR1").empty();
+	// 					        		qrCreate("EXCEL_QR1", qrTxt);	      
+									}
+									else{
+										qrTxt = "";
+										HiddenMain += '<td class="cost"></td>';
+										HiddenMain += '<td class="ek"></td>';
+									}
+									HiddenMain += '<td class="qrTxt">'+qrTxt+'</td>';
+									HiddenMain += '<td class="qr" id="qr_'+A_result[0].IN_KEY+'"></td>';
+									HiddenMain += '</tr>';
 									
-								};
-								$("#print_table_2 > tbody").append(PrintString);
-				            }
-						});
-		            }
-				});
+									$("#print_table_H1").append(HiddenMain);
+									$("#qr_" + A_result[0].IN_KEY).empty();
+									if(qrTxt != ""){
+										qrCreate("qr_" + A_result[0].IN_KEY, qrTxt);	
+									}
+									if(StartIn_key == ""){
+										StartIn_key = A_result[0].IN_KEY;
+									}
+
+									}
+									else{
+										checkNot++;
+									}
+									// 					        		qrCreate("EXCEL_QR1", qrTxt);
+									
+
+					            }
+							});
+			            }
+					});
+				}
+			
+				
+				PrintPageLoad(StartIn_key);
+				$(".now_In_key").text(StartIn_key);
+				$(".now_num").text(0);
+				
+				if(checkNot > 0){
+					alert(checkNot + "건의 배송건은 박스를 입력되지 않아 창에 나타나지 않습니다.")
+				}
+				$("#print_grayback").show();
 			}
 			
 		})
@@ -282,17 +337,81 @@
 		
 
 		/* 테이블 목록 클릭시 */
-		$(document).on("click","#Delivery_Table > tbody > tr",function(){
-			if($(this).find(".List_Check").prop("checked") == false){
-				$("#Delivery_Table > tbody > tr").removeClass("tron");
-				$(this).addClass("tron");
-				$(this).find(".List_Check").prop("checked",true);
+		$(document).on("click","#Delivery_Table > tbody > tr",function(event){
+			if(event.shiftKey == true){
+				var length = $(".tron").length;
+				
+				if(length<=0){
+					var endnum = Number($(this).attr("cnum"));
+					for(let i = 0; i <= endnum; i++){
+						$(".tr" + i).addClass("tron");
+						$(".tr" + i).find(".List_Check").prop("checked",true);
+					}
+				}
+				else{
+					if($($(".tron")[length-1]).attr("cnum") < $(this).attr("cnum")){
+						
+						var startnum = Number($($(".tron")[length-1]).attr("cnum"));
+						var endnum = Number($(this).attr("cnum"));
+						
+						for(let i = startnum; i <= endnum; i++){
+							$(".tr" + i).addClass("tron");
+							$(".tr" + i).find(".List_Check").prop("checked",true);
+						}
+						
+					}
+					else if($($(".tron")[0]).attr("cnum") > $(this).attr("cnum")){
+						
+						var startnum = Number($(this).attr("cnum"));
+						var endnum = Number($($(".tron")[0]).attr("cnum"));
+
+						for(let i = startnum; i <= endnum; i++){
+							$(".tr" + i).addClass("tron");
+							$(".tr" + i).find(".List_Check").prop("checked",true);
+						}
+					}
+				}
+			}
+			else if(event.ctrlKey == true){
+
+				if($(this).find(".List_Check").prop("checked") == false){
+					$(this).addClass("tron");
+					$(this).find(".List_Check").prop("checked",true);
+				}
+				else{
+					$(this).removeClass("tron");
+					$(this).find(".List_Check").prop("checked",false);
+				}
 			}
 			else{
-				$("#Delivery_Table > tbody > tr").removeClass("tron");
-				$(this).find(".List_Check").prop("checked",false);	
+				if($(this).find(".List_Check").prop("checked") == false){
+					$("#Delivery_Table > tbody > tr").removeClass("tron");
+					$("#Delivery_Table > tbody > tr").find(".List_Check").prop("checked",false);
+					$(this).addClass("tron");
+					$(this).find(".List_Check").prop("checked",true);
+				}
+				else{
+					console.log($(".tron").length);
+					if($(".tron").length>=2){
+						
+						$("#Delivery_Table > tbody > tr").removeClass("tron");
+						$("#Delivery_Table > tbody > tr").find(".List_Check").prop("checked",false);	
+						$(this).addClass("tron");
+						$(this).find(".List_Check").prop("checked",true);
+						
+					}
+					else{
+
+						$("#Delivery_Table > tbody > tr").removeClass("tron");
+						$("#Delivery_Table > tbody > tr").find(".List_Check").prop("checked",false);	
+						
+					}
+				}	
 			}
+			
 		})
+		
+		
 		$(document).on("click",".modify",function(){
 
 // 			if($(this).attr("class") != "checktd"){
@@ -329,14 +448,14 @@
 
 				for(let i=0; i<result.length; i++ ){
 
-					tbodyData += "<tr>";
+					tbodyData += "<tr class='tr"+i+"' cnum = '"+i+"''>";
 					tbodyData += "<td><input type='hidden' class='in_key' value='"+result[i].IN_KEY+"'>"+result[i].OUT_DAY+"</td>";
 					tbodyData += "<td>"+result[i].REC_NM+"</td>";
 					tbodyData += "<td>"+result[i].REC_TARGET+"</td>";
 					tbodyData += "<td>"+result[i].NOW_DELIVERY+"</td>";
 					tbodyData += "<td>"+result[i].MAXCHK+"</td>";
 					tbodyData += "<td>"+result[i].SERVICE+"</td>";
-					tbodyData += "<td><input type='radio' name='List_Check' class='List_Check sub' style='display:none;'><button class='modify'><img src='./images/pc_icon/modify_black.svg'></button></td>";
+					tbodyData += "<td><input type='checkbox' name='List_Check' class='List_Check sub' style='display:none;'><button class='modify'><img src='./images/pc_icon/modify_black.svg'></button></td>";
 					
 					tbodyData += "</tr>";
 				}

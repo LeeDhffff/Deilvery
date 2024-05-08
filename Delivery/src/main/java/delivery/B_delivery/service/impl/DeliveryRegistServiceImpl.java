@@ -105,46 +105,55 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 	public String adminDelRegist(HashMap<String, Object> inputMap) throws Exception {
 		
 		String resultMsg = "";
+		String sjKeyHead = "";
 		
 		if(inputMap.get("inKey") != null && inputMap.get("inKey") != "") {
+			System.out.println("inKey exist");
 			/* 배송신청 내용 수정 */
 			delRegistMapper.adminDelUpdate(inputMap);
-			
-			/* 등록된 박스정보 삭제(IN_KEY 기준) */
-			delRegistMapper.delPacketInfo(inputMap);
-			
-			/* 등록된 박스정보 확인(OUT_KEY 기준) */
-			Integer cnt = delRegistMapper.cntTotalPacketInfo(inputMap);
-			inputMap.put("sn", (cnt+1));
-			
+									
 			/* 박스정보 설정 */
-			String [] widthArr = inputMap.get("widthArr").toString().split(",");
-			String [] heightArr = inputMap.get("heightArr").toString().split(",");
-			String [] lengthArr = inputMap.get("lengthArr").toString().split(",");
-			String [] weightArr = inputMap.get("weightArr").toString().split(",");
-			String sjKey = "EK";
-			String outKey = inputMap.get("outKey").toString();
-			
-			for(int i=0; i<widthArr.length; i++) {
-				inputMap.put("width", widthArr[i]);
-				inputMap.put("height", heightArr[i]);
-				inputMap.put("length", lengthArr[i]);
-				inputMap.put("weight", weightArr[i]);
-				inputMap.put("sjKey", (sjKey+(cnt+1)+"-"+outKey+"-"+(i+1)));
+			if(inputMap.get("sjKeyArr") != null || inputMap.get("sjKeyArr") != "") {
+				String [] widthArr = inputMap.get("widthArr").toString().split(",");
+				String [] heightArr = inputMap.get("heightArr").toString().split(",");
+				String [] lengthArr = inputMap.get("lengthArr").toString().split(",");
+				String [] weightArr = inputMap.get("weightArr").toString().split(",");
+				String [] sjKeyArr = inputMap.get("sjKeyArr").toString().split(",");
 				
-				System.out.println("width ["+i+"] : " + inputMap.get("width"));
-				System.out.println("height ["+i+"] : " + inputMap.get("height"));
-				System.out.println("length ["+i+"] : " + inputMap.get("length"));
-				System.out.println("weight ["+i+"] : " + inputMap.get("weight"));
-				System.out.println("sjKey : " + inputMap.get("sjKey"));
+				sjKeyHead = sjKeyArr[0].split("-")[0] + "-" + sjKeyArr[1].split("-")[1] + "-";
 				
-				/* 박스 정보 등록 */
-				delRegistMapper.packetInfoRegist(inputMap);	
+				/* 등록된 박스정보 초기화(sjKey 삭제) */
+				delRegistMapper.packetInfoDelete(inputMap);
 				
-			}
-			resultMsg = "배송신청을 완료했습니다.";
+				/* 등록된 박스정보 확인(OUT_KEY 기준) */
+				Integer cnt = delRegistMapper.cntTotalPacketInfo(inputMap);
+				inputMap.put("sn", (cnt+1));
+												
+				for(int i=0; i<widthArr.length; i++) {
+					inputMap.put("width", widthArr[i]);
+					inputMap.put("height", heightArr[i]);
+					inputMap.put("length", lengthArr[i]);
+					inputMap.put("weight", weightArr[i]);
+					inputMap.put("sjKey", sjKeyHead+(i+1));
+					
+					System.out.print("width ["+i+"] : " + inputMap.get("width"));
+					System.out.print(" height ["+i+"] : " + inputMap.get("height"));
+					System.out.print(" length ["+i+"] : " + inputMap.get("length"));
+					System.out.print(" weight ["+i+"] : " + inputMap.get("weight"));
+					System.out.println("sjKey ["+i+"] : " + inputMap.get("sjKey"));
+					
+					/* 등록된 박스정보 등록 */
+					delRegistMapper.packetInfoRegist(inputMap);
+
+				}
+				resultMsg = "배송정보를 수정했습니다.";
+				
+			}else {
+				resultMsg = "수주정보가 존재하지 않습니다. 관리자에게 문의해주세요."; 
+				return resultMsg;
+			}						
 		}else {
-			System.out.println("else로 들어옴");
+			System.out.println("inKey empty");
 			/* IN_KEY 초기화 */
 			String inKey = "";			
 			String inKeyDay = inputMap.get("creDay").toString().replace("-", "");
@@ -188,10 +197,10 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 				inputMap.put("weight", weightArr[i]);
 				inputMap.put("sjKey", (sjKey+(cnt+1)+"-"+outKey+"-"+(i+1)));
 				
-				System.out.println("width ["+i+"] : " + inputMap.get("width"));
-				System.out.println("height ["+i+"] : " + inputMap.get("height"));
-				System.out.println("length ["+i+"] : " + inputMap.get("length"));
-				System.out.println("weight ["+i+"] : " + inputMap.get("weight"));
+				System.out.print("width ["+i+"] : " + inputMap.get("width"));
+				System.out.print(" height ["+i+"] : " + inputMap.get("height"));
+				System.out.print(" length ["+i+"] : " + inputMap.get("length"));
+				System.out.print(" weight ["+i+"] : " + inputMap.get("weight"));
 				System.out.println("sjKey : " + inputMap.get("sjKey"));
 				
 				/* 박스 정보 등록 */
@@ -199,7 +208,7 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 				
 			}
 			
-			resultMsg = "배송신청을 완료했습니다.";
+			resultMsg = inKey+"=배송신청을 완료했습니다.";
 		}
 				
 		return resultMsg;		
