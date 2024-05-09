@@ -36,7 +36,7 @@
   user-select:none;
 }
 .totalh4{
-	display:none;
+	display:flex;
 	margin-right:100px;
 }
 .totalh4 > h4{
@@ -44,6 +44,9 @@
 	margin-right:10px;
     font-size: 20px;
     width: 130px;
+}
+.totalh4 > h4 > span{
+	color: red;
 }
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -440,7 +443,7 @@
 					}
 				}	
 			}
-			cbmBox();
+// 			cbmBox();
 		})
 		
 		
@@ -506,29 +509,32 @@
 	 	// cbm계산 : 총가로 * 총세로 * 총높이 * 0.000001
 		let total_count = 0;
 		let cbm = 0;
-		for(let prt = 0; prt < $(".List_Check.sub:checked").length; prt++){
+		
+		$("#Delivery_Table > tbody > tr").each(function(e){
+			let total_width = Number($(this).find(".tr_width").val());
+			let total_height = Number($(this).find(".tr_height").val());
+			let total_length = Number($(this).find(".tr_length").val());
 
-			let total_width = Number($($(".List_Check.sub:checked")[prt]).parents("tr").find(".tr_width").val());
-			let total_height = Number($($(".List_Check.sub:checked")[prt]).parents("tr").find(".tr_height").val());
-			let total_length = Number($($(".List_Check.sub:checked")[prt]).parents("tr").find(".tr_length").val());
-			
-			total_count += Number($($(".List_Check.sub:checked")[prt]).parents("tr").find(".tr_count").val());
+			total_count += Number($(this).find(".tr_count").val());
 			
 			cbm += Math.round((total_width * total_height * total_length * 0.000001) * 100)/100;
-		}
-		if(cbm != 0){
-			$(".total_cbm").text(Math.round(cbm * 100)/100);
-		}
-		if(total_count != 0){
-			$(".total_box").text(total_count);
-		}
+			
+		})
 		
-		if(cbm == 0 && total_count ==0){
-			$(".totalh4").css("display","none");
-		}
-		else{
-			$(".totalh4").css("display","flex");	
-		}
+		//선택한 데이터만 불러오기(미사용)
+// 		for(let prt = 0; prt < $(".List_Check.sub:checked").length; prt++){
+
+// 			let total_width = Number($($(".List_Check.sub:checked")[prt]).parents("tr").find(".tr_width").val());
+// 			let total_height = Number($($(".List_Check.sub:checked")[prt]).parents("tr").find(".tr_height").val());
+// 			let total_length = Number($($(".List_Check.sub:checked")[prt]).parents("tr").find(".tr_length").val());
+			
+// 			total_count += Number($($(".List_Check.sub:checked")[prt]).parents("tr").find(".tr_count").val());
+			
+// 			cbm += Math.round((total_width * total_height * total_length * 0.000001) * 100)/100;
+// 		}
+		$(".total_cbm").text(Math.round(cbm * 100)/100);
+		$(".total_box").text(total_count);
+
 	}
 	
 	/* qrCode 생성 함수 (JANG) */

@@ -34,6 +34,21 @@
 	.ton{
 		background: #e1e1e1;
 	}
+	
+.totalh4{
+	display:flex;
+/* 	margin-right:100px; */
+	float:left;
+}
+.totalh4 > h4{
+	margin-left:10px;
+	margin-right:10px;
+/*     font-size: 20px; */
+    width: 130px;
+}
+.totalh4 > h4 > span{
+	color: red;
+}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -61,7 +76,7 @@
                     <img src="./images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>
-            <div class="m_headerTitle">배송신청</div>
+            <div class="m_headerTitle">배송조회</div>
         </header>        
         <section>
             <h3 class="sectionMainTitle"><a href="#">배송조회 필터</a></h3>                       
@@ -111,6 +126,10 @@
         </header>        
         <section>  
             <div class="currentWrap">
+            	<div class="totalh4">
+                   	<h4>CBM : <span class="total_cbm"></span></h4>
+                   	<h4>총 박스 수 : <span class="total_box"></span></h4>
+                </div>
                 <h5 class="icon filter">
                     <img src="./images/m_icon/filter_orange.svg" alt="#">
                 </h5>
@@ -265,6 +284,10 @@
 					tbodyData += "<td>"+result[i].REC_PHONE+"</td>";
 					tbodyData += "<td>"+result[i].REC_TARGET+"</td>";
 					tbodyData += "<td>"+result[i].SERVICE+"</td>";
+					tbodyData += "<input type='hidden' class='tr_width' value='"+result[i].WIDTH+"' >";
+					tbodyData += "<input type='hidden' class='tr_height' value='"+result[i].HEIGHT+"' >";
+					tbodyData += "<input type='hidden' class='tr_length' value='"+result[i].LENGTH+"' >";
+					tbodyData += "<input type='hidden' class='tr_count' value='"+result[i].COUNT+"' >";
 					tbodyData += "</tr>";
 				}
 
@@ -273,8 +296,31 @@
 				$(".first").css("display","none");
 				$(".second").css("display","block");
 				$("header.second").css("display","flex");
+				cbmBox();
             }
 		})
+	}
+	
+	/* 선택한 항목 cbm, 총 박스 수 계산기 */
+	function cbmBox(){
+	 	// cbm계산 : 총가로 * 총세로 * 총높이 * 0.000001
+		let total_count = 0;
+		let cbm = 0;
+		
+		$("#Delivery_Table > tbody > tr").each(function(e){
+			let total_width = Number($(this).find(".tr_width").val());
+			let total_height = Number($(this).find(".tr_height").val());
+			let total_length = Number($(this).find(".tr_length").val());
+
+			total_count += Number($(this).find(".tr_count").val());
+			
+			cbm += Math.round((total_width * total_height * total_length * 0.000001) * 100)/100;
+			
+		})
+		
+		$(".total_cbm").text(Math.round(cbm * 100)/100);
+		$(".total_box").text(total_count);
+		
 	}
 </script>
 </html>
