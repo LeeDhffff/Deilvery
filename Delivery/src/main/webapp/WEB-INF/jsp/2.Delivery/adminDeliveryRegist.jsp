@@ -480,8 +480,15 @@
         	let htmlStr = "";
         	let recTarget = $("#recTarget").val();
         	let qrTxt = "";
+        	let cntArr = new Array();
+        	// 선택된 체크박스확인 (240509 추가 JANG)
+    		$("input[name=boxIndex]").each(function(index){
+    			if($("input[name=boxIndex]").eq(index).is(":checked")){
+    				cntArr.push(index);
+    			}
+    		});
         	
-        	//QR코드 수령지 정보 설정 추가 (240501 JANG)
+        	// QR코드 수령지 정보 설정 추가 (240501 JANG)
         	if(recTarget == 1){
         		recTarget = "본사";
         	}else if(recTarget ==2){
@@ -490,65 +497,112 @@
         		recTarget = $("#recAddr option:checked").text() + " / " + $("#recHou").val();
         	}        	
         	
-        	if($("input[name=sjKey]").length > 0){
-	        	$("input[name=sjKey]").each(function(index){
-	        		// QR Code 데이터 설정 영역
-	        		sjKeyArr.push($("input[name=sjKey]").eq(index).val());
-	        		let txt = sjKeyArr[index].split("-");
-// 	        		qrTxt = "수령인 : "+$("#recNm").val()+"\n연락처 : "+$("#recPhone").val()+"\n픽업지 : "+recTarget+"\n박스번호 : "+txt[2];	      
-					qrTxt = $("#recNm").val()+" / "+$("#recPhone").val()+" / "+recTarget+" / "+txt[2];
-	        		qrInfoArr.push({qrText : qrTxt, qrId : "qrCode_"+index});
-	        		
-	        		// html영역
-	                 htmlStr += '<div class="outContent" id="printable" style="page-break-before:always">';
-	                 htmlStr += '   <div class="outHeader">';
-	                 htmlStr += '      <div class="left" id="qrCode_'+index+'" style="width:30%;">';
-	                 htmlStr += '      </div>'
-	                 htmlStr += '      <div class="right" style="width:50%">';
-	                 htmlStr += '         <div class="logo">';
-	                 htmlStr += '            <img src="images/delivery/pc_icon/logo.png" alt="#" style="width:240px; height:70px;">';
-	                 htmlStr += '         </div>';
-	                 htmlStr += '         <div class="bottom" style="display: flex;">';
-	                 htmlStr += '            <div style="width:50%;">';
-	                 htmlStr += '               <img src="images/delivery/pc_icon/krText.png" alt="#" style="width:100%;">';                 
-	                 htmlStr += '            </div>';              
-	                 htmlStr += '            <div style="width:50%;">';
-	                 htmlStr += '               <img src="images/delivery/pc_icon/kakaoEklaosWhite.png" alt="#" style="width:100%;">';                 
-	                 htmlStr += '            </div>';              
-	                 htmlStr += '         </div>';
-	                 htmlStr += '      </div>';
-	                 htmlStr += '   </div>';
-	                 htmlStr += '   <div class="outBody">';
-	                 htmlStr += '      <img src="images/delivery/pc_icon/inKey.png" alt="#" style="width:80px;">';
-	                 htmlStr += '      <h1>'+txt[0]+'</h1>';
-	                 htmlStr += '   </div>';
-	                 htmlStr += '   <div class="outFoot">';
-	                 htmlStr += '      <div class="top">';
-	                 htmlStr += '         <h5>No.'+$("input[name=sjKey]").eq(index).val()+'</h5>';
-	                 htmlStr += '         <h5>Tel.020-5553-3327</h5>';
-	                 htmlStr += '      </div>';
-	                 htmlStr += '      <div class="bottom">';
-	                 htmlStr += '         <img src="images/delivery/pc_icon/laosText.png" alt="#" style="width:200px; height:70px;">';   
-	                 htmlStr += '      </div>';
-	                 htmlStr += '   </div>'
-	                 htmlStr += '</div>';
-	               // qrTxt 초기화 
-	                 qrTxt = "";
-	        	});
-	        	
-	        	$("#contentWrap").append(htmlStr);
-	        	
-	        	// qrCode 동적 생성
-	        	for(let i=0; i<qrInfoArr.length; i++){
-	        		qrCreate(qrInfoArr[i].qrId, qrInfoArr[i].qrText);	        		
-	        	}
+        	// 프린트 영역 생성 - checkbox 선택한 경우, 선택하지 않은 경우 구분 추가 (240509 JANG)
+        	if($("input[name=sjKey]").length > 0){	        		
+       			if(cntArr.length > 0){
+       				for(let i=0; i<cntArr.length; i++){
+       					// QR Code 데이터 설정 영역
+    					sjKeyArr.push($("input[name=sjKey]").eq(cntArr[i]).val());
+    	        		let txt = sjKeyArr[i].split("-");
+//     	        		qrTxt = "수령인 : "+$("#recNm").val()+"\n연락처 : "+$("#recPhone").val()+"\n픽업지 : "+recTarget+"\n박스번호 : "+txt[2];	      
+    					qrTxt = $("#recNm").val()+" / "+$("#recPhone").val()+" / "+recTarget+" / "+txt[2];
+    	        		qrInfoArr.push({qrText : qrTxt, qrId : "qrCode_"+cntArr[i]});
+    	        		
+    	        		// html영역
+    	                htmlStr += '<div class="outContent" id="printable" style="page-break-before:always">';
+    	                htmlStr += '   <div class="outHeader">';
+    	                htmlStr += '      <div class="left" id="qrCode_'+cntArr[i]+'" style="width:30%;">';
+    	                htmlStr += '      </div>'
+    	                htmlStr += '      <div class="right" style="width:50%">';
+    	                htmlStr += '         <div class="logo">';
+    	                htmlStr += '            <img src="images/delivery/pc_icon/logo.png" alt="#" style="width:240px; height:70px;">';
+    	                htmlStr += '         </div>';
+    	                htmlStr += '         <div class="bottom" style="display: flex;">';
+    	                htmlStr += '            <div style="width:50%;">';
+    		            htmlStr += '               <img src="images/delivery/pc_icon/krText.png" alt="#" style="width:100%;">';                 
+    		            htmlStr += '            </div>';              
+    					htmlStr += '            <div style="width:50%;">';
+    					htmlStr += '               <img src="images/delivery/pc_icon/kakaoEklaosWhite.png" alt="#" style="width:100%;">';                 
+    					htmlStr += '            </div>';              
+    					htmlStr += '         </div>';
+    					htmlStr += '      </div>';
+    					htmlStr += '   </div>';
+    					htmlStr += '   <div class="outBody">';
+    					htmlStr += '      <img src="images/delivery/pc_icon/inKey.png" alt="#" style="width:80px;">';
+    					htmlStr += '      <h1>'+txt[0]+'</h1>';
+    					htmlStr += '   </div>';
+    					htmlStr += '   <div class="outFoot">';
+    					htmlStr += '      <div class="top">';
+    					htmlStr += '         <h5>No.'+$("input[name=sjKey]").eq(cntArr[i]).val()+'</h5>';
+    					htmlStr += '         <h5>Tel.020-5553-3327</h5>';
+    					htmlStr += '      </div>';
+    					htmlStr += '      <div class="bottom">';
+    					htmlStr += '         <img src="images/delivery/pc_icon/laosText.png" alt="#" style="width:200px; height:70px;">';   
+    					htmlStr += '      </div>';
+    					htmlStr += '   </div>'
+    					htmlStr += '</div>';
+    					// qrTxt 초기화 
+    					qrTxt = "";
+       				}
+       			}else{
+       				$("input[name=sjKey]").each(function(index){
+    	        		// QR Code 데이터 설정 영역
+    					sjKeyArr.push($("input[name=sjKey]").eq(index).val());
+    	        		let txt = sjKeyArr[index].split("-");
+//     	        		qrTxt = "수령인 : "+$("#recNm").val()+"\n연락처 : "+$("#recPhone").val()+"\n픽업지 : "+recTarget+"\n박스번호 : "+txt[2];	      
+    					qrTxt = $("#recNm").val()+" / "+$("#recPhone").val()+" / "+recTarget+" / "+txt[2];
+    	        		qrInfoArr.push({qrText : qrTxt, qrId : "qrCode_"+index});
+    	        		
+    	        		// html영역
+    	                htmlStr += '<div class="outContent" id="printable" style="page-break-before:always">';
+    	                htmlStr += '   <div class="outHeader">';
+    	                htmlStr += '      <div class="left" id="qrCode_'+index+'" style="width:30%;">';
+    	                htmlStr += '      </div>'
+    	                htmlStr += '      <div class="right" style="width:50%">';
+    	                htmlStr += '         <div class="logo">';
+    	                htmlStr += '            <img src="images/delivery/pc_icon/logo.png" alt="#" style="width:240px; height:70px;">';
+    	                htmlStr += '         </div>';
+    	                htmlStr += '         <div class="bottom" style="display: flex;">';
+    	                htmlStr += '            <div style="width:50%;">';
+    		            htmlStr += '               <img src="images/delivery/pc_icon/krText.png" alt="#" style="width:100%;">';                 
+    		            htmlStr += '            </div>';              
+    					htmlStr += '            <div style="width:50%;">';
+    					htmlStr += '               <img src="images/delivery/pc_icon/kakaoEklaosWhite.png" alt="#" style="width:100%;">';                 
+    					htmlStr += '            </div>';              
+    					htmlStr += '         </div>';
+    					htmlStr += '      </div>';
+    					htmlStr += '   </div>';
+    					htmlStr += '   <div class="outBody">';
+    					htmlStr += '      <img src="images/delivery/pc_icon/inKey.png" alt="#" style="width:80px;">';
+    					htmlStr += '      <h1>'+txt[0]+'</h1>';
+    					htmlStr += '   </div>';
+    					htmlStr += '   <div class="outFoot">';
+    					htmlStr += '      <div class="top">';
+    					htmlStr += '         <h5>No.'+$("input[name=sjKey]").eq(index).val()+'</h5>';
+    					htmlStr += '         <h5>Tel.020-5553-3327</h5>';
+    					htmlStr += '      </div>';
+    					htmlStr += '      <div class="bottom">';
+    					htmlStr += '         <img src="images/delivery/pc_icon/laosText.png" alt="#" style="width:200px; height:70px;">';   
+    					htmlStr += '      </div>';
+    					htmlStr += '   </div>'
+    					htmlStr += '</div>';
+    					// qrTxt 초기화 
+    					qrTxt = "";
+    				});
+       			}				
+		        	
+		        $("#contentWrap").append(htmlStr);
+		        	
+		        // qrCode 동적 생성
+		        for(let i=0; i<qrInfoArr.length; i++){
+		        	qrCreate(qrInfoArr[i].qrId, qrInfoArr[i].qrText);	        		
+		        }
 				
-	            $('.outWrap').css({'display':'flex'});
-        	}else{
-        		
-        		alert("배송신청 저장 후 다시 시도해주세요.");
-        	}
-        	
+		        $('.outWrap').css({'display':'flex'});
+			}else{
+	       		alert("배송신청 저장 후 다시 시도해주세요.");
+			}       		
+    
         });
     	
     	/* 전체체크박스(allChk) 이벤트 설정 */
@@ -586,8 +640,7 @@
    	
    	
     function fnPrint() {
-    	console.log("print 시작");
-    	
+    	console.log("print 시작");    	
 // 		const style = '@page { margin-top: 20px } @media print { h1 { color: blue } }'
 
 		printJS({
@@ -659,7 +712,7 @@
  		cbm = totWidth * totHeight * totLength * 0.000001;
  		console.log("cbm : ", cbm);
  		$("#cbm").text(cbm.toFixed(6));
- 	} 	
+ 	}
 
     </script>
 </body>

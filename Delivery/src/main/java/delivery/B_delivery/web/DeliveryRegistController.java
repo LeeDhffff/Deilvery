@@ -94,6 +94,15 @@ public class DeliveryRegistController {
 		
 		System.out.println("[inputMap] userDelRegist : " + inputMap);
 		
+		/* memId를 세션값으로 삽입 - (수정자 : 이동헌) */
+		if(session.getAttribute("SESSION_MEM_ID") != null) {			
+			inputMap.put("memId", (String)(session.getAttribute("SESSION_MEM_ID")));	
+		}
+		else if(session.getAttribute("SESSION_PROTO_ID") != null) {			
+			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));	
+		}
+		System.out.println("PC회원 배송신청 등록 memId : " + inputMap.get("memId"));
+		
 		delRegistService.userDelRegist(inputMap);
 		
 		return "배송신청을 완료했습니다.";
@@ -133,7 +142,7 @@ public class DeliveryRegistController {
 		else if(session.getAttribute("SESSION_PROTO_ID") != null) {			
 			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));	
 		}
-		System.out.println("memId : " + inputMap.get("memId"));
+		System.out.println("Mobile사용자 배송신청 화면 memId : " + inputMap.get("memId"));
 		
 		/* 접속한 member 정보 가져오기 (JANG) - 생략해도 됨 */
 		List<HashMap<String, String>> memInfo = delRegistService.memInfoList(inputMap);		
@@ -151,6 +160,15 @@ public class DeliveryRegistController {
 	public String mUserDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		
 		System.out.println("[inputMap] mUserDelRegist : " + inputMap);
+		
+		/* memId를 세션값으로 삽입 - (수정자 : 이동헌) */
+		if(session.getAttribute("SESSION_MEM_ID") != null) {			
+			inputMap.put("memId", (String)(session.getAttribute("SESSION_MEM_ID")));	
+		}
+		else if(session.getAttribute("SESSION_PROTO_ID") != null) {			
+			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));	
+		}
+		System.out.println("Mobile회원 배송신청 등록 memId : " + inputMap.get("memId"));
 		
 		delRegistService.userDelRegist(inputMap);
 		
@@ -222,6 +240,15 @@ public class DeliveryRegistController {
 	public String adminDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		
 		System.out.println("[inputMap] adminDelRegist : " + inputMap);
+		
+		/* memId를 세션값으로 삽입 - (수정자 : 이동헌) */
+		if(session.getAttribute("SESSION_MEM_ID") != null) {			
+			inputMap.put("memId", (String)(session.getAttribute("SESSION_MEM_ID")));	
+		}
+		else if(session.getAttribute("SESSION_PROTO_ID") != null) {			
+			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));	
+		}
+		System.out.println("PC관리자 배송신청 등록 memId : " + inputMap.get("memId"));
 		
 		String ik = (String) inputMap.get("inKey");
 		String resultMsg = delRegistService.adminDelRegist(inputMap);				
@@ -310,6 +337,15 @@ public class DeliveryRegistController {
 	public String mAdminDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		
 		System.out.println("[inputMap] mAdminDelRegist : " + inputMap);
+		
+		/* memId를 세션값으로 삽입 - (수정자 : 이동헌) */
+		if(session.getAttribute("SESSION_MEM_ID") != null) {			
+			inputMap.put("memId", (String)(session.getAttribute("SESSION_MEM_ID")));	
+		}
+		else if(session.getAttribute("SESSION_PROTO_ID") != null) {			
+			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));	
+		}
+		System.out.println("Mobile관리자 배송신청 등록 memId : " + inputMap.get("memId"));
 		
 		String resultMsg = delRegistService.adminDelRegist(inputMap);
 		
