@@ -124,6 +124,11 @@
     margin-right: 5px;
     color: white;
     background: brown;
+    cursor: pointer;
+    font-weight: bold;
+}
+.printbuttonMove:hover{
+    background: #ff7272;
 }
 .nextButton{
 	margin: 10px 10px 10px 0px;
@@ -160,7 +165,7 @@
         		<table class="print_table" id="print_table_1">
         			<tr style="text-align:center;"><th class="print_table_header" style="font-size:30px;" colspan="9">INVOICE</th></tr>
         			<tr style="text-align:center;"><td style="width:20%; font-weight:bold; " colspan="2" rowspan="2">NOY</td><td></td><td>ຕູ້ທີ່1 ເດືອນ11</td><td style="background: #d7d7d7; font-weight:bold;" colspan="5">EK Logistics</td></tr>
-        			<tr style="text-align:center;"><td>고객님 귀하</td><td id="EXCEL_NAME"></td><td id="EXCEL_ADDRESS" colspan="5">Pakthang Village, Sikhotavong District Vientiane Captital, Lao P.D.R</td></tr>
+        			<tr style="text-align:center;"><td>고객님 귀하</td><td id="EXCEL_NAME"></td><td id="EXCEL_ADDRESS" colspan="5"></td></tr>
         			<tr style="text-align:center;"><td style="background:aliceblue; width:10%;">접수번호:<br />ລະຫັດ</td><td id="EXCEL_EK" style="background:bisque;font-weight:bold; width: 30%; font-size:20px;" colspan="3"></td><td colspan="5">TEL: +856 2099118282(LAO) / +856 2055533327(KR) <br />+856 2054155374(LAO)</td></tr>
         			<tr style="text-align:center;"><td style="background:aliceblue;">전화번호:ເບີໂທ</td><td id="EXCEL_PHONE" colspan="3"></td><td rowspan="2" style="background:aliceblue; ">운임ລວມ</td><td id="EXCEL_TR_COST"  colspan="2" rowspan="2"></td><td style="background:bisque;font-weight:bold; " colspan="2">담당직원 서명 ຜູ້ສົ່ງເຄືອງ</td></tr>
         			<tr style="text-align:center;"><td style="background:aliceblue;">이용연도:ປີ</td><td id="EXCEL_YEAR" colspan="3"></td><td style="color:darkgray; font-weight:bold; " colspan="2" rowspan="2">Signiture</td></tr>
@@ -193,8 +198,6 @@
         			<tbody>
         			</tbody>
         		</table>
-        		<table class="print_table" id="print_table_H2" style="display:none;">
-        		</table>
         		</div>
         	</div>
         </div>
@@ -214,7 +217,9 @@
 	var uid2 = '<%=(String)session.getAttribute("SESSION_PROTO_ID")%>';
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
 	
- 
+	var main_table = {};
+ 	var sub_table = {};
+	var in_keys = [];
 	$(document).on('ready',function(){
 			
 
@@ -233,46 +238,45 @@
 		$("#print_excel").on("click",function(){
 // 			fnExcelDownload("print_table_1","print_table_2","테스트");
 
-
-			var tbody_length = $("#print_table_H2 > tbody").length;
+			
+			var tbody_length = in_keys.length;
 			var deliverydata = [];
 			for(let j=0; j<tbody_length; j++){
 
-				var now_inkey  = $($("#print_table_H2 > tbody")[j]).attr("class");
+				var now_inkey  = in_keys[j];
 				const imageData = ($("#qr_" + now_inkey).find("canvas")[0] != null) ? $("#qr_" + now_inkey).find("canvas")[0].toDataURL("image/png", 0.5)
 								: "";
 				console.log(imageData);
 				
 				var Ddatas = [];
-				var sub_length = $("#print_table_H2 > ." + now_inkey + " > tr").length
+				var sub_length = sub_table[now_inkey].length
 				for(let k=0; k<sub_length; k++){
-					var sol = $("#print_table_H2 > ." + now_inkey + " > tr")[k];
 					var Ddata = {};
-					Ddata["CELL0"] = $(sol).find(".rec_txt").text();
-					Ddata["CELL1"] = $(sol).find(".weight").text();
-					Ddata["CELL2"] = $(sol).find(".width").text();
-					Ddata["CELL3"] = $(sol).find(".length").text();
-					Ddata["CELL4"] = $(sol).find(".height").text();
-					Ddata["CELL5"] = $(sol).find(".weight2").text();
-					Ddata["CELL6"] = $(sol).find(".cost").text();
-					Ddata["CELL7"] = $(sol).find(".weight3").text();
+					Ddata["CELL0"] = sub_table[now_inkey][k].REC_TXT;
+					Ddata["CELL1"] = sub_table[now_inkey][k].WEIGHT;
+					Ddata["CELL2"] = sub_table[now_inkey][k].WIDTH;
+					Ddata["CELL3"] = sub_table[now_inkey][k].LENGTH;
+					Ddata["CELL4"] = sub_table[now_inkey][k].HEIGHT;
+					Ddata["CELL5"] = sub_table[now_inkey][k].LNCOST;
+					Ddata["CELL6"] = sub_table[now_inkey][k].COST;
+					Ddata["CELL7"] = sub_table[now_inkey][k].WEIGHT;
 					Ddata["CELL8"] = "10$";
 					
 					Ddatas.push(Ddata);
 				}
-				
+
 				var d_data = {
-					IN_KEY : 		$("#print_table_H1 > tbody > " + "." + now_inkey + " > .in_key").text(),
-					EXCEL_NAME : 	$("#print_table_H1 > tbody > " + "." + now_inkey + " > .rec_nm").text(),
-					EXCEL_ADDRESS : $("#print_table_H1 > tbody > " + "." + now_inkey + " > .rec_hou").text(),
-					EXCEL_PHONE : 	$("#print_table_H1 > tbody > " + "." + now_inkey + " > .rec_phone").text(),
-					EXCEL_YEAR : 	$("#print_table_H1 > tbody > " + "." + now_inkey + " > .cre_day").text(),
-					EXCEL_COUNT : 	$("#print_table_H1 > tbody > " + "." + now_inkey + " > .count").text(),
-					EXCEL_MONTH:	$("#print_table_H1 > tbody > " + "." + now_inkey + " > .arr_day").text(),
-					EXCEL_TR_COST: 	$("#print_table_H1 > tbody > " + "." + now_inkey + " > .tr_cost").text(),
-					EXCEL_COST:		$("#print_table_H1 > tbody > " + "." + now_inkey + " > .cost").text(),
-					EXCEL_EK:		$("#print_table_H1 > tbody > " + "." + now_inkey + " > .ek").text(),
-					EXCEL_TABLE_NUM: $("." + now_inkey + " > tr").length,
+					IN_KEY : 		main_table[now_inkey].IN_KEY,
+					EXCEL_NAME : 	main_table[now_inkey].REC_NM ,
+					EXCEL_ADDRESS : main_table[now_inkey].REC_ADDRESS,
+					EXCEL_PHONE : 	main_table[now_inkey].REC_PHONE,
+					EXCEL_YEAR : 	main_table[now_inkey].YEAR,
+					EXCEL_COUNT : 	main_table[now_inkey].COUNT,
+					EXCEL_MONTH:	main_table[now_inkey].MONTH,
+					EXCEL_TR_COST: 	main_table[now_inkey].TR_COST,
+					EXCEL_COST:		main_table[now_inkey].COST,
+					EXCEL_EK:		main_table[now_inkey].EK,
+					EXCEL_TABLE_NUM: sub_length,
 					EXCEL_QR : imageData,
 					EXCEL_TABLE : Ddatas
 				}
@@ -347,21 +351,21 @@
 		$("#print_after").on("click",function(){
 			var nowinkey = $(".now_In_key").text();
 			var nownum = Number($(".now_num").text());
-			var length = $("#print_table_H2 > tbody").length;
+			var length = in_keys.length;
 			if(nownum < length-1){
-				PrintPageLoad($($("#print_table_H2 > tbody")[nownum + 1]).attr("class"));
+				PrintPageLoad(in_keys[nownum + 1]);
 				$(".now_num").text(nownum + 1)
-				$(".now_In_key").text($($("#print_table_H2 > tbody")[nownum + 1]).attr("class"))
+				$(".now_In_key").text(in_keys[nownum + 1]);
 			}
 		})
 		$("#print_before").on("click",function(){
 			var nowinkey = $(".now_In_key").text();
 			var nownum = Number($(".now_num").text());
-			var length = $("#print_table_H2 > tbody").length;
+			var length = in_keys.length;
 			if(nownum > 0){
-				PrintPageLoad($($("#print_table_H2 > tbody")[nownum - 1]).attr("class"));
-				$(".now_num").text(nownum - 1)
-				$(".now_In_key").text($($("#print_table_H2 > tbody")[nownum - 1]).attr("class"))
+				PrintPageLoad(in_keys[nownum - 1]);
+				$(".now_num").text(nownum - 1);
+				$(".now_In_key").text(in_keys[nownum - 1]);
 			}
 		})
 		
@@ -374,39 +378,36 @@
 	
 	function PrintPageLoad(in_key){
 		
+			$("#EXCEL_NAME").text(main_table[in_key].REC_NM);
+			$("#EXCEL_ADDRESS").text(main_table[in_key].REC_ADDRESS);
+			$("#EXCEL_PHONE").text(main_table[in_key].REC_PHONE);
+			$("#EXCEL_YEAR").text(main_table[in_key].YEAR);
+			$("#EXCEL_COUNT").text(main_table[in_key].COUNT);
+			$("#EXCEL_MONTH").text(main_table[in_key].MONTH);
+			$("#EXCEL_IN_KEY").val(main_table[in_key].IN_KEY);
+			$("#EXCEL_EK").text(main_table[in_key].EK);
 		
-			$("#EXCEL_NAME").text($("#print_table_H1 > tbody > " + "." + in_key + " > .rec_nm").text());
-			$("#EXCEL_ADDRESS").text($("#print_table_H1 > tbody > " + "." + in_key + " > .rec_hou").text());
-			$("#EXCEL_PHONE").text($("#print_table_H1 > tbody > " + "." + in_key + " > .rec_phone").text());
-			$("#EXCEL_YEAR").text($("#print_table_H1 > tbody > " + "." + in_key + " > .cre_day").text());
-			$("#EXCEL_COUNT").text($("#print_table_H1 > tbody > " + "." + in_key + " > .count").text());
-			$("#EXCEL_MONTH").text($("#print_table_H1 > tbody > " + "." + in_key + " > .arr_day").text());
-			$("#EXCEL_IN_KEY").val($("#print_table_H1 > tbody > " + "." + in_key + " > .in_key").text());
-			$("#EXCEL_EK").text($("#print_table_H1 > tbody > " + "." + in_key + " > .ek").text());
-		
-			$("#EXCEL_TR_COST").text($("#print_table_H1 > tbody > " + "." + in_key + " > .tr_cost").text());
-			$("#EXCEL_COST").text($("#print_table_H1 > tbody > " + "." + in_key + " > .cost").text());
+			$("#EXCEL_TR_COST").text(main_table[in_key].TR_COST);
+			$("#EXCEL_COST").text(main_table[in_key].COST);
 			
 			$("#EXCEL_QR1").empty();
-    		qrCreate("EXCEL_QR1", $("#print_table_H1 > tbody > " + "." + in_key + " > .qrTxt").text());	     
+    		qrCreate("EXCEL_QR1", main_table[in_key].qrTxt);	     
 			
 		
 			$("#print_table_2 > tbody").empty();
 			var PrintString = '';
-
-			console.log($("#print_table_H2 > ." + in_key + " > tr").length);
 			
-			for(let i=0; i<$("#print_table_H2 > ." + in_key + " > tr").length; i++){
-				var sol = $("#print_table_H2 > ." + in_key + " > tr")[i];
+			for(let i=0; i<sub_table[in_key].length; i++){
+				var sol = sub_table[in_key][i];
 				PrintString += '<tr class="tr'+i+'">';
-				PrintString += '<td>'+$(sol).find(".rec_txt").text()+'</td>';
-				PrintString += '<td>'+$(sol).find(".weight").text()+'</td>';
-				PrintString += '<td>'+$(sol).find(".width").text()+'</td>';
-				PrintString += '<td>'+$(sol).find(".length").text()+'</td>';
-				PrintString += '<td>'+$(sol).find(".height").text()+'</td>';
-				PrintString += '<td>'+$(sol).find(".weight2").text()+'</td>';
-				PrintString += '<td>'+$(sol).find(".cost").text()+'</td>';
-				PrintString += '<td>'+$(sol).find(".weight3").text()+'</td>';
+				PrintString += '<td>'+sub_table[in_key][i].REC_TXT+'</td>';
+				PrintString += '<td>'+sub_table[in_key][i].WEIGHT+'</td>';
+				PrintString += '<td>'+sub_table[in_key][i].WIDTH+'</td>';
+				PrintString += '<td>'+sub_table[in_key][i].LENGTH+'</td>';
+				PrintString += '<td>'+sub_table[in_key][i].HEIGHT+'</td>';
+				PrintString += '<td>'+sub_table[in_key][i].LNCOST+'</td>';
+				PrintString += '<td>'+sub_table[in_key][i].COST+'</td>';
+				PrintString += '<td>'+sub_table[in_key][i].WEIGHT3+'</td>';
 				PrintString += '<td>10$</td>';
 				PrintString += '</tr>';
 			

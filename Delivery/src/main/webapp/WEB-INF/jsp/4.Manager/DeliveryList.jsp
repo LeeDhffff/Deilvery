@@ -35,8 +35,16 @@
   -ms-user-select:none;
   user-select:none;
 }
-출처: https://fresh-mint.tistory.com/entry/css-드래그-방지 [민트코딩:티스토리]
-	}
+.totalh4{
+	display:none;
+	margin-right:100px;
+}
+.totalh4 > h4{
+	margin-left:10px;
+	margin-right:10px;
+    font-size: 20px;
+    width: 130px;
+}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -106,6 +114,10 @@
                     <h3 class="conMainTitle">
                         <a href="#">배송 리스트</a>
                         <div class="buttonWrap">
+                        	<div class="totalh4">
+                        	<h4>CBM : <span class="total_cbm"></span></h4>
+                        	<h4>총 박스 수 : <span class="total_box"></span></h4>
+                            </div>
                             <button class="bill">
                                 <a href="#">
                                     <img src="./images/pc_icon/calculator.svg" alt="영수증출력하기">
@@ -212,9 +224,13 @@
 			}
 			else{
 				$("#print_table_H1").empty();
-				$("#print_table_H2").empty();
 				var StartIn_key = "";
 				var checkNot = 0;
+				var checkYes = 0;
+				sub_table = {};
+				main_table = {};
+				in_keys = [];
+				var group_sub_table = [];
 				for(let prt = 0; prt < $(".List_Check.sub:checked").length; prt++){
 					
 					var deliverydata = {
@@ -236,11 +252,11 @@
 									var A_result = JSON.parse(datas);
 									var D_result = JSON.parse(datas2);
 									if(D_result.length > 0){
-										
-									var HiddenPrint = "";
-									HiddenPrint += '<tbody class="'+A_result[0].IN_KEY+'">';
+									
+									var group_sub_table = [];
 									for(let i=0; i<D_result.length; i++){
 										
+										//용적중량(lncost)와 kgcost 비교해서 기준가(cost) 계산하기
 										var cost = 0;
 										var lncost = Math.round((D_result[i].WIDTH * D_result[i].LENGTH * D_result[i].HEIGHT * 0.00022) * 100) / 100;
 										var kgcost = D_result[i].WEIGHT * 1.5;
@@ -251,38 +267,47 @@
 											cost = Math.round(lncost * 1.5);
 										}
 										
-										HiddenPrint += '<tr>';
-										HiddenPrint += '<td class="rec_txt">'+A_result[0].REC_TXT+'</td>';
-										HiddenPrint += '<td class="weight">'+D_result[i].WEIGHT+'</td>';
-										HiddenPrint += '<td class="width">'+D_result[i].WIDTH+'</td>';
-										HiddenPrint += '<td class="length">'+D_result[i].LENGTH+'</td>';
-										HiddenPrint += '<td class="height">'+D_result[i].HEIGHT+'</td>';
-										HiddenPrint += '<td class="weight2">'+lncost+'</td>';
-										HiddenPrint += '<td class="cost">'+cost+'</td>';
-										HiddenPrint += '<td class="weight3">'+D_result[i].WEIGHT+'</td>';
-										HiddenPrint += '<td>10$</td>';
-										HiddenPrint += '</tr>';
+										//서브테이블 값
+										var dk = {
+												IN_KEY:A_result[0].IN_KEY,
+												REC_TXT:A_result[0].REC_TXT,
+												WEIGHT:D_result[i].WEIGHT,
+												WIDTH:D_result[i].WIDTH,
+												LENGTH:D_result[i].LENGTH,
+												HEIGHT:D_result[i].HEIGHT,
+												LNCOST:lncost,
+												COST:cost,
+												WEIGHT3:D_result[i].WEIGHT
+												
+										}
+										group_sub_table.push(dk);
 									};
-									HiddenPrint += '</tbody>';
-									$("#print_table_H2").append(HiddenPrint);
-
+									sub_table[A_result[0].IN_KEY] =group_sub_table;
+									
+									//qr 저장고
 									var HiddenMain = "";
-									HiddenMain += '<tr class="'+A_result[0].IN_KEY+'">';
-									HiddenMain += '<td class="rec_nm">'+A_result[0].REC_NM+'</td>';
-									HiddenMain += '<td class="rec_hou">'+A_result[0].REC_HOU+'</td>';
-									HiddenMain += '<td class="rec_phone">'+A_result[0].REC_PHONE+'</td>';
-									HiddenMain += '<td class="cre_day">'+A_result[0].CRE_DAY.substr(0,4)+'</td>';
-									HiddenMain += '<td class="count">'+D_result.length+'</td>';
-									HiddenMain += '<td class="arr_day">'+A_result[0].ARR_DAY.substr(5,2)+'</td>';
-									HiddenMain += '<td class="in_key">'+A_result[0].IN_KEY+'</td>';
-									HiddenMain += '<td class="tr_cost">'+D_result.length * 10 + '$</td>';
+									HiddenMain += '<tr>';
 									var qrTxt = "";
+									
+									// 메인 값
+									var mk = {
+											IN_KEY:			A_result[0].IN_KEY,
+											REC_NM:			A_result[0].REC_NM,
+											REC_ADDRESS:		A_result[0].REC_HOU,
+											REC_PHONE:		A_result[0].REC_PHONE,
+											YEAR:			A_result[0].CRE_DAY.substr(0,4),
+											COUNT:			D_result.length,
+											MONTH:		A_result[0].ARR_DAY.substr(5,2),
+											TR_COST:		D_result.length * 10
+											
+									}
+									
 									if(D_result.length > 0){
 
 										const cn1 = D_result[0].COST.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-										HiddenMain += '<td class="cost">'+cn1+'</td>';
-										HiddenMain += '<td class="ek">'+D_result[0].SJ_KEY.substring(0,3)+'</td>';
-
+										mk["COST"] = cn1;
+										mk["EK"] = D_result[0].SJ_KEY.substring(0,3);
+										
 //	 						        	const qrInfoArr = new Array();
 						        		qrTxt = "수령인 : "+A_result[0].REC_NM+"\n연락처 : "+A_result[0].REC_PHONE+"\n픽업지 : "+A_result[0].REC_TARGET;	        		
 //	 					        		qrInfoArr.push({qrText : qrTxt, qrId : "qrCode_"+index});
@@ -291,12 +316,15 @@
 									}
 									else{
 										qrTxt = "";
-										HiddenMain += '<td class="cost"></td>';
-										HiddenMain += '<td class="ek"></td>';
+										mk["COST"] = "";
+										mk["EK"] = "";
 									}
-									HiddenMain += '<td class="qrTxt">'+qrTxt+'</td>';
 									HiddenMain += '<td class="qr" id="qr_'+A_result[0].IN_KEY+'"></td>';
 									HiddenMain += '</tr>';
+									mk["qrTxt"] = qrTxt;
+
+									main_table[A_result[0].IN_KEY] =mk;
+									in_keys.push(A_result[0].IN_KEY);
 									
 									$("#print_table_H1").append(HiddenMain);
 									$("#qr_" + A_result[0].IN_KEY).empty();
@@ -306,7 +334,7 @@
 									if(StartIn_key == ""){
 										StartIn_key = A_result[0].IN_KEY;
 									}
-
+										checkYes++;
 									}
 									else{
 										checkNot++;
@@ -320,15 +348,19 @@
 					});
 				}
 			
-				
-				PrintPageLoad(StartIn_key);
-				$(".now_In_key").text(StartIn_key);
-				$(".now_num").text(0);
-				
-				if(checkNot > 0){
-					alert(checkNot + "건의 배송건은 박스를 입력되지 않아 창에 나타나지 않습니다.")
+				if(checkYes != 0){
+					PrintPageLoad(StartIn_key);
+					$(".now_In_key").text(StartIn_key);
+					$(".now_num").text(0);
+					
+					if(checkNot > 0){
+						alert(checkNot + "건의 배송건은 박스가 등록되지 않아 창에 나타나지 않습니다.")
+					}
+					$("#print_grayback").show();
 				}
-				$("#print_grayback").show();
+				else{
+					alert("선택하신 " + checkNot + "건의 배송건은 박스가 등록되지 않아 엑셀 출력이 불가합니다.")
+				}
 			}
 			
 		})
@@ -408,7 +440,7 @@
 					}
 				}	
 			}
-			
+			cbmBox();
 		})
 		
 		
@@ -442,7 +474,7 @@
 			async: false,
             success: function(datas){
 				var result = JSON.parse(datas);
-
+				console.log(result);
 				$("#Delivery_Table > tbody").empty();
 				var tbodyData = "";
 
@@ -456,15 +488,49 @@
 					tbodyData += "<td>"+result[i].MAXCHK+"</td>";
 					tbodyData += "<td>"+result[i].SERVICE+"</td>";
 					tbodyData += "<td><input type='checkbox' name='List_Check' class='List_Check sub' style='display:none;'><button class='modify'><img src='./images/pc_icon/modify_black.svg'></button></td>";
+					tbodyData += "<input type='hidden' class='tr_width' value='"+result[i].WIDTH+"' >";
+					tbodyData += "<input type='hidden' class='tr_height' value='"+result[i].HEIGHT+"' >";
+					tbodyData += "<input type='hidden' class='tr_length' value='"+result[i].LENGTH+"' >";
+					tbodyData += "<input type='hidden' class='tr_count' value='"+result[i].COUNT+"' >";
 					
 					tbodyData += "</tr>";
 				}
 
 				$("#Delivery_Table > tbody").append(tbodyData);
-				
+				cbmBox();
             }
 		})
 	}
+	/* 선택한 항목 cbm, 총 박스 수 계산기 */
+	function cbmBox(){
+	 	// cbm계산 : 총가로 * 총세로 * 총높이 * 0.000001
+		let total_count = 0;
+		let cbm = 0;
+		for(let prt = 0; prt < $(".List_Check.sub:checked").length; prt++){
+
+			let total_width = Number($($(".List_Check.sub:checked")[prt]).parents("tr").find(".tr_width").val());
+			let total_height = Number($($(".List_Check.sub:checked")[prt]).parents("tr").find(".tr_height").val());
+			let total_length = Number($($(".List_Check.sub:checked")[prt]).parents("tr").find(".tr_length").val());
+			
+			total_count += Number($($(".List_Check.sub:checked")[prt]).parents("tr").find(".tr_count").val());
+			
+			cbm += Math.round((total_width * total_height * total_length * 0.000001) * 100)/100;
+		}
+		if(cbm != 0){
+			$(".total_cbm").text(Math.round(cbm * 100)/100);
+		}
+		if(total_count != 0){
+			$(".total_box").text(total_count);
+		}
+		
+		if(cbm == 0 && total_count ==0){
+			$(".totalh4").css("display","none");
+		}
+		else{
+			$(".totalh4").css("display","flex");	
+		}
+	}
+	
 	/* qrCode 생성 함수 (JANG) */
    	function qrCreate(id, txt){ 
    		var qrcode = new QRCode(id, {
