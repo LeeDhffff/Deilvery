@@ -56,6 +56,7 @@
                             <select name="recTarget" id="recTarget">
                                 <option value="1">본사</option>
                                 <option value="2">하우 창고</option>
+                                <option value="3">지방배송</option>
                             </select>
                         </div>
 
@@ -66,7 +67,7 @@
                             </div>
                             <div class="inputWrap">
                                 <h5 class="inputName"><a href="#">하우 창고 주소</a></h5>
-                                <input type="text" id="hou" placeholder="Pakthang Villsge, Sikhot District T3, Dongnatong Vientiane, LAO P.D.R" readonly>
+                                <input type="text" id="hou" placeholder="Pphonpapao village , Sisatttanak Dostrict,Vientiane" readonly>
                                 <h5 class="inputAlarm"><a href="#">※하우창고에서 수령시 배출일 (9시~17시) 하루동안만 개봉되며 미수령시 본사로 이동됩니다.</a></h5>
                             </div>
                         </div> 

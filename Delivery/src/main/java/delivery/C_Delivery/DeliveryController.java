@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -45,6 +46,7 @@ public class DeliveryController {
 		return "2.Delivery/Delivery_Search";
 	}
 
+	
 	/* 배송신청 목록 검색페이지로 이동.(비회원, 로그인 필요X) */
 	@RequestMapping("/Delivery_Search_B.do")
 	public String Delivery_Search_B() {
@@ -55,6 +57,22 @@ public class DeliveryController {
 	@RequestMapping("/Delivery_Search_B_CHK.do")
 	public String Delivery_Search_B_CHK() {
 		return "2.Delivery/Delivery_Search_B_CHK";
+	}
+
+	/* 배송신청 목록 검색페이지로 이동.(사용자) */
+	@RequestMapping("/Delivery_Search_A.do")
+	public ModelAndView Delivery_Search_A(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		ModelAndView mav = new ModelAndView();
+		inputMap.put("IN_KEY",inputMap.get("ik"));
+		
+		HashMap<String, String> DeliveryList = DeliveryService.Delivery_Search_A(inputMap);
+		mav.addObject("IN_KEY", inputMap.get("ik"));
+		mav.addObject("Dlist", DeliveryList);
+
+		mav.setViewName("2.Delivery/Delivery_Search_A");
+		
+		return mav;
 	}
 	
 	/* 배송신청 목록 검색 */

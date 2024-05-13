@@ -21,6 +21,9 @@
     button{
         cursor:pointer;
     }
+    .tron{
+    	background:#ffecdb;
+    }
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -301,10 +304,14 @@
 			Delivery_Search_D($(this).parents("tr").find(".T_IN_KEY").val());
 		})
 		
+		$(document).on("click",".qr",function(){
+			Delivery_Search_D($(".tron").find(".T_IN_KEY").val());
+		})
+		
 		$(document).on("click",".currentClickOne",function(){
 			Delivery_Search_O($(this).parents("tr").find(".T_IN_KEY").val());
-			$('#Delivery_Table > tbody > tr').css("background","");
-			$(this).parents("tr").css("background","#ffecdb");
+			$('#Delivery_Table > tbody > tr').removeClass("tron");
+			$(this).parents("tr").addClass("tron");
 		})
 		
 		
@@ -403,8 +410,11 @@
             success: function(datas){
 				var result = JSON.parse(datas);
 
+
 				$("#Delivery_History_Table > tbody").empty();
+				$("#Delivery_Information_Table > tbody").empty();
 				var tbodyData2 = "";
+				var tbodyData3 = "";
 
 				for(let i=0; i<result.length; i++ ){
 					var number = 0;
@@ -412,18 +422,18 @@
 
 //		 				$500 (kg*$1.5 or 용적중량 *$1.5 중 비싼 비용으로 계산)
 //		 				용적중량 : 가로*세로*높이*0.00022 
-// 						var kgcost = result[i].WEIGHT * 1.5;
-// 						var lncost = result[i].WIDTH * result[i].HEIGHT * result[i].LENGTH * 0.00022;
+						var kgcost = result[i].WEIGHT * 1.5;
+						var lncost =  Math.round(result[i].WIDTH * result[i].HEIGHT * result[i].LENGTH * 0.00022 * 1.5 * 100) / 100;
 						
 // 						console.log(kgcost,lncost);
-// 						if(kgcost >= lncost){
-// 							number += kgcost;
-// 						}
-// 						else{
-// 							number += lncost;
-// 						}
+						if(kgcost >= lncost){
+							number += kgcost;
+						}
+						else{
+							number += lncost;
+						}
 						
-						number = result[i].COST;
+// 						number = result[i].COST;
 						
 						tbodyData2 += "<tr>";
 						tbodyData2 += "<td>"+result[i].ARR_DAY+"</td>";
@@ -432,10 +442,18 @@
 						tbodyData2 += "<td>$"+number+"</td>";
 						tbodyData2 += "<td>W*H*L("+result[i].WIDTH+"cm*"+result[i].HEIGHT +"cm*" + result[i].LENGTH+"cm / 무게 "+ result[i].WEIGHT + "kg</td>";
 					
+						
 					}
 				}
-
+				tbodyData3 += "<tr>";
+				tbodyData3 += "<td>"+(result[0].SJ_KEY).split("-")[0]+"</td>";
+				tbodyData3 += "<td>"+result.length+"</td>";
+				tbodyData3 += "<td>"+result[0].ARR_DAY+"</td>";
+				tbodyData3 += "</tr>";
+				
+				
 				$("#Delivery_History_Table > tbody").append(tbodyData2);
+				$("#Delivery_Information_Table > tbody").append(tbodyData3);	
 				
             }
 			

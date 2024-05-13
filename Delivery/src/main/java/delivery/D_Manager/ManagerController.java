@@ -74,6 +74,10 @@ import delivery.D_Manager.service.ManagerService;
  */
 @Controller
 public class ManagerController {
+
+    public static String filePath = "D:\\upload\\deliveryFile"; // 윈도우 경로
+//	public static String filePath = "/upload"; // 우분투 경로
+	private static final String BASE64_PNG_PRE_FIX = "data:image/png;base64,";
 	
 	@Resource(name = "ManagerService")
 	private ManagerService ManagerService;
@@ -303,10 +307,10 @@ public class ManagerController {
 		System.out.println("출항일 현황 등록 result: " + ListDays);
 
 		
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonStr = mapper.writeValueAsString(ListDays);
+//		ObjectMapper mapper = new ObjectMapper();
+//		String jsonStr = mapper.writeValueAsString(ListDays);
 		
-		return jsonStr;
+		return ListDays;
 	}
 //	@RequestMapping(value = "Out_Day_File_Insert.do", produces = "application/text; charset=utf-8")
 //	@ResponseBody
@@ -393,10 +397,10 @@ public class ManagerController {
 		System.out.println("출항일 현황 등록 result: " + ListDays);
 
 		
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonStr = mapper.writeValueAsString(ListDays);
+//		ObjectMapper mapper = new ObjectMapper();
+//		String jsonStr = mapper.writeValueAsString(ListDays);
 		
-		return jsonStr;
+		return ListDays;
 	}
 //	@RequestMapping(value = "Out_Day_File_UD.do", produces = "application/text; charset=utf-8")
 //	@ResponseBody
@@ -650,9 +654,6 @@ public class ManagerController {
 	    }
 	}
 
-    public static String filePath = "D:\\upload\\deliveryFile"; // 윈도우 경로
-//	public static String filePath = "/upload"; // 우분투 경로
-	private static final String BASE64_PNG_PRE_FIX = "data:image/png;base64,";
     
 	@RequestMapping(value = "/Excel.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody

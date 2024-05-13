@@ -200,9 +200,9 @@
    	
     // Join.jsp 참고 (이동헌)
     function oninputPhone(target) {
-        target.value = target.value
-            .replace(/[^0-9]/g, '')
-            .replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]{4})([0-9]{4})/g, "$1-$2-$3");
+    target.value = target.value
+        .replace(/[^0-9]/g, '')
+        .replace(/(^01.{1}|[0-9]{3})([0-9]{4})([0-9]{4})/g, "$1-$2-$3");
     }
    	
     </script>

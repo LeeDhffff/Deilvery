@@ -7,6 +7,11 @@
 				#{MEM_ID}
 		) }
 	</select>
+	<select id="Delivery_Search_A" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call B_APPLICATION_SELECT_A(
+				#{IN_KEY}
+		) }
+	</select>
 	<select id="Delivery_Select_D" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
 		{ call B_APPLICATION_SELECT_D(
 				#{MEM_ID},

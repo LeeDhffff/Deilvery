@@ -666,7 +666,7 @@
 // 			용적중량 : 가로*세로*높이*0.00022 
 			
 			var kgcost = weight * 1.5;
-			var lncost = Math.round(width * height * length * 0.00022 * 1.5);
+			var lncost = Math.round(width * height * length * 0.00022 * 1.5 * 100) / 100;
 		
 // 			console.log(kgcost,lncost);
 			if(kgcost >= lncost){
@@ -682,9 +682,9 @@
     
     // Join.jsp 참고 (이동헌)
     function oninputPhone(target) {
-        target.value = target.value
-            .replace(/[^0-9]/g, '')
-            .replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]{4})([0-9]{4})/g, "$1-$2-$3");
+	    target.value = target.value
+	        .replace(/[^0-9]/g, '')
+	        .replace(/(^01.{1}|[0-9]{3})([0-9]{4})([0-9]{4})/g, "$1-$2-$3");
     }
     
  	// 숫자와 마침표만 입력 정규식 체크 (JANG)

@@ -320,7 +320,7 @@
 	    				data: daydata,
 	    				async: false,
 	    	            success: function(data){
-	    	            	
+	    	            	console.log(data);
 	    	            	if(data == ''){
 	    	            		alert("잘못된 접근입니다.");	
 	    	            	}

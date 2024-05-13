@@ -52,6 +52,7 @@
                     </a>
                 </h3>
             </div>
+            
             <div class="qrBody">
                 <div class="tableWrap">
                     <table id="Delivery_Information_Table">
@@ -65,7 +66,7 @@
                         <tbody>
                         </tbody>
                     </table>
-                </div>
+                </div> 
             </div>
         </div>
     </div>
@@ -109,7 +110,7 @@
                 </h1>
                 <div class="conWrap">
                     <h3 class="conMainTitle">
-                        <a href="#"><span class="customer"></span> 님께서 수령받을 물품입니다.</a>
+<!--                         <a href="#">반갑습니다. <span class="customer"></span> 회원님</a> -->
                     </h3>
                     <h5 class="conSubTitle">
                         <p>
@@ -131,6 +132,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+									<tr>
+									<td>${Dlist.ARR_DAY}</td>
+									<td><input type='hidden' class='T_IN_KEY' id="${IN_KEY}" value="${IN_KEY}">${Dlist.REC_NM}</td>
+									<td>${Dlist.CRE_DAY}</td>
+									<td>${Dlist.COST}</td>
+									<td class="currentClickOne" style="cursor:pointer;">한국물류창고 (클릭)</td>
+									<td class="historyCheck">확인하기</td>
+									</tr>
                                 </tbody>
                             </table>
                         </div> 
@@ -207,7 +216,7 @@
                         <div class="currentWrap two">
                             <h3 class="conMainTitle">
                                 <a href="#">배송현황</a>
-                                <button class="qr">배송정보</button>
+                                <button class="qr">QR코드</button>
                             </h3>
                             <div class="currentCon">
                                 <div class="current one on">
@@ -268,7 +277,6 @@
                                     </div>
                                     <h5 class="currentTitle"><a href="#">배출 시작</a></h5>
                                     <h5 class="currentDay"><a href="#"></a></h5>
-                                    <h5 class="currentMessage"><a href="#"></a></h5>
                                 </div>
                             </div>
                         </div> 
@@ -282,16 +290,9 @@
 
 <script type="text/javascript">
 
-	
-	
-	var lok =  window.location.search.replaceAll("?nm=","").split("&ph=");
-
-	var lok2 =  lok[1].split("&od=");
-	lok[1] =  lok2[0];
-	lok[2] =  lok2[1];
-	
-	var name = decodeURI(decodeURIComponent(lok[0]));
-	// 	var chk_mods = decodeURI(decodeURIComponent()));
+	var uid = '<%=(String)session.getAttribute("SESSION_MEM_ID")%>';
+	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
+	var name = '<%=(String)session.getAttribute("SESSION_MEM_NM")%>';
 	
 	if(uid=="null" && uid2=="null"){ 
 // 	   location.replace("Main.do");
@@ -303,19 +304,23 @@
 	console.log(level);
  
 	$(document).on('ready',function(){
-		Delivery_Search();
+// 		Delivery_Search();
 		$(".customer").text(name);
 		
 		
 		$(document).on("click",".historyCheck",function(){
-			Delivery_Search_D($(this).parents("tr").find(".T_MEM_ID").val(),$(this).parents("tr").find(".T_IN_KEY").val());
+			Delivery_Search_D($(this).parents("tr").find(".T_IN_KEY").val());
 		})
 		
 		$(document).on("click",".qr",function(){
 			Delivery_Search_D($(".tron").find(".T_IN_KEY").val());
 		})
+		
+		
 		$(document).on("click",".currentClickOne",function(){
-			Delivery_Search_O($(this).parents("tr").find(".T_MEM_ID").val(),$(this).parents("tr").find(".T_IN_KEY").val());
+			Delivery_Search_O($(this).parents("tr").find(".T_IN_KEY").val());
+			$('#Delivery_Table > tbody > tr').removeClass("tron");
+			$(this).parents("tr").addClass("tron");
 		})
 		
 		
@@ -324,23 +329,19 @@
 	
 	function Delivery_Search(){
 		var deliverydata = {
-				MEM_NM : name,
-				MEM_PHONE : lok[1],
-				OUT_DAY : lok[2]
+				MEM_ID : (uid != 'null') ? uid
+						 : uid2
 		};
 		$.ajax({
 			type: "POST",
-			url : "./Delivery_Select_B.do",
+			url : "./Delivery_Select.do",
 			data: deliverydata,
 			async: false,
             success: function(datas){
 				var result = JSON.parse(datas);
 
 				$("#Delivery_Table > tbody").empty();
-				$("#Delivery_Information_Table > tbody").empty();
 				var tbodyData = "";
-				var tbodyData3 = "";
-
 				var keytable = [];
 				var number = 0;
 				for(let i=0; i<result.length; i++ ){
@@ -348,7 +349,7 @@
 						keytable.push(result[i].IN_KEY);	
 						tbodyData += "<tr>";
 						tbodyData += "<td>"+result[i].ARR_DAY+"</td>";
-						tbodyData += "<td><input type='hidden' class='T_MEM_ID' value='"+result[i].MEM_ID+"'><input type='hidden' class='T_IN_KEY' id='"+result[i].IN_KEY+"' value='"+result[i].IN_KEY+"'>"+result[i].REC_NM+"</td>";
+						tbodyData += "<td><input type='hidden' class='T_IN_KEY' id='"+result[i].IN_KEY+"' value='"+result[i].IN_KEY+"'>"+result[i].REC_NM+"</td>";
 						tbodyData += "<td>"+result[i].CRE_DAY+"</td>";
 					}
 					else if(keytable.includes(result[i].IN_KEY) == false  && i > 0){
@@ -361,15 +362,26 @@
 						keytable.push(result[i].IN_KEY);	
 						tbodyData += "<tr>";
 						tbodyData += "<td>"+result[i].ARR_DAY+"</td>";
-						tbodyData += "<td><input type='hidden' class='T_MEM_ID' value='"+result[i].MEM_ID+"'><input type='hidden' class='T_IN_KEY' id='"+result[i].IN_KEY+"' value='"+result[i].IN_KEY+"'>"+result[i].REC_NM+"</td>";
+						tbodyData += "<td><input type='hidden' class='T_IN_KEY' id='"+result[i].IN_KEY+"' value='"+result[i].IN_KEY+"'>"+result[i].REC_NM+"</td>";
 						tbodyData += "<td>"+result[i].CRE_DAY+"</td>";
 					}
 					
 
-
-// 						number = result[i].COST;
+//	 				$500 (kg*$1.5 or 용적중량 *$1.5 중 비싼 비용으로 계산)
+//	 				용적중량 : 가로*세로*높이*0.00022 
+// 					var kgcost = result[i].WEIGHT * 1.5;
+// 					var lncost = result[i].WIDTH * result[i].HEIGHT * result[i].LENGTH * 0.00022;
+					
+// 					console.log(kgcost,lncost);
+// 					if(kgcost >= lncost){
+// 						number += kgcost;
+// 					}
+// 					else{
+// 						number += lncost;
+// 					}
+						number = result[i].COST;
 					if(i == result.length - 1){
-						tbodyData += "<td>$"+result[i].COST+"</td>";
+						tbodyData += "<td>$"+number+"</td>";
 						tbodyData += '<td class="currentClickOne" style="cursor:pointer;">한국물류창고 (클릭)</td>';
 						tbodyData += '<td class="historyCheck">확인하기</td>';
 						
@@ -377,20 +389,13 @@
 					}
 					
 				}
-				tbodyData3 += "<tr>";
-				tbodyData3 += "<td>"+(result[0].SJ_KEY).split("-")[0]+"</td>";
-				tbodyData3 += "<td>"+result.length+"</td>";
-				tbodyData3 += "<td>"+result[0].ARR_DAY+"</td>";
-				tbodyData3 += "</tr>";
 
 				$("#Delivery_Table > tbody").append(tbodyData);
-				$("#Delivery_Information_Table > tbody").append(tbodyData3);	
-				
 				if(result.length <= 0){
-					$("#status").text("회원님께서 배송신청한 물건이 관리자가 처리중이거나 없습니다.");
+					$("#status").text("회원님께서 배송신청한 물건이 없습니다.");
 				}
 				else{
-// 					$("#status").text("해당 물건은 현재 접수되어 출항대기 상태입니다.");
+// 					$("#status").text("해당 물건은 현재 한국물류창고에 접수되어 출항대기 상태입니다.");
 				}
             }
 			
@@ -399,10 +404,11 @@
 		
 	}
 
-	function Delivery_Search_D(uid,key){
+	function Delivery_Search_D(key){
 
 		var deliverydata = {
-				MEM_ID : uid,
+				MEM_ID : (uid != 'null') ? uid
+						 : uid2,
 				IN_KEY : key
 		};
 		$.ajax({
@@ -414,15 +420,16 @@
 				var result = JSON.parse(datas);
 
 				$("#Delivery_History_Table > tbody").empty();
+				$("#Delivery_Information_Table > tbody").empty();
 				var tbodyData2 = "";
+				var tbodyData3 = "";
 
 				for(let i=0; i<result.length; i++ ){
 					var number = 0;
 					if(result[i].SJ_KEY != ''){
 
-
-//	 	 				$500 (kg*$1.5 or 용적중량 *$1.5 중 비싼 비용으로 계산)
-//	 	 				용적중량 : 가로*세로*높이*0.00022 
+//		 				$500 (kg*$1.5 or 용적중량 *$1.5 중 비싼 비용으로 계산)
+//		 				용적중량 : 가로*세로*높이*0.00022 
 						var kgcost = result[i].WEIGHT * 1.5;
 						var lncost =  Math.round(result[i].WIDTH * result[i].HEIGHT * result[i].LENGTH * 0.00022 * 1.5 * 100) / 100;
 						
@@ -443,22 +450,30 @@
 						tbodyData2 += "<td>$"+number+"</td>";
 						tbodyData2 += "<td>W*H*L("+result[i].WIDTH+"cm*"+result[i].HEIGHT +"cm*" + result[i].LENGTH+"cm / 무게 "+ result[i].WEIGHT + "kg</td>";
 					
+						
 					}
 				}
-
+				tbodyData3 += "<tr>";
+				tbodyData3 += "<td>"+(result[0].SJ_KEY).split("-")[0]+"</td>";
+				tbodyData3 += "<td>"+result.length+"</td>";
+				tbodyData3 += "<td>"+result[0].ARR_DAY+"</td>";
+				tbodyData3 += "</tr>";
+				
+				
 				$("#Delivery_History_Table > tbody").append(tbodyData2);
+				$("#Delivery_Information_Table > tbody").append(tbodyData3);	
             }
 			
 		})	
 	}
 
-	function Delivery_Search_O(uid,key){
+	function Delivery_Search_O(key){
 
 		var deliverydata = {
-				MEM_ID : uid,
+				MEM_ID : (uid != 'null') ? uid
+						 : uid2,
 				IN_KEY : key
 		};
-		console.log(deliverydata);
 		$.ajax({
 			type: "POST",
 			url : "./Delivery_Select_O.do",
@@ -471,6 +486,7 @@
 				$(".current").removeClass("on");
 				$(".condition").removeClass("on");
 				$(".currentDay > a").text("미정");
+				$(".currentMessage > a").text("");
 				
 				if(result[0].SJ_KEY != null){
 					var sj = result[0].SJ_KEY.split("-");
@@ -493,6 +509,7 @@
 						$($(".currentCon > .current")[i]).find(".condition").addClass("on");
 					}
 				}
+				
 				
             }
 			

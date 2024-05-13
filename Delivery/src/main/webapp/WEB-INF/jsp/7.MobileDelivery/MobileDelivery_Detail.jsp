@@ -171,7 +171,39 @@ table tbody tr td
 		})
 		
 		Delivery_Search_O($("#memid").val(),$("#inkey").val());
+		Delivery_Search_D($("#inkey").val());
 	})
+	
+	function Delivery_Search_D(key){
+
+		var deliverydata = {
+				MEM_ID : "",
+				IN_KEY : key
+		};
+		$.ajax({
+			type: "POST",
+			url : "./Delivery_Select_D.do",
+			data: deliverydata,
+			async: false,
+            success: function(datas){
+				var result = JSON.parse(datas);
+
+
+				$("#Delivery_Information_Table > tbody").empty();
+				var tbodyData3 = "";
+
+				tbodyData3 += "<tr>";
+				tbodyData3 += "<td>"+(result[0].SJ_KEY).split("-")[0]+"</td>";
+				tbodyData3 += "<td>"+result.length+"</td>";
+				tbodyData3 += "<td>"+result[0].ARR_DAY+"</td>";
+				tbodyData3 += "</tr>";
+				
+				$("#Delivery_Information_Table > tbody").append(tbodyData3);	
+				
+            }
+			
+		})	
+	}
 	
 	function Delivery_Search_O(uid,key){
 

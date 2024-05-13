@@ -226,7 +226,7 @@
 // 			용적중량 : 가로*세로*높이*0.00022 
 			
 			var kgcost = weight * 1.5;
-			var lncost = Math.round(width * height * length * 0.00022 * 1.5);
+			var lncost = Math.round(width * height * length * 0.00022 * 1.5 * 100) / 100;
 		
 // 			console.log(kgcost,lncost);
 			if(kgcost >= lncost){

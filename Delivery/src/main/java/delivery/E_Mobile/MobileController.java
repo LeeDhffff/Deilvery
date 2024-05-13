@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import delivery.C_Delivery.service.DeliveryService;
 import delivery.E_Mobile.service.MobileService;
 
 @Controller
@@ -23,6 +24,10 @@ public class MobileController {
 	
 	@Resource(name = "MobileService")
 	private MobileService MobileService;
+
+	@Resource(name = "DeliveryService")
+	private DeliveryService DeliveryService;
+	
 	
 	// 모바일 로딩창으로 이동 //
 	@RequestMapping("/Mobile.do")
@@ -109,6 +114,25 @@ public class MobileController {
 //		mav.addObject("memNm", (String)(httpSession.getAttribute("SESSION_MEM_NM")));
 
 		mav.setViewName("7.MobileDelivery/MobileDelivery_Search");
+		
+		return mav;
+	}
+
+	// 모바일 비로그인 링크 배송현황 //
+	@RequestMapping("/Mobile_Delivery_Search_A.do")
+	public ModelAndView Mobile_Delivery_Search_A(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		ModelAndView mav = new ModelAndView();
+		inputMap.put("IN_KEY",inputMap.get("ik"));
+		
+		HashMap<String, String> DeliveryList = DeliveryService.Delivery_Search_A(inputMap);
+		mav.addObject("IN_KEY", inputMap.get("ik"));
+		mav.addObject("Dlist", DeliveryList);
+
+//		HttpSession httpSession = request.getSession(true);
+//		mav.addObject("memNm", (String)(httpSession.getAttribute("SESSION_MEM_NM")));
+
+		mav.setViewName("7.MobileDelivery/MobileDelivery_Search_A");
 		
 		return mav;
 	}

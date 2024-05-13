@@ -6,6 +6,8 @@ import java.util.List;
 public interface DeliveryService {
 	//배송조회
 	List<HashMap<String, String>> Delivery_Select(HashMap<String, Object> inputMap) throws Exception;
+	//배송조회 IN_KEY
+	HashMap<String, String> Delivery_Search_A(HashMap<String, Object> inputMap) throws Exception;
 	//배송조회 상세
 	List<HashMap<String, String>> Delivery_Select_D(HashMap<String, Object> inputMap) throws Exception;
 	//배송현황 상세

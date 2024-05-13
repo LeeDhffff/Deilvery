@@ -238,7 +238,7 @@
 		$("#print_excel").on("click",function(){
 // 			fnExcelDownload("print_table_1","print_table_2","테스트");
 
-			
+			startLoading();
 			var tbody_length = in_keys.length;
 			var deliverydata = [];
 			for(let j=0; j<tbody_length; j++){
@@ -345,6 +345,7 @@
 	            }
 			})
 
+			stopLoading();
 		})
 		
 		

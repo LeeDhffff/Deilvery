@@ -231,13 +231,20 @@
 		);
 	</insert>
 	
-	<!-- 등록된 박스정보 삭제 -->
-	<delete id="delPacketInfo" parameterType="hashmap">
+	<!-- 등록된 박스정보 삭제(sjKey삭제) -->
+	<delete id="packetInfoDelete" parameterType="hashmap">
+		/* packetInfoDelete */
+		DELETE FROM sj_num
+		WHERE IN_KEY = #{inKey};
+	</delete>
+	
+	<!-- 등록된 박스정보 삭제 - 사용 X -->
+	<update id="delPacketInfo" parameterType="hashmap">
 		/* delPacketInfo */
 		UPDATE sj_num
 		SET IN_KEY = #{outKey}
 		WHERE IN_KEY = #{inKey};
-	</delete>
+	</update>
 	
 	
 	
