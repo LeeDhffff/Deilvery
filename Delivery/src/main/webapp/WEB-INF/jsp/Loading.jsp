@@ -42,15 +42,13 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-	function startLoading(callback){
+	function startLoading(){
 		$(".loading_back").show();
-		setTimeout(callback, 1000);
 	}
 	
-// 	function stopLoading(callback){
-// 		callback;
-// 		$(".loading_back").hide();
-// 	}
+	function stopLoading(){
+		$(".loading_back").hide();
+	}
 	$(window).load(function() {     
 		 $('.loading_back').hide();   
 	}); 

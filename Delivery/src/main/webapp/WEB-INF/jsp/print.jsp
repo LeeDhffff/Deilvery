@@ -336,6 +336,7 @@
 	            success: function(datas){
 // 	            	alert(datas);
 // 	            	console.log(datas);
+					stopLoading();
 					if(datas != "엑셀 파일을 다운로드 하는데 문제가 발생하였습니다"){
 		            	location.href="Excel2.do?fileNm="+encodeURI(datas);
 					}
@@ -345,7 +346,6 @@
 	            }
 			})
 
-			stopLoading();
 		})
 		
 		

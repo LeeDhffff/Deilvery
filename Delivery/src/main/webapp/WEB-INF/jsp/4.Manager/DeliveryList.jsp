@@ -623,7 +623,7 @@ input[type=checkbox]{
 				alert("선택하신 " + checkNot + "건의 배송건은 박스가 등록되지 않아 엑셀 출력이 불가합니다.")
 			}
 		}
-		stopLoading();
+// 		stopLoading();
 	}
 	/* qrCode 생성 함수 (JANG) */
    	function qrCreate(id, txt){ 
