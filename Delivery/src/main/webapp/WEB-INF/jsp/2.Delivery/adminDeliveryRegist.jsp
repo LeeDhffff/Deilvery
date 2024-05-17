@@ -106,7 +106,6 @@
                 	<form id="formData" name="formData">
                 	<input type="hidden" value="${result.inKey}" id="inKey" name="inKey" />
                 	<input type="hidden" value="${result.memId}" id="memId" name="memId" />
-                	<input type="hidden" value="${result.memId}" id="memId" name="memId" />
                     <div class="wrap">
                         <div class="inputWrap">
                             <h5 class="inputName"><a href="#">신청일자<span>*</span></a></h5>
@@ -180,11 +179,12 @@
                                     <button class="boxInput" style="margin-left: 20px;" id="printBtn">출력하기</button>
                                 </div>
                                 <div class="tableWrap">
-                                <input type="hidden" id="widthArr" name="widthArr" placeholder="가로">
-                                <input type="hidden" id="lengthArr" name="lengthArr" placeholder="세로">
-                                <input type="hidden" id="heightArr" name="heightArr" placeholder="높이">
-                                <input type="hidden" id="weightArr" name="weightArr" placeholder="무게">
-                                <input type="hidden" id="sjKeyArr" name="sjKeyArr" placeholder="sjKey">
+                                <input type="hidden" id="widthArr" name="widthArr" placeholder="가로" />
+                                <input type="hidden" id="lengthArr" name="lengthArr" placeholder="세로" />
+                                <input type="hidden" id="heightArr" name="heightArr" placeholder="높이" />
+                                <input type="hidden" id="weightArr" name="weightArr" placeholder="무게" />
+                                <input type="hidden" id="sjKeyArr" name="sjKeyArr" placeholder="sjKey" />
+                                <input type="hidden" id="sn" name="sn" value="${packInfo[0].sn }" placeholder="sn" />
                                     <table>
                                         <thead>
                                             <tr>
@@ -205,7 +205,7 @@
                                                 <input type="hidden" name="height" value="${item.height }" />
                                                 <input type="hidden" name="length" value="${item.length }" />
                                                 <input type="hidden" name="weight" value="${item.weight }" />
-                                                <input type="hidden" name="sjKey" value="${item.sjKey }" />
+                                                <input type="hidden" name="sjKey" value="${item.sjKey }" />                                                
                                             </tr>
 										</c:forEach>
                                         </tbody>
@@ -666,7 +666,7 @@
 // 			용적중량 : 가로*세로*높이*0.00022 
 			
 			var kgcost = weight * 1.5;
-			var lncost = Math.round(width * height * length * 0.00022 * 1.5 * 100) / 100;
+			var lncost = Math.round(width * height * length * 0.00022 * 1.5);
 		
 // 			console.log(kgcost,lncost);
 			if(kgcost >= lncost){
@@ -682,9 +682,10 @@
     
     // Join.jsp 참고 (이동헌)
     function oninputPhone(target) {
-	    target.value = target.value
-	        .replace(/[^0-9]/g, '')
-	        .replace(/(^01.{1}|[0-9]{3})([0-9]{4})([0-9]{4})/g, "$1-$2-$3");
+        target.value = target.value
+            .replace(/[^0-9]/g, '')
+            .replace(/([0-9]{3})([0-9]{4})([0-9]{4})/g, "$1-$2-$3");
+//             .replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]{4})([0-9]{4})/g, "$1-$2-$3");
     }
     
  	// 숫자와 마침표만 입력 정규식 체크 (JANG)

@@ -49,6 +49,15 @@ public interface DeliveryRegistMapper {
 	
 	/* 박스 정보 등록 체크 */
 	public int cntTotalPacketInfo(HashMap<String, Object> inputMap) throws Exception;
+	/* 등록된 박스 sn값 확인(SJ_KEY 기준) */
+	public int snSjKeyInfo(HashMap<String, Object> inputMap) throws Exception;
+	/* 등록된 박스 sn값 확인(IN_KEY 기준) */
+	public int snInkeyInfo(HashMap<String, Object> inputMap) throws Exception;
+	/* 등록된 outKey 값 확인(SJ_KEY 기준) */
+	public String lastOutKey(HashMap<String, Object> inputMap) throws Exception;
+	/* 등록된 sjKey 유무 체크(IN_KEY 기준) */
+	public String lastSjKey(HashMap<String, Object> inputMap) throws Exception;
+	
 	/* 박스 정보 등록 */
 	public void packetInfoRegist(HashMap<String, Object> inputMap) throws Exception;
 	/* 등록된 박스 정보 수정 */

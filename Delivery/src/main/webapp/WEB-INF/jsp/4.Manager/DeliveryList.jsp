@@ -127,7 +127,7 @@ input[type=checkbox]{
                                 <input type="text" class="Search" id="S_Rec_Nm" onchange="ChangeSearch();" placeholder="수령인을 입력해주세요">
                             </div>
                             <div class="inputWrap">
-                                <input type="text" class="Search" id="S_Rec_Phone" onchange="ChangeSearch();" placeholder="전화번호를 입력해주세요">
+                                <input type="text" oninput="oninputPhone(this)" maxlength="13" class="Search" id="S_Rec_Phone" onchange="ChangeSearch();" placeholder="전화번호를 입력해주세요">
                             </div>
                         </div>
                         <div class="triple">
@@ -625,6 +625,13 @@ input[type=checkbox]{
 		}
 // 		stopLoading();
 	}
+	
+	function oninputPhone(target) {
+	    target.value = target.value
+	        .replace(/[^0-9]/g, '')
+	        .replace(/(^01.{1}|[0-9]{3})([0-9]{4})([0-9]{4})/g, "$1-$2-$3");
+	}
+	
 	/* qrCode 생성 함수 (JANG) */
    	function qrCreate(id, txt){ 
    		var qrcode = new QRCode(id, {

@@ -111,7 +111,7 @@
                             </div>
                             <div class="inputWrap">
                                 <h5 class="inputName"><a href="#">휴대폰 번호<span>*</span></a></h5>
-                                <input type="text" id="recPhone" name="recPhone" value="${result.recPhone }" placeholder="라오스 수령인 전화번호를 입력해주세요">
+                                <input type="text" id="recPhone" name="recPhone" value="${result.recPhone }" placeholder="라오스 수령인 전화번호를 입력해주세요" oninput="oninputPhone(this)" maxlength="13">
                             </div>
                         </div> 
 
@@ -409,7 +409,12 @@
     	
    	});	// document.ready end!!
    	   	
-   	
+
+   	function oninputPhone(target) {
+   	    target.value = target.value
+   	        .replace(/[^0-9]/g, '')
+   	        .replace(/(^01.{1}|[0-9]{3})([0-9]{4})([0-9]{4})/g, "$1-$2-$3");
+   	}
    	/* qrCode 생성 함수 (JANG) */
    	function qrCreate(id, txt){
    		var qrcode = new QRCode(id, {

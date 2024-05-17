@@ -90,7 +90,7 @@
             </div>
             <div class="inputWrap">
                 <h5 class="inputName"><a href="#">전화번호<span>*</span></a></h5>
-                <input type="text" id="S_Rec_Phone" placeholder="라오스 수령인 전화번호를 입력해주세요">
+                <input type="text" oninput="oninputPhone(this)" maxlength="13" id="S_Rec_Phone" placeholder="라오스 수령인 전화번호를 입력해주세요">
             </div>
             <div class="inputWrap">
                 <h5 class="inputName"><a href="#">픽업지 선택<span>*</span></a></h5>
@@ -98,6 +98,7 @@
                     <option value="">픽업지를 선택하세요</option>
                     <option value="1">본사</option>
                     <option value="2">하우 창고</option>
+                    <option value="3">지방배송</option>
                 </select>
             </div>
             <div class="inputWrap">
@@ -321,6 +322,12 @@
 		$(".total_cbm").text(Math.round(cbm * 100)/100);
 		$(".total_box").text(total_count);
 		
+	}
+	
+	function oninputPhone(target) {
+	    target.value = target.value
+	        .replace(/[^0-9]/g, '')
+	        .replace(/(^01.{1}|[0-9]{3})([0-9]{4})([0-9]{4})/g, "$1-$2-$3");
 	}
 </script>
 </html>

@@ -118,6 +118,7 @@
 			,WEIGHT AS weight
 			,COST AS cost
 			,OUT_KEY AS outKey
+			,SN AS sn
 		FROM sj_num
 		WHERE IN_KEY = #{inKey}
 		ORDER BY CAST(SUBSTR(SJ_KEY, 13) AS INTEGER) DESC
@@ -195,13 +196,58 @@
 		);
 	</select>
 	
+	<!-- 마지막 등록된 OUT_KEY값 조회 -->
+	<select id="lastOutKey" parameterType="hashmap" resultType="java.lang.String">
+		/* lastOutKey */
+		SELECT OUT_KEY AS outKey
+		FROM sj_num
+		WHERE SJ_KEY = #{sjKey}
+	</select>
 	
-	<!-- 박스정보 SN 값 체크 -->
+	
+	<!-- 박스정보 SN 값 체크(outKey 기준) -->
 	<select id="cntTotalPacketInfo" parameterType="hashmap" resultType="java.lang.Integer">
 		/* cntTotalPacketInfo */
 		SELECT IFNULL(MAX(SN),0) AS sn
 		FROM sj_num
 		WHERE OUT_KEY = #{outKey};
+	</select>
+	
+	<!-- 박스정보 SN 값 체크(sjKey 기준) -->
+	<select id="snSjKeyInfo" parameterType="hashmap" resultType="java.lang.Integer">
+		/* snSjKeyInfo */
+		SELECT SN AS sn
+		FROM sj_num
+		WHERE SJ_KEY = #{sjKey};
+	</select>
+	
+	<!-- 박스정보 SN 값 체크(inKey 기준) -->
+	<select id="snInkeyInfo" parameterType="hashmap" resultType="java.lang.Integer">
+		/* snInkeyInfo */
+		SELECT IFNULL(SN, 0) AS sn
+		FROM sj_num
+		WHERE IN_KEY = #{inKey}
+		GROUP BY IN_KEY
+		
+		UNION ALL
+		
+		SELECT 0 AS sn
+		FROM DUAL		
+		LIMIT 1;
+	</select>
+	
+	<!-- 등록된 sjKey 유무 체크(inKey 기준) -->
+	<select id="lastSjKey" parameterType="hashmap" resultType="java.lang.String">
+		/* lastSjKey */
+		SELECT IFNULL(SJ_KEY, 'N') AS sjKey
+		FROM sj_num
+		WHERE IN_KEY = #{inKey}
+		
+		UNION ALL
+
+		SELECT 'N' AS sjKey
+		FROM DUAL		
+		LIMIT 1;
 	</select>
 	
 	<!-- 박스정보 등록 -->

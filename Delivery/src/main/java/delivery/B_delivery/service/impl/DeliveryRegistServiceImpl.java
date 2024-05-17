@@ -115,23 +115,39 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 			
 			/* 박스정보 설정 */
 			if(inputMap.get("sjKeyArr") != null && inputMap.get("sjKeyArr") != "") {
-				System.out.println("sjKey exist");								
-								
+				System.out.println("sjKey exist 물류접수-수정");
+				
 				String [] widthArr = inputMap.get("widthArr").toString().split(",");		
 				String [] heightArr = inputMap.get("heightArr").toString().split(",");
 				String [] lengthArr = inputMap.get("lengthArr").toString().split(",");
 				String [] weightArr = inputMap.get("weightArr").toString().split(",");
 				String [] sjKeyArr = inputMap.get("sjKeyArr").toString().split(",");
 				
-				sjKeyHead = sjKeyArr[0].split("-")[0] + "-" + sjKeyArr[0].split("-")[1] + "-";					
-				System.out.println("sjKeyHead : " + sjKeyHead);
+				/* 등록된 outKey 값 확인(SJ_KEY 기준) */
+				String outKey = delRegistMapper.lastOutKey(inputMap);
+				System.out.println("outKey : " + outKey + " == inputMap.outKey : " + inputMap.get("outKey"));
+				
+				if(outKey != null && outKey != "") {
+					if(outKey.equals(inputMap.get("outKey"))) {
+						System.out.println("outKey is equal");
+						sjKeyHead = sjKeyArr[0].split("-")[0] + "-" + sjKeyArr[0].split("-")[1] + "-";
+						/* 등록된 박스 sn값 확인(SJ_KEY 기준) */
+						Integer sn = delRegistMapper.snSjKeyInfo(inputMap);
+						inputMap.put("sn", sn);
+					}else {
+						System.out.println("outKey is not equal");
+						/* 등록된 박스정보 확인(OUT_KEY 기준) */					
+						Integer cnt = delRegistMapper.cntTotalPacketInfo(inputMap);
+						inputMap.put("sn", (cnt+1));
+						sjKeyHead = "EK"+(cnt+1)+"-"+inputMap.get("outKey")+"-";
+					}
+				}else {
+					resultMsg = "outKey is null or blank. 관리자에게 문의해주세요."; 
+					return resultMsg;
+				}				
 				
 				/* 등록된 박스정보 초기화(sjKey 삭제) */
 				delRegistMapper.packetInfoDelete(inputMap);
-				
-				/* 등록된 박스정보 확인(OUT_KEY 기준) */
-				Integer cnt = delRegistMapper.cntTotalPacketInfo(inputMap);
-				inputMap.put("sn", (cnt+1));
 												
 				for(int i=0; i<widthArr.length; i++) {
 					inputMap.put("width", widthArr[i]);
@@ -153,17 +169,81 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 				resultMsg = "배송정보를 수정했습니다.";
 				
 			}else {
-				System.out.println("sjKey not exist");
-				/* 등록된 박스정보 확인(OUT_KEY 기준) */
-				Integer cnt = delRegistMapper.cntTotalPacketInfo(inputMap);
-				inputMap.put("sn", (cnt+1));
+				System.out.println("sjKey not exist 미완료 배송신청-등록");
+				
+				/* 등록된 sjKey 유무 체크(IN_KEY 기준) */
+				String lastSjKey = delRegistMapper.lastSjKey(inputMap);
+				System.out.println("lastSjKey : " + lastSjKey);
+				if(!lastSjKey.equals("N")) {
+					System.out.println("lastSjKey is exist.");
+					inputMap.put("sjKey", lastSjKey);
+					
+					/* 등록된 outKey 값 확인(SJ_KEY 기준) */
+					String outKey = delRegistMapper.lastOutKey(inputMap);
+					System.out.println("outKey : " + outKey + " == inputMap.outKey : " + inputMap.get("outKey"));
+					
+					if(outKey != null && outKey != "") {
+						if(outKey.equals(inputMap.get("outKey"))) {
+							System.out.println("outKey is equal");
+							
+							/* 등록된 박스 sn값 확인(IN_KEY 기준) */
+							Integer sn = delRegistMapper.snInkeyInfo(inputMap);
+							/* 등록된 박스정보 확인(OUT_KEY 기준) */					
+							Integer cnt = delRegistMapper.cntTotalPacketInfo(inputMap);
+							String sjKey = "EK";				
+							
+							if(sn!=0) {
+								System.out.println("sn is not null : " + sn);
+								inputMap.put("sn", sn);
+								sjKeyHead = sjKey+sn;
+							}else {
+								System.out.println("sn is null : " + cnt);
+								inputMap.put("sn", (cnt+1));
+								sjKeyHead = sjKey+(cnt+1);
+							}
+						}else {
+							System.out.println("outKey is not equal");
+							/* 등록된 박스정보 확인(OUT_KEY 기준) */					
+							Integer cnt = delRegistMapper.cntTotalPacketInfo(inputMap);
+							inputMap.put("sn", (cnt+1));
+							sjKeyHead = "EK"+(cnt+1);
+						}
+					}else {
+						resultMsg = "outKey is null or blank. 관리자에게 문의해주세요."; 
+						return resultMsg;
+					}
+					
+				}else {					
+					System.out.println("lastSjKey is not exist.");
+					
+					/* 등록된 박스 sn값 확인(IN_KEY 기준) */
+					Integer sn = delRegistMapper.snInkeyInfo(inputMap);
+					/* 등록된 박스정보 확인(OUT_KEY 기준) */					
+					Integer cnt = delRegistMapper.cntTotalPacketInfo(inputMap);
+					String sjKey = "EK";				
+					
+					if(sn!=0) {
+						System.out.println("sn is not null : " + sn);
+						inputMap.put("sn", sn);
+						sjKeyHead = sjKey+sn;
+					}else {
+						System.out.println("sn is null : " + cnt);
+						inputMap.put("sn", (cnt+1));
+						sjKeyHead = sjKey+(cnt+1);
+					}
+					
+					System.out.println("last sn : " + inputMap.get("sn"));
+				}
+				
+				/* 등록된 박스정보 초기화(sjKey 삭제) */
+				delRegistMapper.packetInfoDelete(inputMap);	
 				
 				/* 박스정보 설정 */
 				String [] widthArr = inputMap.get("widthArr").toString().split(",");
 				String [] heightArr = inputMap.get("heightArr").toString().split(",");
 				String [] lengthArr = inputMap.get("lengthArr").toString().split(",");
 				String [] weightArr = inputMap.get("weightArr").toString().split(",");
-				String sjKey = "EK";
+				
 				String outKey = inputMap.get("outKey").toString();
 				
 				for(int i=0; i<widthArr.length; i++) {
@@ -171,7 +251,7 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 					inputMap.put("height", heightArr[i]);
 					inputMap.put("length", lengthArr[i]);
 					inputMap.put("weight", weightArr[i]);
-					inputMap.put("sjKey", (sjKey+(cnt+1)+"-"+outKey+"-"+(i+1)));
+					inputMap.put("sjKey", (sjKeyHead+"-"+outKey+"-"+(i+1)));
 					
 					System.out.print("width ["+i+"] : " + inputMap.get("width"));
 					System.out.print(" height ["+i+"] : " + inputMap.get("height"));
@@ -188,7 +268,7 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 				
 			}
 		}else {
-			System.out.println("inKey empty");
+			System.out.println("inKey empty 물류접수-등록");
 			/* IN_KEY 초기화 */
 			String inKey = "";			
 			String inKeyDay = inputMap.get("creDay").toString().replace("-", "");

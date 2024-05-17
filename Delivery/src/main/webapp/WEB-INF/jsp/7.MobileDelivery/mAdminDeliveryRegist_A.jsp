@@ -57,7 +57,7 @@
             </div>
             <div class="inputWrap">
                 <h5 class="inputName"><a href="#">휴대폰 번호<span>*</span></a></h5>
-                <input type="text" id="recPhone" name="recPhone" value="${result.recPhone }" placeholder="라오스 수령인 전화번호를 입력해주세요" oninput="oninputPhone(this);">
+                <input type="text" id="recPhone" name="recPhone" value="${result.recPhone }" placeholder="라오스 수령인 전화번호를 입력해주세요" oninput="oninputPhone(this);" maxlength="13">
             </div>
             <div class="inputWrap">
                 <h5 class="inputName"><a href="#">픽업지 선택<span>*</span></a></h5>
