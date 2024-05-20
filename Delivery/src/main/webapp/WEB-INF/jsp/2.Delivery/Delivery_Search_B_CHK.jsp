@@ -352,11 +352,11 @@
 						tbodyData += "<td>"+result[i].CRE_DAY+"</td>";
 					}
 					else if(keytable.includes(result[i].IN_KEY) == false  && i > 0){
-						tbodyData += "<td>$"+number+"</td>";
+						tbodyData += "<td>$"+result[i-1].COST+"</td>";
 						tbodyData += '<td class="currentClickOne" style="cursor:pointer;">한국물류창고 (클릭)</td>';
 						tbodyData += '<td class="historyCheck">확인하기</td>';
 						
-						number = 0;
+// 						number = 0;
 						
 						keytable.push(result[i].IN_KEY);	
 						tbodyData += "<tr>";

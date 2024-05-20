@@ -93,7 +93,8 @@
 			OUT_KEY AS outKey
 			,OUT_DAY AS outDay
 			,OUT_TXT AS outTxt
-		FROM out_day;
+		FROM out_day
+		ORDER BY OUT_KEY DESC;
 	</select>
 	
 	<!-- 택배사 조회 -->

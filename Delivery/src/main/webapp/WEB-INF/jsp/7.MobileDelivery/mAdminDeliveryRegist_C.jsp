@@ -53,6 +53,7 @@
                 <input type="hidden" id="arrDay" name="arrDay" value="${inputMap.arrDay }" placeholder="yyyy-mm-dd"> 
 				<input type="hidden" id="outKey" name="outKey" value="${inputMap.outKey }"/>
 				<select name="outDay" id="outDay">
+					<option value="N">출항일 선택</option>
 					<c:forEach var="item" items="${outDayList }">
 						<c:choose>
 							<c:when test="${item.outDay eq result.arrDay }">
@@ -106,31 +107,39 @@
     	$("#adminDelRegBtn").on("click", function(evt){
     		
     		evt.preventDefault();
+    		let regist = true;
+    		if($("#outDay").val()=='N'){
+    			alert("출항일을 선택해주세요.");
+    			$("#outDay").focus();
+    			regist = false;
+    		}
     		
     		$("#arrDay").val($("select[name=outDay]").val());
     		$("#outKey").val($("select[name=outDay]").val());
     		
     		console.log("formData : ", $("#formData").serialize());
-    		
-			$.ajax({
-				url : "mAdminDelRegist.do",
-				type : "POST",
-				async : false,
-				data : $("#formData").serialize(),
-				success : function(result, status, xhr){
-					console.log("result : ", result);
-					let resultMsg = result.split("=");
-					alert(resultMsg[1]);
 
-					/* redirect될 경로 설정 필요!! */
-					location.href = "Mobile_M_DeliveryList.do";
-					
-				},
-				error : function(xhr, status, error){
-					console.log("xhr : ", xhr, " // status : ", status, " // error : ", error);
-					alert("배송신청에 실패했습니다. 관리자에게 문의해주세요.");
-				}
-			});
+    		if(regist){
+				$.ajax({
+					url : "mAdminDelRegist.do",
+					type : "POST",
+					async : false,
+					data : $("#formData").serialize(),
+					success : function(result, status, xhr){
+						console.log("result : ", result);
+						let resultMsg = result.split("=");
+						alert(resultMsg[1]);
+	
+						/* redirect될 경로 설정 필요!! */
+						location.href = "Mobile_M_DeliveryList.do";
+						
+					},
+					error : function(xhr, status, error){
+						console.log("xhr : ", xhr, " // status : ", status, " // error : ", error);
+						alert("배송신청에 실패했습니다. 관리자에게 문의해주세요.");
+					}
+				});
+    		}
     	});
     	
     	/* 미확인 배송신청으로 돌아가기 (JANG) */

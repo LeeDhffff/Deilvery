@@ -30,10 +30,13 @@
     <!-- import print.js -->
     <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://printjs-4de6.kxcdn.com/print.min.css">
-  
-        
+   
 </head>
 <body>
+	<!-- 로딩이미지 추가 (JANG 240517) -->
+	<div class="wrap-loading display-none">
+		<div><img src="images/delivery/pc_icon/loading.gif" alt="loading..."/></div>
+	</div>
     <div class="outWrap">
         <div class="outCon">
             <div class="outTitleWrap">
@@ -233,6 +236,7 @@
                             <input type="hidden" id="arrDay" name="arrDay" value="${result.arrDay }" placeholder="yyyy-mm-dd"> 
                             <input type="hidden" id="outKey" name="outKey" value="${packInfo[0].outKey }"/>
                             <select name="outDay" id="outDay">
+                            	<option value="N">출항일 선택</option>
                             	<c:forEach var="item" items="${outDayList }">
                             		<c:choose>
                             			<c:when test="${item.outKey eq result.arrDay }">
@@ -402,6 +406,11 @@
 	    			}
 	    		}); 
     		}
+    		if($("#outDay").val()=='N'){
+    			alert("출항일을 선택해주세요.");
+    			$("#outDay").focus();
+				regist = false;
+    		}
     		
     		/* memId 추가 (240429 장연우) */
     		if($("#memId").val() == '' || $("#memId").val() == null){
@@ -432,7 +441,14 @@
 					error : function(xhr, status, error){
 						console.log("xhr : ", xhr, " // status : ", status, " // error : ", error);
 						alert("배송신청에 실패했습니다. 관리자에게 문의해주세요.");
-					}
+					},
+					beforeSend : function(){
+						$(".wrap-loading").removeClass("display-none");
+					},
+					complete : function(){
+						$(".wrap-loading").addClass("display-none");						
+					},
+					timeout : 100000
 				});    			
     		}
     	});
