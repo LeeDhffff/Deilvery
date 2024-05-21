@@ -49,6 +49,38 @@
 .totalh4 > h4 > span{
 	color: red;
 }
+
+.outdays_div{
+	position: relative;
+}
+.outdayBox{
+	position:absolute;
+	width: 100%;
+	height: 150px;
+	background:white;
+	border: 1px solid black;
+ 	display:none; 
+	z-index: 1;
+    overflow-y: scroll;
+    padding: 0px !important;
+}
+.outdayTitle{
+	width: 100%;
+	text-align:center;
+	color: white;
+    background: var(--main-color);
+    height: 25px;
+    line-height: 25px;
+}
+.outdays{
+	width: 95%;
+	text-align:center;
+	height: 25px;
+	line-height: 25px;
+}
+.outdays:hover{
+	background:#ffe4c4;
+}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -80,17 +112,20 @@
         </header>        
         <section>
             <h3 class="sectionMainTitle"><a href="#">배송조회 필터</a></h3>                       
-            <div class="inputWrap">
+            <div class="inputWrap outdays_div">
                 <h5 class="inputName"><a href="#">출항일<span>*</span></a></h5>
-                <input type="text" id="S_Out_Day" placeholder="출항일을 입력해주세요">
+                <input type="text" class="Search days" id="S_Out_Day" autocomplete="off" placeholder="출항일을 입력해주세요">
+            	<div class="outdayBox">
+<!--                 	<div class="outdayTitle">출항일 선택하기</div> -->
+                </div>
             </div>
             <div class="inputWrap">
                 <h5 class="inputName"><a href="#">수령인<span>*</span></a></h5>
-                <input type="text" id="S_Rec_Nm" placeholder="수령인 성함을 입력해주세요">
+                <input type="text" id="S_Rec_Nm" autocomplete="off"  placeholder="수령인 성함을 입력해주세요">
             </div>
             <div class="inputWrap">
                 <h5 class="inputName"><a href="#">전화번호<span>*</span></a></h5>
-                <input type="text" oninput="oninputPhone(this)" maxlength="13" id="S_Rec_Phone" placeholder="라오스 수령인 전화번호를 입력해주세요">
+                <input type="text" oninput="oninputPhone(this)" autocomplete="off"  maxlength="13" id="S_Rec_Phone" placeholder="라오스 수령인 전화번호를 입력해주세요">
             </div>
             <div class="inputWrap">
                 <h5 class="inputName"><a href="#">픽업지 선택<span>*</span></a></h5>
@@ -129,7 +164,8 @@
             <div class="currentWrap">
             	<div class="totalh4">
                    	<h4>CBM : <span class="total_cbm"></span></h4>
-                   	<h4>총 박스 수 : <span class="total_box"></span></h4>
+                   	<h4>무게 : <span class="total_weight"></span></h4>    	
+                    <h4>총 박스 수 : <span class="total_box"></span></h4>
                 </div>
                 <h5 class="icon filter">
                     <img src="./images/m_icon/filter_orange.svg" alt="#">
@@ -175,18 +211,18 @@
 		$(".back").on("click",function(){
 			history.back();
 		})
-		
+		outdaybox();
 
-		$('#S_Out_Day').datepicker(
-				{
-					changeMonth : true,
-					changeYear : true,
-					showMonthAfterYear : true,
-					dayNamesMin :  ['일', '월', '화', '수', '목', '금','토'],
-				    monthNames: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-				    monthNamesShort: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-					dateFormat : 'yy-mm-dd',
-				});
+// 		$('#S_Out_Day').datepicker(
+// 				{
+// 					changeMonth : true,
+// 					changeYear : true,
+// 					showMonthAfterYear : true,
+// 					dayNamesMin :  ['일', '월', '화', '수', '목', '금','토'],
+// 				    monthNames: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+// 				    monthNamesShort: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+// 					dateFormat : 'yy-mm-dd',
+// 				});
 // 		$('#S_Out_Day').datepicker('setDate','today');
 
 		// 체크박스 트리거
@@ -245,6 +281,14 @@
 				location.href = "mAdminDeliveryRegistMain.do?ik=" +nc;
 			}
 		})
+		
+		$(document).on("click",".outdays",function(){
+			$("#S_Out_Day").val($(this).text());
+	        daybox = 0;
+	        $(".outdayBox").hide();
+		})
+
+		
 		/* 테이블 목록 클릭시 */
 		$(document).on("click","#Delivery_Table > tbody > tr",function(){
 			$(".ton").removeClass("ton");
@@ -285,9 +329,8 @@
 					tbodyData += "<td>"+result[i].REC_PHONE+"</td>";
 					tbodyData += "<td>"+result[i].REC_TARGET+"</td>";
 					tbodyData += "<td>"+result[i].SERVICE+"</td>";
-					tbodyData += "<input type='hidden' class='tr_width' value='"+result[i].WIDTH+"' >";
-					tbodyData += "<input type='hidden' class='tr_height' value='"+result[i].HEIGHT+"' >";
-					tbodyData += "<input type='hidden' class='tr_length' value='"+result[i].LENGTH+"' >";
+					tbodyData += "<input type='hidden' class='tr_cbm' value='"+result[i].CBM+"' >";
+					tbodyData += "<input type='hidden' class='tr_weight' value='"+result[i].WEIGHT+"' >";
 					tbodyData += "<input type='hidden' class='tr_count' value='"+result[i].COUNT+"' >";
 					tbodyData += "</tr>";
 				}
@@ -304,23 +347,37 @@
 	
 	/* 선택한 항목 cbm, 총 박스 수 계산기 */
 	function cbmBox(){
-	 	// cbm계산 : 총가로 * 총세로 * 총높이 * 0.000001
+		// cbm계산 : 총가로 * 총세로 * 총높이 * 0.0000001
 		let total_count = 0;
 		let cbm = 0;
+		let weight = 0;
 		
 		$("#Delivery_Table > tbody > tr").each(function(e){
-			let total_width = Number($(this).find(".tr_width").val());
-			let total_height = Number($(this).find(".tr_height").val());
-			let total_length = Number($(this).find(".tr_length").val());
-
+			let total_weight = Number($(this).find(".tr_weight").val());
+			let total_cbm = Number($(this).find(".tr_cbm").val());
+			
 			total_count += Number($(this).find(".tr_count").val());
 			
-			cbm += Math.round((total_width * total_height * total_length * 0.000001) * 100)/100;
-			
+// 			cbm += Math.round((total_width * total_height * total_length * 0.0000001) * 100)/100;
+			cbm += total_cbm;
+			weight += total_weight;
 		})
 		
-		$(".total_cbm").text(Math.round(cbm * 100)/100);
+		//선택한 데이터만 불러오기(미사용)
+// 		for(let prt = 0; prt < $(".List_Check.sub:checked").length; prt++){
+
+// 			let total_width = Number($($(".List_Check.sub:checked")[prt]).parents("tr").find(".tr_width").val());
+// 			let total_height = Number($($(".List_Check.sub:checked")[prt]).parents("tr").find(".tr_height").val());
+// 			let total_length = Number($($(".List_Check.sub:checked")[prt]).parents("tr").find(".tr_length").val());
+			
+// 			total_count += Number($($(".List_Check.sub:checked")[prt]).parents("tr").find(".tr_count").val());
+			
+// 			cbm += Math.round((total_width * total_height * total_length * 0.000001) * 100)/100;
+// 		}
+		$(".total_cbm").text(Math.round( cbm* 100)/100);
 		$(".total_box").text(total_count);
+		$(".total_weight").text(weight);
+
 		
 	}
 	
@@ -329,5 +386,46 @@
 	        .replace(/[^0-9]/g, '')
 	        .replace(/(^01.{1}|[0-9]{3})([0-9]{4})([0-9]{4})/g, "$1-$2-$3");
 	}
+	
+
+	function outdaybox(){
+		var deliverydata = {
+				MEM_ID : uid,
+				OUT_DAY : "",
+		};
+		$.ajax({
+			type: "POST",
+			url : "./Out_Day_List.do",
+			data: deliverydata,
+			async: false,
+            success: function(datas){
+            	var result = JSON.parse(datas);
+            	
+            	$(".outdays").remove();
+            	for(let i=0; i<result.length; i++){
+                	$(".outdayBox").append("<div class='outdays'>"+result[i].OUT_DAY+"</div>");
+            	}
+            }
+		})
+	}
+	
+	var dayes = document.querySelector("#S_Out_Day");
+	var daybox = 0;
+	dayes.onfocus = function(e){
+		$(".outdayBox").show();
+		daybox = 1;
+	}
+	
+	document.querySelector("body").addEventListener("click", function (e) {
+		if(daybox == 1){
+
+			if(e.target.className == 'outdays' || e.target.className == 'outdayTitle' || e.target.className == 'Search days') {
+// 		        console.log("correct")
+		    } else {
+		        daybox = 0;
+		        $(".outdayBox").hide();
+		    }
+		}
+	})
 </script>
 </html>

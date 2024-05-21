@@ -168,14 +168,10 @@ input[type=checkbox]{
                     </h3>
                     <div class="wrap">
                         <div class="triple">
-                            <div class="inputWrap outday_boxevent">
+                            <div class="inputWrap">
                                 <input type="text" class="Search days" id="S_Out_Day" placeholder="출항일을 입력해주세요" autocomplete="off" onkeyup="pressenters()">
                                 <div class="outdayBox">
                                 	<div class="outdayTitle">출항일 선택하기</div>
-                                	<div class="outdays">2024-05-01</div>
-                                	<div class="outdays">2024-05-01</div>
-                                	<div class="outdays">2024-05-01</div>
-                                	<div class="outdays">2024-05-01</div>
                                 </div>
                             </div>
                             <div class="inputWrap">
@@ -291,7 +287,7 @@ input[type=checkbox]{
 // 				});
 // 		$('#S_Out_Day').datepicker('setDate','today');
 		
-		outdaybox()
+		outdaybox();
 
 
 		// 체크박스 트리거
@@ -410,7 +406,6 @@ input[type=checkbox]{
 						$(this).find(".List_Check").prop("checked",true);
 					}
 					else{
-						console.log($(".tron").length);
 						if($(".tron").length>=2){
 							
 							$("#Delivery_Table > tbody > tr").removeClass("tron");
@@ -486,7 +481,6 @@ input[type=checkbox]{
 			async: false,
             success: function(datas){
 				var result = JSON.parse(datas);
-				console.log(result);
 				$("#Delivery_Table > tbody").empty();
 				var tbodyData = "";
 
