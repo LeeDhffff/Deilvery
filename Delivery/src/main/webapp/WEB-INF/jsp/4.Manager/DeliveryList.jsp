@@ -83,6 +83,51 @@ input[type=checkbox]{
     font-weight: bold;
     background: none;
 }
+.searchButton{
+	width: 35px;
+    height: 35px;
+    background: white;
+    border: 1px solid var(--main-color);
+    border-radius: 3px;
+    background-image: url(./images/pc_icon/search_orange.svg);
+    background-size: cover;
+    cursor: pointer;
+}
+.searchButton:hover{
+	background: var(--main-color);
+    background-image: url(./images/pc_icon/search_white.svg);
+}
+.searchButton > img{
+	width: 100%;
+	height: 100%;
+}
+.outdayBox{
+	position:absolute;
+	width: 100%;
+	height: 100px;
+	background:white;
+	border: 1px solid black;
+ 	display:none; 
+	z-index: 1;
+    overflow-y: scroll;
+}
+.outdayTitle{
+	width: 100%;
+	text-align:center;
+	color: white;
+    background: var(--main-color);
+    height: 25px;
+    line-height: 25px;
+}
+.outdays{
+	width: 100%;
+	text-align:center;
+	height: 25px;
+	line-height: 25px;
+}
+.outdays:hover{
+	background:#ffe4c4;
+}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -117,22 +162,32 @@ input[type=checkbox]{
                 <div class="conWrap">
                     <h3 class="conMainTitle">
                         <a href="#">배송검색 필터</a>
+                        <button class="searchButton">
+<!--                         <img src="./images/pc_icon/search_orange.svg"> -->
+                        </button>
                     </h3>
                     <div class="wrap">
                         <div class="triple">
-                            <div class="inputWrap">
-                                <input type="text" class="Search" id="S_Out_Day" onchange="ChangeSearch();" placeholder="출항일을 입력해주세요">
+                            <div class="inputWrap outday_boxevent">
+                                <input type="text" class="Search days" id="S_Out_Day" placeholder="출항일을 입력해주세요" autocomplete="off" onkeyup="pressenters()">
+                                <div class="outdayBox">
+                                	<div class="outdayTitle">출항일 선택하기</div>
+                                	<div class="outdays">2024-05-01</div>
+                                	<div class="outdays">2024-05-01</div>
+                                	<div class="outdays">2024-05-01</div>
+                                	<div class="outdays">2024-05-01</div>
+                                </div>
                             </div>
                             <div class="inputWrap">
-                                <input type="text" class="Search" id="S_Rec_Nm" onchange="ChangeSearch();" placeholder="수령인을 입력해주세요">
+                                <input type="text" class="Search" id="S_Rec_Nm" placeholder="수령인을 입력해주세요" autocomplete="off" onkeyup="pressenters()">
                             </div>
                             <div class="inputWrap">
-                                <input type="text" oninput="oninputPhone(this)" maxlength="13" class="Search" id="S_Rec_Phone" onchange="ChangeSearch();" placeholder="전화번호를 입력해주세요">
+                                <input type="text" oninput="oninputPhone(this)" maxlength="13" class="Search" id="S_Rec_Phone" placeholder="전화번호를 입력해주세요" autocomplete="off" onkeyup="pressenters()">
                             </div>
                         </div>
                         <div class="triple">
                             <div class="inputWrap">
-                                <select name="pickup" onchange="ChangeSearch();" id="S_Pickup">
+                                <select name="pickup" id="S_Pickup">
                                     <option value="">픽업지를 선택하세요</option>
                                     <option value="1">본사</option>
                                     <option value="2">하우창고</option>
@@ -140,12 +195,13 @@ input[type=checkbox]{
                                 </select>
                             </div>
                             <div class="inputWrap">
-                                <select name="pickup" onchange="ChangeSearch();" id="S_Service">
+                                <select name="pickup" id="S_Service">
                                     <option value="">배송서비스 유무를 선택하세요</option>
                                     <option value="Y">신청</option>
                                     <option value="N">미신청</option>
                                 </select>
-                            </div>                            
+                            </div>
+                                                        
                         </div>
                     </div>
 
@@ -154,6 +210,7 @@ input[type=checkbox]{
                         <div class="buttonWrap">
                         	<div class="totalh4">
                         	<h4>CBM : <span class="total_cbm"></span></h4>
+                        	<h4>무게 : <span class="total_weight"></span></h4>
                         	<h4>총 박스 수 : <span class="total_box"></span></h4>
                             </div>
                             <button class="bill">
@@ -211,7 +268,7 @@ input[type=checkbox]{
 	var uid2 = '<%=(String)session.getAttribute("SESSION_PROTO_ID")%>';
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
 
-	console.log(level);
+// 	console.log(level);
  
 	$(document).on('ready',function(){
 		
@@ -222,17 +279,20 @@ input[type=checkbox]{
 			}
 		
 
-		$('#S_Out_Day').datepicker(
-				{
-					changeMonth : true,
-					changeYear : true,
-					showMonthAfterYear : true,
-					dayNamesMin :  ['일', '월', '화', '수', '목', '금','토'],
-				    monthNames: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-				    monthNamesShort: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-					dateFormat : 'yy-mm-dd',
-				});
+// 		$('#S_Out_Day').datepicker(
+// 				{
+// 					changeMonth : true,
+// 					changeYear : true,
+// 					showMonthAfterYear : true,
+// 					dayNamesMin :  ['일', '월', '화', '수', '목', '금','토'],
+// 				    monthNames: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+// 				    monthNamesShort: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+// 					dateFormat : 'yy-mm-dd',
+// 				});
 // 		$('#S_Out_Day').datepicker('setDate','today');
+		
+		outdaybox()
+
 
 		// 체크박스 트리거
 				
@@ -252,8 +312,16 @@ input[type=checkbox]{
 // 			stopLoading();
 		})
 		
-		ChangeSearch();
+// 		ChangeSearch();
+		$(".searchButton").on("click",function(){
+			ChangeSearch();
+		})
 		
+		$(document).on("click",".outdays",function(){
+			$("#S_Out_Day").val($(this).text());
+	        daybox = 0;
+	        $(".outdayBox").hide();
+		})
 
 		$(".List_Check.All").on("click",function(){
 			if($(this).prop("checked") == true){
@@ -434,9 +502,8 @@ input[type=checkbox]{
 					tbodyData += "<td>"+result[i].SERVICE+"</td>";
 					tbodyData += "<td><button class='modify'><img src='./images/pc_icon/modify_black.svg'></button></td>";
 					tbodyData += "<td><button class='link'><img src='./images/pc_icon/Link.svg'></button></td>";
-					tbodyData += "<input type='hidden' class='tr_width' value='"+result[i].WIDTH+"' >";
-					tbodyData += "<input type='hidden' class='tr_height' value='"+result[i].HEIGHT+"' >";
-					tbodyData += "<input type='hidden' class='tr_length' value='"+result[i].LENGTH+"' >";
+					tbodyData += "<input type='hidden' class='tr_cbm' value='"+result[i].CBM+"' >";
+					tbodyData += "<input type='hidden' class='tr_weight' value='"+result[i].WEIGHT+"' >";
 					tbodyData += "<input type='hidden' class='tr_count' value='"+result[i].COUNT+"' >";
 					
 					tbodyData += "</tr>";
@@ -447,21 +514,22 @@ input[type=checkbox]{
             }
 		})
 	}
-	/* 선택한 항목 cbm, 총 박스 수 계산기 */
+	/* cbm, 총 박스 수 계산기 */
 	function cbmBox(){
-	 	// cbm계산 : 총가로 * 총세로 * 총높이 * 0.000001
+	 	// cbm계산 : 총가로 * 총세로 * 총높이 * 0.0000001
 		let total_count = 0;
 		let cbm = 0;
+		let weight = 0;
 		
 		$("#Delivery_Table > tbody > tr").each(function(e){
-			let total_width = Number($(this).find(".tr_width").val());
-			let total_height = Number($(this).find(".tr_height").val());
-			let total_length = Number($(this).find(".tr_length").val());
-
+			let total_weight = Number($(this).find(".tr_weight").val());
+			let total_cbm = Number($(this).find(".tr_cbm").val());
+			
 			total_count += Number($(this).find(".tr_count").val());
 			
-			cbm += Math.round((total_width * total_height * total_length * 0.000001) * 100)/100;
-			
+// 			cbm += Math.round((total_width * total_height * total_length * 0.0000001) * 100)/100;
+			cbm += total_cbm;
+			weight += total_weight;
 		})
 		
 		//선택한 데이터만 불러오기(미사용)
@@ -475,8 +543,9 @@ input[type=checkbox]{
 			
 // 			cbm += Math.round((total_width * total_height * total_length * 0.000001) * 100)/100;
 // 		}
-		$(".total_cbm").text(Math.round(cbm * 100)/100);
+		$(".total_cbm").text(Math.round( cbm* 100)/100);
 		$(".total_box").text(total_count);
+		$(".total_weight").text(weight);
 
 	}
 	function Excelpopup(){
@@ -643,5 +712,57 @@ input[type=checkbox]{
    		    correctLevel : QRCode.CorrectLevel.H
    		});
    	}
+	
+	function pressenters(){
+		if(window.event.keyCode==13){
+			ChangeSearch();
+		}
+	}
+	
+	function outdaybox(){
+		var deliverydata = {
+				MEM_ID : uid,
+				OUT_DAY : "",
+		};
+		$.ajax({
+			type: "POST",
+			url : "./Out_Day_List.do",
+			data: deliverydata,
+			async: false,
+            success: function(datas){
+            	var result = JSON.parse(datas);
+            	
+            	$(".outdays").remove();
+            	for(let i=0; i<result.length; i++){
+                	$(".outdayBox").append("<div class='outdays'>"+result[i].OUT_DAY+"</div>");
+            	}
+            }
+		})
+	}
+	
+	var dayes = document.querySelector("#S_Out_Day");
+	var daybox = 0;
+	dayes.onfocus = function(e){
+		$(".outdayBox").show();
+		daybox = 1;
+	}
+	
+	document.querySelector("body").addEventListener("click", function (e) {
+		if(daybox == 1){
+
+			if(e.target.className == 'outdays' || e.target.className == 'outdayTitle' || e.target.className == 'Search days') {
+// 		        console.log("correct")
+		    } else {
+		        daybox = 0;
+		        $(".outdayBox").hide();
+		    }
+		}
+	})
+	
+// 	dayes.onblur = function(e){
+
+// 		console.log(e);
+// 		$(".outdayBox").hide();
+// 	}
 </script>
 </html>
