@@ -524,6 +524,7 @@ input[type=checkbox]{
 // 			cbm += Math.round((total_width * total_height * total_length * 0.0000001) * 100)/100;
 			cbm += total_cbm;
 			weight += total_weight;
+			console.log(cbm,total_cbm);
 		})
 		
 		//선택한 데이터만 불러오기(미사용)

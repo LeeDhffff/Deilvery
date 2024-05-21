@@ -41,6 +41,7 @@
 		top : 50%;
 		left: 50%;
 		display: none;
+		z-index: 4 !important;
 	}
 	#print_popup{
 		width: 70%;
