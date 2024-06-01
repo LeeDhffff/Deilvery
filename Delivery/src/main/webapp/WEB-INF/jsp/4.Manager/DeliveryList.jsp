@@ -128,6 +128,10 @@ input[type=checkbox]{
 .outdays:hover{
 	background:#ffe4c4;
 }
+.tdek{
+	color: red;
+/*     font-weight: bold; */
+}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -232,13 +236,14 @@ input[type=checkbox]{
                                         <label for="checkAll"><button class="checkAll">All</button></label>
                                         </div>
                                         </th>
+                                        <th>EK</th>
                                         <th>출항일</th>
                                         <th>수령인</th>
                                         <th>픽업지</th>
                                         <th>배송현황</th>
                                         <th>배송완료 여부</th>
                                         <th>배송서비스</th>
-                                        <th>수정하기</th>
+                                        <th class="modifyth">수정하기</th>
                                         <th>링크복사</th>
                                     </tr>
                                 </thead>
@@ -263,6 +268,7 @@ input[type=checkbox]{
 	var uid = '<%=(String)session.getAttribute("SESSION_MEM_ID")%>';
 	var uid2 = '<%=(String)session.getAttribute("SESSION_PROTO_ID")%>';
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
+	var auth = '${M_AUTH}';
 
 // 	console.log(level);
  
@@ -273,7 +279,12 @@ input[type=checkbox]{
 					location.href = "Main.do";
 			   }
 			}
-		
+		if(auth == 'R'){
+			$(".modifyth").hide();
+		}		
+		else if(auth == 'D'){
+			location.href = "Main.do";
+		}
 
 // 		$('#S_Out_Day').datepicker(
 // 				{
@@ -483,21 +494,24 @@ input[type=checkbox]{
 				var result = JSON.parse(datas);
 				$("#Delivery_Table > tbody").empty();
 				var tbodyData = "";
-
 				for(let i=0; i<result.length; i++ ){
 
 					tbodyData += "<tr class='tr"+i+"' cnum = '"+i+"''>";
 					tbodyData += "<td class='sub'><input type='checkbox' name='List_Check' class='List_Check sub' style=''></td>";
+					tbodyData += "<td class='tdek'>"+result[i].EK+"</td>";
 					tbodyData += "<td><input type='hidden' class='in_key' value='"+result[i].IN_KEY+"'>"+result[i].OUT_DAY+"</td>";
 					tbodyData += "<td>"+result[i].REC_NM+"</td>";
 					tbodyData += "<td>"+result[i].REC_TARGET+"</td>";
 					tbodyData += "<td>"+result[i].NOW_DELIVERY+"</td>";
 					tbodyData += "<td>"+result[i].MAXCHK+"</td>";
 					tbodyData += "<td>"+result[i].SERVICE+"</td>";
-					tbodyData += "<td><button class='modify'><img src='./images/pc_icon/modify_black.svg'></button></td>";
+					if(auth != 'R'){
+						tbodyData += "<td><button class='modify'><img src='./images/pc_icon/modify_black.svg'></button></td>";
+					}
 					tbodyData += "<td><button class='link'><img src='./images/pc_icon/Link.svg'></button></td>";
 					tbodyData += "<input type='hidden' class='tr_cbm' value='"+result[i].CBM+"' >";
 					tbodyData += "<input type='hidden' class='tr_weight' value='"+result[i].WEIGHT+"' >";
+					tbodyData += "<input type='hidden' class='tr_cost' value='"+result[i].COST+"' >";
 					tbodyData += "<input type='hidden' class='tr_count' value='"+result[i].COUNT+"' >";
 					
 					tbodyData += "</tr>";
@@ -524,7 +538,7 @@ input[type=checkbox]{
 // 			cbm += Math.round((total_width * total_height * total_length * 0.0000001) * 100)/100;
 			cbm += total_cbm;
 			weight += total_weight;
-			console.log(cbm,total_cbm);
+// 			console.log(cbm,total_cbm);
 		})
 		
 		//선택한 데이터만 불러오기(미사용)
@@ -540,7 +554,7 @@ input[type=checkbox]{
 // 		}
 		$(".total_cbm").text(Math.round( cbm* 100)/100);
 		$(".total_box").text(total_count);
-		$(".total_weight").text(weight);
+		$(".total_weight").text(Math.round( weight* 100)/100);
 
 	}
 	function Excelpopup(){
@@ -576,22 +590,27 @@ input[type=checkbox]{
 				            success: function(datas2){
 								var A_result = JSON.parse(datas);
 								var D_result = JSON.parse(datas2);
+								
 								if(D_result.length > 0){
 								
 								var group_sub_table = [];
+								var cost = 0;
 								for(let i=0; i<D_result.length; i++){
 									
 									//용적중량(lncost)와 kgcost 비교해서 기준가(cost) 계산하기
-									var cost = 0;
+// 									var cost = 0;
 									var lncost = Math.round((D_result[i].WIDTH * D_result[i].LENGTH * D_result[i].HEIGHT * 0.00022) * 100) / 100;
-									var kgcost = D_result[i].WEIGHT * 1.5;
-									if(kgcost >= lncost * 1.5){
-										cost = kgcost;
-									}
-									else{
-										cost = Math.round(lncost * 1.5);
-									}
-									
+// 									var kgcost = D_result[i].WEIGHT * 1.5;
+// 									if(kgcost < 10 && lncost * 1.5 < 10){
+// 										cost = 10;
+// 									}
+// 									else if(kgcost >= lncost * 1.5){
+// 										cost = kgcost;
+// 									}
+// 									else{
+// 										cost = Math.round(lncost * 1.5);
+// 									}
+									cost += D_result[i].COST;
 									//서브테이블 값
 									var dk = {
 											IN_KEY:A_result[0].IN_KEY,
@@ -601,7 +620,7 @@ input[type=checkbox]{
 											LENGTH:D_result[i].LENGTH,
 											HEIGHT:D_result[i].HEIGHT,
 											LNCOST:lncost,
-											COST:cost,
+											COST: D_result[i].COST,
 											WEIGHT3:D_result[i].WEIGHT
 											
 									}
@@ -622,40 +641,45 @@ input[type=checkbox]{
 										REC_PHONE:		A_result[0].REC_PHONE,
 										YEAR:			A_result[0].CRE_DAY.substr(0,4),
 										COUNT:			D_result.length,
+										OUT_DAY:		A_result[0].ARR_DAY + "일 출항",
 										MONTH:		A_result[0].ARR_DAY.substr(5,2),
-										TR_COST:		D_result.length * 10
-										
+										DISCOUNT: A_result[0].DISCOUNT + "%"
 								}
 								
 								if(D_result.length > 0){
 
-									const cn1 = D_result[0].COST.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-									mk["COST"] = cn1;
+									const cn1 = cost.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+									
+									mk["COST"] = cn1 + "$";
+									mk["DIS_COST"] = (Number(cn1) * A_result[0].DISCOUNT / 100 ) + "$";
+// 									console.log(Number(cn1) - (Number(cn1) * A_result[0].DISCOUNT / 100));
+									mk["TR_COST"] = (Math.round((Number(cn1) - (Number(cn1) * A_result[0].DISCOUNT / 100))*100)/100) + "$";
 									mk["EK"] = D_result[0].SJ_KEY.split("-")[0];
 									
 // 						        	const qrInfoArr = new Array();
-					        		qrTxt = "수령인 : "+A_result[0].REC_NM+"\n연락처 : "+A_result[0].REC_PHONE+"\n픽업지 : "+A_result[0].REC_TARGET;	        		
+// 					        		qrTxt = "수령인 : "+A_result[0].REC_NM+"\n연락처 : "+A_result[0].REC_PHONE+"\n픽업지 : "+A_result[0].REC_TARGET;	        		
 // 					        		qrInfoArr.push({qrText : qrTxt, qrId : "qrCode_"+index});
 // 									$("#EXCEL_QR1").empty();
 // 					        		qrCreate("EXCEL_QR1", qrTxt);	      
 								}
 								else{
-									qrTxt = "";
 									mk["COST"] = "";
+									mk["TR_COST"] = "";
+									mk["DIS_COST"] = "";
 									mk["EK"] = "";
 								}
-								HiddenMain += '<td class="qr" id="qr_'+A_result[0].IN_KEY+'"></td>';
+// 								HiddenMain += '<td class="qr" id="qr_'+A_result[0].IN_KEY+'"></td>';
 								HiddenMain += '</tr>';
-								mk["qrTxt"] = qrTxt;
+// 								mk["qrTxt"] = qrTxt;
 
 								main_table[A_result[0].IN_KEY] =mk;
 								in_keys.push(A_result[0].IN_KEY);
 								
 								$("#print_table_H1").append(HiddenMain);
-								$("#qr_" + A_result[0].IN_KEY).empty();
-								if(qrTxt != ""){
-									qrCreate("qr_" + A_result[0].IN_KEY, qrTxt);	
-								}
+// 								$("#qr_" + A_result[0].IN_KEY).empty();
+// 								if(qrTxt != ""){
+// 									qrCreate("qr_" + A_result[0].IN_KEY, qrTxt);	
+// 								}
 								if(StartIn_key == ""){
 									StartIn_key = A_result[0].IN_KEY;
 								}

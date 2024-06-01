@@ -8,6 +8,12 @@
 		) }
 	</select>
 	
+	<select id="nm_chk" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call A_NM_CHK(
+				#{MEM_NM},
+				#{MEM_PHONE}
+		) }
+	</select>
 	
 	<select id="Join" statementType="CALLABLE" parameterType="hashmap" resultType="string">
 		{ call A_JOIN(
@@ -19,6 +25,19 @@
 		) }
 	</select>
 	
+	<select id="Join_M" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call A_JOIN_M(
+				#{MEM_ID},
+				#{MEM_ID2},
+				#{MEM_PW},
+				#{MEM_NM},
+				#{MEM_PHONE},
+				#{MEM_EMAIL},
+				#{MEM_DISCOUNT},
+				#{MEM_LEVEL},
+				#{MEM_BIGO}
+		) }
+	</select>
 	<select id="find_id" statementType="CALLABLE" parameterType="hashmap" resultType="string">
 		{ call A_FIND_ID(
 				#{MEM_NM},

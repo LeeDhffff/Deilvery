@@ -214,6 +214,7 @@
 	var uid = '<%=(String)session.getAttribute("SESSION_MEM_ID")%>';
 	var uid2 = '<%=(String)session.getAttribute("SESSION_PROTO_ID")%>';
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
+	var auth = '${M_AUTH}';
 
 
 	var outkey = window.location.search.replaceAll("?ok=","");
@@ -228,6 +229,16 @@
 			   }
 		}
 
+		if(auth == 'R'){
+			$(".create").remove();
+			$(".modify").remove();
+			$(".delete").remove();
+			$(".bottomButton").remove();
+		}		
+		else if(auth == 'D'){
+			location.href = "Main.do";
+		}
+		
 		$('#Out_Day').datepicker(
 				{
 					changeMonth : true,

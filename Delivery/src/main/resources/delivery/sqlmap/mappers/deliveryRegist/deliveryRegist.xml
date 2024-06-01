@@ -27,9 +27,9 @@
 		INSERT INTO application(
 			IN_KEY
 			,MEM_ID
-			,TYPE
 			,REC_NM
 			,REC_PHONE
+			,SUB_PHONE
 			,REC_TARGET
 			,REC_ADDR
 			,REC_HOU
@@ -38,13 +38,12 @@
 			,CRE_DAY
 			,ARR_DAY
 			,CHK
-			,PASSWORD
 		) VALUES (
 			#{inKey}
 			,#{memId}
-			,#{type}
 			,#{recNm}
 			,#{recPhone}
+			,#{subPhone}
 			,#{recTarget}
 			,#{recAddr}
 			,#{recHou}
@@ -53,7 +52,6 @@
 			,#{creDay}
 			,#{arrDay}
 			,'N'
-			,#{password}
 		);
 	</insert>
 	
@@ -70,9 +68,9 @@
 		SELECT 
 			IN_KEY AS inKey
 			,MEM_ID AS memId
-			,TYPE AS type
 			,REC_NM AS recNm
 			,REC_PHONE AS recPhone
+			,SUB_PHONE AS subPhone
 			,REC_TARGET AS recTarget
 			,REC_ADDR AS recAddr
 			,REC_HOU AS recHou
@@ -81,7 +79,7 @@
 			,CRE_DAY AS creDay
 			,ARR_DAY AS arrDay
 			,CHK AS chk
-			,PASSWORD AS password
+			,BIGO AS bigo
 		FROM application
 		WHERE IN_KEY = #{inKey};
 	</select>
@@ -107,7 +105,8 @@
 		WHERE USEAGE = 'Y';
 	</select>
 	
-	<!-- 박스정보 가져오기 -->
+	<!-- 박스정보 가져오기 
+		 수정1. SUBSTRING_INDEX를 활용하여 ORDER BY 정렬 반영 (240531 JANG)	-->
 	<select id="packInfoList" parameterType="hashmap" resultType="hashmap">
 		/* packInfoList */
 		SELECT
@@ -120,9 +119,12 @@
 			,COST AS cost
 			,OUT_KEY AS outKey
 			,SN AS sn
+			,SUBSTRING_INDEX(SJ_KEY, '-', -1) AS sjIndex
 		FROM sj_num
 		WHERE IN_KEY = #{inKey}
-		ORDER BY CAST(SUBSTR(SJ_KEY, 13) AS INTEGER) DESC
+		ORDER BY 
+			CAST(sjIndex as INTEGER)
+		ASC
 	</select>
 	
 	
@@ -131,30 +133,34 @@
 		/* adminDelRegist */
 		INSERT INTO application(
 			IN_KEY
-			,MEM_ID
-			,TYPE
+			,MEM_ID			
 			,REC_NM
 			,REC_PHONE
+			,SUB_PHONE
 			,REC_TARGET
 			,REC_ADDR
 			,REC_HOU
+			,REC_TXT
+			,GOO_COORDINATE
 			,CRE_DAY
 			,ARR_DAY
-			,CHK
-			,PASSWORD
+			,CHK			
+			,BIGO
 		)VALUES(
 			#{inKey}
 			,#{memId}
-			,#{type}
 			,#{recNm}
 			,#{recPhone}
+			,#{subPhone}
 			,#{recTarget}
 			,#{recAddr}
 			,#{recHou}
+			,#{recTxt}
+			,#{gooCoordinate}
 			,#{creDay}
 			,#{arrDay}
 			,'Y'
-			,#{password}
+			,#{bigo}
 		);		
 	</insert>
 	
@@ -164,16 +170,19 @@
 		UPDATE application
 		SET		
 			REC_NM = #{recNm}
-			,REC_PHONE = #{recPhone} 
+			,REC_PHONE = #{recPhone}
+			,SUB_PHONE = #{subPhone}
 			,REC_TARGET = #{recTarget}
 			,REC_ADDR = #{recAddr}
-			,REC_HOU = #{recHou}						
+			,REC_HOU = #{recHou}
+			,REC_TXT = #{recTxt}
+			,GOO_COORDINATE = #{gooCoordinate}
 			,CRE_DAY = #{creDay}
 			,ARR_DAY = #{arrDay}
 			,CHK = 'Y'
-			,PASSWORD = #{password}
+			,BIGO = #{bigo}
 		WHERE 
-			IN_KEY = #{inKey};	
+			IN_KEY = #{inKey};
 	</update>
 	
 	<!-- 등록된 IN_KEY 여부 체크 -->
@@ -196,61 +205,7 @@
 			WHERE SUBSTR(IN_KEY,3,8) = #{inKeyDay}
 		);
 	</select>
-	
-	<!-- 마지막 등록된 OUT_KEY값 조회 -->
-	<select id="lastOutKey" parameterType="hashmap" resultType="java.lang.String">
-		/* lastOutKey */
-		SELECT OUT_KEY AS outKey
-		FROM sj_num
-		WHERE SJ_KEY = #{sjKey}
-	</select>
-	
-	
-	<!-- 박스정보 SN 값 체크(outKey 기준) -->
-	<select id="cntTotalPacketInfo" parameterType="hashmap" resultType="java.lang.Integer">
-		/* cntTotalPacketInfo */
-		SELECT IFNULL(MAX(SN),0) AS sn
-		FROM sj_num
-		WHERE OUT_KEY = #{outKey};
-	</select>
-	
-	<!-- 박스정보 SN 값 체크(sjKey 기준) -->
-	<select id="snSjKeyInfo" parameterType="hashmap" resultType="java.lang.Integer">
-		/* snSjKeyInfo */
-		SELECT SN AS sn
-		FROM sj_num
-		WHERE SJ_KEY = #{sjKey};
-	</select>
-	
-	<!-- 박스정보 SN 값 체크(inKey 기준) -->
-	<select id="snInkeyInfo" parameterType="hashmap" resultType="java.lang.Integer">
-		/* snInkeyInfo */
-		SELECT IFNULL(SN, 0) AS sn
-		FROM sj_num
-		WHERE IN_KEY = #{inKey}
-		GROUP BY IN_KEY
-		
-		UNION ALL
-		
-		SELECT 0 AS sn
-		FROM DUAL		
-		LIMIT 1;
-	</select>
-	
-	<!-- 등록된 sjKey 유무 체크(inKey 기준) -->
-	<select id="lastSjKey" parameterType="hashmap" resultType="java.lang.String">
-		/* lastSjKey */
-		SELECT IFNULL(SJ_KEY, 'N') AS sjKey
-		FROM sj_num
-		WHERE IN_KEY = #{inKey}
-		
-		UNION ALL
 
-		SELECT 'N' AS sjKey
-		FROM DUAL		
-		LIMIT 1;
-	</select>
-	
 	<!-- 박스정보 등록 -->
 	<insert id="packetInfoRegist" parameterType="hashmap">
 		/* packetInfoRegist */
@@ -285,13 +240,38 @@
 		WHERE IN_KEY = #{inKey};
 	</delete>
 	
-	<!-- 등록된 박스정보 삭제 - 사용 X -->
-	<update id="delPacketInfo" parameterType="hashmap">
-		/* delPacketInfo */
-		UPDATE sj_num
-		SET IN_KEY = #{outKey}
-		WHERE IN_KEY = #{inKey};
-	</update>
+	
+	<!-- ***************************************************************************** -->
+	<!--				 				after 5 / 29 Update !!! 							-->
+	<!-- ***************************************************************************** -->
+	
+	<!-- check inKey Count -->
+	<select id="chkInKey" parameterType="hashmap" resultType="java.lang.Integer">
+		/* chkInKey */
+		SELECT COUNT(IN_KEY) AS cnt
+		FROM application
+		WHERE CRE_DAY = #{creDay};
+	</select>
+	<!-- check SN count (from OUT_KEY) -->
+	<select id="checkSnOutKey" parameterType="hashmap" resultType="java.lang.Integer">
+		/* checkSnOutKey */
+		SELECT IFNULL(MAX(SN), 0) AS sn
+		FROM sj_num
+		WHERE OUT_KEY = #{outKey};
+	</select>
+	<!-- check sjKey (from IN_KEY) -->
+	<select id="checkSjKey" parameterType="hashmap" resultType="java.lang.String">
+		/* checkSjKey */
+		SELECT SUBSTR(SJ_KEY, 1, 13) AS sjKeyHead
+		FROM sj_num
+		WHERE IN_KEY = #{inKey}
+
+		UNION ALL
+
+		SELECT 'N' AS sjKeyHead FROM DUAL
+
+		LIMIT 1;
+	</select>
 	
 	
 	

@@ -92,8 +92,7 @@
 	var uid = '<%=(String)session.getAttribute("SESSION_MEM_ID")%>';
 	var uid2 = '<%=(String)session.getAttribute("SESSION_PROTO_ID")%>';
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
-
-	console.log(level);
+	var auth = '${M_AUTH}';
  
 	$(document).on('ready',function(){
 		
@@ -102,8 +101,14 @@
 					location.href = "Main.do";
 			   }
 		}
-		
 
+		if(auth == 'R'){
+			$(".plus").remove();
+		}		
+		else if(auth == 'D'){
+			location.href = "Main.do";
+		}
+		
 
 		var deliverydata = {
 				MEM_ID : uid,

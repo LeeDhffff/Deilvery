@@ -60,18 +60,20 @@
 			<input type="hidden" id="widthArr" name="widthArr" placeholder="가로">
 			<input type="hidden" id="lengthArr" name="lengthArr" placeholder="세로">
 			<input type="hidden" id="heightArr" name="heightArr" placeholder="높이">
-			<input type="hidden" id="weightArr" name="weightArr" placeholder="무게"> 
+			<input type="hidden" id="weightArr" name="weightArr" placeholder="무게">
+			<input type="hidden" id="costArr" name="costArr" placeholder="금액">
                 <div class="boxInfoHeader">
                     <h5><a href="#">물류접수내역</a></h5>
                 </div>
                 <c:forEach var="item" items="${packInfo }" varStatus="status">
 	                <div class="boxInfoCon">
 	                	<input type="checkbox" id="box_${status.index }" name="boxIndex" >
-	                	<h5 class="boxinfo">W*H*L(${item.width }cm *${item.height }cm * ${item.length }cm) / 무게:${item.weight }kg</h5>
+	                	<h5 class="boxinfo">W*L*H(${item.width }cm *${item.length }cm * ${item.height }cm) / 무게:${item.weight }kg</h5>
 	                    <input type="hidden" name="width" value="${item.width }" />
 						<input type="hidden" name="height" value="${item.height }" />
 						<input type="hidden" name="length" value="${item.length }" />
 						<input type="hidden" name="weight" value="${item.weight }" />
+						<input type="hidden" name="indiCost" value="${item.cost }" />
 						<input type="hidden" name="sjKey" value="${item.sjKey }" />
 					</div>
                 </c:forEach>
@@ -80,13 +82,20 @@
             <!-- 파라메터 hidden 설정 -->
             <input type="hidden" id="recNm" name="recNm" value="${inputMap.recNm }"/>
             <input type="hidden" id="recPhone" name="recPhone" value="${inputMap.recPhone }"/>
+            <input type="hidden" id="subPhone" name="subPhone" value="${inputMap.subPhone }"/>
             <input type="hidden" id="recTarget" name="recTarget" value="${inputMap.recTarget }"/>
+            <input type="hidden" id="recAddr" name="recAddr" value="${inputMap.recAddr }"/>
+            <input type="hidden" id="recHou" name="recHou" value="${inputMap.recHou }"/>
             <input type="hidden" id="inKey" name="inKey" value="${inputMap.inKey }"/>
             <input type="hidden" id="ik" name="ik" value="${inputMap.inKey }"/>
             <input type="hidden" id="creDay" name="creDay" value="${inputMap.creDay }"/>
-            <input type="hidden" id="cost" name="cost" value="${packInfo[0].cost }"/>
+            <input type="hidden" id="cost" name="cost" />
             <input type="hidden" id="outKey" name="outKey" value="${packInfo[0].outKey }"/>
-            
+            <input type="hidden" id="bigo" name="bigo" value="${inputMap.bigo }"/>
+            <input type="hidden" id="recTxt" name="recTxt" value="${inputMap.recTxt }"/>
+            <input type="hidden" id="gooCoordinate" name="gooCoordinate" value="${inputMap.gooCoordinate }"/>
+            <input type="hidden" id="initSjKey" name="initSjKey" value="${inputMap.initSjKey }" />
+            <input type="hidden" id="sn" name="sn" value="${packInfo[0].sn }" />
             </form>
         </section>
         <footer>
@@ -104,9 +113,32 @@
     	console.log("페이지초기화!");
     	console.log("[내부 B] uid : ", uid, " // udi2 : ", uid2, " // level : ", level);
     	chkAuth(uid, uid2, level);
+    	
+    	/* initSjKey 담기 (240531 JANG) */
+		const initSjKey = new Array();
+		$("input[name='sjKey']").each(function(index){
+			initSjKey.push($(this).val());
+		});
+		if(initSjKey.length != 0){
+			let arr = initSjKey[0].split("-");
+			let str = arr[0]+"-"+arr[1]+"-";
+			$("#initSjKey").val(str);
+		}
+// 		console.log("initSjKey val : ", $("#initSjKey").val());
+    	
+		/* 예상 물류 비용 입력 (240531 JANG) */
+		const indiCostLen = $("input[name='indiCost']").length		
+		if(indiCostLen > 0){
+			let num = 0;		
+			$("input[name='indiCost']").each(function(index){
+				num += parseFloat($(this).val());				
+			});			
+			$("#cost").val(num);
+		}
+    	
     	// box데이터 수정하러 들어왔을 때 대비해서 boxIndex 활용 방안 체크 다시할 것!!
 		let boxIndex = 0;
-   		const chkIndex = $("input[class='boxSize']").length;    	
+   		const chkIndex = $("input[class='boxSize']").length;
     	
     	/* 박스저장하기 버튼 클릭 이벤트 설정 (JANG) */
     	$("#boxSaveBtn").on("click", function(evt){
@@ -124,11 +156,12 @@
     		}else{    			
 	    		htmlStr += "<div class='boxInfoCon'>";
 	    		htmlStr += "	<input type='checkbox' id='box_"+boxIndex+"' name='boxIndex'>";
-	    		htmlStr += "	<h5 class='boxinfo'>W*H*L("+widthVal+"cm *"+heightVal+"cm *"+lengthVal+"cm)/무게:"+weightVal+"kg</h5>";
+	    		htmlStr += "	<h5 class='boxinfo'>W*L*H("+widthVal+"cm *"+lengthVal+"cm *"+heightVal+"cm)/무게:"+weightVal+"kg</h5>";
 	    		htmlStr += "	<input type='hidden' name='width' value='"+widthVal+"'>";
 	    		htmlStr += "	<input type='hidden' name='height' value='"+heightVal+"'>";
 	    		htmlStr += "	<input type='hidden' name='length' value='"+lengthVal+"'>";
 	    		htmlStr += "	<input type='hidden' name='weight' value='"+weightVal+"'>";
+	    		htmlStr += "	<input type='hidden' name='indiCost' value='"+indiCost(heightVal, widthVal, lengthVal, weightVal)+"'>";
 	    		htmlStr += "</div>";
 	    		
 	    		$(".boxInfoWrap").append(htmlStr);
@@ -156,6 +189,7 @@
    			const heightArr = new Array();
    			const weightArr = new Array();
    			const lengthArr = new Array();
+   			const costArr = new Array();
    			
    			$("input[name='width']").each(function(index){
     			widthArr.push($("input[name='width']").eq(index).val());				
@@ -169,10 +203,14 @@
     		$("input[name='weight']").each(function(index){
     			weightArr.push($("input[name='weight']").eq(index).val());
     		});
+    		$("input[name='indiCost']").each(function(index){
+    			costArr.push($("input[name='indiCost']").eq(index).val());
+    		});
     		$("#widthArr").val(widthArr);
     		$("#heightArr").val(heightArr);
     		$("#lengthArr").val(lengthArr);
     		$("#weightArr").val(weightArr);
+    		$("#costArr").val(costArr);
     		
     		console.log("formData B : ", $("#formData").serialize());
     		    		
@@ -226,10 +264,13 @@
 // 			용적중량 : 가로*세로*높이*0.00022 
 			
 			var kgcost = weight * 1.5;
-			var lncost = Math.round(width * height * length * 0.00022 * 1.5 * 100) / 100;
+			var lncost = Math.round(width * height * length * 0.00022 * 1.5);
 		
 // 			console.log(kgcost,lncost);
-			if(kgcost >= lncost){
+			if(kgcost < 10 && lncost < 10){
+				number += 10;
+			}
+			else if(kgcost >= lncost){
 				number += kgcost;
 			}
 			else{
@@ -238,6 +279,23 @@
     	});
     	
     	$("#cost").val(number.toFixed(5));
+    }
+   	
+    // 개별 물류 비용 계산 function cost() 참고 (JANG)
+    function indiCost(height, width, length, weight){
+    	var number = 0;
+    	var kgcost = weight * 1.5;
+		var lncost = Math.round(width * height * length * 0.00022 * 1.5);
+		if(kgcost < 10 && lncost < 10){
+			number += 10;
+		}
+		else if(kgcost >= lncost){
+			number += kgcost;
+		}
+		else{
+			number += lncost;
+		}
+		return number.toFixed(5);
     }
    	
  	// 숫자와 마침표만 입력 정규식 체크 (JANG)

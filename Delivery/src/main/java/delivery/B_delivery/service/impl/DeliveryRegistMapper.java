@@ -47,21 +47,21 @@ public interface DeliveryRegistMapper {
 	/* 해당 신청일 마지막 등록된 IN_KEY 값 */
 	public String lastInKey(HashMap<String, Object> inputMap) throws Exception;
 	
-	/* 박스 정보 등록 체크 */
-	public int cntTotalPacketInfo(HashMap<String, Object> inputMap) throws Exception;
-	/* 등록된 박스 sn값 확인(SJ_KEY 기준) */
-	public int snSjKeyInfo(HashMap<String, Object> inputMap) throws Exception;
-	/* 등록된 박스 sn값 확인(IN_KEY 기준) */
-	public int snInkeyInfo(HashMap<String, Object> inputMap) throws Exception;
-	/* 등록된 outKey 값 확인(SJ_KEY 기준) */
-	public String lastOutKey(HashMap<String, Object> inputMap) throws Exception;
-	/* 등록된 sjKey 유무 체크(IN_KEY 기준) */
-	public String lastSjKey(HashMap<String, Object> inputMap) throws Exception;
-	
 	/* 박스 정보 등록 */
 	public void packetInfoRegist(HashMap<String, Object> inputMap) throws Exception;
 	/* 등록된 박스 정보 수정 */
 	public void packetInfoDelete(HashMap<String, Object> inputMap) throws Exception;
-	/* 등록된 박스 정보 삭제 */
-	public void delPacketInfo(HashMap<String, Object> inputMap) throws Exception;
+	
+	
+	/* ************************************************************************************** */
+	/* *******************    after 5/29 Update!!!!    **************************************** */
+	/* ************************************************************************************** */
+	
+	/* check inKey Count */	
+	public int chkInKey(HashMap<String, Object> inputMap) throws Exception;
+	/* check SN count (from OUT_KEY) */	
+	public int checkSnOutKey(HashMap<String, Object> inputMap) throws Exception;
+	/* check sjKey (from IN_KEY) */
+	public String checkSjKey(HashMap<String, Object> inputMap) throws Exception;
+	
 }

@@ -123,6 +123,7 @@
                             <table id="Delivery_Table">
                                 <thead>
                                     <tr>
+                                        <th>EK</th>
                                         <th>출항예정일</th>
                                         <th>수령인</th>
                                         <th>접수일</th>
@@ -133,6 +134,7 @@
                                 </thead>
                                 <tbody>
 									<tr>
+									<td>${Dlist.EK}</td>
 									<td>${Dlist.ARR_DAY}</td>
 									<td><input type='hidden' class='T_IN_KEY' id="${IN_KEY}" value="${IN_KEY}">${Dlist.REC_NM}</td>
 									<td>${Dlist.CRE_DAY}</td>
@@ -339,6 +341,7 @@
 			async: false,
             success: function(datas){
 				var result = JSON.parse(datas);
+				console.log(result);
 
 				$("#Delivery_Table > tbody").empty();
 				var tbodyData = "";
@@ -348,6 +351,7 @@
 					if(keytable.includes(result[i].IN_KEY) == false && i == 0){
 						keytable.push(result[i].IN_KEY);	
 						tbodyData += "<tr>";
+						tbodyData += "<td>"+result[i].EK+"</td>";
 						tbodyData += "<td>"+result[i].ARR_DAY+"</td>";
 						tbodyData += "<td><input type='hidden' class='T_IN_KEY' id='"+result[i].IN_KEY+"' value='"+result[i].IN_KEY+"'>"+result[i].REC_NM+"</td>";
 						tbodyData += "<td>"+result[i].CRE_DAY+"</td>";
@@ -361,6 +365,7 @@
 						
 						keytable.push(result[i].IN_KEY);	
 						tbodyData += "<tr>";
+						tbodyData += "<td>"+result[i].EK+"</td>";
 						tbodyData += "<td>"+result[i].ARR_DAY+"</td>";
 						tbodyData += "<td><input type='hidden' class='T_IN_KEY' id='"+result[i].IN_KEY+"' value='"+result[i].IN_KEY+"'>"+result[i].REC_NM+"</td>";
 						tbodyData += "<td>"+result[i].CRE_DAY+"</td>";
@@ -425,21 +430,24 @@
 				var tbodyData3 = "";
 
 				for(let i=0; i<result.length; i++ ){
-					var number = 0;
+// 					var number = 0;
 					if(result[i].SJ_KEY != ''){
 
 //		 				$500 (kg*$1.5 or 용적중량 *$1.5 중 비싼 비용으로 계산)
 //		 				용적중량 : 가로*세로*높이*0.00022 
-						var kgcost = result[i].WEIGHT * 1.5;
-						var lncost =  Math.round(result[i].WIDTH * result[i].HEIGHT * result[i].LENGTH * 0.00022 * 1.5 * 100) / 100;
+// 						var kgcost = result[i].WEIGHT * 1.5;
+// 						var lncost =  Math.round(result[i].WIDTH * result[i].HEIGHT * result[i].LENGTH * 0.00022 * 1.5 * 100) / 100;
 						
-						console.log(kgcost,lncost);
-						if(kgcost >= lncost){
-							number += kgcost;
-						}
-						else{
-							number += lncost;
-						}
+// 						console.log(kgcost,lncost);
+// 						if(kgcost < 10 && lncost < 10){
+// 							number += 10;
+// 						}
+// 						else if(kgcost >= lncost){
+// 							number += kgcost;
+// 						}
+// 						else{
+// 							number += lncost;
+// 						}
 						
 // 						number = result[i].COST;
 						
@@ -447,7 +455,7 @@
 						tbodyData2 += "<td>"+result[i].ARR_DAY+"</td>";
 						tbodyData2 += "<td><input type='hidden' id='"+result[i].IN_KEY+"' data='"+result[i].IN_KEY+"'>"+result[i].REC_NM+"</td>";
 						tbodyData2 += "<td>"+result[i].CRE_DAY+"</td>";
-						tbodyData2 += "<td>$"+number+"</td>";
+						tbodyData2 += "<td>$"+result[i].COST+"</td>";
 						tbodyData2 += "<td>W*H*L("+result[i].WIDTH+"cm*"+result[i].HEIGHT +"cm*" + result[i].LENGTH+"cm / 무게 "+ result[i].WEIGHT + "kg</td>";
 					
 						

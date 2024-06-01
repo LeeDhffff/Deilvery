@@ -117,35 +117,41 @@
                         <div class="double">
                             <div class="inputWrap">
                                 <h5 class="inputName"><a href="#">수령인<span>*</span></a></h5>
-                                <input type="text" id="recNm" name="recNm" value="${result.recNm}" placeholder="라오스 수령인 성함을 입력해주세요">
+                                <input type="text" class="chkVal" id="recNm" name="recNm" value="${result.recNm}" placeholder="라오스 수령인 성함을 입력해주세요">
                             </div>
                             <div class="inputWrap">
                                 <h5 class="inputName"><a href="#">휴대폰 번호<span>*</span></a></h5>
-                                <input type="text" id="recPhone" name="recPhone" value="${result.recPhone }" placeholder="라오스 수령인 전화번호를 입력해주세요" oninput="oninputPhone(this);">
+                                <input type="text" class="chkVal" id="recPhone" name="recPhone" value="${result.recPhone }" placeholder="라오스 수령인 전화번호를 입력해주세요" oninput="oninputPhone(this);">
                             </div>
-                        </div> 
-	                    <div class="inputWrap">
-	                    	<h5 class="inputName"><a href="#">픽업지 선택<span>*</span></a></h5>
-	                        <select name="recTarget" id="recTarget">
-	                            <option value="1">본사</option>
-	                            <option value="2">하우 창고</option>
-	                            <option value="3">지방배송</option>
-	                        </select>
-	                    </div>
+                        </div>
+                        <div class="double">
+		                    <div class="inputWrap">
+		                    	<h5 class="inputName"><a href="#">픽업지 선택<span>*</span></a></h5>
+		                        <select name="recTarget" id="recTarget">
+		                            <option value="1">본사</option>
+		                            <option value="2">하우 창고</option>
+		                            <option value="3">지방배송</option>
+		                        </select>
+		                    </div>
+		                    <div class="inputWrap">
+	                            <h5 class="inputName"><a href="#">추가 휴대폰 번호</a></h5>
+	                        	<input type="text" id="subPhone" name="subPhone" value="${result.subPhone }" placeholder="추가 전화번호를 입력해주세요" oninput="oninputPhone(this);">
+	                        </div>
+                        </div>
 	                    <div class="double" id="target_1">
 	                    	<div class="inputWrap">
 		                    	 <h5 class="inputName"><a href="#">본사주소</a></h5>
-                                <input type="text" value="Pakthang Villsge, Sikhot District T3, Dongnatong Vientiane, LAO P.D.R" readonly>
+                                <input type="text" id="bon" value="Pakthang Villsge, Sikhot District T3, Dongnatong Vientiane, LAO P.D.R" readonly>
                             </div>
                             <div class="inputWrap">
                                 <h5 class="inputName"><a href="#">하우 창고 주소</a></h5>
-                                <input type="text" value="phonpapao village , Sisatttanak Dostrict,Vientiane" readonly>
+                                <input type="text" id="hou" value="phonpapao village , Sisatttanak Dostrict,Vientiane" readonly>
                                 <h5 class="inputAlarm"><a href="#">※하우창고에서 수령시 배출일 (9시~17시) 하루동안만 개봉되며 미수령시 본사로 이동됩니다.</a></h5>
 	                    	</div>
 	                    </div>
-                        <div class="double" id="target_3">                            
+                        <div class="double" id="target_3">
                             <div class="inputWrap">
-                            <h5 class="inputName"><a href="#">택배사<span>*</span></a></h5>                            
+                            <h5 class="inputName"><a href="#">택배사<span>*</span></a></h5>
                             <select name="recAddr" id="recAddr">
                             	<c:forEach var="item" items="${shipComList }">
                             		<c:choose>
@@ -153,9 +159,9 @@
                             				<option value="${item.target }" selected>${item.tName }</option>
                             			</c:when>
                             			<c:otherwise>
-                            				<option value="${item.target }">${item.tName }</option>                            			
+                            				<option value="${item.target }">${item.tName }</option>
                             			</c:otherwise>
-                            		</c:choose>                            		
+                            		</c:choose>
                             	</c:forEach>
                             </select>
                         </div>
@@ -163,7 +169,23 @@
                                 <h5 class="inputName"><a href="#">상세주소</a></h5>
                                 <input type="text" name="recHou" id="recHou" value="${result.recHou}">
                             </div>
-                        </div> 
+                        </div>
+                        
+                        <div class="inputWrap full">
+                            <h5 class="inputName"><a href="#">비고</a></h5>
+                            <input type="text" id="bigo" name="bigo" value="${result.bigo}" placeholder="비고 사항을 입력해주세요." />
+                        </div>
+                        
+                        <div class="inputWrap full">
+                            <h5 class="inputName"><a href="#">배송제품 작성<span>*</span></a></h5>
+                            <input type="text" class="chkVal" id="recTxt" name="recTxt" value="${result.recTxt}" placeholder="배송 제품에 관하여 간략하게 적어주세요. ex: 옷 1박스, TV, 에어컨">
+                        </div>
+
+                        <div class="inputWrap full">
+                            <h5 class="inputName"><a href="#">배송서비스 신청하기</a></h5>
+                            <input type="text" id="gooCoordinate" name="gooCoordinate" value="${result.gooCoordinate}" placeholder="구글 좌표를 입력해주세요.">
+                            <h5 class="inputAlarm"><a href="#">※10 box 이상의 대량 물건, 냉장고, 세탁기 정도의 큰 물건 물건만 가능하며 소량물건은 배송 서비스가 거부될 수 있습니다.</a></h5>
+                        </div>
 
                         <div class="double box">
                             <div class="inputWrap">
@@ -186,7 +208,9 @@
                                 <input type="hidden" id="lengthArr" name="lengthArr" placeholder="세로" />
                                 <input type="hidden" id="heightArr" name="heightArr" placeholder="높이" />
                                 <input type="hidden" id="weightArr" name="weightArr" placeholder="무게" />
+                                <input type="hidden" id="costArr" name="costArr" placeholder="금액" />
                                 <input type="hidden" id="sjKeyArr" name="sjKeyArr" placeholder="sjKey" />
+                                <input type="hidden" id="initSjKey" name="initSjKey" placeholder="initSjKey" />
                                 <input type="hidden" id="sn" name="sn" value="${packInfo[0].sn }" placeholder="sn" />
                                     <table>
                                         <thead>
@@ -203,12 +227,13 @@
                                             <tr name="boxTr">                                            
                                                 <td><input type="checkbox" id="box_${status.index }" name="boxIndex" ></td>
                                                 <td class="boxIndex">${status.count }</td>
-                                                <td>W*H*L(${item.width }cm *${item.height }cm * ${item.length }cm) / 무게:${item.weight }kg</td>
+                                                <td>W*L*H(${item.width }cm *${item.length }cm * ${item.height }cm) / 무게:${item.weight }kg</td>
                                                 <input type="hidden" name="width" value="${item.width }" />
                                                 <input type="hidden" name="height" value="${item.height }" />
                                                 <input type="hidden" name="length" value="${item.length }" />
                                                 <input type="hidden" name="weight" value="${item.weight }" />
                                                 <input type="hidden" name="sjKey" value="${item.sjKey }" />                                                
+                                                <input type="hidden" name="indiCost" value="${item.cost }" />                                                
                                             </tr>
 										</c:forEach>
                                         </tbody>
@@ -228,7 +253,7 @@
                         
                         <div class="inputWrap full">
                             <h5 class="inputName"><a href="#">예상 물류 비용<span>*</span></a></h5>
-                            <input type="text" id="cost" name="cost" value="${packInfo[0].cost }" placeholder="$500 (kg*$1.5 or 용적중량 *$1.5 중 비싼 비용으로 계산) / 용적중량 : 가로*세로*높이*0.00022 ">
+                            <input type="text" class="chkVal" id="cost" name="cost" placeholder="$500 (kg*$1.5 or 용적중량 *$1.5 중 비싼 비용으로 계산) / 용적중량 : 가로*세로*높이*0.00022 ">
                         </div>
 
                         <div class="inputWrap">
@@ -273,8 +298,37 @@
     $(document).ready(function(){
     	console.log("페이지초기화!");
     	$("#target_3").hide();
+    	
+    	/* 물류접수-수정 진입시 출항일 변경 불가능 하도록 설정 (JANG) */
+    	const resultArrDay = "${result.arrDay}";    	
+    	if(resultArrDay != ""){
+    		$("#outDay").attr("disabled", true);
+    		$("#outKey").val(resultArrDay);    		
+    	}
 //     	fnCalCbm();
 //     	$("#totBox").text($("input[name=boxIndex]").length);
+
+		/* initSjKey 담기 (240531 JANG) */
+		const initSjKey = new Array();
+		$("input[name='sjKey']").each(function(index){
+			initSjKey.push($(this).val());
+		});
+		if(initSjKey.length != 0){
+			let arr = initSjKey[0].split("-");
+			let str = arr[0]+"-"+arr[1]+"-";
+			$("#initSjKey").val(str);
+		}
+// 		console.log("initSjKey val : ", $("#initSjKey").val());
+
+		/* 예상 물류 비용 입력 (240531 JANG) */
+		const indiCostLen = $("input[name='indiCost']").length		
+		if(indiCostLen > 0){
+			let num = 0;		
+			$("input[name='indiCost']").each(function(index){
+				num += parseFloat($(this).val());				
+			});			
+			$("#cost").val(num);
+		}
     	
     	/* 신청일자 datePicker 설정 (JANG) */
     	$("#creDay").datepicker();
@@ -310,24 +364,32 @@
     	$("#boxSaveBtn").on("click", function(evt){
 
     		evt.preventDefault();
+			const inKeyValue = $("#inKey").val();
+			
     		($("input[name='boxIndex']").length == "") ? boxIndex = 0 : boxIndex = $("input[name='boxIndex']").length;
     		const widthVal = $("#width").val();
     		const heightVal = $("#height").val();
     		const lengthVal = $("#length").val();
     		const weightVal = $("#weight").val();
+    		const outKey = $("#outKey").val();
     		let htmlStr = "";
-    		
-    		if(widthVal == "" || heightVal == "" || lengthVal == "" || weightVal == ""){
-    			alert("가로, 세로, 높이, 무게 항목을 모두 입력해주세요.");
-    		}else{    			
+	   		
+// 	   		if(inKeyValue == "" || inKeyValue == null){
+// 	   			alert("물류접수 정보를 먼저 등록해주세요.");
+// 	   		}else 
+	   		if(widthVal == "" || heightVal == "" || lengthVal == "" || weightVal == ""){
+	   			alert("가로, 세로, 높이, 무게 항목을 모두 입력해주세요.");
+	   		}else{
+	   			
 	    		htmlStr += "<tr>";
 	    		htmlStr += "	<td><input type='checkbox' id='box_"+boxIndex+"' name='boxIndex'></td>";
 	    		htmlStr += "	<td class='boxIndex'>"+(boxIndex+1)+"</td>";
-	    		htmlStr += "	<td>W*H*L("+widthVal+"cm *"+heightVal+"cm *"+lengthVal+"cm)/무게:"+weightVal+"kg";
+	    		htmlStr += "	<td>W*L*H("+widthVal+"cm *"+lengthVal+"cm *"+heightVal+"cm)/무게:"+weightVal+"kg";
 	    		htmlStr += "	<input type='hidden' name='width' value='"+widthVal+"'>";
 	    		htmlStr += "	<input type='hidden' name='height' value='"+heightVal+"'>";
 	    		htmlStr += "	<input type='hidden' name='length' value='"+lengthVal+"'>";
 	    		htmlStr += "	<input type='hidden' name='weight' value='"+weightVal+"'>";
+	    		htmlStr += "	<input type='hidden' name='indiCost' value='"+indiCost(heightVal, widthVal, lengthVal, weightVal)+"'>";
 	    		htmlStr += "</tr>";
 	    		
 	    		$("#tBody").append(htmlStr);
@@ -335,26 +397,31 @@
 	    		$("input[class='boxSize']").val("");
 	    		cost();
 // 	    		fnCalCbm();
-// 	    		$("#totBox").text($("input[name=boxIndex]").length);   		
+// 	    		$("#totBox").text($("input[name=boxIndex]").length);
+	   		}
+
+//     		if(widthVal == "" || heightVal == "" || lengthVal == "" || weightVal == ""){
+//     			alert("가로, 세로, 높이, 무게 항목을 모두 입력해주세요.");
+//     		}else{    			
 	    		
-    		}
+//     		}
     	});
     	
-    	/* 출항일(selectbox) change event 설정 (JANG) */    	
+    	/* 출항일(selectbox) change event 설정 (JANG) */
     	$("#outDay").on("change", function(evt){
     		$("#arrDay").val($("select[name=outDay]").val());
     		$("#outKey").val($("select[name=outDay]").val());
     	});
     	
     	/* 배송신청 버튼 클릭 이벤트 설정 (JANG) */
-   		const widthArr = new Array();
-   		const heightArr = new Array();
-   		const weightArr = new Array();
-   		const lengthArr = new Array();
-   		const sjKeyArr = new Array();
     	$("#adminDelRegBtn").on("click", function(evt){
-    		
     		evt.preventDefault();
+	   		const widthArr = new Array();
+	   		const heightArr = new Array();
+	   		const weightArr = new Array();
+	   		const lengthArr = new Array();
+	   		const sjKeyArr = new Array();
+	   		const costArr = new Array();
     		
     		$("#arrDay").val($("select[name=outDay]").val());
     		$("#outKey").val($("select[name=outDay]").val());
@@ -371,6 +438,9 @@
     		$("input[name='weight']").each(function(index){
     			weightArr.push($("input[name='weight']").eq(index).val());
     		});
+    		$("input[name='indiCost']").each(function(index){
+    			costArr.push($("input[name='indiCost']").eq(index).val());
+    		});
     		$("input[name='sjKey']").each(function(index){
     			sjKeyArr.push($("input[name='sjKey']").eq(index).val());
     		});
@@ -378,9 +448,11 @@
     		$("#heightArr").val(heightArr);
     		$("#lengthArr").val(lengthArr);
     		$("#weightArr").val(weightArr);
+    		$("#costArr").val(costArr);
     		$("#sjKeyArr").val(sjKeyArr);
     		
-    		/* 필수값 유효성 검사 */
+    		/* 필수값 유효성 검사
+    		   1차수정(240530) : 박스정보 저장 flow 변경으로 인한 '예상 물류 비용, 박스정보' 제거 */
     		let regist = true;
     		if($("#creDay").val() == "" || $("#creDay").val() == null){
     			alert("신청일자를 선택해주세요.");
@@ -395,8 +467,9 @@
     			$("#width").focus();
     			regist = false;
     		}else{
-    			$("#formData > .wrap > .double > .inputWrap > input").each(function(index){ 
-	    			if(($(this).val() == null || $(this).val() == '') && $(this).attr("id") != "width" && $(this).attr("id") != "length" && $(this).attr("id") != "height" && $(this).attr("id") != "weight" && $(this).attr("id") != "recHou"){
+    			$("#formData > .wrap > .double > .inputWrap > input.chkVal").each(function(index){ 
+// 	    			if(($(this).val() == null || $(this).val() == '') && $(this).attr("id") != "width" && $(this).attr("id") != "length" && $(this).attr("id") != "height" && $(this).attr("id") != "weight" && $(this).attr("id") != "recHou" && $(this).attr("id") != "subPhone" && $(this).attr("id") != "bigo"){
+	    			if(($(this).val() == null || $(this).val() == '')){
 	    				const text = $(this).siblings(".inputName").children().text();
 	    				console.log('text : ', text);
 	    				alert(text+' 정보를 입력해주세요.');
@@ -418,9 +491,14 @@
     		}
     		
     		/* 지방, 하우 선택하는 경우 택배사, 상세주소 값 초기화 (240501 JANG) */
-    		if($("#recTarget").val() == 1 || $("#recTarget").val() == 2){
+    		if($("#recTarget").val() == 1 || $("#recTarget").val() == "1"){
     			$("#recAddr").val("");
-    			$("#recHou").val("");
+    			$("#recHou").val($("#bon").val());
+    		}else if($("#recTarget").val() == 2 || $("#recTarget").val() == "2"){
+    			$("#recAddr").val("");
+    			$("#recHou").val($("#hou").val());
+    		}else{
+    			
     		}
     		
     		if(regist){
@@ -449,7 +527,7 @@
 						$(".wrap-loading").addClass("display-none");						
 					},
 					timeout : 100000
-				});    			
+				});
     		}
     	});
     	
@@ -669,7 +747,7 @@
 	}
    	
     
-    // 용적용량 자동계산기
+    // 용적용량 자동계산기 (이동헌)
     function cost(){
     	var number = 0;
     	$("#tBody > tr").each(function(){
@@ -685,7 +763,10 @@
 			var lncost = Math.round(width * height * length * 0.00022 * 1.5);
 		
 // 			console.log(kgcost,lncost);
-			if(kgcost >= lncost){
+			if(kgcost < 10 && lncost < 10){
+				number += 10;
+			}
+			else if(kgcost >= lncost){
 				number += kgcost;
 			}
 			else{
@@ -694,6 +775,22 @@
     	});
     	
     	$("#cost").val(number.toFixed(5));
+    }
+    // 개별 물류 비용 계산 function cost() 참고 (JANG)
+    function indiCost(height, width, length, weight){
+    	var number = 0;
+    	var kgcost = weight * 1.5;
+		var lncost = Math.round(width * height * length * 0.00022 * 1.5);
+		if(kgcost < 10 && lncost < 10){
+			number += 10;
+		}
+		else if(kgcost >= lncost){
+			number += kgcost;
+		}
+		else{
+			number += lncost;
+		}
+		return number.toFixed(5);
     }
     
     // Join.jsp 참고 (이동헌)
@@ -730,7 +827,14 @@
  		console.log("cbm : ", cbm);
  		$("#cbm").text(cbm.toFixed(6));
  	}
-
+    
+    // input data 초기화 
+	function boxInit(){
+		$("#widthArr").val("");
+		$("#lengthArr").val("");
+		$("#heightArr").val("");
+		$("#sjKeyArr").val("");
+	}
     </script>
 </body>
 </html>

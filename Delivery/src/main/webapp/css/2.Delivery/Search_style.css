@@ -230,6 +230,8 @@ button.qr:hover
 {
     width: 62.5%;
     background-color: #fff;
+    height: 800px;
+    overflow: auto;
 }
 
 .historyBody

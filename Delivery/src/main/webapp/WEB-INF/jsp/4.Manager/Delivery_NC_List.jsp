@@ -79,12 +79,19 @@
 	var uid = '<%=(String)session.getAttribute("SESSION_MEM_ID")%>';
 	var uid2 = '<%=(String)session.getAttribute("SESSION_PROTO_ID")%>';
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
+	var auth = '${M_AUTH}';
 	
-	console.log(level);
  
 	$(document).on('ready',function(){
 		
-		
+
+		if(auth == 'R'){
+			
+		}		
+		else if(auth == 'D'){
+			location.href = "Main.do";
+		}
+
 		/* 날짜설정 */
 		var Dates = new Date();
 
@@ -116,9 +123,10 @@
 		$(document).on("click","#Nocomplete_Table > tbody > tr",function(){
 			var nc = $(this).find(".in_key").val();
 			
-
-			/* 미완료 배송신청으로 이동 */
-			location.href = "adminDeliveryRegistMain.do?ik=" +nc;
+			if(auth != 'R'){
+				/* 미완료 배송신청으로 이동 */
+				location.href = "adminDeliveryRegistMain.do?ik=" +nc;
+			}
 		})
 		
 		/* 페이징 클릭시 */

@@ -114,6 +114,20 @@
     	margin-right: 10px;
     	display:none;
 	}
+	
+	.modi{
+		background: white;
+		width:40px;
+		height:30px;
+		border: 1px solid #ffaa40;
+	    padding: 2px;
+	    cursor: pointer;
+	    border-radius: 5px;
+	}
+	.modi:hover{
+		background: #ffaa40;
+	}
+	
 	.delete{
 	    width: 100px;
 	    height: 40px;
@@ -218,6 +232,7 @@
                                         <th>No.</th>
                                         <th>택배사명</th>
                                         <th>사용여부</th>
+                                        <th class="modifyth">정보수정</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -237,8 +252,8 @@
 	var uid = '<%=(String)session.getAttribute("SESSION_MEM_ID")%>';
 	var uid2 = '<%=(String)session.getAttribute("SESSION_PROTO_ID")%>';
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
+	var auth = '${M_AUTH}';
 
-	console.log(level);
  
 	$(document).on('ready',function(){
 		
@@ -247,7 +262,14 @@
 				   location.href = "Main.do";
 			   }
 			}
-		
+
+		if(auth == 'R'){
+			$(".create").remove();
+			$(".modifyth").remove();
+		}		
+		else if(auth == 'D'){
+			location.href = "Main.do";
+		}
 
 		/* 테이블 클릭시 해당 회원 정보 열람 / 수정페이지로 이동 */
 		$(document).on("click","#Company_Table > tbody > tr",function(){
@@ -258,11 +280,16 @@
 		});
 		
 // 		더블클릭 이벤트
-		$(document).on("dblclick","#Company_Table > tbody > tr",function(){
+// 		$(document).on("dblclick","#Company_Table > tbody > tr",function(){
 			
+		$(document).on("click",".modi",function(){
+			
+			if($(this).parents("tr").find(".tdid").val() != ''){
+				$(this).parents("tr").trigger("click");
 // 			수정 팝업창을 연다
 			$(".pop_container").show();
 			reset('U');
+			}
 		});
 		
 // 		등록 창
@@ -416,6 +443,9 @@
 						tbodyData += "<tr><td>"+(String)(i+1)+"<input type='hidden' class='target' value='"+result[i].TARGET+"'></td>";
 						tbodyData += "<td>"+result[i].T_NAME+"</td>";
 						tbodyData += "<td>"+result[i].USEAGE+"</td>";
+						if(auth != 'R'){
+							tbodyData += "<td><button class='modi'><img src='./images/pc_icon/modify_black.svg'></button></td>";
+						}
 						tbodyData += "</tr>";
 					}
 

@@ -178,6 +178,7 @@
                         <thead>
                             <tr>
                                 <th></th>
+                                <th>EK</th>
                                 <th>출항일</th>
                                 <th>수령인</th>
                                 <th>전화번호</th>
@@ -324,6 +325,7 @@
 				for(let i=0; i<result.length; i++ ){
 
 					tbodyData += "<tr><td><input type='radio' name='List_Check' class='List_Check sub'>";
+					tbodyData += "<td>"+result[i].EK+"</td>";
 					tbodyData += "<td><input type='hidden' class='in_key' value='"+result[i].IN_KEY+"'>"+result[i].OUT_DAY+"</td>";
 					tbodyData += "<td>"+result[i].REC_NM+"</td>";
 					tbodyData += "<td>"+result[i].REC_PHONE+"</td>";

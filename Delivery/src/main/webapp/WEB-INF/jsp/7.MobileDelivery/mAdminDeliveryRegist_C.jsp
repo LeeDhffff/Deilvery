@@ -34,7 +34,7 @@
                 </a>
             </h3>
             <c:choose>
-				<c:when test="${result.inKey ne '' && not empty result.inKey }">
+				<c:when test="${inputMap.inKey ne '' && not empty inputMap.inKey }">
 					<div class="m_headerTitle">물류접수-수정하기</div>
 				</c:when>
 				<c:otherwise>
@@ -49,6 +49,10 @@
                 <input type="text" id="cost" name="cost" value="${inputMap.cost }" placeholder="$500 (kg*$1.5 or 용적중량 *$1.5 중 비싼 비용으로 계산) ※용적중량 : 가로*세로*높이*0.00022"/>
             </div>
             <div class="inputWrap">
+                <h5 class="inputName"><a href="#">비고</a></h5>
+                <input type="text" id="bigo" name="bigo" value="${inputMap.bigo }" placeholder="비고 사항을 입력해주세요."/>
+            </div>
+            <div class="inputWrap">
                 <h5 class="inputName"><a href="#">출항일선택하기<span>*</span></a></h5>
                 <input type="hidden" id="arrDay" name="arrDay" value="${inputMap.arrDay }" placeholder="yyyy-mm-dd"> 
 				<input type="hidden" id="outKey" name="outKey" value="${inputMap.outKey }"/>
@@ -56,7 +60,7 @@
 					<option value="N">출항일 선택</option>
 					<c:forEach var="item" items="${outDayList }">
 						<c:choose>
-							<c:when test="${item.outDay eq result.arrDay }">
+							<c:when test="${item.outKey eq inputMap.outKey }">
 								<option value="${item.outKey }" selected>${item.outDay }</option>
 							</c:when>
                             <c:otherwise>
@@ -70,14 +74,21 @@
             <!-- 파라메터 hidden 설정 -->
             <input type="hidden" id="recNm" name="recNm" value="${inputMap.recNm }"/>
             <input type="hidden" id="recPhone" name="recPhone" value="${inputMap.recPhone }"/>
+            <input type="hidden" id="subPhone" name="subPhone" value="${inputMap.subPhone }"/>
             <input type="hidden" id="recTarget" name="recTarget" value="${inputMap.recTarget }"/>
+			<input type="hidden" id="recAddr" name="recAddr" value="${inputMap.recAddr }"/>
+            <input type="hidden" id="recHou" name="recHou" value="${inputMap.recHou }"/>
             <input type="hidden" id="inKey" name="inKey" value="${inputMap.inKey }"/>
             <input type="hidden" id="creDay" name="creDay" value="${inputMap.creDay }"/>
             <input type="hidden" id="widthArr" name="widthArr" value="${inputMap.widthArr }">
 			<input type="hidden" id="lengthArr" name="lengthArr" value="${inputMap.lengthArr }">
 			<input type="hidden" id="heightArr" name="heightArr" value="${inputMap.heightArr }">
 			<input type="hidden" id="weightArr" name="weightArr" value="${inputMap.weightArr }">
-            
+			<input type="hidden" id="costArr" name="costArr" value="${inputMap.costArr }">
+			<input type="hidden" id="recTxt" name="recTxt" value="${inputMap.recTxt }"/>
+            <input type="hidden" id="gooCoordinate" name="gooCoordinate" value="${inputMap.gooCoordinate }"/>
+            <input type="hidden" id="initSjKey" name="initSjKey" value="${inputMap.initSjKey }" />
+            <input type="hidden" id="sn" name="sn" value="${inputMap.sn }" />
             </form>
         </section>
         <footer>   
@@ -102,6 +113,14 @@
     		$("#arrDay").val($("select[name=outDay]").val());
     		$("#outKey").val($("select[name=outDay]").val());
     	});
+    	
+    	/* 물류접수-수정 진입시 출항일 변경 불가능 하도록 설정 (JANG) */
+    	const resultArrDay = "${inputMap.outKey}";    	
+    	if(resultArrDay != ""){
+    		console.log("진입!!");
+    		$("#outDay").attr("disabled", true);
+    		$("#outKey").val(resultArrDay);
+    	}
     	
     	/* 배송신청 버튼 클릭 이벤트 설정 (JANG) */   	
     	$("#adminDelRegBtn").on("click", function(evt){

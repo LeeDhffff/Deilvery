@@ -63,4 +63,16 @@ public class LoginServiceImpl implements LoginService {
 		return LoginMapper.AutoLogin(inputMap);
 	}
 
+	@Override
+	public String Join_M(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return LoginMapper.Join_M(inputMap);
+	}
+
+	@Override
+	public String nm_chk(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return LoginMapper.nm_chk(inputMap);
+	}
+
 }

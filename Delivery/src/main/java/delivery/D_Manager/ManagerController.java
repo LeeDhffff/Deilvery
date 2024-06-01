@@ -51,6 +51,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -91,38 +92,108 @@ public class ManagerController {
 	
 	/* 회원 목록으로 이동 */
 	@RequestMapping("/MemberListPage.do")
-	public String MemberList() {
-		return "4.Manager/MemberList";
+	public ModelAndView MemberList(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+		inputMap.put("MEM_ID",(String)session.getAttribute("SESSION_MEM_ID"));
+		inputMap.put("PAGE","MemberListPage");
+		
+		String ManagerList = ManagerService.Authority_CHK(inputMap);
+		mav.addObject("M_AUTH",ManagerList);
+		mav.setViewName("4.Manager/MemberList");
+		
+		return mav;
 	}
 
 	/* 관리자용 배송신청목록페이지로 이동 */
 	@RequestMapping("/M_DeliveryList.do")
-	public String DeliveryList() {
-		return "4.Manager/DeliveryList";
+	public ModelAndView DeliveryList(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+
+		inputMap.put("MEM_ID",(String)session.getAttribute("SESSION_MEM_ID"));
+		inputMap.put("PAGE","M_DeliveryList");
+		
+		String ManagerList = ManagerService.Authority_CHK(inputMap);
+		mav.addObject("M_AUTH",ManagerList);
+		mav.setViewName("4.Manager/DeliveryList");
+		return mav;
 	}
 
 	/* 관리자용 미완료 배송신청 목록페이지로 이동 */	
 	@RequestMapping("/M_Delivery_NC_List.do")
-	public String Delivery_NC_List() {
-		return "4.Manager/Delivery_NC_List";
+	public ModelAndView Delivery_NC_List(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+		inputMap.put("MEM_ID",(String)session.getAttribute("SESSION_MEM_ID"));
+		inputMap.put("PAGE","M_Delivery_NC_List");
+		
+		String ManagerList = ManagerService.Authority_CHK(inputMap);
+		mav.addObject("M_AUTH",ManagerList);
+		mav.setViewName("4.Manager/Delivery_NC_List");
+		
+		return mav;
 	}
 
 	/* 관리자용 출항일 리스트 페이지로 이동 */
 	@RequestMapping("/Outday_List.do")
-	public String Outday_List() {
-		return "4.Manager/Outday_List";
+	public ModelAndView Outday_List(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+		inputMap.put("MEM_ID",(String)session.getAttribute("SESSION_MEM_ID"));
+		inputMap.put("PAGE","Outday_List");
+		
+		String ManagerList = ManagerService.Authority_CHK(inputMap);
+		mav.addObject("M_AUTH",ManagerList);
+		mav.setViewName("4.Manager/Outday_List");
+		
+		return mav;
 	}
 	
 	/* 출항일 관리페이지로 이동 */
 	@RequestMapping("/Outday.do")
-	public String Outday() {
-		return "4.Manager/Outday";
+	public ModelAndView Outday(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+		inputMap.put("MEM_ID",(String)session.getAttribute("SESSION_MEM_ID"));
+		inputMap.put("PAGE","Outday_List");
+		
+		String ManagerList = ManagerService.Authority_CHK(inputMap);
+		mav.addObject("M_AUTH",ManagerList);
+		mav.setViewName("4.Manager/Outday");
+		
+		return mav;
 	}
 
 	/* 택배사 관리페이지로 이동 */
 	@RequestMapping("/DeliveryCompanyList.do")
-	public String DeliveryCompany() {
-		return "4.Manager/Delivery_CompanyList";
+	public ModelAndView DeliveryCompany(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+		inputMap.put("MEM_ID",(String)session.getAttribute("SESSION_MEM_ID"));
+		inputMap.put("PAGE","DeliveryCompanyList");
+		
+		String ManagerList = ManagerService.Authority_CHK(inputMap);
+		mav.addObject("M_AUTH",ManagerList);
+		mav.setViewName("4.Manager/Delivery_CompanyList");
+		
+		return mav;
+	}
+
+	/* 권한 관리페이지로 이동 */
+	@RequestMapping("/AuthorityPage.do")
+	public ModelAndView AuthorityPage(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+
+		HttpSession httpSession = request.getSession(true);
+		
+		List<HashMap<String, String>> ManagerList = ManagerService.Manager_List(inputMap);
+		
+		mav.addObject("M_List",ManagerList);
+		mav.setViewName("4.Manager/Authority");
+		
+		return mav;
 	}
 	
 	/* 회원 목록가져오기 */
@@ -159,6 +230,86 @@ public class ManagerController {
 
 		System.out.println("inputMap" + inputMap);
 		String LoginList = ManagerService.Member_Modify(inputMap);
+//		System.out.println(LoginList.get("resultMsg"));
+
+//		ObjectMapper mapper = new ObjectMapper();
+//		String jsonStr = mapper.writeValueAsString(LoginList);
+		return LoginList;
+	}
+
+	/* 회원정보 할인율 수정 */
+	@RequestMapping(value = "/Member_Modify_Discount.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Member_Modify_Discount(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		String LoginList = ManagerService.Member_Modify_Discount(inputMap);
+
+//		ObjectMapper mapper = new ObjectMapper();
+//		String jsonStr = mapper.writeValueAsString(LoginList);
+		return LoginList;
+	}
+	
+	/* 회원정보 삭제 */
+	@RequestMapping(value = "/Member_Delete.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Member_Delete(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		String LoginList = ManagerService.Member_Delete(inputMap);
+//		System.out.println(LoginList.get("resultMsg"));
+
+//		ObjectMapper mapper = new ObjectMapper();
+//		String jsonStr = mapper.writeValueAsString(LoginList);
+		return LoginList;
+	}
+
+	/* 권한 등록된 것 가져오기 */
+	@RequestMapping(value = "/Authority_Select.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Authority_Select(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		List<HashMap<String, String>> ManagerList = ManagerService.Authority_Select(inputMap);
+		System.out.println(ManagerList);
+
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr = mapper.writeValueAsString(ManagerList);
+		return jsonStr;
+	}
+	/* 특정 페이지 권한 가져오기 */
+	@RequestMapping(value = "/Authority_CHK.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Authority_CHK(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		String ManagerList = ManagerService.Authority_CHK(inputMap);
+		System.out.println(ManagerList);
+
+		return ManagerList;
+	}
+	/* 권한정보 삭제 */
+	@RequestMapping(value = "/Authority_Delete.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Authority_Delete(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		String AuthList = ManagerService.Authority_Delete(inputMap);
+		
+//		System.out.println(LoginList.get("resultMsg"));
+
+//		ObjectMapper mapper = new ObjectMapper();
+//		String jsonStr = mapper.writeValueAsString(LoginList);
+		return AuthList;
+	}
+	/* 권한정보 등록 */
+	@RequestMapping(value = "/Authority_Insert.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Authority_Insert(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		
+		String LoginList = ManagerService.Authority_Insert(inputMap);
 //		System.out.println(LoginList.get("resultMsg"));
 
 //		ObjectMapper mapper = new ObjectMapper();
@@ -674,17 +825,20 @@ public class ManagerController {
 			hashmaps.put("IN_KEY", MMB.get(0));
 			hashmaps.put("EXCEL_NAME", MMB.get(1));
 			hashmaps.put("EXCEL_ADDRESS", MMB.get(2));
-			hashmaps.put("EXCEL_PHONE", MMB.get(3));
-			hashmaps.put("EXCEL_YEAR", MMB.get(4));
-			hashmaps.put("EXCEL_COUNT", MMB.get(5));
-			hashmaps.put("EXCEL_MONTH", MMB.get(6));
-			hashmaps.put("EXCEL_TR_COST", MMB.get(7));
+			hashmaps.put("EXCEL_OUT_DAY", MMB.get(3));
+			hashmaps.put("EXCEL_PHONE", MMB.get(4));
+			hashmaps.put("EXCEL_YEAR", MMB.get(5));
+			hashmaps.put("EXCEL_COUNT", MMB.get(6));
+			hashmaps.put("EXCEL_MONTH", MMB.get(7));
 			hashmaps.put("EXCEL_COST", MMB.get(8));
-			hashmaps.put("EXCEL_EK", MMB.get(9));
-			hashmaps.put("EXCEL_TABLE_NUM", MMB.get(10));
+			hashmaps.put("EXCEL_DISCOUNT", MMB.get(9));
+			hashmaps.put("EXCEL_DIS_COST", MMB.get(10));
+			hashmaps.put("EXCEL_TR_COST", MMB.get(11));
+			hashmaps.put("EXCEL_EK", MMB.get(12));
+			hashmaps.put("EXCEL_TABLE_NUM", MMB.get(13));
 
 			
-			String[] PCR2 = MMB.get(11).split("]");
+			String[] PCR2 = MMB.get(14).split("]");
 			List<String> PCR = new ArrayList<String>(Arrays.asList(PCR2));
 			List<HashMap<String, Object>> PCRList = new ArrayList<HashMap<String, Object>>();
 			for(int g=0; g<PCR.size(); g++) {
@@ -701,7 +855,8 @@ public class ManagerController {
 				PCRList.add(PCRInputMap);
 			}
 			hashmaps.put("EXCEL_TABLE", PCRList);
-			hashmaps.put("EXCEL_QR", MMB.get(12));
+//			hashmaps.put("EXCEL_QR", MMB.get(13));
+//			hashmaps.put("EXCEL_QR2", MMB.get(14));
 				
 				
 			MakeInputMap.add(hashmaps);
@@ -739,7 +894,7 @@ public class ManagerController {
         	in = null;
         	fos = null;
         	imageFile = null;
-
+        	
             System.out.println("=================시작 "+sn+" 번=============");
             System.out.println("시트 : "+ (String)(inputMap.get(sn).get("IN_KEY")));
 //        	liss.add(workbook.createSheet((String)(inputMap.get(sn).get("IN_KEY"))));
@@ -747,30 +902,21 @@ public class ManagerController {
 //          sheet = workbook.getSheetAt(inputMap.size());
 //    		System.out.println("liss : " +liss);
         	
-            String imageData = (String)(inputMap.get(sn).get("EXCEL_QR"));
-            String encodingStr = imageData.replace(BASE64_PNG_PRE_FIX, "");
-            byte[] decodeImg = null;
-            try{
-            	decodeImg = Base64.getDecoder().decode(encodingStr);
-        	}catch(Exception e){
-        		e.getStackTrace();
-        	}
-    		
     		
 
             System.out.println("엑셀 이미지저장 : 경로 - " + filePath);
             
             byte[] bytes = null;
     		try {
-    			FileUtils.forceMkdir(new File(filePath));
-    			imageFile = new File(filePath + "/"+(String)(inputMap.get(sn).get("IN_KEY"))+".png");
+//    			FileUtils.forceMkdir(new File(filePath));
+    			imageFile = new File(filePath + "/"+"QR_TOTAL.png");
 
-    			fos = new FileOutputStream(imageFile);
-    			fos.write(decodeImg);
-
-    	        System.out.println("엑셀 이미지저장 : 완료");
     			in = new FileInputStream(imageFile);
     			bytes = IOUtils.toByteArray(in);
+    			
+//    	        System.out.println("엑셀 이미지저장1 : 완료");
+    	        
+    			
     		} catch (IOException e1) {
     			// TODO Auto-generated catch block
     			e1.printStackTrace();
@@ -789,6 +935,8 @@ public class ManagerController {
             
             
             sheet.addMergedRegion(new CellRangeAddress(2,3,0,1));
+            sheet.addMergedRegion(new CellRangeAddress(2,3,2,2));
+            sheet.addMergedRegion(new CellRangeAddress(2,3,3,3));
             sheet.addMergedRegion(new CellRangeAddress(2,2,4,8));
             sheet.addMergedRegion(new CellRangeAddress(3,3,4,8));
             sheet.addMergedRegion(new CellRangeAddress(4,5,0,0));
@@ -876,7 +1024,7 @@ public class ManagerController {
             HeadFont2.setColor(HSSFColor.BLACK.index);
             HeadStyleBlue.setFont(HeadFont2);
             HeadStyleBlue.setWrapText(true);
-            HeadStyleBlue.setFillForegroundColor(IndexedColors.PALE_BLUE.getIndex());
+            HeadStyleBlue.setFillForegroundColor(IndexedColors.LIGHT_TURQUOISE.getIndex());
             HeadStyleBlue.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
             
             CellStyle HeadStyleBlueBold = workbook.createCellStyle();
@@ -891,7 +1039,7 @@ public class ManagerController {
             HeadFont2Bold.setBoldweight(Font.BOLDWEIGHT_BOLD);
             HeadFont2Bold.setColor(HSSFColor.BLACK.index);
             HeadStyleBlueBold.setFont(HeadFont2Bold);
-            HeadStyleBlueBold.setFillForegroundColor(IndexedColors.PALE_BLUE.getIndex());
+            HeadStyleBlueBold.setFillForegroundColor(IndexedColors.LIGHT_TURQUOISE.getIndex());
             HeadStyleBlueBold.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
             
             CellStyle HeadStyleYellowBold = workbook.createCellStyle();
@@ -905,7 +1053,7 @@ public class ManagerController {
             HeadFont3.setFontHeight((short)(10*20)); //사이즈
             HeadFont3.setBoldweight(Font.BOLDWEIGHT_BOLD);
             HeadFont3.setColor(HSSFColor.BLACK.index);
-            HeadStyleYellowBold.setFillForegroundColor(IndexedColors.YELLOW.getIndex());
+            HeadStyleYellowBold.setFillForegroundColor(IndexedColors.LEMON_CHIFFON.getIndex());
             HeadStyleYellowBold.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
             HeadStyleYellowBold.setFont(HeadFont3);
 
@@ -920,7 +1068,7 @@ public class ManagerController {
             HeadFont4.setFontHeight((short)(10*20)); //사이즈
             HeadFont4.setColor(HSSFColor.BLACK.index);
             HeadFont4.setBoldweight(Font.BOLDWEIGHT_BOLD);
-            HeadStyleOrangeBold.setFillForegroundColor(IndexedColors.CORAL.getIndex());
+            HeadStyleOrangeBold.setFillForegroundColor(IndexedColors.TAN.getIndex());
             HeadStyleOrangeBold.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
             HeadStyleOrangeBold.setFont(HeadFont4);
             
@@ -936,7 +1084,7 @@ public class ManagerController {
             HeadFontEK.setBoldweight(Font.BOLDWEIGHT_BOLD);
             HeadFontEK.setColor(HSSFColor.BLACK.index);
             HeadStyleEK.setFont(HeadFontEK);
-            HeadStyleEK.setFillForegroundColor(IndexedColors.CORAL.getIndex());
+            HeadStyleEK.setFillForegroundColor(IndexedColors.TAN.getIndex());
             HeadStyleEK.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 
             CellStyle HeadStyleNormal = workbook.createCellStyle();
@@ -966,7 +1114,7 @@ public class ManagerController {
             HeadFontNormalMonth.setColor(HSSFColor.BLACK.index);
             HeadStyleNormalMonth.setFont(HeadFontNormalMonth);
             HeadStyleNormalMonth.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-            HeadStyleNormalMonth.setFillForegroundColor(IndexedColors.CORAL.getIndex());
+            HeadStyleNormalMonth.setFillForegroundColor(IndexedColors.TAN.getIndex());
             
             CellStyle HeadStyleNormalRed = workbook.createCellStyle();
             Font HeadFontNormalRed = workbook.createFont();
@@ -992,7 +1140,7 @@ public class ManagerController {
             HeadStyleNormalBlue.setBorderTop(HSSFCellStyle.BORDER_THIN);
             HeadStyleNormalBlue.setBorderBottom(HSSFCellStyle.BORDER_THIN);
             HeadFontNormalBlue.setFontHeight((short)(10*20)); //사이즈
-            HeadFontNormalBlue.setColor(HSSFColor.PALE_BLUE.index);
+            HeadFontNormalBlue.setColor(HSSFColor.BLUE.index);
             HeadStyleNormalBlue.setFont(HeadFontNormalBlue);
             HeadStyleNormalBlue.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
             HeadStyleNormalBlue.setFillForegroundColor(IndexedColors.WHITE.getIndex());
@@ -1051,6 +1199,7 @@ public class ManagerController {
             for(int i=1; i<9; i++) {
             	sheet.setColumnWidth(i, 4000);
             }
+            sheet.setColumnWidth(3, 5000);
             sheet.setColumnWidth(4, 6000);
             
             		//***************************1,2번째 row *****************************//
@@ -1064,7 +1213,7 @@ public class ManagerController {
     	        		}
     	        		sheet.getRow(j).setHeight((short)400);
             		}
-                    sheet.getRow(12).setHeight((short)1800);
+                    sheet.getRow(12).setHeight((short)2300);
                     
             		for(int j=0; j<2; j++) {
     	        		for(int i=0; i<9; i++) {
@@ -1075,7 +1224,10 @@ public class ManagerController {
                     System.out.println("1,2번쨰 완료.");
             		
             		//***************************3번째 row *****************************//
-                    sheet.getRow(2).getCell(3).setCellValue("ຕູ້ທີ່1 ເດືອນ11");
+            		sheet.getRow(2).getCell(0).setCellValue((String)(inputMap.get(sn).get("EXCEL_NAME")));
+            		sheet.getRow(2).getCell(2).setCellValue("고객님 귀하");
+            		sheet.getRow(2).getCell(2).setCellStyle(HeadStyleNormal);
+                    sheet.getRow(2).getCell(3).setCellValue((String)(inputMap.get(sn).get("EXCEL_OUT_DAY")));
             		sheet.getRow(2).getCell(3).setCellStyle(HeadStyleNormal);
             		for(int i=4; i<9; i++) {
             			sheet.getRow(2).getCell(i).setCellStyle(HeadStyleGreyBold);
@@ -1083,7 +1235,6 @@ public class ManagerController {
             		sheet.getRow(2).getCell(4).setCellValue("EK Logistics");
                     System.out.println("3번쨰 완료.");
             		//***************************4번째 row *****************************//
-            		sheet.getRow(2).getCell(0).setCellValue("NOY");
             		
             		for(int j=2; j<4; j++) {
     	        		for(int i=0; i<2; i++) {
@@ -1091,9 +1242,6 @@ public class ManagerController {
     	        		}
             		}
             		
-            		sheet.getRow(3).getCell(2).setCellValue("고객님 귀하");
-            		sheet.getRow(3).getCell(2).setCellStyle(HeadStyleNormal);
-            		sheet.getRow(3).getCell(3).setCellValue((String)(inputMap.get(sn).get("EXCEL_NAME")));
             		sheet.getRow(3).getCell(3).setCellStyle(HeadStyleNormal);
             		sheet.getRow(3).getCell(4).setCellValue((String)(inputMap.get(sn).get("EXCEL_ADDRESS")));
             		sheet.getRow(3).getCell(4).setCellStyle(HeadStyleNormal);
@@ -1133,7 +1281,7 @@ public class ManagerController {
             		
             		sheet.getRow(6).getCell(1).setCellValue((String)(inputMap.get(sn).get("EXCEL_PHONE")));
             		sheet.getRow(6).getCell(4).setCellValue("운임ລວມ");
-            		sheet.getRow(6).getCell(5).setCellValue((String)(inputMap.get(sn).get("EXCEL_TR_COST")));
+            		sheet.getRow(6).getCell(5).setCellValue((String)(inputMap.get(sn).get("EXCEL_COST")));
             		sheet.getRow(6).getCell(7).setCellValue("담당직원 서명 ຜູ້ສົ່ງເຄືອງ");
 
                     System.out.println("7번쨰 완료.");
@@ -1180,7 +1328,7 @@ public class ManagerController {
             		}
             		sheet.getRow(8).getCell(4).setCellValue("할인율ສ່ວນຫຼຸດ");
         			sheet.getRow(8).getCell(4).setCellStyle(HeadStyleBlue);
-            		sheet.getRow(8).getCell(5).setCellValue("0%");
+            		sheet.getRow(8).getCell(5).setCellValue((String)(inputMap.get(sn).get("EXCEL_DISCOUNT")));
         			for(int i=5; i<7; i++) {
             			sheet.getRow(8).getCell(i).setCellStyle(HeadStyleNormal);
             		}
@@ -1195,7 +1343,7 @@ public class ManagerController {
         			sheet.getRow(9).getCell(1).setCellStyle(HeadStyleNormalMonth);
             		sheet.getRow(9).getCell(4).setCellValue("할인금액 ລວມສ່ວນຫຼຸດ");
         			sheet.getRow(9).getCell(4).setCellStyle(HeadStyleBlue);
-            		sheet.getRow(9).getCell(5).setCellValue("0$");
+            		sheet.getRow(9).getCell(5).setCellValue((String)(inputMap.get(sn).get("EXCEL_DIS_COST")));
             		for(int i=5; i<7; i++) {
             			sheet.getRow(9).getCell(i).setCellStyle(HeadStyleNormalBlue);
             		}
@@ -1215,7 +1363,7 @@ public class ManagerController {
             		for(int i=10; i<12; i++) {
             			sheet.getRow(i).getCell(4).setCellStyle(HeadStyleBlueBold);
             		}
-            		sheet.getRow(10).getCell(5).setCellValue((String)(inputMap.get(sn).get("EXCEL_COST")));
+            		sheet.getRow(10).getCell(5).setCellValue((String)(inputMap.get(sn).get("EXCEL_TR_COST")));
             		
             		for(int j=10; j<12; j++) {
             			for(int i=5; i<7; i++) {
@@ -1234,22 +1382,22 @@ public class ManagerController {
                     System.out.println("11,12번쨰 완료.");
 
             		//***************************13번째 row *****************************//
-            		sheet.getRow(12).getCell(0).setCellValue("※이용약관에 따라 운임은 중량과 부피 기반 환산금액중 높은쪽으로 청구되며,\n 최소 운임은 10$ 입니다.(소수점 단위 반올림) \n※ອີງຕາມຂໍ້ກຳນົດ ແລະເງື່ອນໄຂ, ຄ່າຂົນສົ່ງແມ່ນຄິດໄລ່ ຕາມຂະໜາດ ,ນ້ຳໜັກ,ແລະ ປະລິມານ");
+            		sheet.getRow(12).getCell(0).setCellValue("※이용약관에 따라 운임은 중량과 부피 기반 환산금액중 높은쪽으로 청구되며,\n최소 운임은 10$ 입니다.(소수점 단위 반올림)\n\n※ອີງຕາມຂໍ້ກຳນົດ ແລະເງື່ອນໄຂ, ຄ່າຂົນສົ່ງແມ່ນຄິດໄລ່ ຕາມຂະໜາດ ,ນ້ຳໜັກ,ແລະ ປະລິມານ");
             		
             		for(int i=0; i<4; i++) {
             			sheet.getRow(12).getCell(i).setCellStyle(HeadStyleLong);
             		}
 
         			anchor.setRow1(12);
-            		anchor.setCol1(6);
+            		anchor.setCol1(5);
 
         			// 이미지 그리기
         			final Picture pict = drawing.createPicture(anchor, pictureIdx);
 
         			// 이미지 사이즈 비율 설정
-        			pict.resize();
+        			pict.resize(0.9);
         			
-            		sheet.getRow(12).getCell(4).setCellValue("(KIP)");
+//            		sheet.getRow(12).getCell(4).setCellValue("(USD) (KIP)");
             		for(int i=4; i<9; i++) {
             			sheet.getRow(12).getCell(i).setCellStyle(HeadStyleNormalDown);
             		}
@@ -1284,8 +1432,12 @@ public class ManagerController {
             		//***************************테두리 작업 *****************************//
                     
                     for(int i=0; i<9; i++) {
-            			sheet.getRow(15).getCell(i).setCellStyle(HeadStyleBorderTopBottom);
-                    	
+                    	if(i < 7) {
+                			sheet.getRow(15).getCell(i).setCellStyle(HeadStyleBorderTopBottom);
+                    	}
+                    	else {
+                			sheet.getRow(15).getCell(i).setCellStyle(HeadStyleBorderTop);
+                    	}
                     }
 
                     for(int i=0; i<15; i++) {
@@ -1293,16 +1445,14 @@ public class ManagerController {
                     	
                     }
             		//***************************17번째 row *****************************//
-                    sheet.getRow(16).getCell(0).setCellValue("내품");
-                    sheet.getRow(16).getCell(1).setCellValue("중량");
-                    sheet.getRow(16).getCell(2).setCellValue("장");
-                    sheet.getRow(16).getCell(3).setCellValue("폭");
-                    sheet.getRow(16).getCell(4).setCellValue("고");
-                    sheet.getRow(16).getCell(5).setCellValue("용적중량");
-                    sheet.getRow(16).getCell(6).setCellValue("기준가");
-                    sheet.getRow(16).getCell(7).setCellValue("청구중량");
-                    sheet.getRow(16).getCell(8).setCellValue("청구운임");
-                    for(int i=0; i<9; i++) {
+                    sheet.getRow(16).getCell(0).setCellValue("중량");
+                    sheet.getRow(16).getCell(1).setCellValue("장");
+                    sheet.getRow(16).getCell(2).setCellValue("폭");
+                    sheet.getRow(16).getCell(3).setCellValue("고");
+                    sheet.getRow(16).getCell(4).setCellValue("용적중량");
+                    sheet.getRow(16).getCell(5).setCellValue("청구중량");
+                    sheet.getRow(16).getCell(6).setCellValue("청구운임");
+                    for(int i=0; i<7; i++) {
             			sheet.getRow(16).getCell(i).setCellStyle(HeadStyleBlueBold);
                     	
                     }
@@ -1310,7 +1460,7 @@ public class ManagerController {
                     System.out.println("17 셀 시작.");
                     int rowNumber = 17;
                     for(int i=0; i<length; i++) {
-                    	for(int j=0; j<9; j++) {
+                    	for(int j=0; j<7; j++) {
                     		List<HashMap<String,String>> ext = new ArrayList<HashMap<String,String>>((List)(inputMap.get(sn).get("EXCEL_TABLE")));
 //                    		sheet.getRow(rowNumber + i).getCell(j).setCellValue((String)(inputMap.get(sn).get("EXCEL_TABLE[" + Integer.toString(i) +"][CELL"+ Integer.toString(j) + "]")));
                     		sheet.getRow(rowNumber + i).getCell(j).setCellValue(ext.get(i).get("CELL"+ Integer.toString(j)));
@@ -1321,13 +1471,13 @@ public class ManagerController {
                     System.out.println("17 셀 완료.");
 
 
-                    for(int i=0; i<9; i++) {
+                    for(int i=0; i<7; i++) {
             			sheet.getRow(rowNumber + length).getCell(i).setCellStyle(HeadStyleBorderTop);
                     	
                     }
 
                     for(int i=rowNumber-1; i<rowNumber + length; i++) {
-            			sheet.getRow(i).getCell(9).setCellStyle(HeadStyleBorderLeft);
+            			sheet.getRow(i).getCell(7).setCellStyle(HeadStyleBorderLeft);
                     	
                     }
                     System.out.println("모든 셀 완료.");
@@ -1342,11 +1492,6 @@ public class ManagerController {
                     finally {
                		 System.gc();
                		 System.runFinalization();
-                    	if(imageFile.delete()){
-                			System.out.println("이미지파일삭제 성공");
-                		}else{
-                			System.out.println("이미지파일삭제 실패");
-                		}
                     }
         }
         try{

@@ -48,7 +48,7 @@
 <div class="error_back">
 	<div class="error_box">
 		 <img src="./images/pc_icon/warning.svg">
-		<h1>404 ERROR</h1>
+		<h1>500 ERROR</h1>
 		<h3>에러가 발생하였습니다.
 		<br/>관리자에게 문의해주십시오.</h3>	
 	</div>

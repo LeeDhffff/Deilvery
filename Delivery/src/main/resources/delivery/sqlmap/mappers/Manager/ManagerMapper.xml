@@ -18,7 +18,22 @@
 				#{MEM_PHONE},
 				#{MEM_EMAIL},
 				#{MEM_ID2},
-				#{MEM_LEVEL}
+				#{MEM_DISCOUNT},
+				#{MEM_LEVEL},
+				#{MEM_BIGO}
+		) }
+	</select>
+	<select id="Member_Modify_Discount" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call B_MEM_MODIFY_DISCOUNT(
+				#{MEM_ID},
+				#{MEM_ID2},
+				#{DISCOUNT}
+		) }
+	</select>
+	<select id="Member_Delete" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call B_MEM_DELETE(
+				#{MAN_ID},
+				#{MEM_ID}
 		) }
 	</select>
 	
@@ -29,6 +44,34 @@
 		) }
 	</select>
 	
+	<select id="Manager_List" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call D_MANAGER_LIST(
+		) }
+	</select>
+	<select id="Authority_Select" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call D_AUTHORITY_LIST(
+				#{MEM_ID}
+		) }
+	</select>
+	<select id="Authority_CHK" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call D_AUTHORITY_CHK(
+				#{MEM_ID},
+				#{PAGE}
+		) }
+	</select>
+	<select id="Authority_Insert" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call D_AUTHORITY_INSERT(
+				#{MEM_ID},
+				#{PAGE},
+				#{M_PAGE},
+				#{AUTH}
+		) }
+	</select>
+	<select id="Authority_Delete" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call D_AUTHORITY_DELETE(
+				#{MEM_ID}
+		) }
+	</select>
 	<select id="Nocomplete_Select" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
 		{ call C_NC_DELIVERY(
 				#{MEM_ID},

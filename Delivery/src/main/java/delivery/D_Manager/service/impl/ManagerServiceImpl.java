@@ -27,6 +27,12 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
+	public String Member_Modify_Discount(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return ManagerMapper.Member_Modify_Discount(inputMap);
+	}
+	
+	@Override
 	public String Mem_Pw_Chk(HashMap<String, Object> inputMap) throws Exception {
 		// TODO Auto-generated method stub
 		return ManagerMapper.Mem_Pw_Chk(inputMap);
@@ -137,6 +143,43 @@ public class ManagerServiceImpl implements ManagerService {
 		// TODO Auto-generated method stub
 		return ManagerMapper.DeliveryCompanyList_Load(inputMap);
 	}
+
+	@Override
+	public String Member_Delete(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return ManagerMapper.Member_Delete(inputMap);
+	}
+
+	@Override
+	public List<HashMap<String, String>> Authority_Select(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return ManagerMapper.Authority_Select(inputMap);
+	}
+
+	@Override
+	public String Authority_CHK(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return ManagerMapper.Authority_CHK(inputMap);
+	}
+
+	@Override
+	public String Authority_Insert(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return ManagerMapper.Authority_Insert(inputMap);
+	}
+
+	@Override
+	public String Authority_Delete(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return ManagerMapper.Authority_Delete(inputMap);
+	}
+
+	@Override
+	public List<HashMap<String, String>> Manager_List(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return ManagerMapper.Manager_List(inputMap);
+	}
+
 
 
 }

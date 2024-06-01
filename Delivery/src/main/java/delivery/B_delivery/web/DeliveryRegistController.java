@@ -239,7 +239,7 @@ public class DeliveryRegistController {
 	@ResponseBody
 	public String adminDelRegist(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		
-		System.out.println("[inputMap] adminDelRegist : " + inputMap);
+		String resultMsg = "";
 		
 		/* memId를 세션값으로 삽입 - (수정자 : 이동헌) */
 		if(session.getAttribute("SESSION_MEM_ID") != null) {			
@@ -248,17 +248,24 @@ public class DeliveryRegistController {
 		else if(session.getAttribute("SESSION_PROTO_ID") != null) {			
 			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));	
 		}
-		System.out.println("PC관리자 배송신청 등록 memId : " + inputMap.get("memId"));
 		
 		String ik = (String) inputMap.get("inKey");
-		String resultMsg = delRegistService.adminDelRegist(inputMap);				
-		System.out.println("ik : "+ ik + " // resultMsg : " + resultMsg);
 		
-		if(ik != "" && ik != null && ik.length()!=0) {
-			resultMsg = ik+"="+resultMsg;
+		/* 물류배송 정보 등록 및 수정 */
+		if(ik != "" && ik != null && ik.length()!=0) {			
+			resultMsg = delRegistService.adminDelUpdate(inputMap);
 			System.out.println("inkey 있음 : " + resultMsg);
 		}else {
+			resultMsg = delRegistService.adminDelRegist(inputMap);			
 			System.out.println("inkey 없음 : " + resultMsg);
+		}
+		
+		/* 박스정보 등록 및 수정 */
+		if(resultMsg == "Y") {
+			/* 박스 등록 실행 */
+			resultMsg = delRegistService.adminBoxRegist(inputMap);
+		}else {
+			resultMsg = "물류접수에 실패했습니다. 관리자에게 문의해주세요.";
 		}
 		
 		return resultMsg;
@@ -286,6 +293,7 @@ public class DeliveryRegistController {
 		mav.setViewName("7.MobileDelivery/mAdminDeliveryRegist_A");
 		
 		System.out.println("[inputMap] mAdminDeliveryRegistMain : " + inputMap);
+		System.out.println("result : " + ingDelRead);
 		
 		return mav;
 	}
@@ -307,7 +315,7 @@ public class DeliveryRegistController {
 		mav.setViewName("7.MobileDelivery/mAdminDeliveryRegist_B");
 		
 		System.out.println("[inputMap] mAdminDeliveryRegistB : " + inputMap);
-		
+		System.out.println("packInfo : " + packInfo);
 		return mav;
 	}
 	
@@ -346,12 +354,29 @@ public class DeliveryRegistController {
 			inputMap.put("memId", (String)(session.getAttribute("SESSION_PROTO_ID")));	
 		}
 		System.out.println("Mobile관리자 배송신청 등록 memId : " + inputMap.get("memId"));
+						
+		String ik = (String) inputMap.get("inKey");
+		String resultMsg = "";
 		
-		String resultMsg = delRegistService.adminDelRegist(inputMap);
+		/* 물류배송 정보 등록 및 수정 */
+		if(ik != "" && ik != null && ik.length()!=0) {			
+			resultMsg = delRegistService.adminDelUpdate(inputMap);
+			System.out.println("inkey 있음 : " + resultMsg);
+		}else {
+			resultMsg = delRegistService.adminDelRegist(inputMap);			
+			System.out.println("inkey 없음 : " + resultMsg);
+		}
+		
+		/* 박스정보 등록 및 수정 */
+		if(resultMsg == "Y") {
+			/* 박스 등록 실행 */
+			resultMsg = delRegistService.adminBoxRegist(inputMap);
+		}else {
+			resultMsg = "물류접수에 실패했습니다. 관리자에게 문의해주세요.";
+		}
 		
 		return resultMsg;
 		
 	}
-	
 
 }

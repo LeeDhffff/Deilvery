@@ -8,6 +8,14 @@ public interface ManagerService {
 	List<HashMap<String, String>> Member_Select(HashMap<String, Object> inputMap) throws Exception;
 	
 	String Member_Modify(HashMap<String, Object> inputMap) throws Exception;
+	String Member_Modify_Discount(HashMap<String, Object> inputMap) throws Exception;
+	String Member_Delete(HashMap<String, Object> inputMap) throws Exception;
+	
+	List<HashMap<String, String>> Manager_List(HashMap<String, Object> inputMap) throws Exception;
+	List<HashMap<String, String>> Authority_Select(HashMap<String, Object> inputMap) throws Exception;
+	String Authority_CHK(HashMap<String, Object> inputMap) throws Exception;
+	String Authority_Insert(HashMap<String, Object> inputMap) throws Exception;
+	String Authority_Delete(HashMap<String, Object> inputMap) throws Exception;
 	
 	String Mem_Pw_Chk(HashMap<String, Object> inputMap) throws Exception;
 	

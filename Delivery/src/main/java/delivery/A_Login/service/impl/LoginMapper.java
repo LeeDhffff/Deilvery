@@ -10,9 +10,14 @@ public interface LoginMapper {
 	// id 중복체크
 	String id_chk(HashMap<String, Object> inputMap) throws Exception;
 	
+	// [관리자] 이름,전화번호 중복체크
+	String nm_chk(HashMap<String, Object> inputMap) throws Exception;
 	
 	// 회원가입
 	String Join(HashMap<String, Object> inputMap) throws Exception;
+	
+	// [관리자]회원가입
+	String Join_M(HashMap<String, Object> inputMap) throws Exception;
 	
 	// 로그인
 	HashMap<String, String> Login(HashMap<String, Object> inputMap) throws Exception;

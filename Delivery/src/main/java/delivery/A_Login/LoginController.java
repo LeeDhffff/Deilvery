@@ -103,7 +103,33 @@ public class LoginController {
 //		String jsonStr = mapper.writeValueAsString(LoginList);
 		return LoginList;
 	}
-	
+
+	/* [관리자] 회원가입 */
+	@RequestMapping(value = "/Join_M.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Join_M(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		String LoginList = LoginService.Join_M(inputMap);
+
+		String ATH_IP = request.getHeader("X-FORWARDED-FOR");
+
+		if (ATH_IP == null) {
+			ATH_IP = request.getRemoteAddr();
+		}
+
+		HashMap<String, Object> MM = new HashMap<String, Object>();
+
+		MM.put("MEM_ID", inputMap.get("MEM_ID"));
+		MM.put("LOG_TEXT", "회원가입");
+		MM.put("IP", ATH_IP);
+
+		String PutLog = MainService.LOG_MM(MM);
+
+//		ObjectMapper mapper = new ObjectMapper();
+//		String jsonStr = mapper.writeValueAsString(LoginList);
+		return LoginList;
+	}
 
 	/* 아이디 체크(중복) */
 	@RequestMapping(value = "/id_chk.do" , produces = "application/text; charset=utf-8")
@@ -119,6 +145,19 @@ public class LoginController {
 		return LoginList;
 	}
 	
+	/* [관리자] 이름,전화번호 체크(중복) */
+	@RequestMapping(value = "/nm_chk.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String nm_chk(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		String LoginList = LoginService.nm_chk(inputMap);
+//		System.out.println(LoginList.get("resultMsg"));
+
+//		ObjectMapper mapper = new ObjectMapper();
+//		String jsonStr = mapper.writeValueAsString(LoginList);
+		return LoginList;
+	}
 
 	/* 아이디 찾기 */
 	@RequestMapping(value = "/find_id.do" , produces = "application/text; charset=utf-8")

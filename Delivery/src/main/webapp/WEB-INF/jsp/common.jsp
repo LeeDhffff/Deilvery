@@ -109,27 +109,59 @@
 
 			$("#id_status").html('<a href="#" class="logout">로그아웃</a>')
 			if(level >= 2){
+				var auth = [];
+				$.ajax({
+					type: "POST",
+					url : "./Authority_Select.do",
+					data: {MEM_ID : uid},
+					async: false,
+			        success: function(datas){
+			        	var result = JSON.parse(datas);
+			        	
+			        	for(let i=0; i<result.length; i++){
+			        		if(result[i].AUTH == 'D' || (result[i].PAGE == 'adminDeliveryRegistMain' && result[i].AUTH == 'R')){
+					        	auth.push(result[i].PAGE);
+			        		}
+			        	}
+			        }
+				})
 				var menubar = "";
 				
-				menubar += "<li>";
-				menubar += "	<a class='Delivery' href='#'>물류 접수</a>";
-				menubar += "</li>";
+				if(auth.indexOf('adminDeliveryRegistMain') < 0){
+					menubar += "<li>";
+					menubar += "	<a class='Delivery' href='#'>물류 접수</a>";
+					menubar += "</li>";
+				}
+				if(auth.indexOf('M_Delivery_NC_List') < 0){
 				menubar += "<li>";
 				menubar += "	<a class='nc_delivery' href='#'>미완료 배송신청</a>";
 				menubar += "</li>";
+				}
+				if(auth.indexOf('M_DeliveryList') < 0){
 				menubar += "<li>";
 				menubar += '    <a class="Delivery_Search" href="#">배송조회</a>';
 				menubar += "</li>";
+				}
+				if(auth.indexOf('Outday_List') < 0){
 				menubar += "<li>";
 				menubar += '    <a class="Outday_Search" href="#">출항일 생성</a>';
 				menubar += "</li>";
+				}
+				if(auth.indexOf('DeliveryCompanyList') < 0){
 				menubar += "<li>";
 				menubar += '    <a href="DeliveryCompanyList.do">택배사 관리</a>';
 				menubar += "</li>";
+				}
+				if(auth.indexOf('MemberListPage') < 0){
 				menubar += "<li>";
 				menubar += '    <a href="MemberListPage.do">고객관리</a>';
 				menubar += "</li>";
+				}
+				menubar += "<li>";
+				menubar += '    <a href="AuthorityPage.do">권한관리</a>';
+				menubar += "</li>";
 				$(".menu").html(menubar);
+					  	
 			}
 		}
 		

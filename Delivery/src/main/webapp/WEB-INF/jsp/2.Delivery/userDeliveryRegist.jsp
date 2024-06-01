@@ -47,27 +47,33 @@
                             </div>
                             <div class="inputWrap">
                                 <h5 class="inputName"><a href="#">휴대폰 번호<span>*</span></a></h5>
-                                <input type="text" id="recPhone" name="recPhone" placeholder="라오스 수령인 전화번호를 입력해주세요" maxlength="13" oninput="oninputPhone(this);">
+                                <input type="text" id="recPhone" name="recPhone" placeholder="라오스 수령인 전화번호를 입력해주세요" oninput="oninputPhone(this);">
                             </div>
                         </div> 
 
-                        <div class="inputWrap">
-                            <h5 class="inputName"><a href="#">픽업지 선택<span>*</span></a></h5>
-                            <select name="recTarget" id="recTarget">
-                                <option value="1">본사</option>
-                                <option value="2">하우 창고</option>
-                                <option value="3">지방배송</option>
-                            </select>
+                        <div class="double">
+		                    <div class="inputWrap">
+		                    	<h5 class="inputName"><a href="#">픽업지 선택<span>*</span></a></h5>
+		                        <select name="recTarget" id="recTarget">
+		                            <option value="1">본사</option>
+		                            <option value="2">하우 창고</option>
+		                            <option value="3">지방배송</option>
+		                        </select>
+		                    </div>
+		                    <div class="inputWrap">
+	                            <h5 class="inputName"><a href="#">추가 휴대폰 번호</a></h5>
+	                        	<input type="text" id="subPhone" name="subPhone" placeholder="추가 전화번호를 입력해주세요" oninput="oninputPhone(this);">
+	                        </div>
                         </div>
 
                         <div class="double">
                             <div class="inputWrap">
                                 <h5 class="inputName"><a href="#">본사주소</a></h5>
-                                <input type="text" id="bon" placeholder="Pakthang Villsge, Sikhot District T3, Dongnatong Vientiane, LAO P.D.R" readonly>
+                                <input type="text" id="bon" value="Pakthang Villsge, Sikhot District T3, Dongnatong Vientiane, LAO P.D.R" readonly>
                             </div>
                             <div class="inputWrap">
                                 <h5 class="inputName"><a href="#">하우 창고 주소</a></h5>
-                                <input type="text" id="hou" placeholder="Pphonpapao village , Sisatttanak Dostrict,Vientiane" readonly>
+                                <input type="text" id="hou" value="phonpapao village , Sisatttanak Dostrict,Vientiane" readonly>
                                 <h5 class="inputAlarm"><a href="#">※하우창고에서 수령시 배출일 (9시~17시) 하루동안만 개봉되며 미수령시 본사로 이동됩니다.</a></h5>
                             </div>
                         </div> 
@@ -151,6 +157,7 @@
 								<!-- creday 및 chk 추가 (수정자: 이동헌) -->
                             	<input type="hidden" id="creDay" name="creDay" value="">
                             	<input type="hidden" id="chk" name="chk" placeholder="" value="N">
+                            	<input type="hidden" id="recHou" name="recHou" placeholder="상세주소" />
                             </div>
                         </div>
                        	</form>
@@ -198,6 +205,15 @@
 	    		});    			
     		}
     		
+    		/* 본사, 하우 선택시 배송지 자동 입력 */
+    		if(recTarget == 1 || recTarget == '1'){
+    			$("#recHou").val($("#bon").val());
+    		}else if(recTarget == 2 || recTarget == '2'){
+    			$("#recHou").val($("#hou").val());
+    		}else{
+    			$("#recHou").val("");
+    		}
+    		
     		if(regist){
 // 	    		console.log("formData : ", $("#formData").serialize());
 				$.ajax({
@@ -219,16 +235,17 @@
 					}
 				});    			
     		}
-    		
-    		
     	});
    	});	// document.ready end!!
-
-   	function oninputPhone(target) {
-   	    target.value = target.value
-   	        .replace(/[^0-9]/g, '')
-   	        .replace(/(^01.{1}|[0-9]{3})([0-9]{4})([0-9]{4})/g, "$1-$2-$3");
-   	}
+   	
+   	
+    // Join.jsp 참고 (이동헌)
+    function oninputPhone(target) {
+        target.value = target.value
+            .replace(/[^0-9]/g, '')
+            .replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]{4})([0-9]{4})/g, "$1-$2-$3");
+    }
+   	
     </script>
 </body>
 </html>

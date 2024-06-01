@@ -100,7 +100,19 @@
 	    color: white;
     	background: #ff5a5a;
 	}
-	#EXCEL_QR1 > img{
+	.qrdiv{
+		display: flex;
+		justify-content: center;
+	}
+	.qr_code{
+		margin-left: 10px;
+    	margin-right: 10px;
+	}
+	.qr_title{
+	    margin-left: 37px;
+    	margin-right: 37px;
+	}
+	.qr_code > img{
 		margin : 0 auto;
 	}
 	
@@ -165,14 +177,14 @@
         		<input type="hidden" id="EXCEL_IN_KEY">
         		<table class="print_table" id="print_table_1">
         			<tr style="text-align:center;"><th class="print_table_header" style="font-size:30px;" colspan="9">INVOICE</th></tr>
-        			<tr style="text-align:center;"><td style="width:20%; font-weight:bold; " colspan="2" rowspan="2">NOY</td><td></td><td>ຕູ້ທີ່1 ເດືອນ11</td><td style="background: #d7d7d7; font-weight:bold;" colspan="5">EK Logistics</td></tr>
-        			<tr style="text-align:center;"><td>고객님 귀하</td><td id="EXCEL_NAME"></td><td id="EXCEL_ADDRESS" colspan="5"></td></tr>
+        			<tr style="text-align:center;"><td style="width:20%; font-weight:bold; " colspan="2" rowspan="2" id="EXCEL_NAME"></td><td rowspan="2">고객님 귀하</td><td rowspan="2" id="EXCEL_OUT_DAY"></td><td style="background: #d7d7d7; font-weight:bold;" colspan="5">EK Logistics</td></tr>
+        			<tr style="text-align:center;"><td id="EXCEL_ADDRESS" colspan="5"></td></tr>
         			<tr style="text-align:center;"><td style="background:aliceblue; width:10%;">접수번호:<br />ລະຫັດ</td><td id="EXCEL_EK" style="background:bisque;font-weight:bold; width: 30%; font-size:20px;" colspan="3"></td><td colspan="5">TEL: +856 2099118282(LAO) / +856 2055533327(KR) <br />+856 2054155374(LAO)</td></tr>
-        			<tr style="text-align:center;"><td style="background:aliceblue;">전화번호:ເບີໂທ</td><td id="EXCEL_PHONE" colspan="3"></td><td rowspan="2" style="background:aliceblue; ">운임ລວມ</td><td id="EXCEL_TR_COST"  colspan="2" rowspan="2"></td><td style="background:bisque;font-weight:bold; " colspan="2">담당직원 서명 ຜູ້ສົ່ງເຄືອງ</td></tr>
+        			<tr style="text-align:center;"><td style="background:aliceblue;">전화번호:ເບີໂທ</td><td id="EXCEL_PHONE" colspan="3"></td><td rowspan="2" style="background:aliceblue; ">운임ລວມ</td><td id="EXCEL_COST"  colspan="2" rowspan="2"></td><td style="background:bisque;font-weight:bold; " colspan="2">담당직원 서명 ຜູ້ສົ່ງເຄືອງ</td></tr>
         			<tr style="text-align:center;"><td style="background:aliceblue;">이용연도:ປີ</td><td id="EXCEL_YEAR" colspan="3"></td><td style="color:darkgray; font-weight:bold; " colspan="2" rowspan="2">Signiture</td></tr>
-        			<tr style="text-align:center;"><td style="background:aliceblue;">물품수량:ຈ/ນແກັດ</td><td id="EXCEL_COUNT" colspan="3"></td><td style="background:aliceblue; ">할인율ສ່ວນຫຼຸດ</td><td colspan="2">0%</td></tr>
-        			<tr style="text-align:center;"><td style="background:aliceblue;">출항 월:ເດືອນ</td><td id="EXCEL_MONTH" style="background:bisque;" colspan="3"></td><td style="background:aliceblue;">할인금액 ລວມສ່ວນຫຼຸດ</td><td style="color:cornflowerblue; " colspan="2">0$</td><td style="background:gold;font-weight:bold; " colspan="2">고객/수령인 서명 ຜູ້ຮັບເຄືອງ</td></tr>
-        			<tr style="text-align:center;"><td colspan="4" rowspan="2">이용에 감사드립니다. 더 나은 서비스로 보답하겠습니다.</td><td style="font-weight:bold;" colspan="1" rowspan="2">청구액 ລວມຕ້ອງຈ່າຍ</td><td  id="EXCEL_COST" style="color:red; font-weight:bold;  " colspan="2" rowspan="2"></td><td style="color:darkgray; font-weight:bold; " colspan="2" rowspan="2">Signiture</td></tr>
+        			<tr style="text-align:center;"><td style="background:aliceblue;">물품수량:ຈ/ນແກັດ</td><td id="EXCEL_COUNT" colspan="3"></td><td style="background:aliceblue; ">할인율ສ່ວນຫຼຸດ</td><td id="EXCEL_DISCOUNT" colspan="2"></td></tr>
+        			<tr style="text-align:center;"><td style="background:aliceblue;">출항 월:ເດືອນ</td><td id="EXCEL_MONTH" style="background:bisque;" colspan="3"></td><td style="background:aliceblue;">할인금액 ລວມສ່ວນຫຼຸດ</td><td id="EXCEL_DISCOUNT_COST" style="color:cornflowerblue; " colspan="2"></td><td style="background:gold;font-weight:bold; " colspan="2">고객/수령인 서명 ຜູ້ຮັບເຄືອງ</td></tr>
+        			<tr style="text-align:center;"><td colspan="4" rowspan="2">이용에 감사드립니다. 더 나은 서비스로 보답하겠습니다.</td><td style="font-weight:bold;" colspan="1" rowspan="2">청구액 ລວມຕ້ອງຈ່າຍ</td><td  id="EXCEL_TR_COST" style="color:red; font-weight:bold;  " colspan="2" rowspan="2"></td><td style="color:darkgray; font-weight:bold; " colspan="2" rowspan="2">Signiture</td></tr>
         			<tr></tr>
         			<tr style="text-align:center; height:150px;"><td colspan="4">
         				※이용약관에 따라 운임은 중량과 부피 기반 환산금액중 높은쪽으로 청구되며, 
@@ -180,15 +192,18 @@
 						※ອີງຕາມຂໍ້ກຳນົດ ແລະເງື່ອນໄຂ, ຄ່າຂົນສົ່ງແມ່ນຄິດໄລ່ ຕາມຂະໜາດ ,ນ້ຳໜັກ,ແລະ ປະລິມານ ຂອງສີນຄ້າ , 
 						ຄ່າຂົນສົ່ງຂັ້ນຕ່ຳແມ່ນ $10.
         			</td><td colspan="5">
-        			<div id="EXCEL_QR1"></div>
-<!--         			(USD)    -->
-        			(KIP)</td></tr>
+        			<div class="qrdiv">
+        			<div class="qr_code" id="EXCEL_QR1"></div>
+        			<div class="qr_code" id="EXCEL_QR2"></div>
+        			</div>
+        			<span class="qr_title">(USD)</span>   
+        			<span class="qr_title">(KIP)</span></td></tr>
         			<tr style="text-align:center;"><td rowspan="2" colspan="4">원화결제 →하나은행 : 윤병인 369-810087-61207<br />ບັນຊີ ຢູ່ ເກົາຫຼີ </td><td colspan="5">BCEL BANK : MR HOUMPHAN SIHAPANYA</td></tr>
         			<tr style="text-align:center;"><td colspan="3">010-12-01-01761708-001 (USD)</td><td colspan="2">010-12-0001761708-001 (KIP)</td></tr>
         		</table>
         		<table class="print_table" id="print_table_2">
         			<thead>
-        				<tr style="background:aliceblue;"><th>내품</th><th>중량</th><th>장</th><th>폭</th><th>고</th><th>용적중량</th><th>기준가</th><th>청구중량</th><th>청구운임</th></tr>
+        				<tr style="background:aliceblue;"><th>중량</th><th>장</th><th>폭</th><th>고</th><th>용적중량</th><th>청구중량</th><th>청구운임</th></tr>
         			</thead>
         			<tbody>
         			</tbody>
@@ -245,23 +260,21 @@
 			for(let j=0; j<tbody_length; j++){
 
 				var now_inkey  = in_keys[j];
-				const imageData = ($("#qr_" + now_inkey).find("canvas")[0] != null) ? $("#qr_" + now_inkey).find("canvas")[0].toDataURL("image/png", 0.5)
-								: "";
+				const imageData = $("#EXCEL_QR1").find("canvas")[0].toDataURL("image/png", 0.5);
+				const imageData2 = $("#EXCEL_QR2").find("canvas")[0].toDataURL("image/png", 0.5);
 				console.log(imageData);
 				
 				var Ddatas = [];
 				var sub_length = sub_table[now_inkey].length
 				for(let k=0; k<sub_length; k++){
 					var Ddata = {};
-					Ddata["CELL0"] = sub_table[now_inkey][k].REC_TXT;
-					Ddata["CELL1"] = sub_table[now_inkey][k].WEIGHT;
-					Ddata["CELL2"] = sub_table[now_inkey][k].WIDTH;
-					Ddata["CELL3"] = sub_table[now_inkey][k].LENGTH;
-					Ddata["CELL4"] = sub_table[now_inkey][k].HEIGHT;
-					Ddata["CELL5"] = sub_table[now_inkey][k].LNCOST;
-					Ddata["CELL6"] = sub_table[now_inkey][k].COST;
-					Ddata["CELL7"] = sub_table[now_inkey][k].WEIGHT;
-					Ddata["CELL8"] = "10$";
+					Ddata["CELL0"] = sub_table[now_inkey][k].WEIGHT;
+					Ddata["CELL1"] = sub_table[now_inkey][k].WIDTH;
+					Ddata["CELL2"] = sub_table[now_inkey][k].LENGTH;
+					Ddata["CELL3"] = sub_table[now_inkey][k].HEIGHT;
+					Ddata["CELL4"] = sub_table[now_inkey][k].LNCOST;
+					Ddata["CELL5"] = sub_table[now_inkey][k].WEIGHT;
+					Ddata["CELL6"] = sub_table[now_inkey][k].COST+"$";
 					
 					Ddatas.push(Ddata);
 				}
@@ -270,15 +283,19 @@
 					IN_KEY : 		main_table[now_inkey].IN_KEY,
 					EXCEL_NAME : 	main_table[now_inkey].REC_NM ,
 					EXCEL_ADDRESS : main_table[now_inkey].REC_ADDRESS,
+					EXCEL_OUT_DAY : main_table[now_inkey].OUT_DAY,
 					EXCEL_PHONE : 	main_table[now_inkey].REC_PHONE,
 					EXCEL_YEAR : 	main_table[now_inkey].YEAR,
 					EXCEL_COUNT : 	main_table[now_inkey].COUNT,
 					EXCEL_MONTH:	main_table[now_inkey].MONTH,
-					EXCEL_TR_COST: 	main_table[now_inkey].TR_COST,
 					EXCEL_COST:		main_table[now_inkey].COST,
+					EXCEL_DISCOUNT:		main_table[now_inkey].DISCOUNT,
+					EXCEL_DIS_COST:		main_table[now_inkey].DIS_COST,
+					EXCEL_TR_COST: 	main_table[now_inkey].TR_COST,
 					EXCEL_EK:		main_table[now_inkey].EK,
 					EXCEL_TABLE_NUM: sub_length,
-					EXCEL_QR : imageData,
+// 					EXCEL_QR : imageData,
+// 					EXCEL_QR2 : imageData2,
 					EXCEL_TABLE : Ddatas
 				}
 				deliverydata.push(d_data);
@@ -297,12 +314,15 @@
 				parsing += deliverydata[i].IN_KEY;
 				parsing += "_,_"+ deliverydata[i].EXCEL_NAME;
 				parsing += "_,_"+ deliverydata[i].EXCEL_ADDRESS;
+				parsing += "_,_"+ deliverydata[i].EXCEL_OUT_DAY;
 				parsing += "_,_"+ deliverydata[i].EXCEL_PHONE;
 				parsing += "_,_"+ deliverydata[i].EXCEL_YEAR;
 				parsing += "_,_"+ deliverydata[i].EXCEL_COUNT;
 				parsing += "_,_"+ deliverydata[i].EXCEL_MONTH;
-				parsing += "_,_"+ deliverydata[i].EXCEL_TR_COST;
 				parsing += "_,_"+ deliverydata[i].EXCEL_COST;
+				parsing += "_,_"+ deliverydata[i].EXCEL_DISCOUNT;
+				parsing += "_,_"+ deliverydata[i].EXCEL_DIS_COST;
+				parsing += "_,_"+ deliverydata[i].EXCEL_TR_COST;
 				parsing += "_,_"+ deliverydata[i].EXCEL_EK;
 				parsing += "_,_"+ deliverydata[i].EXCEL_TABLE_NUM;
 				parsing += "_,_";
@@ -319,7 +339,8 @@
 					}
 						
 				}
-				parsing += "_,_"+ deliverydata[i].EXCEL_QR;
+// 				parsing += "_,_"+ deliverydata[i].EXCEL_QR;
+// 				parsing += "_,_"+ deliverydata[i].EXCEL_QR2;
 // 				if(i != deliverydata.length - 1){
 					parsing += "|"
 // 				}
@@ -376,6 +397,13 @@
 			startPrint('print_div');
 			
 		})
+		
+
+		$("#EXCEL_QR1").empty();
+		$("#EXCEL_QR2").empty();
+		qrCreate("EXCEL_QR1", "010-12-01-01761708-001");	
+		qrCreate("EXCEL_QR2", "010-12-0001761708-001");    
+		
 	})
 	
 	function PrintPageLoad(in_key){
@@ -384,6 +412,7 @@
 			$("#EXCEL_ADDRESS").text(main_table[in_key].REC_ADDRESS);
 			$("#EXCEL_PHONE").text(main_table[in_key].REC_PHONE);
 			$("#EXCEL_YEAR").text(main_table[in_key].YEAR);
+			$("#EXCEL_OUT_DAY").text(main_table[in_key].OUT_DAY);
 			$("#EXCEL_COUNT").text(main_table[in_key].COUNT);
 			$("#EXCEL_MONTH").text(main_table[in_key].MONTH);
 			$("#EXCEL_IN_KEY").val(main_table[in_key].IN_KEY);
@@ -391,9 +420,9 @@
 		
 			$("#EXCEL_TR_COST").text(main_table[in_key].TR_COST);
 			$("#EXCEL_COST").text(main_table[in_key].COST);
+			$("#EXCEL_DISCOUNT").text(main_table[in_key].DISCOUNT);
+			$("#EXCEL_DISCOUNT_COST").text(main_table[in_key].DIS_COST);
 			
-			$("#EXCEL_QR1").empty();
-    		qrCreate("EXCEL_QR1", main_table[in_key].qrTxt);	     
 			
 		
 			$("#print_table_2 > tbody").empty();
@@ -402,15 +431,13 @@
 			for(let i=0; i<sub_table[in_key].length; i++){
 				var sol = sub_table[in_key][i];
 				PrintString += '<tr class="tr'+i+'">';
-				PrintString += '<td>'+sub_table[in_key][i].REC_TXT+'</td>';
 				PrintString += '<td>'+sub_table[in_key][i].WEIGHT+'</td>';
 				PrintString += '<td>'+sub_table[in_key][i].WIDTH+'</td>';
 				PrintString += '<td>'+sub_table[in_key][i].LENGTH+'</td>';
 				PrintString += '<td>'+sub_table[in_key][i].HEIGHT+'</td>';
 				PrintString += '<td>'+sub_table[in_key][i].LNCOST+'</td>';
-				PrintString += '<td>'+sub_table[in_key][i].COST+'</td>';
 				PrintString += '<td>'+sub_table[in_key][i].WEIGHT3+'</td>';
-				PrintString += '<td>10$</td>';
+				PrintString += '<td>'+sub_table[in_key][i].COST+'$</td>';
 				PrintString += '</tr>';
 			
 			};
