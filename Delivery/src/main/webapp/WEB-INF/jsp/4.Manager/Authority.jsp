@@ -76,6 +76,21 @@
 	#Authority_Table > tbody{
 		display:none;
 	}
+	.firstth{
+		width: 100px;
+	}
+	.lastth{
+		width: 200px;
+	}
+	.auth_status{
+		color: green;
+	}
+	.auth_status.td_R{
+		color: blue;
+	}
+	.auth_status.td_D{
+		color: red;
+	}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -137,14 +152,14 @@
                             <table id="Authority_Table">
                                 <thead>
                                     <tr>
-                                        <th>
+                                        <th class="firstth">
 	                                        <div class="checkAllth">
 		                                        <input type="checkbox" id="checkAll" class="List_Check All">
 		                                        <label for="checkAll"><button class="checkAll"></button></label>
 	                                        </div>
                                         </th>
                                         <th>페이지</th>
-                                        <th>권한</th>
+                                        <th class="lastth">권한</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -372,6 +387,8 @@
 
 		$(".auth").val("W");
 		$(".auth_status").text("쓰기/읽기");
+		$(".auth_status").removeClass("td_R");
+		$(".auth_status").removeClass("td_D");
 		if(mode == 'D'){
 			$("#Authority_Table > tbody").hide();
 			$(".sidebutton").prop("disabled",true);
@@ -395,6 +412,7 @@
 	            	for(let i=0; i<result.length; i++){
 	            		$("#" + result[i].PAGE).find(".auth").val(result[i].AUTH);
 	            		$("#" + result[i].PAGE).find(".auth_status").text(result[i].AUTH_NM);
+	            		$("#" + result[i].PAGE).find(".auth_status").addClass("td_" + result[i].AUTH);
 	            	}
 	            	
 	            }
@@ -413,7 +431,12 @@
 			
 			$("input:checkbox[name=List_Check]:checked").each(function(){
 				$(this).parents("tr").find(".auth").val(mode);
-				$(this).parents("tr").find(".auth_status").text(authtext);					
+				$(this).parents("tr").find(".auth_status").text(authtext);			
+				$(this).parents("tr").find(".auth_status").removeClass("td_R");
+				$(this).parents("tr").find(".auth_status").removeClass("td_D");
+				if(mode != 'W'){
+					$(this).parents("tr").find(".auth_status").addClass("td_" + mode);	
+				}			
 			});
 		}
 		

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import delivery.C_Delivery.service.DeliveryService;
+import delivery.D_Manager.service.ManagerService;
 import delivery.E_Mobile.service.MobileService;
 
 @Controller
@@ -27,7 +28,10 @@ public class MobileController {
 
 	@Resource(name = "DeliveryService")
 	private DeliveryService DeliveryService;
-	
+
+	@Resource(name = "ManagerService")
+	private ManagerService ManagerService;
+
 	
 	// 모바일 로딩창으로 이동 //
 	@RequestMapping("/Mobile.do")
@@ -93,12 +97,17 @@ public class MobileController {
 		ModelAndView mav = new ModelAndView();
 
 		HttpSession httpSession = request.getSession(true);
-		
+
 		if(httpSession.getAttribute("SESSION_MEM_NM") != null){
 
 			mav.addObject("memNm", (String)(httpSession.getAttribute("SESSION_MEM_NM")));
 		}
 
+		inputMap.put("MEM_ID",(String)session.getAttribute("SESSION_MEM_ID"));
+		List<HashMap<String, String>> ManagerList = ManagerService.Authority_Select(inputMap);
+
+		mav.addObject("R_List", ManagerList);
+		
 		mav.setViewName("8.MobileManager/MobileManagerMain");
 		
 		return mav;
