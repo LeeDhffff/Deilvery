@@ -39,12 +39,14 @@
 	display:flex;
 /* 	margin-right:100px; */
 	float:left;
+    width: 77%;
 }
 .totalh4 > h4{
 	margin-left:10px;
 	margin-right:10px;
 /*     font-size: 20px; */
     width: 130px;
+    
 }
 .totalh4 > h4 > span{
 	color: red;
@@ -178,7 +180,7 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>EK</th>
+                                <th>송장번호</th>
                                 <th>출항일</th>
                                 <th>수령인</th>
                                 <th>전화번호</th>
@@ -205,9 +207,16 @@
 	var uid = '<%=(String)session.getAttribute("SESSION_MEM_ID")%>';
 	var uid2 = '<%=(String)session.getAttribute("SESSION_PROTO_ID")%>';
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
+	var auth = '${M_AUTH}';
 
 	$(document).on('ready',function(){
-		
+
+		if(auth == 'R'){
+			$(".modify").remove();
+		}		
+		else if(auth == 'D'){
+			location.href = "Mobile_ManagerMain.do";
+		}
 		
 		$(".back").on("click",function(){
 			history.back();
@@ -378,7 +387,7 @@
 // 		}
 		$(".total_cbm").text(Math.round( cbm* 100)/100);
 		$(".total_box").text(total_count);
-		$(".total_weight").text(weight);
+		$(".total_weight").text(Math.round( weight* 100)/100);
 
 		
 	}

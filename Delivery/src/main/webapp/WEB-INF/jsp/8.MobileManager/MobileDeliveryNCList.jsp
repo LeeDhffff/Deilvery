@@ -77,8 +77,15 @@
 	var uid = '<%=(String)session.getAttribute("SESSION_MEM_ID")%>';
 	var uid2 = '<%=(String)session.getAttribute("SESSION_PROTO_ID")%>';
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
+	var auth = '${M_AUTH}';
 
 	$(document).on('ready',function(){
+
+		if(auth == 'R'){
+		}		
+		else if(auth == 'D'){
+			location.href = "Mobile_ManagerMain.do";
+		}
 		
 
 		
@@ -120,7 +127,9 @@
 			
 
 			/* 미완료 배송신청으로 이동 */
-			location.href = "mAdminDeliveryRegistMain.do?ik=" +nc;
+			if(auth != 'R'){
+				location.href = "mAdminDeliveryRegistMain.do?ik=" +nc;		
+			}
 		})
 		
 		 

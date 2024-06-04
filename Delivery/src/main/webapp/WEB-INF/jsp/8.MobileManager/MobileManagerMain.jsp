@@ -123,9 +123,15 @@
                             <span class="icon customer"></span>
                             고객 관리
                         </a>
-                    </button>                      
+                    </button>                   
                 </div>
-                <div class="buttonCon">                  
+                <div class="buttonCon">     
+                    <button class="authority">
+                        <a href="#">
+                            <span class="icon customer"></span>
+                            권한 관리
+                        </a>
+                    </button>                 
                 </div>
             </div> 
                          
@@ -138,9 +144,33 @@
 	var uid = '<%=(String)session.getAttribute("SESSION_MEM_ID")%>';
 	var uid2 = '<%=(String)session.getAttribute("SESSION_PROTO_ID")%>';
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
+	var rlist = JSON.parse('${R_List}');
 
 	$(document).on('ready',function(){
 		
+		for(let r = 0; r < rlist.length; r++){
+			if(rlist[r].PAGE == 'adminDeliveryRegistMain'){
+				$("button.register").remove();	
+			}
+			else if(rlist[r].PAGE == 'AuthorityPage' && rlist[r].AUTH == 'D'){
+				$("button.authority").remove();	
+			}
+			else if(rlist[r].PAGE == 'DeliveryCompanyList' && rlist[r].AUTH == 'D'){
+				$("#delivery_company").remove();	
+			}
+			else if(rlist[r].PAGE == 'MemberListPage' && rlist[r].AUTH == 'D'){
+				$("button.customer").remove();	
+			}
+			else if(rlist[r].PAGE == 'M_DeliveryList' && rlist[r].AUTH == 'D'){
+				$("#Delivery_Search").remove();	
+			}
+			else if(rlist[r].PAGE == 'M_Delivery_NC_List' && rlist[r].AUTH == 'D'){
+				$("button.nc_register").remove();	
+			}
+			else if(rlist[r].PAGE == 'Outday_List' && rlist[r].AUTH == 'D'){
+				$("button.outdate").remove();	
+			}
+		};
 
 		if(uid != "null" || uid2 != "null"){
 			$("#tologin").remove();
@@ -225,6 +255,13 @@
 			else if(uid == "null" && uid2 == "null"){
 				alert("로그인이 필요한 서비스입니다.")
 			}
+		})
+		/* 권한관리로 이동 */
+		$(".authority").on("click",function(){
+			if(uid != "null"){
+				location.href="Mobile_AuthorityPage.do";
+			}
+			
 		})
 		
 		$("#tologout").on("click",function(){

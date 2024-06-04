@@ -272,7 +272,27 @@
 
 		LIMIT 1;
 	</select>
+		
+	<!-- 수령인 조회 -->
+	<select id="memberList" parameterType="hashmap" resultType="hashmap">
+		/* memberList */
+		SELECT 
+			CONCAT(CONCAT(CONCAT('[', MEM_ID), '] '), NAME) AS memId,
+			MEM_ID AS recNm
+		FROM member
+		WHERE LEVEL != 2
+		ORDER BY NAME;
+	</select>
 	
+	<!-- 물류접수자 level 조회 -->
+	<select id="chkLevel" parameterType="hashmap" resultType="hashmap">
+		/* chkLevel */
+		SELECT 
+			m.LEVEL AS memLevel
+		FROM application a
+		LEFT JOIN member m on a.MEM_ID = m.MEM_ID
+		WHERE a.IN_KEY = #{inKey};		
+	</select>
 	
 	
 </mapper>

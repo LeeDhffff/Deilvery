@@ -222,11 +222,19 @@ public class DeliveryRegistController {
 		
 		// 택배사 데이터 가지고 오기
 		List<HashMap<String, String>> shipComList = delRegistService.shipComList(inputMap);
+		
+		// 수령인 정보 가지고 오기
+		List<HashMap<String, String>> memberList = delRegistService.memberList(inputMap);
+		
+		// 물류접수자 level 조회
+		HashMap<String, String> chkLevel = delRegistService.chkLevel(inputMap);
 
 		mav.addObject("result", ingDelRead);
 		mav.addObject("outDayList", outDayList);
 		mav.addObject("packInfo", packInfo);
 		mav.addObject("shipComList", shipComList);
+		mav.addObject("memberList", memberList);
+		mav.addObject("chkLevel", chkLevel);
 		
 		mav.setViewName("2.Delivery/adminDeliveryRegist");
 		
@@ -287,9 +295,18 @@ public class DeliveryRegistController {
 		// 택배사 데이터 가지고 오기
 		List<HashMap<String, String>> shipComList = delRegistService.shipComList(inputMap);
 		
+		// 수령인 정보 가지고 오기
+		List<HashMap<String, String>> memberList = delRegistService.memberList(inputMap);
+
+		// 물류접수자 level 조회
+		HashMap<String, String> chkLevel = delRegistService.chkLevel(inputMap);
+		
 		mav.addObject("inputMap", inputMap);
 		mav.addObject("result", ingDelRead);		
-		mav.addObject("shipComList", shipComList);		
+		mav.addObject("shipComList", shipComList);
+		mav.addObject("memberList", memberList);
+		mav.addObject("chkLevel", chkLevel);
+		
 		mav.setViewName("7.MobileDelivery/mAdminDeliveryRegist_A");
 		
 		System.out.println("[inputMap] mAdminDeliveryRegistMain : " + inputMap);

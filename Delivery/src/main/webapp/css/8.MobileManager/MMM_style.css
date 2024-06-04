@@ -218,5 +218,14 @@ section
     height: 36px;
     margin: 0 auto 10px;
 } 
+.buttonCon button.authority a span.icon.customer
+{
+    background-image: url(../../images/m_icon/people_info.svg);
+    width: 36px;
+    background-size: 100%;
+    display: block;
+    height: 36px;
+    margin: 0 auto 10px;
+} 
 
 

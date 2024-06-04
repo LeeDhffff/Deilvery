@@ -187,10 +187,15 @@ public class ManagerController {
 		ModelAndView mav = new ModelAndView();
 
 		HttpSession httpSession = request.getSession(true);
+
+		inputMap.put("MEM_ID",(String)session.getAttribute("SESSION_MEM_ID"));
+		inputMap.put("PAGE","AuthorityPage");
 		
+		String ManagerList2 = ManagerService.Authority_CHK(inputMap);
 		List<HashMap<String, String>> ManagerList = ManagerService.Manager_List(inputMap);
 		
 		mav.addObject("M_List",ManagerList);
+		mav.addObject("M_AUTH",ManagerList2);
 		mav.setViewName("4.Manager/Authority");
 		
 		return mav;

@@ -157,9 +157,11 @@
 				menubar += '    <a href="MemberListPage.do">고객관리</a>';
 				menubar += "</li>";
 				}
+				if(auth.indexOf('AuthorityPage') < 0){
 				menubar += "<li>";
 				menubar += '    <a href="AuthorityPage.do">권한관리</a>';
 				menubar += "</li>";
+				}
 				$(".menu").html(menubar);
 					  	
 			}

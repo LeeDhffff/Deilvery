@@ -121,9 +121,16 @@
 	var uid = '<%=(String)session.getAttribute("SESSION_MEM_ID")%>';
 	var uid2 = '<%=(String)session.getAttribute("SESSION_PROTO_ID")%>';
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
+	var auth = '${M_AUTH}';
 
 	$(document).on('ready',function(){
-		
+
+		if(auth == 'R'){
+			$(".icon.plus").remove();
+		}		
+		else if(auth == 'D'){
+			location.href = "Mobile_ManagerMain.do";
+		}
 
 		$(".back").on("click",function(){
 			history.back();

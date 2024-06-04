@@ -53,7 +53,26 @@
             </div>
             <div class="inputWrap">
                 <h5 class="inputName"><a href="#">수령인<span>*</span></a></h5>
-                <input type="text" id="recNm" name="recNm" value="${result.recNm}" placeholder="라오스 수령인 성함을 입력해주세요">
+                <c:choose>
+                	<c:when test="${chkLevel.memLevel == 1 || chkLevel.memLevel == 0}">
+                		<input type="text" id="recNm" name="recNm" value="${result.recNm}" placeholder="라오스 수령인 성함을 입력해주세요">
+                	</c:when>
+                	<c:otherwise>
+						<select name="recNm" id="recNm">
+		                	<option value="N">수령인 선택</option>
+								<c:forEach var="item" items="${memberList }">
+									<c:choose>
+										<c:when test="${item.recNm eq result.recNm }">
+											<option value="${item.recNm }" selected>${item.memId }</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${item.recNm }">${item.memId }</option>                            			
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+						</select>
+                	</c:otherwise>
+                </c:choose>
             </div>
             <div class="inputWrap">
                 <h5 class="inputName"><a href="#">휴대폰 번호<span>*</span></a></h5>
@@ -183,6 +202,13 @@
     				return false;
     			}
     		});
+   			
+   			// 수령인 선택 유효성 검사
+   			if($("#recNm").val()=='N'){
+    			alert("수령인을 선택해주세요.");
+    			$("#recNm").focus();
+				regist = false;
+   			}
    			
    			/* memId 추가 (240429 장연우) */
     		if($("#memId").val() == '' || $("#memId").val() == null){

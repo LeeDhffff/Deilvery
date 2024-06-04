@@ -106,7 +106,10 @@ public class MobileController {
 		inputMap.put("MEM_ID",(String)session.getAttribute("SESSION_MEM_ID"));
 		List<HashMap<String, String>> ManagerList = ManagerService.Authority_Select(inputMap);
 
-		mav.addObject("R_List", ManagerList);
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr = mapper.writeValueAsString(ManagerList);
+		
+		mav.addObject("R_List", jsonStr);
 		
 		mav.setViewName("8.MobileManager/MobileManagerMain");
 		
@@ -196,6 +199,11 @@ public class MobileController {
 		ModelAndView mav = new ModelAndView();
 		
 
+		inputMap.put("MEM_ID",(String)session.getAttribute("SESSION_MEM_ID"));
+		inputMap.put("PAGE","M_Delivery_NC_List");
+		
+		String ManagerList = ManagerService.Authority_CHK(inputMap);
+		mav.addObject("M_AUTH",ManagerList);
 		mav.setViewName("8.MobileManager/MobileDeliveryNCList");
 		
 		return mav;
@@ -206,7 +214,12 @@ public class MobileController {
 	public ModelAndView DeliveryList(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception  {
 
 		ModelAndView mav = new ModelAndView();
+
+		inputMap.put("MEM_ID",(String)session.getAttribute("SESSION_MEM_ID"));
+		inputMap.put("PAGE","M_DeliveryList");
 		
+		String ManagerList = ManagerService.Authority_CHK(inputMap);
+		mav.addObject("M_AUTH",ManagerList);
 
 		mav.setViewName("8.MobileManager/MobileDeliveryList");
 		
@@ -218,6 +231,11 @@ public class MobileController {
 	public ModelAndView OutdayList(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception  {
 
 		ModelAndView mav = new ModelAndView();
+		inputMap.put("MEM_ID",(String)session.getAttribute("SESSION_MEM_ID"));
+		inputMap.put("PAGE","Outday_List");
+		
+		String ManagerList = ManagerService.Authority_CHK(inputMap);
+		mav.addObject("M_AUTH",ManagerList);
 		
 
 		mav.setViewName("8.MobileManager/MobileOutdayList");
@@ -230,6 +248,11 @@ public class MobileController {
 	public ModelAndView MobileOutday(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception  {
 
 		ModelAndView mav = new ModelAndView();
+		inputMap.put("MEM_ID",(String)session.getAttribute("SESSION_MEM_ID"));
+		inputMap.put("PAGE","Outday_List");
+		
+		String ManagerList = ManagerService.Authority_CHK(inputMap);
+		mav.addObject("M_AUTH",ManagerList);
 		
 
 		mav.setViewName("8.MobileManager/MobileOutday");
@@ -242,18 +265,46 @@ public class MobileController {
 	public ModelAndView DeliveryCompanyList(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception  {
 
 		ModelAndView mav = new ModelAndView();
+		inputMap.put("MEM_ID",(String)session.getAttribute("SESSION_MEM_ID"));
+		inputMap.put("PAGE","DeliveryCompanyList");
 		
+		String ManagerList = ManagerService.Authority_CHK(inputMap);
+		mav.addObject("M_AUTH",ManagerList);
 
 		mav.setViewName("8.MobileManager/MobileDeliveryCompanyList");
 		
 		return mav;
 	}
-	
+
+	/* 모바일 관리자용 택배사 관리 페이지로 이동 */
+	@RequestMapping("/Mobile_AuthorityPage.do")
+	public ModelAndView AuthorityPage(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception  {
+
+		ModelAndView mav = new ModelAndView();
+		inputMap.put("MEM_ID",(String)session.getAttribute("SESSION_MEM_ID"));
+		inputMap.put("PAGE","AuthorityPage");
+		
+
+		String ManagerList2 = ManagerService.Authority_CHK(inputMap);
+		List<HashMap<String, String>> ManagerList = ManagerService.Manager_List(inputMap);
+		
+		mav.addObject("M_List",ManagerList);
+		mav.addObject("M_AUTH",ManagerList2);
+
+		mav.setViewName("8.MobileManager/MobileAuthority");
+		
+		return mav;
+	}
 	/* 모바일 관리자용 회원 관리 페이지로 이동 */
 	@RequestMapping("/Mobile_M_MemberList.do")
 	public ModelAndView MemberList(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception  {
 
 		ModelAndView mav = new ModelAndView();
+		inputMap.put("MEM_ID",(String)session.getAttribute("SESSION_MEM_ID"));
+		inputMap.put("PAGE","MemberListPage");
+		
+		String ManagerList = ManagerService.Authority_CHK(inputMap);
+		mav.addObject("M_AUTH",ManagerList);
 		
 
 		mav.setViewName("8.MobileManager/MobileMemberList");

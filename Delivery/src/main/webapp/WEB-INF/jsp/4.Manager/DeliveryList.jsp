@@ -236,7 +236,7 @@ input[type=checkbox]{
                                         <label for="checkAll"><button class="checkAll">All</button></label>
                                         </div>
                                         </th>
-                                        <th>EK</th>
+                                        <th>배송번호</th>
                                         <th>출항일</th>
                                         <th>수령인</th>
                                         <th>픽업지</th>
@@ -647,13 +647,15 @@ input[type=checkbox]{
 								}
 								
 								if(D_result.length > 0){
-
+									cost = Math.round(cost * 100) / 100;
 									const cn1 = cost.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+									const cn2 = (cn1.indexOf(",") > 0) ? cn1.replace(",","")
+												:cn1;
 									
 									mk["COST"] = cn1 + "$";
-									mk["DIS_COST"] = (Number(cn1) * A_result[0].DISCOUNT / 100 ) + "$";
+									mk["DIS_COST"] = (Number(cn2) * A_result[0].DISCOUNT / 100 ) + "$";
 // 									console.log(Number(cn1) - (Number(cn1) * A_result[0].DISCOUNT / 100));
-									mk["TR_COST"] = (Math.round((Number(cn1) - (Number(cn1) * A_result[0].DISCOUNT / 100))*100)/100) + "$";
+									mk["TR_COST"] = (Math.round((Number(cn2) - (Number(cn2) * A_result[0].DISCOUNT / 100))*100)/100) + "$";
 									mk["EK"] = D_result[0].SJ_KEY.split("-")[0];
 									
 // 						        	const qrInfoArr = new Array();

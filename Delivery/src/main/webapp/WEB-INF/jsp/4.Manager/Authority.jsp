@@ -211,6 +211,14 @@
                                         <input type="hidden" class="page" value="MemberListPage">
                                         <input type="hidden" class="mpage" value="Mobile_M_MemberList">
                                     </tr>
+                                     <tr class='tr6' cnum="6" id="AuthorityPage">
+                                        <td class='sub'><input type='checkbox' name='List_Check' class='List_Check sub' style=''></td>
+                                        <td>권한관리</td>
+                                        <td class="auth_status">쓰기/읽기</td>
+                                        <input type="hidden" class="auth" value="W">
+                                        <input type="hidden" class="page" value="AuthorityPage">
+                                        <input type="hidden" class="mpage" value="AuthorityPage">
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -226,6 +234,7 @@
 	var uid = '<%=(String)session.getAttribute("SESSION_MEM_ID")%>';
 	var uid2 = '<%=(String)session.getAttribute("SESSION_PROTO_ID")%>';
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
+	var auth = '${M_AUTH}';
 
 	console.log(level);
  
@@ -236,7 +245,14 @@
 				   location.href = "Main.do";
 			   }
 			}
-		
+
+		if(auth == 'R'){
+			$(".sidebutton").remove();
+		}		
+		else if(auth == 'D'){
+			location.href = "Main.do";
+		}
+
 
 // 		/* 테이블 클릭시 해당 회원 정보 열람 / 수정페이지로 이동 */
 // 		$(document).on("click","#Company_Table > tbody > tr",function(){
@@ -401,6 +417,12 @@
 					MEM_ID : $("#A_ID").val()
 			}
 
+			if($("#A_ID").val() == uid){
+				$(".tr6").hide();
+			}
+			else{
+				$(".tr6").show();	
+			}
 			$.ajax({
 				type: "POST",
 				url : "./Authority_Select.do",
@@ -458,29 +480,50 @@
             	var success = 0;
             	if(datas == 'Y'){
 					
-            		for(let i=0; i<6; i++){
+            		for(let i=0; i<$("#Authority_Table > tbody > tr").length; i++){
             			if($(".tr" + i).find(".auth").val() != 'W'){
-							var authPage={
-								MEM_ID : $("#A_ID").val(),
-								PAGE : $(".tr" + i).find(".page").val(),
-								M_PAGE : $(".tr" + i).find(".mpage").val(),
-								AUTH : $(".tr" + i).find(".auth").val()
-							}
-                    		$.ajax({
-                    			type: "POST",
-                    			url : "./Authority_Insert.do",
-                    			data: authPage,
-                    			async: false,
-                                success: function(datas2){
-                                	if(datas2 == 'SUCCESS'){
-                                		success++;
-                                	}
-                                }
-                    		});
+            				if(i < 6){
+								var authPage={
+									MEM_ID : $("#A_ID").val(),
+									PAGE : $(".tr" + i).find(".page").val(),
+									M_PAGE : $(".tr" + i).find(".mpage").val(),
+									AUTH : $(".tr" + i).find(".auth").val()
+								}
+	                    		$.ajax({
+	                    			type: "POST",
+	                    			url : "./Authority_Insert.do",
+	                    			data: authPage,
+	                    			async: false,
+	                                success: function(datas2){
+	                                	if(datas2 == 'SUCCESS'){
+	                                		success++;
+	                                	}
+	                                }
+	                    		});
+            				}
+            				if(i == 6 && uid != $("#A_ID").val()){
+								var authPage={
+									MEM_ID : $("#A_ID").val(),
+									PAGE : $(".tr" + i).find(".page").val(),
+									M_PAGE : $(".tr" + i).find(".mpage").val(),
+									AUTH : $(".tr" + i).find(".auth").val()
+								}
+	                    		$.ajax({
+	                    			type: "POST",
+	                    			url : "./Authority_Insert.do",
+	                    			data: authPage,
+	                    			async: false,
+	                                success: function(datas2){
+	                                	if(datas2 == 'SUCCESS'){
+	                                		success++;
+	                                	}
+	                                }
+	                    		});
+            				}
             			}
             		}
             		if(success > 0 ){
-            			alert(success+" 건의 페이지의 권한을 변경하였습니다.")
+            			alert("변경된 권한이 적용되었습니다.")
             		}
             		else{
             			alert("모든 권한을 쓰기/읽기로 전환하였습니다.")

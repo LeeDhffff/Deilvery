@@ -177,9 +177,16 @@
 	var uid = '<%=(String)session.getAttribute("SESSION_MEM_ID")%>';
 	var uid2 = '<%=(String)session.getAttribute("SESSION_PROTO_ID")%>';
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
-
+	var auth = '${M_AUTH}';
+	
 	$(document).on('ready',function(){
-		
+
+		if(auth == 'R'){
+			$(".create").remove();
+		}		
+		else if(auth == 'D'){
+			location.href = "Mobile_ManagerMain.do";
+		}
 
 		$(".back").on("click",function(){
 			history.back();
@@ -339,7 +346,9 @@
 						tbodyData += "<tr><td>"+(String)(i+1)+"<input type='hidden' class='target' value='"+result[i].TARGET+"'></td>";
 						tbodyData += "<td>"+result[i].T_NAME+"</td>";
 						tbodyData += "<td>"+result[i].USEAGE+"</td>";
-						tbodyData += "<td><button class='modimode'><img src='./images/pc_icon/modify_black.svg'></button></td>"
+						if(auth != 'R'){
+							tbodyData += "<td><button class='modimode'><img src='./images/pc_icon/modify_black.svg'></button></td>"
+						}
 						tbodyData += "</tr>";
 					}
 

@@ -93,6 +93,13 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 		return delRegistMapper.shipComList(inputMap);
 	}
 	
+	/* 수령인 조회 */
+	@Override
+	public List<HashMap<String, String>> memberList(HashMap<String, Object> inputMap) throws Exception {
+
+		return delRegistMapper.memberList(inputMap);
+	}
+
 	/* 박스정보 가져오기 */
 	@Override
 	public List<HashMap<String, String>> packInfoList(HashMap<String, Object> inputMap) throws Exception {
@@ -238,6 +245,15 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 		
 		return resultMsg;
 		
-	}	
+	}
+
+	/* 물류접수자 level 조회 */
+	@Override
+	public HashMap<String, String> chkLevel(HashMap<String, Object> inputMap) throws Exception {
+		
+		return delRegistMapper.chkLevel(inputMap);
+	}
+	
+	
 	
 }
