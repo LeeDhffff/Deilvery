@@ -31,11 +31,105 @@
     <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://printjs-4de6.kxcdn.com/print.min.css">
    
+    <!-- import grid.js -->
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+    
+	<style>
+		.search, .popSearch {
+			margin-left : 10px;
+			width : 30px;
+			height : 30px;
+			background : white;
+			border : 1px solid var(--main-color);
+			border-radius : 3px;
+			background-image : url(./images/pc_icon/search_orange.svg);
+			background-size : cover;
+			cursor : pointer;
+		}
+		.search:hover, .popSearch:hover {
+			background : var(--main-color);
+			background-image : url(./images/pc_icon/search_white.svg);
+		}
+		.search > img, .popSearch > img { width : 100%; height : 100%};
+		
+		.pop_container{
+			display:none;
+			width: 100%;
+			height: 100%;
+			position: absolute;
+		}
+		.grey_pop{
+			width: 100%;
+			height: 100%;
+			background: #5d5d5d9c;
+			position: absolute;
+		}
+		.popup{
+			width: 800px;
+			height: 600px;
+			background: white;
+			position: fixed;
+			transform: translate(-50%, -50%);
+			left: 50%;
+			top: 50%;
+			padding: 20px;
+		}
+		.popup_X{
+			width: 40px;
+			height: 40px;
+		    background: white;
+		    font-size: 30px;
+		    font-weight: bold;
+		}
+		.popup_head{
+			display: flex;
+		    justify-content: space-between;
+		    border-bottom: 1px solid lightgray;
+		}
+		.popup_middle{
+			padding: 10px;
+		    width: 100%;
+		    height: 100%;
+		    box-sizing: border-box;
+		}
+		.selectBtn {
+/* 			margin-left : 10px; */
+			width : 30px;
+			height : 30px;
+			background : white;
+			border : 1px solid var(--main-color);
+			border-radius : 3px;
+			background-image : url(./images/pc_icon/check_orange.svg);
+			background-size : cover;
+			cursor : pointer;
+		}
+		.selectBtn:hover {
+			background : var(--main-color);
+			background-image : url(./images/pc_icon/check_white.svg);
+		}
+		.selectBtn > img, .selectBtn:hover > img { width : 100%; height : 100%};
+		
+	</style>
 </head>
 <body>
 	<!-- 로딩이미지 추가 (JANG 240517) -->
 	<div class="wrap-loading display-none">
 		<div><img src="images/delivery/pc_icon/loading.gif" alt="loading..."/></div>
+	</div>
+	<!-- 수령인 검색 팝업 추가 (JANG 240605) -->
+	<div class="pop_container">
+		<div class="grey_pop">
+			<div class="popup">
+				<div class="popup_head">
+				<h2 class="popup_h2">수령인 검색</h2>
+				<button class="popup_X">X</button>
+				</div>
+				<div class="popup_middle">
+					<div id="grid"></div>					
+				</div>
+			</div>
+		</div>
 	</div>
     <div class="outWrap">
         <div class="outCon">
@@ -116,27 +210,8 @@
                         </div>
                         <div class="double">
                             <div class="inputWrap">
-                                <h5 class="inputName"><a href="#">수령인<span>*</span></a></h5>
-                                <c:choose>
-                                	<c:when test="${chkLevel.memLevel == 1 || chekLevel.memLevel == 0}">
-	                                	<input type="text" class="chkVal" id="recNm" name="recNm" value="${result.recNm}" placeholder="라오스 수령인 성함을 입력해주세요">
-	                                </c:when>
-	                                <c:otherwise>                                
-		                                <select name="recNm" id="recNm">
-		                            		<option value="N">수령인 선택</option>
-		                    	        	<c:forEach var="item" items="${memberList }">
-		                	            		<c:choose>
-		            	                			<c:when test="${item.recNm eq result.recNm }">
-		        	                    				<option value="${item.recNm }" selected>${item.memId }</option>
-		    	                        			</c:when>
-			                            			<c:otherwise>
-		                            					<option value="${item.recNm }">${item.memId }</option>                            			
-		                            				</c:otherwise>
-		                            			</c:choose>
-		                            		</c:forEach>
-		                            	</select>
-	                            	</c:otherwise>
-                            	</c:choose>   
+                                <h5 class="inputName"><a href="#">수령인<span>*</span><button class="search"></button></a></h5>                               
+                               	<input type="text" class="chkVal" id="recNm" name="recNm" value="${result.recNm}" placeholder="라오스 수령인 성함을 입력해주세요"> 
                             </div>
                             <div class="inputWrap">
                                 <h5 class="inputName"><a href="#">휴대폰 번호<span>*</span></a></h5>
@@ -317,6 +392,7 @@
     $(document).ready(function(){
     	console.log("페이지초기화!");
     	$("#target_3").hide();
+    	$(".pop_container").hide();
     	
     	/* 물류접수자 level 체크 */
     	const memLevel = "${chkLevel.memLevel}";
@@ -733,15 +809,71 @@
     		}else{
     			$("input[name=boxIndex]").prop("checked", false);
     		}
-    	
     	});
-    	
     	
     	/* 미확인 배송신청으로 돌아가기 (JANG) */
     	$("#returnBtn").on("click", function(evt){
     		evt.preventDefault();
     		$(".nc_delivery").trigger("click");
-    	});    	
+    	});
+    	
+    	/* 수령인 검색 기능 설정(JANG 240605) -- 요기 */
+    	// 팝업창 열기 이벤트
+    	$(".search").on("click", function(evt){
+			evt.preventDefault();    	
+    		console.log("수령인 검색 클릭!!!");
+    		$(".pop_container").show();
+    	});
+    	
+    	// 팝업창 닫기 이벤트
+    	$(".popup_X").on("click", function(evt){
+    		$(".pop_container").hide();
+    	});
+    	  	
+    	// grid 생성
+    	const memberList = ${memberList};    	
+    	if(memberList.length == null) memberList = new Array();
+    	const grid = new gridjs.Grid({
+    		columns : [
+    			{ id : "memId", name : "ID", width : "10%" },    			
+    			{ id : "memNm", name : "이름" },
+    			{ id : "memPh", name : "연락처" },
+    			{ 
+    				name : "선택",
+    				formatter : (cell, row) => {
+    					return gridjs.h('button', {
+    						className : "selectBtn",
+    						onClick : () => {
+    							console.log("row.cells : ", row.cells);    						
+    							$("#recNm").val(row.cells[1].data);
+    							$("#recPhone").val(row.cells[2].data);
+    							$(".pop_container").hide();
+    						}   
+    					}, "");
+    				}
+    			}
+    		],
+    		data : memberList,
+    		style : {
+    			th : { "text-align" : "center" },
+    			td : { "text-align" : "center" }
+    		},
+    		search : true,
+    		pagination : {
+    			limit : 7
+    		},
+    		language: {
+    			'search': {
+    		      'placeholder': '🔍 Search...'
+    		    },
+    		    'pagination': {
+    		      'previous': '⬅️',
+    		      'next': '➡️'
+    		    }
+    		},
+    		height : "75%"
+    	}).render(document.getElementById("grid"));
+    	
     	
    	});	// document.ready end!!
    	   	

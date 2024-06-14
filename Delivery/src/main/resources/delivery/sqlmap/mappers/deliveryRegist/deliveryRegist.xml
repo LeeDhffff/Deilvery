@@ -277,8 +277,9 @@
 	<select id="memberList" parameterType="hashmap" resultType="hashmap">
 		/* memberList */
 		SELECT 
-			CONCAT(CONCAT(CONCAT('[', MEM_ID), '] '), NAME) AS memId,
-			MEM_ID AS recNm
+			MEM_ID AS memId,
+			NAME AS memNm,
+			PHONE AS memPh
 		FROM member
 		WHERE LEVEL != 2
 		ORDER BY NAME;

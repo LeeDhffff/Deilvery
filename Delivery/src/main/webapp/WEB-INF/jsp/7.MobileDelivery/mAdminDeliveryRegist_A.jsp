@@ -26,9 +26,68 @@
 
     <!-- import pretendard font -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
-    <script src="./js/pageChange.js"></script>  
+    <script src="./js/pageChange.js"></script>
+    
+    <!-- import grid.js -->
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+    
+    <style>
+    	.search, .popSearch {
+			margin-left : 10px;
+			width : 30px;
+			height : 30px;
+			background : white;
+			border : 1px solid var(--main-color);
+			border-radius : 3px;
+			background-image : url(./images/pc_icon/search_orange.svg);
+			background-size : cover;
+			cursor : pointer;
+		}
+		.search:hover, .popSearch:hover {
+			width : 30px;
+			height : 30px;
+			background : var(--main-color);
+			background-image : url(./images/pc_icon/search_white.svg);
+		}
+		.search > img, .popSearch > img { width : 100%; height : 100%};
+		
+		.selectBtn {
+/* 			margin-left : 10px; */
+			width : 30px;
+			height : 30px;
+			background : white;
+			border : 1px solid var(--main-color);
+			border-radius : 3px;
+			background-image : url(./images/pc_icon/check_orange.svg);
+			background-size : cover;
+			cursor : pointer;
+		}
+		.selectBtn:hover {
+			background : var(--main-color);
+			background-image : url(./images/pc_icon/check_white.svg);
+		}
+		.selectBtn > img, .selectBtn:hover > img { width : 100%; height : 100%};
+		
+    </style>
 </head>
 <body>
+	<!-- 수령인 검색 팝업 추가 (JANG 240605) -->
+	<div id="pop2" class="pop">
+		<div class="popCon">
+			<div class="popHeader">				
+				<div class="popTitle" id="pop2_text">수령인 검색</div>
+				<h5 class="cancel">
+                    <a href="#">
+                        <img src="./images/m_icon/cancel_black.svg" alt="">
+                    </a>
+                </h5>				
+			</div>
+			<div class="popBody">
+				<div id="grid"></div>
+			</div>
+		</div>
+	</div>
     <div class="m_container">
         <header class="m_header">
             <h3 class="arrow" onclick="location.href='Mobile_Main.do';">
@@ -52,27 +111,8 @@
                 <input type="text" id="creDay" name="creDay" placeholder="선택">
             </div>
             <div class="inputWrap">
-                <h5 class="inputName"><a href="#">수령인<span>*</span></a></h5>
-                <c:choose>
-                	<c:when test="${chkLevel.memLevel == 1 || chkLevel.memLevel == 0}">
-                		<input type="text" id="recNm" name="recNm" value="${result.recNm}" placeholder="라오스 수령인 성함을 입력해주세요">
-                	</c:when>
-                	<c:otherwise>
-						<select name="recNm" id="recNm">
-		                	<option value="N">수령인 선택</option>
-								<c:forEach var="item" items="${memberList }">
-									<c:choose>
-										<c:when test="${item.recNm eq result.recNm }">
-											<option value="${item.recNm }" selected>${item.memId }</option>
-										</c:when>
-										<c:otherwise>
-											<option value="${item.recNm }">${item.memId }</option>                            			
-										</c:otherwise>
-									</c:choose>
-								</c:forEach>
-						</select>
-                	</c:otherwise>
-                </c:choose>
+                <h5 class="inputName"><a href="#">수령인<span>*</span><button class="search"></button></a></a></h5>                
+                <input type="text" id="recNm" name="recNm" value="${result.recNm}" placeholder="라오스 수령인 성함을 입력해주세요">
             </div>
             <div class="inputWrap">
                 <h5 class="inputName"><a href="#">휴대폰 번호<span>*</span></a></h5>
@@ -152,6 +192,7 @@
    	<script>
    	$(document).ready(function(e){
    		$(".target_3").hide();
+   		$(".pop").hide();
    		console.log("[내부 A] uid : ", uid, " // udi2 : ", uid2, " // level : ", level);
    		chkAuth(uid, uid2, level);
    		const initCreDay = "${result.creDay}";
@@ -243,6 +284,66 @@
    	   			});
    			}
    		});
+    	
+    	
+   		/* 수령인 검색 기능 설정(JANG 240605) -- 요기 */
+    	// 팝업창 열기 이벤트
+    	$(".search").on("click", function(evt){
+			evt.preventDefault();    	
+    		console.log("수령인 검색 클릭!!!");
+    		$(".pop").show();
+    	});
+   		
+    	// 팝업창 닫기 이벤트
+    	$(".cancel").on("click", function(evt){
+    		$(".pop").hide();
+    	});
+    	
+    	// grid 생성
+    	const memberList = ${memberList};   	
+    	const grid = new gridjs.Grid({
+    		columns : [
+    			{ id : "memId", name : "ID", width : "10%" },    			
+    			{ id : "memNm", name : "이름" },
+    			{ id : "memPh", name : "연락처" },
+    			{ 
+    				name : "선택",
+    				formatter : (cell, row) => {
+    					return gridjs.h('button', {
+//     						className : "selectBtn",
+    						onClick : () => {
+    							console.log("row.cells : ", row.cells);    						
+    							$("#recNm").val(row.cells[1].data);
+    							$("#recPhone").val(row.cells[2].data);
+    							$(".pop").hide();
+    						}   
+    					}, "선택");
+    				}
+    			}
+    		],
+    		data : memberList,
+    		style : {
+    			th : { "text-align" : "center" },
+    			td : { "text-align" : "center" }
+    		},
+    		search : true,
+    		pagination : {
+    			limit : 5,
+    			summary : false
+    		},
+    		language: {
+    			'search': {
+    		      'placeholder': '🔍 Search...'
+    		    },
+    		    'pagination': {
+    		      'previous': '⬅️',
+    		      'next': '➡️'
+    		    }
+    		},
+    		height : "75%",
+    		width : "80%"
+    	}).render(document.getElementById("grid"));
+    	
    		
    	});
    	

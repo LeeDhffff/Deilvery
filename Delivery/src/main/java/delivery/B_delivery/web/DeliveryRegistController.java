@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import delivery.B_delivery.service.DeliveryRegistService;
 
 /**
@@ -225,15 +227,18 @@ public class DeliveryRegistController {
 		
 		// 수령인 정보 가지고 오기
 		List<HashMap<String, String>> memberList = delRegistService.memberList(inputMap);
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr = mapper.writeValueAsString(memberList);
 		
 		// 물류접수자 level 조회
 		HashMap<String, String> chkLevel = delRegistService.chkLevel(inputMap);
+		
 
 		mav.addObject("result", ingDelRead);
 		mav.addObject("outDayList", outDayList);
 		mav.addObject("packInfo", packInfo);
 		mav.addObject("shipComList", shipComList);
-		mav.addObject("memberList", memberList);
+		mav.addObject("memberList", jsonStr);
 		mav.addObject("chkLevel", chkLevel);
 		
 		mav.setViewName("2.Delivery/adminDeliveryRegist");
@@ -297,6 +302,8 @@ public class DeliveryRegistController {
 		
 		// 수령인 정보 가지고 오기
 		List<HashMap<String, String>> memberList = delRegistService.memberList(inputMap);
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr = mapper.writeValueAsString(memberList);
 
 		// 물류접수자 level 조회
 		HashMap<String, String> chkLevel = delRegistService.chkLevel(inputMap);
@@ -304,7 +311,7 @@ public class DeliveryRegistController {
 		mav.addObject("inputMap", inputMap);
 		mav.addObject("result", ingDelRead);		
 		mav.addObject("shipComList", shipComList);
-		mav.addObject("memberList", memberList);
+		mav.addObject("memberList", jsonStr);
 		mav.addObject("chkLevel", chkLevel);
 		
 		mav.setViewName("7.MobileDelivery/mAdminDeliveryRegist_A");
