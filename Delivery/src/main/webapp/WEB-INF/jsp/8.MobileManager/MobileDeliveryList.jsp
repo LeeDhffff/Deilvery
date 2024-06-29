@@ -35,6 +35,19 @@
 		background: #e1e1e1;
 	}
 	
+	.link{
+		background: white;
+		width:40px;
+		height:30px;
+		border: 1px solid #ffaa40;
+	    padding: 2px;
+	    cursor: pointer;
+	    border-radius: 5px;
+	}
+	
+	.link > img{
+		height: 23px;
+	}
 .totalh4{
 	display:flex;
 /* 	margin-right:100px; */
@@ -186,6 +199,7 @@
                                 <th>전화번호</th>
                                 <th>픽업지</th>
                                 <th>배송서비스</th>
+                                <th>링크복사</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -194,6 +208,7 @@
                     </table>
                 </div> 
                 <button class="modify">수정하기</button>  
+                <input type="text" id="copy_link" style="display:none;">
             </div>
         </section>
         <footer>
@@ -307,6 +322,24 @@
 			$(".List_Check").prop("checked",false);
 			$(this).find(".List_Check").prop("checked",true);
 		})
+		
+		
+		$(document).on("click",".link",function(){
+			$("#copy_link").show();
+			var nc = $(this).parents("tr").find(".in_key").val();
+			if(window.location.host == 'localhost:8080'){
+				$("#copy_link").val("localhost:8080/Delivery/Mobile_Delivery_Search_A.do?ik="+nc);
+				document.getElementById("copy_link").select();
+				document.execCommand("copy");
+			}
+			else if(window.location.host == 'eklogis.com'){
+				$("#copy_link").val("https://eklogis.com/Mobile_Delivery_Search_A.do?ik="+nc);
+				document.getElementById("copy_link").select();
+				document.execCommand("copy");
+			}
+			alert("클립보드로 해당 항목의 링크가 복사되었습니다.");
+			$("#copy_link").hide();
+		})
 	})
 	
 	
@@ -340,6 +373,7 @@
 					tbodyData += "<td>"+result[i].REC_PHONE+"</td>";
 					tbodyData += "<td>"+result[i].REC_TARGET+"</td>";
 					tbodyData += "<td>"+result[i].SERVICE+"</td>";
+					tbodyData += "<td><button class='link'><img src='./images/pc_icon/Link.svg'></button></td>";
 					tbodyData += "<input type='hidden' class='tr_cbm' value='"+result[i].CBM+"' >";
 					tbodyData += "<input type='hidden' class='tr_weight' value='"+result[i].WEIGHT+"' >";
 					tbodyData += "<input type='hidden' class='tr_count' value='"+result[i].COUNT+"' >";

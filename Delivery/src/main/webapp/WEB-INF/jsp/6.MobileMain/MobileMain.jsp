@@ -163,6 +163,9 @@
 			$("#tologin").remove();
 			$("#tologout").show();
 		}
+		if(uid=="null" && uid2=="null"){ 
+		      location.href = "Mobile_Login.do";
+			}
 		
 		if(level == '2'){
 			location.href = "Mobile_ManagerMain.do";

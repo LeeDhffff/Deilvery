@@ -236,7 +236,7 @@ input[type=checkbox]{
                                         <label for="checkAll"><button class="checkAll">All</button></label>
                                         </div>
                                         </th>
-                                        <th>배송번호</th>
+                                        <th>송장번호</th>
                                         <th>출항일</th>
                                         <th>수령인</th>
                                         <th>픽업지</th>
@@ -621,7 +621,8 @@ input[type=checkbox]{
 											HEIGHT:D_result[i].HEIGHT,
 											LNCOST:lncost,
 											COST: D_result[i].COST,
-											WEIGHT3:D_result[i].WEIGHT
+											WEIGHT3:(lncost < D_result[i].WEIGHT) ? D_result[i].WEIGHT
+													:lncost
 											
 									}
 									group_sub_table.push(dk);
@@ -652,10 +653,10 @@ input[type=checkbox]{
 									const cn2 = (cn1.indexOf(",") > 0) ? cn1.replace(",","")
 												:cn1;
 									
-									mk["COST"] = cn1 + "$";
-									mk["DIS_COST"] = (Number(cn2) * A_result[0].DISCOUNT / 100 ) + "$";
+									mk["COST"] ="$" + cn1;
+									mk["DIS_COST"] = "$" + (Math.round(Number(cn2) * A_result[0].DISCOUNT / 100 ));
 // 									console.log(Number(cn1) - (Number(cn1) * A_result[0].DISCOUNT / 100));
-									mk["TR_COST"] = (Math.round((Number(cn2) - (Number(cn2) * A_result[0].DISCOUNT / 100))*100)/100) + "$";
+									mk["TR_COST"] = "$" + (Math.round((Number(cn2) - Math.round(Number(cn2) * A_result[0].DISCOUNT / 100))));
 									mk["EK"] = D_result[0].SJ_KEY.split("-")[0];
 									
 // 						        	const qrInfoArr = new Array();

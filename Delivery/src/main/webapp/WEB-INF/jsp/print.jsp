@@ -177,7 +177,7 @@
         		<input type="hidden" id="EXCEL_IN_KEY">
         		<table class="print_table" id="print_table_1">
         			<tr style="text-align:center;"><th class="print_table_header" style="font-size:30px;" colspan="9">INVOICE</th></tr>
-        			<tr style="text-align:center;"><td style="width:20%; font-weight:bold; " colspan="2" rowspan="2" id="EXCEL_NAME"></td><td rowspan="2">고객님 귀하</td><td rowspan="2" id="EXCEL_OUT_DAY"></td><td style="background: #d7d7d7; font-weight:bold;" colspan="5">EK Logistics</td></tr>
+        			<tr style="text-align:center;"><td style="width:20%; font-weight:bold; " colspan="2" rowspan="2" id="EXCEL_NAME"></td><td rowspan="2">고객님 귀하</td><td rowspan="2" id="EXCEL_OUT_DAY"></td><td style="background:aliceblue; font-weight:bold;" colspan="5">EK Logistics</td></tr>
         			<tr style="text-align:center;"><td id="EXCEL_ADDRESS" colspan="5"></td></tr>
         			<tr style="text-align:center;"><td style="background:aliceblue; width:10%;">접수번호:<br />ລະຫັດ</td><td id="EXCEL_EK" style="background:bisque;font-weight:bold; width: 30%; font-size:20px;" colspan="3"></td><td colspan="5">TEL: +856 2099118282(LAO) / +856 2055533327(KR) <br />+856 2054155374(LAO)</td></tr>
         			<tr style="text-align:center;"><td style="background:aliceblue;">전화번호:ເບີໂທ</td><td id="EXCEL_PHONE" colspan="3"></td><td rowspan="2" style="background:aliceblue; ">운임ລວມ</td><td id="EXCEL_COST"  colspan="2" rowspan="2"></td><td style="background:bisque;font-weight:bold; " colspan="2">담당직원 서명 ຜູ້ສົ່ງເຄືອງ</td></tr>
@@ -193,8 +193,8 @@
 						ຄ່າຂົນສົ່ງຂັ້ນຕ່ຳແມ່ນ $10.
         			</td><td colspan="5">
         			<div class="qrdiv">
-        			<div class="qr_code" id="EXCEL_QR1"></div>
-        			<div class="qr_code" id="EXCEL_QR2"></div>
+        			<div class="qr_code" id="EXCEL_QR1"><img src="./images/pc_icon/QR_USD.png"></div>
+        			<div class="qr_code" id="EXCEL_QR2"><img src="./images/pc_icon/QR_KIP.png"></div>
         			</div>
         			<span class="qr_title">(USD)</span>   
         			<span class="qr_title">(KIP)</span></td></tr>
@@ -260,9 +260,9 @@
 			for(let j=0; j<tbody_length; j++){
 
 				var now_inkey  = in_keys[j];
-				const imageData = $("#EXCEL_QR1").find("canvas")[0].toDataURL("image/png", 0.5);
-				const imageData2 = $("#EXCEL_QR2").find("canvas")[0].toDataURL("image/png", 0.5);
-				console.log(imageData);
+// 				const imageData = $("#EXCEL_QR1").find("canvas")[0].toDataURL("image/png", 0.5);
+// 				const imageData2 = $("#EXCEL_QR2").find("canvas")[0].toDataURL("image/png", 0.5);
+// 				console.log(imageData);
 				
 				var Ddatas = [];
 				var sub_length = sub_table[now_inkey].length
@@ -273,8 +273,8 @@
 					Ddata["CELL2"] = sub_table[now_inkey][k].LENGTH;
 					Ddata["CELL3"] = sub_table[now_inkey][k].HEIGHT;
 					Ddata["CELL4"] = sub_table[now_inkey][k].LNCOST;
-					Ddata["CELL5"] = sub_table[now_inkey][k].WEIGHT;
-					Ddata["CELL6"] = sub_table[now_inkey][k].COST+"$";
+					Ddata["CELL5"] = sub_table[now_inkey][k].WEIGHT3;
+					Ddata["CELL6"] = "$" + sub_table[now_inkey][k].COST;
 					
 					Ddatas.push(Ddata);
 				}
@@ -399,10 +399,10 @@
 		})
 		
 
-		$("#EXCEL_QR1").empty();
-		$("#EXCEL_QR2").empty();
-		qrCreate("EXCEL_QR1", "010-12-01-01761708-001");	
-		qrCreate("EXCEL_QR2", "010-12-0001761708-001");    
+// 		$("#EXCEL_QR1").empty();
+// 		$("#EXCEL_QR2").empty();
+// 		qrCreate("EXCEL_QR1", "010-12-01-01761708-001");	
+// 		qrCreate("EXCEL_QR2", "010-12-0001761708-001");    
 		
 	})
 	
@@ -437,7 +437,7 @@
 				PrintString += '<td>'+sub_table[in_key][i].HEIGHT+'</td>';
 				PrintString += '<td>'+sub_table[in_key][i].LNCOST+'</td>';
 				PrintString += '<td>'+sub_table[in_key][i].WEIGHT3+'</td>';
-				PrintString += '<td>'+sub_table[in_key][i].COST+'$</td>';
+				PrintString += '<td>$'+sub_table[in_key][i].COST+'</td>';
 				PrintString += '</tr>';
 			
 			};

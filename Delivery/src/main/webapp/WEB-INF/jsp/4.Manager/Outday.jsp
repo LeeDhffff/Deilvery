@@ -97,6 +97,10 @@
                             <input type="hidden" id="Out_CHK" placeholder="">
                             <input type="hidden" id="Out_Key" placeholder="">
                         </div>
+                        <div class="inputWrap">
+                            <h5 class="inputName"><a href="#">비고</a></h5>
+                            <input type="text" id="Out_Txt" placeholder="비고">
+                        </div>
                         <div class="currentWrap">
                             <h3 class="conMainTitle">
                                 <a href="#">배송현황</a>
@@ -142,7 +146,7 @@
                                             <img src="./images/pc_icon/check_white.svg" alt="#">
                                         </a>
                                     </div>
-                                    <h5 class="currentTitle"><a href="#">출항시작(미정)</a></h5>
+                                    <h5 class="currentTitle"><a href="#">출항시작</a></h5>
                                     <input type="text" class="currentDay" placeholder="날짜">
                                     <input type="text" class="currentMessage" placeholder="비고">
                             		<input type="hidden" class="currentSeq" placeholder="" value="2">
@@ -323,7 +327,7 @@
 					var daydata = {
 						MEM_ID  : uid,
 						OUT_DAY : $("#Out_Day").val(),
-						OUT_TXT : ""
+						OUT_TXT : $("#Out_Txt").val()
 					};
 					$.ajax({
 	    				type: "POST",
@@ -378,28 +382,44 @@
 					alert("현재 날짜 텍스트를 입력해주세요.")
 				}
 				else{
+
+					var daydata = {
+						MEM_ID  : uid,
+						OUT_KEY : $("#Out_Key").val(),
+						OUT_TXT : $("#Out_Txt").val(),
+						OUT_TXT_SUB : "",
+						MODE : "U"
+					};
 					
-					var form ={//= new FormData();
-    						MEM_ID:		uid,
-    		     		 	OUT_SEQ:	$(".current.on").find(".currentSeq").val(),
-    		     		 	OUT_KEY:	$("#Out_Key").val(),
-    		     		 	OUT_DAY:	$("#Out_Day").val(),
-    		     		 	CHK:		$(".current.on").find(".currentSeq").val(),
-    		     		 	OUT_TXT:	$(".current.on").find(".currentDay").val(),
-    		     		 	OUT_TXT_SUB:$(".current.on").find(".currentMessage").val(),
-    		     		 	MODE:		"U"
-	            		}
-// 		     		 	$("#Out_Day_Out_Image")[0].files[0]
-		            	$.ajax({
-		    				type: "POST",
-		    				url : "./Out_Day_File_UD.do",
-		    				data: form,
-		    				async: false,
-		    	            success: function(datas){
-		    	            	alert(datas);
-		    	            	searchOutDay($("#Out_Key").val());
-		    	            }
-		    			});
+					$.ajax({
+	    				type: "POST",
+	    				url : "./Out_Day_UD.do",
+	    				data: daydata,
+	    				async: false,
+	    	            success: function(datas){
+							var form ={//= new FormData();
+		    						MEM_ID:		uid,
+		    		     		 	OUT_SEQ:	$(".current.on").find(".currentSeq").val(),
+		    		     		 	OUT_KEY:	$("#Out_Key").val(),
+		    		     		 	OUT_DAY:	$("#Out_Day").val(),
+		    		     		 	CHK:		$(".current.on").find(".currentSeq").val(),
+		    		     		 	OUT_TXT:	$(".current.on").find(".currentDay").val(),
+		    		     		 	OUT_TXT_SUB:$(".current.on").find(".currentMessage").val(),
+		    		     		 	MODE:		"U"
+			            		}
+	// 		     		 	$("#Out_Day_Out_Image")[0].files[0]
+			            	$.ajax({
+			    				type: "POST",
+			    				url : "./Out_Day_File_UD.do",
+			    				data: form,
+			    				async: false,
+			    	            success: function(datas){
+			    	            	alert(datas);
+			    	            	searchOutDay($("#Out_Key").val());
+			    	            }
+			    			});
+	    	           }
+					})
 				}
 				
 		});
@@ -491,6 +511,7 @@
 				$(".outday_file").val("");
 				
 				$('#Out_Day').datepicker('setDate',resultdata.OUT_DAY);
+				$("#Out_Txt").val(resultdata.OUT_TXT);
 				$('#Out_Day').attr('disabled',true);
 				$("#Out_Key").val(resultdata.OUT_KEY);
 				var OutFileData = {

@@ -24,4 +24,6 @@ public interface DeliveryMapper {
 	List<HashMap<String, String>> Delivery_Select_B(HashMap<String, Object> inputMap) throws Exception;
 	
 	HashMap<String, String> Status_Select(HashMap<String, Object> inputMap) throws Exception;
+
+	String Pickup_Insert(HashMap<String, Object> inputMap) throws Exception;
 }

@@ -81,6 +81,9 @@
  
 	$(document).on('ready',function(){
 
+		if(uid=="null" && uid2=="null"){ 
+	      location.href = "LoginPage.do";
+		}
 		$('#B_OUT_DAY').datepicker(
 				{
 					changeMonth : true,

@@ -59,11 +59,11 @@
                 <h5><a href="#" id="idsaveA">자동 로그인</a></h5>
             </div>
             <button class="login" id="loginbutton">로그인</button>
-            <button class="uncustomer" id="none_id">비회원으로 입장하기</button>
+<!--             <button class="uncustomer" id="none_id">비회원으로 입장하기</button> -->
 
             <div class="joinWrap">
-                <h5><a href="#">아직도 회원이 아닌가요?</a></h5> 
-                <h5><a href="Mobile_Join.do">회원가입하기</a></h5>
+<!--                 <h5><a href="#">아직도 회원이 아닌가요?</a></h5>  -->
+<!--                 <h5><a href="Mobile_Join.do">회원가입하기</a></h5> -->
             </div>
             
         </section>

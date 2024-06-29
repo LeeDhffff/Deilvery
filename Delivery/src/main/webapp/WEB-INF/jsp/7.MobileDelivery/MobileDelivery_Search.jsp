@@ -74,7 +74,7 @@
 
         </section>
         <footer>
-            <button id="Search">배송 조회하기</button>
+<!--             <button id="Search">배송 조회하기</button> -->
         </footer>
     </div>
 </body>
@@ -130,12 +130,12 @@
 				for(let i=0; i<result.length; i++ ){
 					wrapString += ' <div class="infoWrap">';
 					wrapString += '		<div class="dateNotice">';
-					wrapString += '			<h5 class="subTxt"><a href="#">출항예정일</a></h5>';
+					wrapString += '			<h5 class="subTxt"><a href="#">접수 마감일</a></h5>';
 					wrapString += '			<h1 class="dateTxt"><a href="#">'+result[i].ARR_DAY+'</a></h1>';
 					wrapString += ' </div>';
 					wrapString += ' <div class="infoCon indate">';
-					wrapString += '     <h5 class="subTxt"><a href="#">출항예정일</a></h5>';
-					wrapString += '     <h1 class="subTxt"><a href="#">'+result[i].ARR_DAY+'</a></h1>';
+					wrapString += '     <h5 class="subTxt"><a href="#">송장번호</a></h5>';
+					wrapString += '     <h1 class="subTxt"><a href="#">'+result[i].EK+'</a></h1>';
 					wrapString += ' </div>';
 					wrapString += ' <div class="infoCon people">';
 					wrapString += '     <h5 class="subTxt"><a href="#">수령인</a></h5>';

@@ -122,7 +122,7 @@
                             <table id="Delivery_Table">
                                 <thead>
                                     <tr>
-                                    	<th>EK</th>
+                                    	<th>송장번호</th>
                                         <th>출항예정일</th>
                                         <th>수령인</th>
                                         <th>접수일</th>
@@ -158,7 +158,7 @@
                                             <img src="./images/pc_icon/check_white.svg" alt="#">
                                         </a>
                                     </div>
-                                    <h5 class="currentTitle"><a href="#">출항시작(미정)</a></h5>
+                                    <h5 class="currentTitle"><a href="#">출항시작</a></h5>
                                     <h5 class="currentDay"><a href="#"></a></h5>
                                     <h5 class="currentMessage"><a href="#"></a></h5>
                                 </div>
@@ -227,7 +227,7 @@
                                             <img src="./images/pc_icon/check_white.svg" alt="#">
                                         </a>
                                     </div>
-                                    <h5 class="currentTitle"><a href="#">출항시작(미정)</a></h5>
+                                    <h5 class="currentTitle"><a href="#">출항시작</a></h5>
                                     <h5 class="currentDay"><a href="#"></a></h5>
                                     <h5 class="currentMessage"><a href="#"></a></h5>
                                 </div>

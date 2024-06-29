@@ -1188,6 +1188,7 @@ public class ManagerController {
             HeadStyleLong.setBorderBottom(HSSFCellStyle.BORDER_THIN);
             HeadStyleLong.setWrapText(true);
             HeadFontLong.setFontHeight((short)(10*20)); //사이즈
+            HeadFontLong.setFontName("phetsarath ot");
             HeadStyleLong.setFont(HeadFontLong);
 
             CellStyle HeadStyleBorderLeft = workbook.createCellStyle();
@@ -1235,7 +1236,7 @@ public class ManagerController {
                     sheet.getRow(2).getCell(3).setCellValue((String)(inputMap.get(sn).get("EXCEL_OUT_DAY")));
             		sheet.getRow(2).getCell(3).setCellStyle(HeadStyleNormal);
             		for(int i=4; i<9; i++) {
-            			sheet.getRow(2).getCell(i).setCellStyle(HeadStyleGreyBold);
+            			sheet.getRow(2).getCell(i).setCellStyle(HeadStyleBlueBold);
             		}
             		sheet.getRow(2).getCell(4).setCellValue("EK Logistics");
                     System.out.println("3번쨰 완료.");
@@ -1387,7 +1388,7 @@ public class ManagerController {
                     System.out.println("11,12번쨰 완료.");
 
             		//***************************13번째 row *****************************//
-            		sheet.getRow(12).getCell(0).setCellValue("※이용약관에 따라 운임은 중량과 부피 기반 환산금액중 높은쪽으로 청구되며,\n최소 운임은 10$ 입니다.(소수점 단위 반올림)\n\n※ອີງຕາມຂໍ້ກຳນົດ ແລະເງື່ອນໄຂ, ຄ່າຂົນສົ່ງແມ່ນຄິດໄລ່ ຕາມຂະໜາດ ,ນ້ຳໜັກ,ແລະ ປະລິມານ");
+            		sheet.getRow(12).getCell(0).setCellValue("※이용약관에 따라 운임은 중량과 부피 기반 환산금액중 높은쪽으로 청구되며,\n최소 운임은 10$ 입니다.(소수점 단위 반올림)\n\n※ອີງຕາມຂໍ້ກຳນົດ ແລະເງື່ອນໄຂ, ຄ່າຂົນສົ່ງແມ່ນຄິດໄລ່ ຕາມຂະໜາດ ,ນ້ຳໜັກ,ແລະ ປະລິມານ ຂອງສີນຄ້າ , ຄ່າຂົນສົ່ງຂັ້ນຕ່ຳແມ່ນ $10.");
             		
             		for(int i=0; i<4; i++) {
             			sheet.getRow(12).getCell(i).setCellStyle(HeadStyleLong);
@@ -1400,7 +1401,7 @@ public class ManagerController {
         			final Picture pict = drawing.createPicture(anchor, pictureIdx);
 
         			// 이미지 사이즈 비율 설정
-        			pict.resize(0.9);
+        			pict.resize(0.7);
         			
 //            		sheet.getRow(12).getCell(4).setCellValue("(USD) (KIP)");
             		for(int i=4; i<9; i++) {
@@ -1437,12 +1438,12 @@ public class ManagerController {
             		//***************************테두리 작업 *****************************//
                     
                     for(int i=0; i<9; i++) {
-                    	if(i < 7) {
+//                    	if(i < 7) {
                 			sheet.getRow(15).getCell(i).setCellStyle(HeadStyleBorderTopBottom);
-                    	}
-                    	else {
-                			sheet.getRow(15).getCell(i).setCellStyle(HeadStyleBorderTop);
-                    	}
+//                    	}
+//                    	else {
+//                			sheet.getRow(15).getCell(i).setCellStyle(HeadStyleBorderTop);
+//                    	}
                     }
 
                     for(int i=0; i<15; i++) {
@@ -1450,14 +1451,16 @@ public class ManagerController {
                     	
                     }
             		//***************************17번째 row *****************************//
+                    sheet.addMergedRegion(new CellRangeAddress(16,16,5,6));
+                    sheet.addMergedRegion(new CellRangeAddress(16,16,7,8));
                     sheet.getRow(16).getCell(0).setCellValue("중량");
                     sheet.getRow(16).getCell(1).setCellValue("장");
                     sheet.getRow(16).getCell(2).setCellValue("폭");
                     sheet.getRow(16).getCell(3).setCellValue("고");
                     sheet.getRow(16).getCell(4).setCellValue("용적중량");
                     sheet.getRow(16).getCell(5).setCellValue("청구중량");
-                    sheet.getRow(16).getCell(6).setCellValue("청구운임");
-                    for(int i=0; i<7; i++) {
+                    sheet.getRow(16).getCell(7).setCellValue("청구운임");
+                    for(int i=0; i<9; i++) {
             			sheet.getRow(16).getCell(i).setCellStyle(HeadStyleBlueBold);
                     	
                     }
@@ -1465,24 +1468,38 @@ public class ManagerController {
                     System.out.println("17 셀 시작.");
                     int rowNumber = 17;
                     for(int i=0; i<length; i++) {
+                        sheet.addMergedRegion(new CellRangeAddress(rowNumber + i,rowNumber + i,5,6));
+                        sheet.addMergedRegion(new CellRangeAddress(rowNumber + i,rowNumber + i,7,8));
                     	for(int j=0; j<7; j++) {
                     		List<HashMap<String,String>> ext = new ArrayList<HashMap<String,String>>((List)(inputMap.get(sn).get("EXCEL_TABLE")));
 //                    		sheet.getRow(rowNumber + i).getCell(j).setCellValue((String)(inputMap.get(sn).get("EXCEL_TABLE[" + Integer.toString(i) +"][CELL"+ Integer.toString(j) + "]")));
-                    		sheet.getRow(rowNumber + i).getCell(j).setCellValue(ext.get(i).get("CELL"+ Integer.toString(j)));
-                    		sheet.getRow(rowNumber + i).getCell(j).setCellStyle(HeadStyleNormal);
+                    		if(j < 5) {
+                        		sheet.getRow(rowNumber + i).getCell(j).setCellValue(ext.get(i).get("CELL"+ Integer.toString(j)));
+                        		sheet.getRow(rowNumber + i).getCell(j).setCellStyle(HeadStyleNormal);
+                    		}
+                    		else if(j == 5) {
+                        		sheet.getRow(rowNumber + i).getCell(j).setCellValue(ext.get(i).get("CELL"+ Integer.toString(j)));
+                        		sheet.getRow(rowNumber + i).getCell(j).setCellStyle(HeadStyleNormal);
+                        		sheet.getRow(rowNumber + i).getCell(j+1).setCellStyle(HeadStyleNormal);
+                    		}
+                    		else if(j >= 5) {
+                        		sheet.getRow(rowNumber + i).getCell(j+1).setCellValue(ext.get(i).get("CELL"+ Integer.toString(j)));
+                        		sheet.getRow(rowNumber + i).getCell(j+1).setCellStyle(HeadStyleNormal);
+                        		sheet.getRow(rowNumber + i).getCell(j+2).setCellStyle(HeadStyleNormal);
+                    		}
                     	}
                     }
 
                     System.out.println("17 셀 완료.");
 
 
-                    for(int i=0; i<7; i++) {
+                    for(int i=0; i<9; i++) {
             			sheet.getRow(rowNumber + length).getCell(i).setCellStyle(HeadStyleBorderTop);
                     	
                     }
 
                     for(int i=rowNumber-1; i<rowNumber + length; i++) {
-            			sheet.getRow(i).getCell(7).setCellStyle(HeadStyleBorderLeft);
+            			sheet.getRow(i).getCell(9).setCellStyle(HeadStyleBorderLeft);
                     	
                     }
                     System.out.println("모든 셀 완료.");

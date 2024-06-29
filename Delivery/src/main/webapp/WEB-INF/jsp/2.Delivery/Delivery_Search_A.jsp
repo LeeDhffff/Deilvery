@@ -24,6 +24,42 @@
     .tron{
     	background:#ffecdb;
     }
+    .out_txt{
+    	color: red;
+	    font-size: 17px;
+	    margin-left: 15px;
+    }
+    .inputsection{
+    	display:flex;    
+    	margin-top: 10px;
+    	margin-bottom: 10px;
+    }
+    .inputWrap > input{
+    	width: 500px;
+    	height:30px;
+    	border: 1px solid black;
+    }
+    .inputWrap > select{
+    	width: 150px;
+    	height:30px;    
+    	border: 1px solid black;
+    }
+    .inputWrap{
+    	margin-right: 20px;
+/*     	display:flex; */
+    }
+    .savebutton{
+    	width: 100px;
+    	height: 30px;
+	    border-radius: 4px;
+	    background: #00b700;
+	    color: white;
+	    margin-top: 22px;
+    }
+	#target_3{
+		display: none;
+	}
+	
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -39,6 +75,7 @@
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
 <script src="./js/2.Delivery/Search_index.js"></script>
+<script src="./js/pageChange.js"></script>
 </head>
 
 <body>  
@@ -102,7 +139,7 @@
     </div>  
 
     <div class="container">
-		<jsp:include page="../common.jsp"></jsp:include>
+<%-- 		<jsp:include page="../common.jsp"></jsp:include> --%>
 		 <section>
             <div class="sectionContainer">
                 <h1 class="sectionTitle">
@@ -117,13 +154,47 @@
 <!--                             회원님의 운송장번호는 2024010845 입니다.<br> -->
                             <span id="status" style="color:var(--main-color); font-weight: 600;"></span>
                         </p>
-                    </h5>                   
+                    </h5>    
+                    
+        <div class="inputsection">
+                <div class="inputWrap">
+	        	<h3 class="inputName"><a href="#">픽업지 선택</a></h3>
+		        <select name="recTarget" id="recTarget">
+		            <option value="1">본사</option>
+		            <option value="2">하우 창고</option>
+		            <option value="3">지방배송</option>
+		        </select>
+	        </div>
+	        <button class="savebutton">저장
+	        </button>
+        </div>
+            <div class="inputsection" id="target_3">
+                <div class="inputWrap">
+                <h3 class="inputName"><a href="#">택배사</a></h3>
+                <select name="recAddr" id="recAddr">
+                	<c:forEach var="item" items="${shipComList}">
+                		<c:choose>
+                			<c:when test="${item.target eq Dlist.REC_ADDR }">
+                				<option value="${item.target }" selected>${item.tName }</option>
+                			</c:when>
+                			<c:otherwise>
+                				<option value="${item.target }">${item.tName }</option>
+                			</c:otherwise>
+                		</c:choose>
+                	</c:forEach>
+                </select>
+            	</div>
+                <div class="inputWrap">
+                    <h3 class="inputName"><a href="#">상세주소</a></h3>
+                    <input type="text" name="recHou" id="recHou" value="${Dlist.REC_HOU}">
+                </div>
+            </div>               
                     <div class="wrap">
                         <div class="tableWrap">
                             <table id="Delivery_Table">
                                 <thead>
                                     <tr>
-                                        <th>EK</th>
+                                        <th>송장번호</th>
                                         <th>출항예정일</th>
                                         <th>수령인</th>
                                         <th>접수일</th>
@@ -133,7 +204,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-									<tr>
+									<tr class="tron">
 									<td>${Dlist.EK}</td>
 									<td>${Dlist.ARR_DAY}</td>
 									<td><input type='hidden' class='T_IN_KEY' id="${IN_KEY}" value="${IN_KEY}">${Dlist.REC_NM}</td>
@@ -148,8 +219,8 @@
 
                         <div class="currentWrap one">
                             <h3 class="conMainTitle">
-                                <a href="#">배송현황</a>
-                                <button class="qr">배송정보</button>
+                                <a href="#">배송현황<span class="out_txt">${Dlist.OUT_TXT}</span></a>
+<!--                                 <button class="qr">배송정보</button> -->
                             </h3>
                             <div class="currentCon">
                                 <div class="current one on">
@@ -168,7 +239,7 @@
                                             <img src="./images/pc_icon/check_white.svg" alt="#">
                                         </a>
                                     </div>
-                                    <h5 class="currentTitle"><a href="#">출항시작(미정)</a></h5>
+                                    <h5 class="currentTitle"><a href="#">출항시작</a></h5>
                                     <h5 class="currentDay"><a href="#"></a></h5>
                                     <h5 class="currentMessage"><a href="#"></a></h5>
                                 </div>
@@ -231,13 +302,13 @@
                                     <h5 class="currentDay"><a href="#"></a></h5>
                                     <h5 class="currentMessage"><a href="#"></a></h5>                                    
                                 </div>
-                                <div class="current two on">
-                                    <div class="condition ">
+                                <div class="current two">
+                                    <div class="condition">
                                         <a href="#">
                                             <img src="./images/pc_icon/check_white.svg" alt="#">
                                         </a>
                                     </div>
-                                    <h5 class="currentTitle"><a href="#">출항시작(미정)</a></h5>
+                                    <h5 class="currentTitle"><a href="#">출항시작</a></h5>
                                     <h5 class="currentDay"><a href="#"></a></h5>
                                     <h5 class="currentMessage"><a href="#"></a></h5>
                                 </div>
@@ -302,11 +373,15 @@
 	else if(level == 0){
 // 	   location.replace("Delivery_Search_B.do");
 	}
- 
-	console.log(level);
- 
+
+	var add = '${Dlist.REC_TARGET}';
+ console.log(add);
 	$(document).on('ready',function(){
 // 		Delivery_Search();
+
+		$(".currentClickOne").trigger("click");
+		Delivery_Search_O($("#Delivery_Table > tbody > tr").find(".T_IN_KEY").val());
+		
 		$(".customer").text(name);
 		
 		
@@ -317,7 +392,30 @@
 		$(document).on("click",".qr",function(){
 			Delivery_Search_D($(".tron").find(".T_IN_KEY").val());
 		})
-		
+		if(add == '3'){
+	    	$("#target_3").css("display","flex");
+	    }
+	    if(add != '' && add != 'null'){
+			$("#recTarget").val(add);
+	    	$(".savebutton").remove();		
+	    	$("#recTarget").prop("disabled",true);
+	    	$("#recAddr").prop("disabled",true);
+	    	$("#recHou").prop("disabled",true);
+	    }
+		$("#recTarget").on("change",function(){
+		    if($("#recTarget").val() == '3'){
+		    	$("#target_3").css("display","flex");
+		    }
+		    else{
+		    	$("#target_3").hide();
+		    }
+		});
+
+		$(".savebutton").on("click",function(){
+			if(confirm("한번 저장하면 수정이 불가합니다.\n픽업지를 저장하시겠습니까?")){
+				Pickup_Insert($(".T_IN_KEY").val());		
+			}
+		});
 		
 		$(document).on("click",".currentClickOne",function(){
 			Delivery_Search_O($(this).parents("tr").find(".T_IN_KEY").val());
@@ -522,6 +620,29 @@
             }
 			
 		})	
+	}
+	function Pickup_Insert(inkey){
+		
+		var pickup_data = {
+			IN_KEY : inkey,	
+			TARGET : $("#recTarget").val(),
+			ADDR : $("#recAddr").val(),
+			HOU : $("#recHou").val(),
+		};
+
+		$.ajax({
+			type: "POST",
+			url : "./Pickup_Insert.do",
+			data: pickup_data,
+			async: false,
+            success: function(datas){
+          		alert(datas);  	
+    	    	$(".savebutton").remove();		
+    	    	$("#recTarget").prop("disabled",true);
+    	    	$("#recAddr").prop("disabled",true);
+    	    	$("#recHou").prop("disabled",true);
+            }
+		})
 	}
 </script>
 </html>

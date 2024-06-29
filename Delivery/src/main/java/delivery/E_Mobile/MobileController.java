@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import delivery.B_delivery.service.DeliveryRegistService;
 import delivery.C_Delivery.service.DeliveryService;
 import delivery.D_Manager.service.ManagerService;
 import delivery.E_Mobile.service.MobileService;
@@ -32,6 +33,9 @@ public class MobileController {
 	@Resource(name = "ManagerService")
 	private ManagerService ManagerService;
 
+	/** DeliveryRegistService */
+	@Resource(name = "DeliveryRegistService")
+	private DeliveryRegistService delRegistService;
 	
 	// 모바일 로딩창으로 이동 //
 	@RequestMapping("/Mobile.do")
@@ -138,8 +142,11 @@ public class MobileController {
 		inputMap.put("IN_KEY",inputMap.get("ik"));
 		
 		HashMap<String, String> DeliveryList = DeliveryService.Delivery_Search_A(inputMap);
+		// 택배사 데이터 가지고 오기
+		List<HashMap<String, String>> shipComList = delRegistService.shipComList(inputMap);
 		mav.addObject("IN_KEY", inputMap.get("ik"));
 		mav.addObject("Dlist", DeliveryList);
+		mav.addObject("shipComList", shipComList);
 
 //		HttpSession httpSession = request.getSession(true);
 //		mav.addObject("memNm", (String)(httpSession.getAttribute("SESSION_MEM_NM")));

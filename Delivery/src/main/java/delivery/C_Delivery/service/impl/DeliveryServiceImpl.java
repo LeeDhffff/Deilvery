@@ -59,9 +59,14 @@ public class DeliveryServiceImpl implements DeliveryService {
 	@Override
 	public HashMap<String, String> Delivery_Search_A(HashMap<String, Object> inputMap) throws Exception {
 
-		System.out.println(inputMap);
 		// TODO Auto-generated method stub
 		return DeliveryMapper.Delivery_Search_A(inputMap);
+	}
+
+	@Override
+	public String Pickup_Insert(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return DeliveryMapper.Pickup_Insert(inputMap);
 	}
 	
 

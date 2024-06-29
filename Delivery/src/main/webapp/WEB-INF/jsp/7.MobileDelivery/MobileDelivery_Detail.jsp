@@ -127,7 +127,7 @@ table tbody tr td
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
-                    <h5 class="stepTxt"><a href="#">출항시작(미정)</a></h5>
+                    <h5 class="stepTxt"><a href="#">출항시작</a></h5>
                     <h5 class="stepDate"><a href="#"></a></h5>
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>

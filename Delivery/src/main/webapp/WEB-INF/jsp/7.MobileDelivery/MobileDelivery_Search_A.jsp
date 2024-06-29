@@ -14,7 +14,90 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
+	.inputsection{
+		display:flex;
+		margin: 10px 30px 10px 30px;
+	}
+	.inputName{
+	    width: 80px;
+   	 	height: 30px;
+	    line-height: 30px;
+	    margin: 0 0 0 5px;
+	}
+	.inputWrap{
+		display:flex;    
+		margin-top: 10px;
+	}
+	.savebutton{
+		width: 100px;
+	    height: 30px;
+	    border-radius: 4px;
+	    background: #00b700;
+	    color: white;
+        margin: 0px 0px 0px 85px;
+	}
+	#recTarget{
+		width: 100px;
+	    height: 30px;
+	    border: 1px solid black;
+	}
+	#recAddr{
+		width: 100px;
+	    height: 30px;
+	    border: 1px solid black;
+	}
+	#recHou{
+		width: 60%;
+	    height: 30px;
+	    border: 1px solid black;
+	}
+	#target_3{
+		display: none;
+	}
 	
+	.sectionMainTitle 
+	{ 
+	    font-size: 16px; 
+	    margin-bottom: 8px;
+	    font-weight: 500;
+	    display: flex;
+	    align-items: center;
+	    justify-content: space-between;
+	}
+	.sectionTxtTitle
+	{
+		color: red;
+	    margin-bottom: 15px;
+	    font-size: 14px;
+	}
+	
+	.stepWrap
+	{
+	    margin-top: 24px;
+	}
+	
+	.stepCon 
+	{
+	    height: 40px;
+	    border: 1px solid var(--input-color); 
+	    padding: 0 16px;
+	    display: flex;
+	    align-items: center;
+	    justify-content: space-between;
+	    background-color: #F7F7FB;
+	    margin-bottom: 12px;
+	}
+	
+	.stepCon:last-child
+	{
+	    margin-bottom: 0;
+	}
+	
+	.stepCon.on 
+	{
+	    border: 1px solid var(--main-color);
+	    background-color: #fff;
+	}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -22,7 +105,8 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <link rel="stylesheet" href="./css/Mobile/common.css">  
-<link rel="stylesheet" href="./css/6.MobileDelivery/MD_style.css">    
+<link rel="stylesheet" href="./css/6.MobileDelivery/MD_style.css">  
+<!-- <link rel="stylesheet" href="./css/6.MobileDelivery/MDD_style.css">       -->
 <!-- import font-awesome, line-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
@@ -74,12 +158,12 @@
             </h5>
 			<div class="infoWrap">
 				<div class="dateNotice">
-					<h5 class="subTxt"><a href="#">출항예정일</a></h5>
+					<h5 class="subTxt"><a href="#">접수 마감일</a></h5>
 					<h1 class="dateTxt"><a href="#">${Dlist.ARR_DAY}</a></h1>
 				</div>	
 				<div class="infoCon indate">
-					<h5 class="subTxt"><a href="#">출항예정일</a></h5>
-					<h1 class="subTxt"><a href="#">${Dlist.ARR_DAY}</a></h1>
+					<h5 class="subTxt"><a href="#">송장번호</a></h5>
+					<h1 class="subTxt"><a href="#">${Dlist.EK}</a></h1>
 				</div>
 				<div class="infoCon people">
 					<h5 class="subTxt"><a href="#">수령인</a></h5>
@@ -89,17 +173,93 @@
 					<h5 class="subTxt"><a href="#">물류예상비용</a></h5>
 					<h1 class="subTxt"><a href="#">$${Dlist.COST}</a></h1>
 				</div>
-				<div class="infoCon current">
-					<h5 class="subTxt"><a href="#">배송현황</a></h5>
-					<h1 class="subTxt hid"><input type="hidden" class="T_IN_KEY" id="${IN_KEY}" value="${IN_KEY}">
-					<a class="detail" href="#">배송현황확인하기(클릭)</a></h1>
-				</div>
+<!-- 				<div class="infoCon current"> -->
+<!-- 					<h5 class="subTxt"><a href="#">배송현황</a></h5> -->
+					<input type="hidden" class="T_IN_KEY" id="${IN_KEY}" value="${IN_KEY}">
+<!-- 					<a class="detail" href="#">배송현황확인하기(클릭)</a></h1> -->
+<!-- 				</div> -->
 				<div class="infoCheck">배송내역 확인하기</div>
 			</div>
 
         </section>
+        <div class="inputsection">
+        	<h5 class="inputName"><a href="#">픽업지 선택</a></h5>
+	        <select name="recTarget" id="recTarget">
+	            <option value="1">본사</option>
+	            <option value="2">하우 창고</option>
+	            <option value="3">지방배송</option>
+	        </select>
+	        <button class="savebutton">저장
+	        </button>
+        </div>
+            <div class="inputsection" id="target_3">
+                <div class="inputWrap">
+                <h5 class="inputName"><a href="#">택배사</a></h5>
+                <select name="recAddr" id="recAddr">
+                	<c:forEach var="item" items="${shipComList}">
+                		<c:choose>
+                			<c:when test="${item.target eq Dlist.REC_ADDR }">
+                				<option value="${item.target }" selected>${item.tName }</option>
+                			</c:when>
+                			<c:otherwise>
+                				<option value="${item.target }">${item.tName }</option>
+                			</c:otherwise>
+                		</c:choose>
+                	</c:forEach>
+                </select>
+            	</div>
+                <div class="inputWrap">
+                    <h5 class="inputName"><a href="#">상세주소</a></h5>
+                    <input type="text" name="recHou" id="recHou" value="${Dlist.REC_HOU}">
+                </div>
+            </div>
+        <section>
+        
+            <h3 class="sectionMainTitle">
+                <a href="#">
+                    배송 현황
+                </a>
+            </h3>
+            <input type="hidden" id="memid" value="${Dlist.MEM_ID}">
+            <input type="hidden" id="inkey" value="${Dlist.IN_KEY}">
+            <div class="stepWrap">
+            	<h4 class="sectionTxtTitle">
+	                ${Dlist.OUT_TXT}
+           		</h4>
+                <div class="stepCon on">
+                    <h5 class="stepTxt"><a href="#">한국물류창고</a></h5>
+                    <h5 class="stepDate"><a href="#"></a></h5>
+                    <h5 class="stepCurrent"><a href="#"></a></h5>
+                </div>
+                <div class="stepCon">
+                    <h5 class="stepTxt"><a href="#">출항시작</a></h5>
+                    <h5 class="stepDate"><a href="#"></a></h5>
+                    <h5 class="stepCurrent"><a href="#"></a></h5>
+                </div>
+                <div class="stepCon">
+                    <h5 class="stepTxt"><a href="#">태국도착</a></h5>
+                    <h5 class="stepDate"><a href="#"></a></h5>
+                    <h5 class="stepCurrent"><a href="#"></a></h5>
+                </div>
+                <div class="stepCon">
+                    <h5 class="stepTxt"><a href="#">라오스출발</a></h5>
+                    <h5 class="stepDate"><a href="#"></a></h5>
+                    <h5 class="stepCurrent"><a href="#"></a></h5>
+                </div>
+                <div class="stepCon">
+                    <h5 class="stepTxt"><a href="#">라오스도착</a></h5>
+                    <h5 class="stepDate"><a href="#"></a></h5>
+                    <h5 class="stepCurrent"><a href="#"></a></h5>
+                </div>
+                <div class="stepCon">
+                    <h5 class="stepTxt"><a href="#">배출시작</a></h5>
+                    <h5 class="stepDate"><a href="#"></a></h5>
+                    <h5 class="stepCurrent"><a href="#"></a></h5>
+                </div>
+            </div>    
+        </section>
         <footer>
-            <button id="Search">배송 조회하기</button>
+<!--             <button id="Search">배송 조회하기</button> -->
         </footer>
     </div>
 </body>
@@ -112,6 +272,8 @@
 // 	var lok2 =  lok[1].split("&od=");
 // 	lok[1] =  lok2[0];
 // 	lok[2] =  lok2[1];
+	var EKS = '${Dlist.EK}';
+	var add = '${Dlist.REC_TARGET}';
 	
 // 	var name = decodeURI(decodeURIComponent(lok[0]));
 
@@ -138,6 +300,40 @@
 			var memid = $(this).parents(".infoWrap").find(".T_MEM_ID").val();
 			location.href = "Mobile_Delivery_Detail.do?id="+memid+"&ik=" + inkey; 
 	    });
+	    
+	    if(EKS == 'EK1'){
+	    	$(".infoWrap").addClass("ek1");
+	    }
+
+		$("#recTarget").on("change",function(){
+		    if($("#recTarget").val() == '3'){
+		    	$("#target_3").show();
+		    }
+		    else{
+		    	$("#target_3").hide();
+		    }
+		});
+// 		console.log(add);
+	    if(add == '3'){
+	    	$("#target_3").show();
+	    }
+	    if(add != '' && add != 'null'){
+			$("#recTarget").val(add);
+	    	$(".savebutton").remove();		
+	    	$("#recTarget").prop("disabled",true);
+	    	$("#recAddr").prop("disabled",true);
+	    	$("#recHou").prop("disabled",true);
+	    }
+	    
+
+		Delivery_Search_O($("#memid").val(),$("#inkey").val());
+		Delivery_Search_D2($("#inkey").val());
+		
+		$(".savebutton").on("click",function(){
+			if(confirm("한번 저장하면 수정이 불가합니다.\n픽업지를 저장하시겠습니까?")){
+				Pickup_Insert($("#inkey").val());		
+			}
+		});
 	})
 	
 	function Delivery_Search(){
@@ -162,12 +358,13 @@
 				for(let i=0; i<result.length; i++ ){
 					wrapString += ' <div class="infoWrap">';
 					wrapString += '		<div class="dateNotice">';
-					wrapString += '			<h5 class="subTxt"><a href="#">출항예정일</a></h5>';
+					wrapString += '			<h5 class="subTxt"><a href="#">접수마감일</a></h5>';
 					wrapString += '			<h1 class="dateTxt"><a href="#">'+result[i].ARR_DAY+'</a></h1>';
+					wrapString += ' 	</div>';
 					wrapString += ' </div>';
 					wrapString += ' <div class="infoCon indate">';
-					wrapString += '     <h5 class="subTxt"><a href="#">출항예정일</a></h5>';
-					wrapString += '     <h1 class="subTxt"><a href="#">'+result[i].ARR_DAY+'</a></h1>';
+					wrapString += '     <h5 class="subTxt"><a href="#">송장번호</a></h5>';
+					wrapString += '     <h1 class="subTxt"><a href="#">'+result[i].EK+'</a></h1>';
 					wrapString += ' </div>';
 					wrapString += ' <div class="infoCon people">';
 					wrapString += '     <h5 class="subTxt"><a href="#">수령인</a></h5>';
@@ -231,6 +428,105 @@
 			
 		})	
 		
+	}
+	
+	function Delivery_Search_D2(key){
+
+		var deliverydata = {
+				MEM_ID : "",
+				IN_KEY : key
+		};
+		$.ajax({
+			type: "POST",
+			url : "./Delivery_Select_D.do",
+			data: deliverydata,
+			async: false,
+            success: function(datas){
+				var result = JSON.parse(datas);
+
+
+				$("#Delivery_Information_Table > tbody").empty();
+				var tbodyData3 = "";
+
+				tbodyData3 += "<tr>";
+				tbodyData3 += "<td>"+(result[0].SJ_KEY).split("-")[0]+"</td>";
+				tbodyData3 += "<td>"+result.length+"</td>";
+				tbodyData3 += "<td>"+result[0].ARR_DAY+"</td>";
+				tbodyData3 += "</tr>";
+				
+				$("#Delivery_Information_Table > tbody").append(tbodyData3);	
+				
+            }
+			
+		})	
+	}
+	
+	function Delivery_Search_O(uid,key){
+
+		var deliverydata = {
+				MEM_ID : uid,
+				IN_KEY : key
+		};
+		$.ajax({
+			type: "POST",
+			url : "./Delivery_Select_O.do",
+			data: deliverydata,
+			async: false,
+            success: function(datas){
+				var result = JSON.parse(datas);
+
+				var tbodyData2 = "";
+				$(".stepCon").removeClass("on");
+				$(".stepDate > a").text("미정");
+
+				if(result[0].SJ_KEY != null){
+					var sj = result[0].SJ_KEY.split("-");
+					var sjkey = sj[0] + '-' + sj[1] + '-' + sj[2] + '-' + sj[3];
+					$("#qr_number").text(sjkey);
+				}
+				else{
+					$("#qr_number").text("미접수");
+				}
+				
+				$("#qr_box").text(result[0].CNTBOX);
+				$("#qr_outday").text(result[0].ARR_DAY);
+				
+				for(let i=0; i<result.length; i++ ){
+					$($(".stepCon")[i]).find(".stepDate > a").text(result[i].OUT_TXT);
+					$($(".stepCon")[i]).find(".stepCurrent > a").text(result[i].OUT_TXT_SUB);
+					
+					if(result.length -1  == i){
+						$($(".stepCon")[i]).addClass("on");
+					}
+				}
+				
+            }
+			
+		})	
+	}
+	
+	function Pickup_Insert(inkey){
+		
+		var pickup_data = {
+			IN_KEY : inkey,	
+			TARGET : $("#recTarget").val(),
+			ADDR : $("#recAddr").val(),
+			HOU : $("#recHou").val(),
+		};
+
+		$.ajax({
+			type: "POST",
+			url : "./Pickup_Insert.do",
+			data: pickup_data,
+			async: false,
+            success: function(datas){
+          		alert(datas);  	
+    	    	$(".savebutton").remove();		
+    	    	$("#recTarget").prop("disabled",true);
+    	    	$("#recAddr").prop("disabled",true);
+    	    	$("#recHou").prop("disabled",true);
+            }
+		})
 	}
 </script>
 </html>

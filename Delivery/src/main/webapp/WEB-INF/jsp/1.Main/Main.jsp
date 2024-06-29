@@ -86,7 +86,9 @@
 				location.href = "Main_Manager.do";
 		   }
 		}
-		
+		else if(uid=="null" && uid2=="null"){ 
+	      location.href = "LoginPage.do";
+		}
 
 		
 		$("button > a").on("click",function(e){

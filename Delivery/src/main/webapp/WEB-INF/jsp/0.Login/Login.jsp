@@ -56,10 +56,10 @@
                         <div class="inputWrap login">
                             <button class="login" id="loginbutton">로그인</button>
                         </div>
-                        <h5 class="join"><a href="JoinPage.do">회원가입하기</a></h5>
+<!--                         <h5 class="join"><a href="JoinPage.do">회원가입하기</a></h5> -->
                         <hr style="border: 1px solid #e5e5ec; margin: 40px 0;">
                         <div class="inputWrap">
-                            <button class="loginSub" id="none_id">비회원으로 입장하기</button>
+<!--                             <button class="loginSub" id="none_id">비회원으로 입장하기</button> -->
                         </div>
                     </div>
                 </div>

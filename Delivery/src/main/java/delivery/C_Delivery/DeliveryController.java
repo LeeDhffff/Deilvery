@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import delivery.B_delivery.service.DeliveryRegistService;
 import delivery.C_Delivery.service.DeliveryService;
 
 /**
@@ -39,6 +40,10 @@ public class DeliveryController {
 	
 	@Resource(name = "DeliveryService")
 	private DeliveryService DeliveryService;
+	
+	/** DeliveryRegistService */
+	@Resource(name = "DeliveryRegistService")
+	private DeliveryRegistService delRegistService;
 	
 	/* 배송신청 목록 검색페이지로 이동.(사용자) */
 	@RequestMapping("/Delivery_Search.do")
@@ -67,8 +72,13 @@ public class DeliveryController {
 		inputMap.put("IN_KEY",inputMap.get("ik"));
 		
 		HashMap<String, String> DeliveryList = DeliveryService.Delivery_Search_A(inputMap);
+		// 택배사 데이터 가지고 오기
+		List<HashMap<String, String>> shipComList = delRegistService.shipComList(inputMap);
+		
+		
 		mav.addObject("IN_KEY", inputMap.get("ik"));
 		mav.addObject("Dlist", DeliveryList);
+		mav.addObject("shipComList", shipComList);
 
 		mav.setViewName("2.Delivery/Delivery_Search_A");
 		
@@ -170,5 +180,21 @@ public class DeliveryController {
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonStr = mapper.writeValueAsString(DeliveryList);
 		return jsonStr;
+	}
+	
+
+	/* 사용자 픽업지 등록 */
+	@RequestMapping(value = "/Pickup_Insert.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Pickup_Insert(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		
+		String LoginList = DeliveryService.Pickup_Insert(inputMap);
+//		System.out.println(LoginList.get("resultMsg"));
+
+//		ObjectMapper mapper = new ObjectMapper();
+//		String jsonStr = mapper.writeValueAsString(LoginList);
+		return LoginList;
 	}
 }

@@ -104,7 +104,7 @@
                     <input type="radio" name="radiooutkey" class="currentcheck">                     
                 </div>
                 <div class="stepCon current two">
-                    <h5 class="stepTxt"><a href="#">출항시작(미정)</a></h5>
+                    <h5 class="stepTxt"><a href="#">출항시작</a></h5>
                     <input class="stepDate currentDay" type="text" placeholder="날짜">
                     <input class="stepDate currentMessage" type="text" placeholder="비고">
 	          		<input type="hidden" class="currentSeq" placeholder="" value="2">
@@ -478,5 +478,7 @@
 		}
 		
 	}
+	
+	
 </script>
 </html>
