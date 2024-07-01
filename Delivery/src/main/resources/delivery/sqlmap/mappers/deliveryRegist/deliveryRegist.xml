@@ -152,7 +152,7 @@
 			,#{recNm}
 			,#{recPhone}
 			,#{subPhone}
-			,#{recTarget}
+			,'0'
 			,#{recAddr}
 			,#{recHou}
 			,#{recTxt}

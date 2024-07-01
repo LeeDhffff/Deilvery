@@ -68,7 +68,7 @@
 	{
 		color: red;
 	    margin-bottom: 15px;
-	    font-size: 14px;
+	    font-size: 18px;
 	}
 	
 	.stepWrap
@@ -97,6 +97,9 @@
 	{
 	    border: 1px solid var(--main-color);
 	    background-color: #fff;
+	}
+	.ek1{
+		display: none !important;
 	}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -138,22 +141,20 @@
     </div>   
     <div class="m_container">
         <header class="m_header">
-            <h3 class="arrow back">
-                <a href="#">
-                    <img src="./images/m_icon/header_arrow.svg" alt="#">
-                </a>
-            </h3>
+<!--             <h3 class="arrow back"> -->
+<!--                 <a href="#"> -->
+<!--                     <img src="./images/m_icon/header_arrow.svg" alt="#"> -->
+<!--                 </a> -->
+<!--             </h3> -->
             <div class="m_headerTitle">배송조회</div>
         </header>        
         <section id="section_date">                                   
             <h3 class="sectionMainTitle">
                 <a href="#">
-<%--                     <span class="id">${Dlist.REC_NM}</span>님께서 받을 --%>
                 </a>
             </h3>
             <h5 class="sectionSubTitle">
                 <a href="#">
-<!--                     회원님의 운송장 번호는 <span class="num">2024010845</span> 입니다. -->
                 </a>
             </h5>
 			<div class="infoWrap">
@@ -165,6 +166,10 @@
 					<h5 class="subTxt"><a href="#">송장번호</a></h5>
 					<h1 class="subTxt"><a href="#">${Dlist.EK}</a></h1>
 				</div>
+				<div class="infoCon indate">
+					<h5 class="subTxt"><a href="#">접수일</a></h5>
+					<h1 class="subTxt"><a href="#">${Dlist.CRE_DAY}</a></h1>
+				</div>
 				<div class="infoCon people">
 					<h5 class="subTxt"><a href="#">수령인</a></h5>
 					<h1 class="subTxt"><a href="#">${Dlist.REC_NM}</a></h1>
@@ -173,11 +178,7 @@
 					<h5 class="subTxt"><a href="#">물류예상비용</a></h5>
 					<h1 class="subTxt"><a href="#">$${Dlist.COST}</a></h1>
 				</div>
-<!-- 				<div class="infoCon current"> -->
-<!-- 					<h5 class="subTxt"><a href="#">배송현황</a></h5> -->
 					<input type="hidden" class="T_IN_KEY" id="${IN_KEY}" value="${IN_KEY}">
-<!-- 					<a class="detail" href="#">배송현황확인하기(클릭)</a></h1> -->
-<!-- 				</div> -->
 				<div class="infoCheck">배송내역 확인하기</div>
 			</div>
 
@@ -185,6 +186,7 @@
         <div class="inputsection">
         	<h5 class="inputName"><a href="#">픽업지 선택</a></h5>
 	        <select name="recTarget" id="recTarget">
+		        <option value="0">픽업지 선택</option>
 	            <option value="1">본사</option>
 	            <option value="2">하우 창고</option>
 	            <option value="3">지방배송</option>
@@ -302,7 +304,8 @@
 	    });
 	    
 	    if(EKS == 'EK1'){
-	    	$(".infoWrap").addClass("ek1");
+	    	$("#section_date").addClass("ek1");
+	    	$(".inputsection").addClass("ek1");
 	    }
 
 		$("#recTarget").on("change",function(){
@@ -317,7 +320,7 @@
 	    if(add == '3'){
 	    	$("#target_3").show();
 	    }
-	    if(add != '' && add != 'null'){
+	    if(add != '' && add != 'null' && add != '0'){
 			$("#recTarget").val(add);
 	    	$(".savebutton").remove();		
 	    	$("#recTarget").prop("disabled",true);
@@ -330,7 +333,10 @@
 		Delivery_Search_D2($("#inkey").val());
 		
 		$(".savebutton").on("click",function(){
-			if(confirm("한번 저장하면 수정이 불가합니다.\n픽업지를 저장하시겠습니까?")){
+			if($("#recTarget").val() == '0'){
+				alert("픽업지를 선택해주세요.")
+			}
+			else if(confirm("한번 저장하면 수정이 불가합니다.\n픽업지를 저장하시겠습니까?")){
 				Pickup_Insert($("#inkey").val());		
 			}
 		});
@@ -417,8 +423,8 @@
 					var number = 0;
 					
 					tbodyData2 += '<div class="tableCon">';
-					tbodyData2 += '<h3 class="date"><a href="#">접수일 : <span class="date">'+result[i].CRE_DAY+'</span></a></h3>';
-					tbodyData2 += '<h3 class="con"><a href="#">W*H*L('+result[i].WIDTH+'cm*'+result[i].HEIGHT+'cm*'+result[i].LENGTH+'cm)/무게'+result[i].WEIGHT+'kg</a></h3>';
+					tbodyData2 += '<h3 class="date"><a href="#">W*H*L('+result[i].WIDTH+'cm*'+result[i].HEIGHT+'cm*'+result[i].LENGTH+'cm)/무게'+result[i].WEIGHT+'kg</a></h3>';
+					tbodyData2 += '<h3 class="con"><a href="#">예상비용 : <span class="date">'+result[i].COST+'$</span></a></h3>';
 					tbodyData2 += '</div>';
 				}
 

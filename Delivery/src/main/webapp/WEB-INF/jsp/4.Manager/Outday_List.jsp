@@ -38,11 +38,11 @@
 		<section>
             <div class="sectionContainer">
                 <h1 class="sectionTitle">
-                    <a href="#">출항일 관리</a>
+                    <a href="#">마감일 관리</a>
                 </h1>                
                 <div class="conWrap">
                     <h3 class="conMainTitle">
-                        <a href="#">출항일 리스트</a>
+                        <a href="#">마감일 리스트</a>
                         <div class="buttonWrap">
                             <button class="plus">
                                 <a href="Outday.do">
@@ -67,7 +67,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>출항일</th>
+                                        <th>마감일</th>
                                         <th>진행상황</th>
                                     </tr>
                                 </thead>
@@ -140,7 +140,7 @@
 		})
 		
 		
-		/* 클릭시 출항일 관리페이지로 이동 */
+		/* 클릭시 마감일 관리페이지로 이동 */
 		$(document).on("click","#Outday_Table > tbody > tr", function(){
 			
 			var outkey = $(this).find(".out_key").val();

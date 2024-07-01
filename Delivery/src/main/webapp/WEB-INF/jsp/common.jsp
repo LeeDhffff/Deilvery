@@ -144,7 +144,7 @@
 				}
 				if(auth.indexOf('Outday_List') < 0){
 				menubar += "<li>";
-				menubar += '    <a class="Outday_Search" href="#">출항일 생성</a>';
+				menubar += '    <a class="Outday_Search" href="#">마감일 생성</a>';
 				menubar += "</li>";
 				}
 				if(auth.indexOf('DeliveryCompanyList') < 0){

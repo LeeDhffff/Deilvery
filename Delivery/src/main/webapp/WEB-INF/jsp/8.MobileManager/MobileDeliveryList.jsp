@@ -128,10 +128,10 @@
         <section>
             <h3 class="sectionMainTitle"><a href="#">배송조회 필터</a></h3>                       
             <div class="inputWrap outdays_div">
-                <h5 class="inputName"><a href="#">출항일<span>*</span></a></h5>
-                <input type="text" class="Search days" id="S_Out_Day" autocomplete="off" placeholder="출항일을 입력해주세요">
+                <h5 class="inputName"><a href="#">마감일<span>*</span></a></h5>
+                <input type="text" class="Search days" id="S_Out_Day" autocomplete="off" placeholder="마감일을 입력해주세요">
             	<div class="outdayBox">
-<!--                 	<div class="outdayTitle">출항일 선택하기</div> -->
+<!--                 	<div class="outdayTitle">마감일 선택하기</div> -->
                 </div>
             </div>
             <div class="inputWrap">
@@ -194,7 +194,7 @@
                             <tr>
                                 <th></th>
                                 <th>송장번호</th>
-                                <th>출항일</th>
+                                <th>마감일</th>
                                 <th>수령인</th>
                                 <th>전화번호</th>
                                 <th>픽업지</th>

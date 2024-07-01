@@ -173,9 +173,9 @@ input[type=checkbox]{
                     <div class="wrap">
                         <div class="triple">
                             <div class="inputWrap">
-                                <input type="text" class="Search days" id="S_Out_Day" placeholder="출항일을 입력해주세요" autocomplete="off" onkeyup="pressenters()">
+                                <input type="text" class="Search days" id="S_Out_Day" placeholder="마감일을 입력해주세요" autocomplete="off" onkeyup="pressenters()">
                                 <div class="outdayBox">
-                                	<div class="outdayTitle">출항일 선택하기</div>
+                                	<div class="outdayTitle">마감일 선택하기</div>
                                 </div>
                             </div>
                             <div class="inputWrap">
@@ -237,7 +237,7 @@ input[type=checkbox]{
                                         </div>
                                         </th>
                                         <th>송장번호</th>
-                                        <th>출항일</th>
+                                        <th>마감일</th>
                                         <th>수령인</th>
                                         <th>픽업지</th>
                                         <th>배송현황</th>

@@ -204,9 +204,30 @@
                 	<input type="hidden" value="${result.inKey}" id="inKey" name="inKey" />
                 	<input type="hidden" value="${result.memId}" id="memId" name="memId" />
                     <div class="wrap">
-                        <div class="inputWrap">
-                            <h5 class="inputName"><a href="#">신청일자<span>*</span></a></h5>
-                            <input type="text" id="creDay" name="creDay" placeholder="날짜를 선택해주세요.">
+                        <div class="double">
+	                        <div class="inputWrap">
+	                            <h5 class="inputName"><a href="#">신청일자<span>*</span></a></h5>
+	                            <input type="text" id="creDay" name="creDay" placeholder="날짜를 선택해주세요.">
+	                        </div>
+	                        
+	                        <div class="inputWrap">
+	                            <h5 class="inputName"><a href="#">마감일 선택하기<span>*</span></a></h5>
+	                            <input type="hidden" id="arrDay" name="arrDay" value="${result.arrDay }" placeholder="yyyy-mm-dd"> 
+	                            <input type="hidden" id="outKey" name="outKey" value="${packInfo[0].outKey }"/>
+	                            <select name="outDay" id="outDay">
+	                            	<option value="N">마감일 선택</option>
+	                            	<c:forEach var="item" items="${outDayList }">
+	                            		<c:choose>
+	                            			<c:when test="${item.outKey eq result.arrDay }">
+	                            				<option value="${item.outKey }" selected>${item.outDay }</option>
+	                            			</c:when>
+	                            			<c:otherwise>
+	                            				<option value="${item.outKey }">${item.outDay }</option>                            			
+	                            			</c:otherwise>
+	                            		</c:choose>
+	                            	</c:forEach>
+	                            </select>                            
+	                        </div>
                         </div>
                         <div class="double">
                             <div class="inputWrap">
@@ -350,24 +371,6 @@
                             <input type="text" class="chkVal" id="cost" name="cost" placeholder="$500 (kg*$1.5 or 용적중량 *$1.5 중 비싼 비용으로 계산) / 용적중량 : 가로*세로*높이*0.00022 ">
                         </div>
 
-                        <div class="inputWrap">
-                            <h5 class="inputName"><a href="#">출항일 선택하기<span>*</span></a></h5>
-                            <input type="hidden" id="arrDay" name="arrDay" value="${result.arrDay }" placeholder="yyyy-mm-dd"> 
-                            <input type="hidden" id="outKey" name="outKey" value="${packInfo[0].outKey }"/>
-                            <select name="outDay" id="outDay">
-                            	<option value="N">출항일 선택</option>
-                            	<c:forEach var="item" items="${outDayList }">
-                            		<c:choose>
-                            			<c:when test="${item.outKey eq result.arrDay }">
-                            				<option value="${item.outKey }" selected>${item.outDay }</option>
-                            			</c:when>
-                            			<c:otherwise>
-                            				<option value="${item.outKey }">${item.outDay }</option>                            			
-                            			</c:otherwise>
-                            		</c:choose>
-                            	</c:forEach>
-                            </select>                            
-                        </div>
                         <div class="bottomButtonWrap">
 	                        <button class="bottomButton" id="returnBtn">미완료 배송신청으로 돌아가기</button>
 	                        <c:choose>

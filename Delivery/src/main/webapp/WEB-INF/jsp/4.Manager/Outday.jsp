@@ -68,7 +68,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>출항예정일</th>
+                                <th>마감예정일</th>
                                 <th>수령인</th>
                                 <th>접수일</th>
                                 <th>물류예상비용</th>
@@ -87,12 +87,12 @@
 		<section>
             <div class="sectionContainer">
                 <h1 class="sectionTitle">
-                    <a href="#">출항일관리</a>
+                    <a href="#">마감일관리</a>
                 </h1>
                 <div class="conWrap">                                       
                     <div class="wrap">
                         <div class="inputWrap">
-                            <h5 class="inputName"><a href="#">출항예정일 선택하기</a></h5>
+                            <h5 class="inputName"><a href="#">마감예정일 선택하기</a></h5>
                             <input type="text" id="Out_Day" placeholder="">
                             <input type="hidden" id="Out_CHK" placeholder="">
                             <input type="hidden" id="Out_Key" placeholder="">
@@ -315,10 +315,10 @@
 				$(".modify").trigger("click");
 			}
 		});
-		/* 출항일 생성 */
+		/* 마감일 생성 */
 		$(".create").on("click",function(){
 				if($("#Out_Day").val() == ''){
-					alert("출항 예정일을 입력해주세요.")
+					alert("마감 예정일을 입력해주세요.")
 				}
 				else if($(".current.on").find(".currentDay").val() == ''){
 					alert("최초 배송현황 날짜를 입력해주세요.")
@@ -339,7 +339,7 @@
 	    	            	if(data == ''){
 	    	            		alert("잘못된 접근입니다.");	
 	    	            	}
-	    	            	else if(data == '잘못된 접근입니다.' || data == '해당 날짜에 출항일이 이미 생성되어 있습니다.'){
+	    	            	else if(data == '잘못된 접근입니다.' || data == '해당 날짜에 마감일이 이미 생성되어 있습니다.'){
 	    	            		alert(data);
 	    	            	}
 	    	            	else{
@@ -375,7 +375,7 @@
 				
 		});
 
-		/* 출항일 수정 */
+		/* 마감일 수정 */
 		/* 규칙: 반드시 활성화된 칸만 수정할 수 있음. */
 		$(".modify").on("click",function(){
 				if($(".current.on").find(".currentDay").val() == ''){
@@ -396,7 +396,7 @@
 	    				url : "./Out_Day_UD.do",
 	    				data: daydata,
 	    				async: false,
-	    	            success: function(datas){
+	    	            success: function(datas2){
 							var form ={//= new FormData();
 		    						MEM_ID:		uid,
 		    		     		 	OUT_SEQ:	$(".current.on").find(".currentSeq").val(),
@@ -424,15 +424,15 @@
 				
 		});
 
-		/* 출항일 삭제 */
+		/* 마감일 삭제 */
 		/* 규칙 : 배송현황이 하나이상 존재할 경우, 배송현황만이 삭제. */
-		/* 만약 배송현황이 하나도 없을때 클릭할 경우, 출항일 자체 삭제가능. */
+		/* 만약 배송현황이 하나도 없을때 클릭할 경우, 마감일 자체 삭제가능. */
 		$(".delete").on("click",function(){
 
 			var test = ["","one","two","three","four","five","six"]
 			
 			if($("#Out_CHK").val() == 0){
-				if(confirm("현재 출항일을 삭제하시겠습니까?")){
+				if(confirm("현재 마감일을 삭제하시겠습니까?")){
 					
 					var daydata = {
 						MEM_ID  : uid,
@@ -453,7 +453,7 @@
 	    	            	}
 	    	            	else{
 
-		    	            	alert("삭제되었습니다. 출항일 목록으로 돌아갑니다.");
+		    	            	alert("삭제되었습니다. 마감일 목록으로 돌아갑니다.");
 		    	    			location.href="Outday_List.do?";
 	    	            	}
 	    	            }
@@ -491,7 +491,7 @@
 		});
 	})
 
-	/* 출항일 현황 불러오기 */
+	/* 마감일 현황 불러오기 */
 	function searchOutDay(out_key){
 		var OutData = {
 				MEM_ID : uid,

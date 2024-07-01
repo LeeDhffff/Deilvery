@@ -59,7 +59,9 @@
 	#target_3{
 		display: none;
 	}
-	
+	.currentWrap{
+		display: block !important;
+	}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -123,9 +125,7 @@
                     <table id="Delivery_History_Table">
                         <thead>
                             <tr>
-                                <th>출항예정일</th>
                                 <th>수령인</th>
-                                <th>접수일</th>
                                 <th>물류예상비용</th>
                                 <th>물품내역</th>
                             </tr>
@@ -160,6 +160,7 @@
                 <div class="inputWrap">
 	        	<h3 class="inputName"><a href="#">픽업지 선택</a></h3>
 		        <select name="recTarget" id="recTarget">
+		            <option value="0">픽업지 선택</option>
 		            <option value="1">본사</option>
 		            <option value="2">하우 창고</option>
 		            <option value="3">지방배송</option>
@@ -195,11 +196,11 @@
                                 <thead>
                                     <tr>
                                         <th>송장번호</th>
-                                        <th>출항예정일</th>
+                                        <th>마감일</th>
                                         <th>수령인</th>
                                         <th>접수일</th>
                                         <th>물류예상비용</th>
-                                        <th>배송현황</th>
+<!--                                         <th>배송현황</th> -->
                                         <th>배송내역확인</th>
                                     </tr>
                                 </thead>
@@ -210,7 +211,7 @@
 									<td><input type='hidden' class='T_IN_KEY' id="${IN_KEY}" value="${IN_KEY}">${Dlist.REC_NM}</td>
 									<td>${Dlist.CRE_DAY}</td>
 									<td>${Dlist.COST}</td>
-									<td class="currentClickOne" style="cursor:pointer;">한국물류창고 (클릭)</td>
+<!-- 									<td class="currentClickOne" style="cursor:pointer;">한국물류창고 (클릭)</td> -->
 									<td class="historyCheck">확인하기</td>
 									</tr>
                                 </tbody>
@@ -286,73 +287,73 @@
                             </div>
                         </div>  
                         
-                        <div class="currentWrap two">
-                            <h3 class="conMainTitle">
-                                <a href="#">배송현황</a>
-                                <button class="qr">QR코드</button>
-                            </h3>
-                            <div class="currentCon">
-                                <div class="current one on">
-                                    <div class="condition on">
-                                        <a href="#">
-                                            <img src="./images/pc_icon/check_white.svg" alt="#">
-                                        </a>
-                                    </div>
-                                    <h5 class="currentTitle"><a href="#">한국 물류창고</a></h5>
-                                    <h5 class="currentDay"><a href="#"></a></h5>
-                                    <h5 class="currentMessage"><a href="#"></a></h5>                                    
-                                </div>
-                                <div class="current two">
-                                    <div class="condition">
-                                        <a href="#">
-                                            <img src="./images/pc_icon/check_white.svg" alt="#">
-                                        </a>
-                                    </div>
-                                    <h5 class="currentTitle"><a href="#">출항시작</a></h5>
-                                    <h5 class="currentDay"><a href="#"></a></h5>
-                                    <h5 class="currentMessage"><a href="#"></a></h5>
-                                </div>
-                                <div class="current three">
-                                    <div class="condition">
-                                        <a href="#">
-                                            <img src="./images/pc_icon/check_white.svg" alt="#">
-                                        </a>
-                                    </div>
-                                    <h5 class="currentTitle"><a href="#">태국도착</a></h5>
-                                    <h5 class="currentDay"><a href="#"></a></h5>
-                                    <h5 class="currentMessage"><a href="#"></a></h5>
-                                </div>
-                                <div class="current four">
-                                    <div class="condition">
-                                        <a href="#">
-                                            <img src="./images/pc_icon/check_white.svg" alt="#">
-                                        </a>
-                                    </div>
-                                    <h5 class="currentTitle"><a href="#">라오스 출발</a></h5>
-                                    <h5 class="currentDay"><a href="#"></a></h5>
-                                    <h5 class="currentMessage"><a href="#"></a></h5>
-                                </div>
-                                <div class="current five">
-                                    <div class="condition">
-                                        <a href="#">
-                                            <img src="./images/pc_icon/check_white.svg" alt="#">
-                                        </a>
-                                    </div>
-                                    <h5 class="currentTitle"><a href="#">라오스 도착</a></h5>
-                                    <h5 class="currentDay"><a href="#"></a></h5>
-                                    <h5 class="currentMessage"><a href="#"></a></h5>
-                                </div>
-                                <div class="current six">
-                                    <div class="condition">
-                                        <a href="#">
-                                            <img src="./images/pc_icon/check_white.svg" alt="#">
-                                        </a>
-                                    </div>
-                                    <h5 class="currentTitle"><a href="#">배출 시작</a></h5>
-                                    <h5 class="currentDay"><a href="#"></a></h5>
-                                </div>
-                            </div>
-                        </div> 
+<!--                         <div class="currentWrap two"> -->
+<!--                             <h3 class="conMainTitle"> -->
+<!--                                 <a href="#">배송현황</a> -->
+<!--                                 <button class="qr">QR코드</button> -->
+<!--                             </h3> -->
+<!--                             <div class="currentCon"> -->
+<!--                                 <div class="current one on"> -->
+<!--                                     <div class="condition on"> -->
+<!--                                         <a href="#"> -->
+<!--                                             <img src="./images/pc_icon/check_white.svg" alt="#"> -->
+<!--                                         </a> -->
+<!--                                     </div> -->
+<!--                                     <h5 class="currentTitle"><a href="#">한국 물류창고</a></h5> -->
+<!--                                     <h5 class="currentDay"><a href="#"></a></h5> -->
+<!--                                     <h5 class="currentMessage"><a href="#"></a></h5>                                     -->
+<!--                                 </div> -->
+<!--                                 <div class="current two"> -->
+<!--                                     <div class="condition"> -->
+<!--                                         <a href="#"> -->
+<!--                                             <img src="./images/pc_icon/check_white.svg" alt="#"> -->
+<!--                                         </a> -->
+<!--                                     </div> -->
+<!--                                     <h5 class="currentTitle"><a href="#">출항시작</a></h5> -->
+<!--                                     <h5 class="currentDay"><a href="#"></a></h5> -->
+<!--                                     <h5 class="currentMessage"><a href="#"></a></h5> -->
+<!--                                 </div> -->
+<!--                                 <div class="current three"> -->
+<!--                                     <div class="condition"> -->
+<!--                                         <a href="#"> -->
+<!--                                             <img src="./images/pc_icon/check_white.svg" alt="#"> -->
+<!--                                         </a> -->
+<!--                                     </div> -->
+<!--                                     <h5 class="currentTitle"><a href="#">태국도착</a></h5> -->
+<!--                                     <h5 class="currentDay"><a href="#"></a></h5> -->
+<!--                                     <h5 class="currentMessage"><a href="#"></a></h5> -->
+<!--                                 </div> -->
+<!--                                 <div class="current four"> -->
+<!--                                     <div class="condition"> -->
+<!--                                         <a href="#"> -->
+<!--                                             <img src="./images/pc_icon/check_white.svg" alt="#"> -->
+<!--                                         </a> -->
+<!--                                     </div> -->
+<!--                                     <h5 class="currentTitle"><a href="#">라오스 출발</a></h5> -->
+<!--                                     <h5 class="currentDay"><a href="#"></a></h5> -->
+<!--                                     <h5 class="currentMessage"><a href="#"></a></h5> -->
+<!--                                 </div> -->
+<!--                                 <div class="current five"> -->
+<!--                                     <div class="condition"> -->
+<!--                                         <a href="#"> -->
+<!--                                             <img src="./images/pc_icon/check_white.svg" alt="#"> -->
+<!--                                         </a> -->
+<!--                                     </div> -->
+<!--                                     <h5 class="currentTitle"><a href="#">라오스 도착</a></h5> -->
+<!--                                     <h5 class="currentDay"><a href="#"></a></h5> -->
+<!--                                     <h5 class="currentMessage"><a href="#"></a></h5> -->
+<!--                                 </div> -->
+<!--                                 <div class="current six"> -->
+<!--                                     <div class="condition"> -->
+<!--                                         <a href="#"> -->
+<!--                                             <img src="./images/pc_icon/check_white.svg" alt="#"> -->
+<!--                                         </a> -->
+<!--                                     </div> -->
+<!--                                     <h5 class="currentTitle"><a href="#">배출 시작</a></h5> -->
+<!--                                     <h5 class="currentDay"><a href="#"></a></h5> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                         </div>  -->
 
                     </div> <!-- wrap -->
                 </div> <!-- conWrap -->
@@ -379,7 +380,7 @@
 	$(document).on('ready',function(){
 // 		Delivery_Search();
 
-		$(".currentClickOne").trigger("click");
+// 		$(".currentClickOne").trigger("click");
 		Delivery_Search_O($("#Delivery_Table > tbody > tr").find(".T_IN_KEY").val());
 		
 		$(".customer").text(name);
@@ -395,7 +396,7 @@
 		if(add == '3'){
 	    	$("#target_3").css("display","flex");
 	    }
-	    if(add != '' && add != 'null'){
+	    if(add != '' && add != 'null' && add != '0'){
 			$("#recTarget").val(add);
 	    	$(".savebutton").remove();		
 	    	$("#recTarget").prop("disabled",true);
@@ -412,7 +413,10 @@
 		});
 
 		$(".savebutton").on("click",function(){
-			if(confirm("한번 저장하면 수정이 불가합니다.\n픽업지를 저장하시겠습니까?")){
+			if($("#recTarget").val() == '0'){
+				alert("픽업지를 선택해주세요.")
+			}
+			else if(confirm("한번 저장하면 수정이 불가합니다.\n픽업지를 저장하시겠습니까?")){
 				Pickup_Insert($(".T_IN_KEY").val());		
 			}
 		});
@@ -550,9 +554,9 @@
 // 						number = result[i].COST;
 						
 						tbodyData2 += "<tr>";
-						tbodyData2 += "<td>"+result[i].ARR_DAY+"</td>";
+// 						tbodyData2 += "<td>"+result[i].ARR_DAY+"</td>";
 						tbodyData2 += "<td><input type='hidden' id='"+result[i].IN_KEY+"' data='"+result[i].IN_KEY+"'>"+result[i].REC_NM+"</td>";
-						tbodyData2 += "<td>"+result[i].CRE_DAY+"</td>";
+// 						tbodyData2 += "<td>"+result[i].CRE_DAY+"</td>";
 						tbodyData2 += "<td>$"+result[i].COST+"</td>";
 						tbodyData2 += "<td>W*H*L("+result[i].WIDTH+"cm*"+result[i].HEIGHT +"cm*" + result[i].LENGTH+"cm / 무게 "+ result[i].WEIGHT + "kg</td>";
 					

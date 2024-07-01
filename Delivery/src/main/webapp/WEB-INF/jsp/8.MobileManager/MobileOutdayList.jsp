@@ -9,7 +9,7 @@
 
 <!DOCTYPE html>
 <html lang="kr">    
-    <title>EK Logistics - 출항일 검색</title>
+    <title>EK Logistics - 마감일 검색</title>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
@@ -37,7 +37,7 @@
    <div class="pop">
         <div class="popCon">
             <div class="popHeader">
-                <div class="popTitle">출항일 수정하기</div>
+                <div class="popTitle">마감일 수정하기</div>
                 <h5 class="cancel">
                     <a href="#">
                         <img src="./images/m_icon/cancel_black.svg" alt="">
@@ -46,7 +46,7 @@
             </div>
             <div class="popBody">
                 <p class="popP">
-                    선택하신 출항일을 수정하시겠습니까?
+                    선택하신 마감일을 수정하시겠습니까?
                 </p>                
             </div>
             <button class="popModify">수정하기</button>            
@@ -56,7 +56,7 @@
     <div class="pop2">
         <div class="popCon">
             <div class="popHeader">
-                <div class="popTitle">출항일 삭제하기</div>
+                <div class="popTitle">마감일 삭제하기</div>
                 <h5 class="cancel">
                     <a href="#">
                         <img src="./images/m_icon/cancel_black.svg" alt="">
@@ -65,7 +65,7 @@
             </div>
             <div class="popBody">
                 <p class="popP">
-                    선택하신 출항일을 삭제하시겠습니까?
+                    선택하신 마감일을 삭제하시겠습니까?
                 </p>                
             </div>
             <button class="popDelete">삭제하기</button>            
@@ -79,7 +79,7 @@
                     <img src="./images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>
-            <div class="m_headerTitle">출항일관리</div>
+            <div class="m_headerTitle">마감일관리</div>
         </header>        
         <section>  
             <div class="currentWrap">
@@ -92,7 +92,7 @@
                     </h5>
                 </div>                
                 <div class="currentHeader">
-                    <h5><a href="#">출항일리스트</a></h5>
+                    <h5><a href="#">마감일리스트</a></h5>
                 </div>
                 <div class="tableWrap">
                     <table id="Outday_Table">
@@ -100,7 +100,7 @@
                             <tr>
                                 <th></th>
                                 <th>No</th>
-                                <th>출항일</th>
+                                <th>마감일</th>
                                 <th>진행상황</th>
                             </tr>
                         </thead>
@@ -167,7 +167,7 @@
 		})
 		
 		
-		/* 클릭시 출항일 관리페이지로 이동 */
+		/* 클릭시 마감일 관리페이지로 이동 */
 		$(document).on("click","#Outday_Table > tbody > tr", function(){
 
 			$(".ton").removeClass("ton");
@@ -185,7 +185,7 @@
 		})
 		$(".modify").on("click",function(){
 			if($("input[name=List_Check]:checked").length <= 0){
-				alert("수정할 출항일을 선택해주세요.");
+				alert("수정할 마감일을 선택해주세요.");
 			}
 			else{
 				var outkey = $("input[name=List_Check]:checked").parents("tr").find(".out_key").val();

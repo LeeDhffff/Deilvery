@@ -9,7 +9,7 @@
 
 <!DOCTYPE html>
 <html lang="kr">    
-    <title>EK Logistics - 출항일 검색</title>
+    <title>EK Logistics - 마감일 검색</title>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
@@ -75,14 +75,18 @@
                     <img src="./images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>
-            <div class="m_headerTitle">출항일관리</div>
+            <div class="m_headerTitle">마감일관리</div>
         </header>        
         <section>
             <div class="inputWrap">
-                <h5 class="inputName"><a href="#">출항일<span>*</span></a></h5>
-                <input type="text" id="Out_Day" placeholder="출항일을 입력해주세요">
+                <h5 class="inputName"><a href="#">마감일<span>*</span></a></h5>
+                <input type="text" id="Out_Day" placeholder="마감일을 입력해주세요">
                 <input type="hidden" id="Out_CHK" placeholder="">
                 <input type="hidden" id="Out_Key" placeholder="">
+            </div>
+            <div class="inputWrap">
+                <h5 class="inputName"><a href="#">비고</a></h5>
+                <input type="text" id="Out_Txt" placeholder="비고">
             </div>
             <h3 class="sectionMainTitle">
                 <a href="#">
@@ -141,8 +145,8 @@
             </div>    
         </section>
         <footer>
-            <button class="create">출항일 저장하기</button>
-            <button class="modify">출항일 저장하기</button>
+            <button class="create">마감일 저장하기</button>
+            <button class="modify">마감일 저장하기</button>
         </footer>
     </div>
 </body>
@@ -219,7 +223,7 @@
 			
 		})
 
-		/* 출항일 생성 */
+		/* 마감일 생성 */
 		$(".create").on("click",function(){
 				if($("#Out_Day").val() == ''){
 					alert("출항 예정일을 입력해주세요.")
@@ -231,7 +235,7 @@
 					var daydata = {
 						MEM_ID  : uid,
 						OUT_DAY : $("#Out_Day").val(),
-						OUT_TXT : ""
+						OUT_TXT : $("#Out_Txt").val()
 					};
 					$.ajax({
 	    				type: "POST",
@@ -243,7 +247,7 @@
 	    	            	if(data == ''){
 	    	            		alert("잘못된 접근입니다.");	
 	    	            	}
-	    	            	else if(data == '잘못된 접근입니다.' || data == '해당 날짜에 출항일이 이미 생성되어 있습니다.'){
+	    	            	else if(data == '잘못된 접근입니다.' || data == '해당 날짜에 마감일이 이미 생성되어 있습니다.'){
 	    	            		alert(data);
 	    	            	}
 	    	            	else{
@@ -278,48 +282,64 @@
 				
 		});
 
-		/* 출항일 수정 */
+		/* 마감일 수정 */
 		/* 규칙: 반드시 활성화된 칸만 수정할 수 있음. */
 		$(".modify").on("click",function(){
 				if($(".current.on").find(".currentDay").val() == ''){
 					alert("현재 날짜 텍스트를 입력해주세요.")
 				}
 				else{
+
+					var daydata = {
+						MEM_ID  : uid,
+						OUT_KEY : $("#Out_Key").val(),
+						OUT_TXT : $("#Out_Txt").val(),
+						OUT_TXT_SUB : "",
+						MODE : "U"
+					};
 					
-					var form ={//= new FormData();
-    						MEM_ID:		uid,
-    		     		 	OUT_SEQ:	$(".current.on").find(".currentSeq").val(),
-    		     		 	OUT_KEY:	$("#Out_Key").val(),
-    		     		 	OUT_DAY:	$("#Out_Day").val(),
-    		     		 	CHK:		$(".current.on").find(".currentSeq").val(),
-    		     		 	OUT_TXT:	$(".current.on").find(".currentDay").val(),
-    		     		 	OUT_TXT_SUB:$(".current.on").find(".currentMessage").val(),
-    		     		 	MODE:		"U"
-	            		}
-// 		     		 	$("#Out_Day_Out_Image")[0].files[0]
-		            	$.ajax({
-		    				type: "POST",
-		    				url : "./Out_Day_File_UD.do",
-		    				data: form,
-		    				async: false,
-		    	            success: function(datas){
-		    	            	alert(datas);
-		    	            	searchOutDay($("#Out_Key").val());
-		    	            }
-		    			});
+					$.ajax({
+	    				type: "POST",
+	    				url : "./Out_Day_UD.do",
+	    				data: daydata,
+	    				async: false,
+	    	            success: function(datas2){
+							var form ={//= new FormData();
+		    						MEM_ID:		uid,
+		    		     		 	OUT_SEQ:	$(".current.on").find(".currentSeq").val(),
+		    		     		 	OUT_KEY:	$("#Out_Key").val(),
+		    		     		 	OUT_DAY:	$("#Out_Day").val(),
+		    		     		 	CHK:		$(".current.on").find(".currentSeq").val(),
+		    		     		 	OUT_TXT:	$(".current.on").find(".currentDay").val(),
+		    		     		 	OUT_TXT_SUB:$(".current.on").find(".currentMessage").val(),
+		    		     		 	MODE:		"U"
+			            		}
+		// 		     		 	$("#Out_Day_Out_Image")[0].files[0]
+				            	$.ajax({
+				    				type: "POST",
+				    				url : "./Out_Day_File_UD.do",
+				    				data: form,
+				    				async: false,
+				    	            success: function(datas){
+				    	            	alert(datas);
+				    	            	searchOutDay($("#Out_Key").val());
+				    	            }
+				    			});
+	    	            }
+					})
 				}
 				
 		});
 
-		/* 출항일 삭제 */
+		/* 마감일 삭제 */
 		/* 규칙 : 배송현황이 하나이상 존재할 경우, 배송현황만이 삭제. */
-		/* 만약 배송현황이 하나도 없을때 클릭할 경우, 출항일 자체 삭제가능. */
+		/* 만약 배송현황이 하나도 없을때 클릭할 경우, 마감일 자체 삭제가능. */
 		$(".delete").on("click",function(){
 
 			var test = ["","one","two","three","four","five","six"]
 			
 			if($("#Out_CHK").val() == 0){
-				if(confirm("현재 출항일을 삭제하시겠습니까?")){
+				if(confirm("현재 마감일을 삭제하시겠습니까?")){
 					
 					var daydata = {
 						MEM_ID  : uid,
@@ -339,7 +359,7 @@
 	    	            	}
 	    	            	else{
 
-		    	            	alert("삭제되었습니다. 출항일 목록으로 돌아갑니다.");
+		    	            	alert("삭제되었습니다. 마감일 목록으로 돌아갑니다.");
 		    	    			location.href="Outday_List.do?";
 	    	            	}
 	    	            }
@@ -375,7 +395,7 @@
 		});
 	})
 
-	/* 출항일 현황 불러오기 */
+	/* 마감일 현황 불러오기 */
 	function searchOutDay(out_key){
 		var OutData = {
 				MEM_ID : uid,
@@ -397,6 +417,7 @@
 				$('#Out_Day').datepicker('setDate',resultdata.OUT_DAY);
 				$('#Out_Day').attr('disabled',true);
 				$("#Out_Key").val(resultdata.OUT_KEY);
+				$("#Out_Txt").val(resultdata.OUT_TXT);
 				var OutFileData = {
 						MEM_ID : uid,
 						OUT_KEY : resultdata.OUT_KEY
