@@ -639,18 +639,24 @@
     	
     	/* 입력된 박스 정보 삭제 설정 (JANG) */
     	$("#boxDel").on("click", function(evt){
-    		evt.preventDefault();    		
-    		// 박스정보 삭제
-    		$("input[name=boxIndex]").each(function(index){    			
-    			if($("#allChk").is(":checked")){
-    				$("input[name=boxIndex]").parent().parent().remove();
-    			}
-	    		if($(this).is(":checked")){
-	    			$(this).parent().parent().remove();
-	    		}
-    			
-    			$("#allChk").prop("checked", false);
-    		});
+    		evt.preventDefault();
+    		const len = $("input[name=boxIndex]").length;
+    		
+    		// 박스정보 삭제    		
+    		if(len > 0){
+	    		$("input[name=boxIndex]").each(function(index){    			
+	    			if($("#allChk").is(":checked")){
+	    				$("input[name=boxIndex]").parent().parent().remove();
+	    			}
+		    		if($(this).is(":checked")){
+		    			$(this).parent().parent().remove();
+		    		}
+	    			
+	    			$("#allChk").prop("checked", false);
+	    		});    			
+    		}else{
+		    	alert("박스정보가 존재하지 않습니다.");
+    		}
     		
     		// No 초기화
     		$("input[name=boxIndex]").each(function(index){
@@ -712,17 +718,13 @@
     	                htmlStr += '   <div class="outHeader">';
     	                htmlStr += '      <div class="left" id="qrCode_'+cntArr[i]+'" style="width:30%;">';
     	                htmlStr += '      </div>'
-    	                htmlStr += '      <div class="right" style="width:50%">';
+            	        htmlStr += '      <div class="right" style="width:50%">';
     	                htmlStr += '         <div class="logo">';
-    	                htmlStr += '            <img src="images/delivery/pc_icon/logo.png" alt="#" style="width:240px; height:70px;">';
+    	                htmlStr += '            <img src="images/delivery/pc_icon/eklogis_N_Lao.svg" alt="#" style="width:100%; height:40%;">';
     	                htmlStr += '         </div>';
-    	                htmlStr += '         <div class="bottom" style="display: flex;">';
-    	                htmlStr += '            <div style="width:50%;">';
-    		            htmlStr += '               <img src="images/delivery/pc_icon/krText.png" alt="#" style="width:100%;">';                 
-    		            htmlStr += '            </div>';              
-    					htmlStr += '            <div style="width:50%;">';
-    					htmlStr += '               <img src="images/delivery/pc_icon/kakaoEklaosWhite.png" alt="#" style="width:100%;">';                 
-    					htmlStr += '            </div>';              
+    	                htmlStr += '		 <h5 style="height : 20%; margin-left:15px">한국 -> 라오스 구매대행 서비스</h5>';
+    	                htmlStr += '         <div class="bottom" style="height: 40%">'; //display: flex;
+    		            htmlStr += '         	<img src="images/delivery/pc_icon/lao_long.svg" alt="#" style="width:100%; height:100%">';                 
     					htmlStr += '         </div>';
     					htmlStr += '      </div>';
     					htmlStr += '   </div>';
@@ -732,11 +734,14 @@
     					htmlStr += '   </div>';
     					htmlStr += '   <div class="outFoot">';
     					htmlStr += '      <div class="top">';
-    					htmlStr += '         <h5>No.'+$("input[name=sjKey]").eq(cntArr[i]).val()+'</h5>';
-    					htmlStr += '         <h5>Tel.020-5553-3327</h5>';
+    					htmlStr += '         <h4 style="height:30%;">No.'+$("input[name=sjKey]").eq(cntArr[i]).val()+'</h4>';
+    					htmlStr += '         <h4 style="height:30%;">KOR Tel.010-6235-8005</h4>';
+    					htmlStr += '         <h4 style="height:30%;">LAO Tel.020-5553-3327</h4>';
     					htmlStr += '      </div>';
     					htmlStr += '      <div class="bottom">';
-    					htmlStr += '         <img src="images/delivery/pc_icon/laosText.png" alt="#" style="width:200px; height:70px;">';   
+    					htmlStr += '         <h4 style="height:30%;"><img src="images/delivery/pc_icon/WWW-Icon.svg" alt="#" style="width:20px; height:20px;">www.eklaos.com</h4>';   
+    					htmlStr += '         <h4 style="height:30%;"><img src="images/delivery/pc_icon/kakao logo.svg" alt="#" style="width:20px; height:20px;">EKLAOS</h4>';   
+    					htmlStr += '         <h4 style="height:30%;"><img src="images/delivery/pc_icon/facebook_icon.svg" alt="#" style="width:20px; height:20px;">E-K MALL</h4>';   
     					htmlStr += '      </div>';
     					htmlStr += '   </div>'
     					htmlStr += '</div>';
@@ -757,38 +762,37 @@
     	                htmlStr += '   <div class="outHeader">';
     	                htmlStr += '      <div class="left" id="qrCode_'+index+'" style="width:30%;">';
     	                htmlStr += '      </div>'
-    	                htmlStr += '      <div class="right" style="width:50%">';
+        	            htmlStr += '      <div class="right" style="width:50%">';
     	                htmlStr += '         <div class="logo">';
-    	                htmlStr += '            <img src="images/delivery/pc_icon/logo.png" alt="#" style="width:240px; height:70px;">';
+    	                htmlStr += '            <img src="images/delivery/pc_icon/eklogis_N_Lao.svg" alt="#" style="width:100%; height:40%;">';
     	                htmlStr += '         </div>';
-    	                htmlStr += '         <div class="bottom" style="display: flex;">';
-    	                htmlStr += '            <div style="width:50%;">';
-    		            htmlStr += '               <img src="images/delivery/pc_icon/krText.png" alt="#" style="width:100%;">';                 
-    		            htmlStr += '            </div>';              
-    					htmlStr += '            <div style="width:50%;">';
-    					htmlStr += '               <img src="images/delivery/pc_icon/kakaoEklaosWhite.png" alt="#" style="width:100%;">';                 
-    					htmlStr += '            </div>';              
+    	                htmlStr += '		 <h5 style="height : 20%; margin-left:15px">한국 -> 라오스 구매대행 서비스</h5>';
+    	                htmlStr += '         <div class="bottom" style="height: 40%">'; //display: flex;
+    		            htmlStr += '         	<img src="images/delivery/pc_icon/lao_long.svg" alt="#" style="width:100%; height:100%">';                 
     					htmlStr += '         </div>';
     					htmlStr += '      </div>';
     					htmlStr += '   </div>';
     					htmlStr += '   <div class="outBody">';
-    					htmlStr += '      <img src="images/delivery/pc_icon/inKey.png" alt="#" style="width:80px;">';
+    					htmlStr += '      <img src="images/delivery/pc_icon/inkeyNum.svg" alt="#" style="width:80px;">';
     					htmlStr += '      <h1>'+txt[0]+'</h1>';
     					htmlStr += '   </div>';
     					htmlStr += '   <div class="outFoot">';
     					htmlStr += '      <div class="top">';
-    					htmlStr += '         <h5>No.'+$("input[name=sjKey]").eq(index).val()+'</h5>';
-    					htmlStr += '         <h5>Tel.020-5553-3327</h5>';
+    					htmlStr += '         <h4 style="height:30%;">No.'+$("input[name=sjKey]").eq(index).val()+'</h4>';
+    					htmlStr += '         <h4 style="height:30%;">KOR Tel.010-6235-8005</h4>';
+    					htmlStr += '         <h4 style="height:30%;">LAO Tel.020-5553-3327</h4>';
     					htmlStr += '      </div>';
     					htmlStr += '      <div class="bottom">';
-    					htmlStr += '         <img src="images/delivery/pc_icon/laosText.png" alt="#" style="width:200px; height:70px;">';   
+    					htmlStr += '         <h4 style="height:30%;"><img src="images/delivery/pc_icon/WWW-Icon.svg" alt="#" style="width:20px; height:20px;">www.eklaos.com</h4>';   
+    					htmlStr += '         <h4 style="height:30%;"><img src="images/delivery/pc_icon/kakao logo.svg" alt="#" style="width:20px; height:20px;">EKLAOS</h4>';   
+    					htmlStr += '         <h4 style="height:30%;"><img src="images/delivery/pc_icon/facebook_icon.svg" alt="#" style="width:20px; height:20px;">E-K MALL</h4>';   
     					htmlStr += '      </div>';
     					htmlStr += '   </div>'
     					htmlStr += '</div>';
     					// qrTxt 초기화 
     					qrTxt = "";
     				});
-       			}				
+       			}
 		        	
 		        $("#contentWrap").append(htmlStr);
 		        	
@@ -876,6 +880,43 @@
     		},
     		height : "75%"
     	}).render(document.getElementById("grid"));
+
+    	
+    	/* 단축키 추가 설정 (JANG 240607) */
+    	document.addEventListener('keydown', (evt) => {   		
+    		// keyCode 확인하는 사이트 링크 ( https://www.toptal.com/developers/keycode )
+    		
+    		// 출력하기 : alt + shift + a
+    		if (evt.keyCode === 65 && evt.shiftKey && evt.altKey) {
+    			evt.preventDefault();
+    			$("#printBtn").trigger("click");
+				return false;
+			// 수령인 검색 : alt + shift + q
+			}else if(evt.keyCode === 81 && evt.shiftKey && evt.altKey){
+				evt.preventDefault();
+    			$(".search").trigger("click");
+				return false;
+			// 저장&수정하기 : alt + shift + e
+			}else if(evt.keyCode === 69 && evt.shiftKey && evt.altKey){
+				evt.preventDefault();
+    			$("#adminDelRegBtn").trigger("click");
+				return false;
+			// 삭제하기 : alt + shift + w
+			}else if(evt.keyCode === 87 && evt.shiftKey && evt.altKey){
+				evt.preventDefault();
+    			$("#boxDel").trigger("click");				
+				return false;
+			}
+    	});
+    	
+    	/* boxsize input에서 엔터키 이벤트 (JANG 240607) */
+    	$(".boxSize").on("keypress", function(evt){
+    		if(evt.keyCode === 13){
+	    		evt.preventDefault();
+				$("#boxSaveBtn").trigger("click");
+    		}
+    	});    	
+    	
     	
     	
    	});	// document.ready end!!

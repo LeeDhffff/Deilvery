@@ -101,6 +101,11 @@
 	.ek1{
 		display: none !important;
 	}
+	
+	.eks > h1{
+	    font-size: 18px;
+   		font-weight: bold;
+	}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -162,7 +167,7 @@
 					<h5 class="subTxt"><a href="#">접수 마감일</a></h5>
 					<h1 class="dateTxt"><a href="#">${Dlist.ARR_DAY}</a></h1>
 				</div>	
-				<div class="infoCon indate">
+				<div class="infoCon indate eks">
 					<h5 class="subTxt"><a href="#">송장번호</a></h5>
 					<h1 class="subTxt"><a href="#">${Dlist.EK}</a></h1>
 				</div>
