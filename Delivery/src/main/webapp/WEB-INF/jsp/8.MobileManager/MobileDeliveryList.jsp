@@ -96,6 +96,9 @@
 .outdays:hover{
 	background:#ffe4c4;
 }
+.target_zero{
+	background: #ffc4c4;
+}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -366,7 +369,13 @@
 
 				for(let i=0; i<result.length; i++ ){
 
-					tbodyData += "<tr><td><input type='radio' name='List_Check' class='List_Check sub'>";
+					if(result[i].REC_TARGET2 == '0'){
+						tbodyData += "<tr class='target_zero'>";
+					}
+					else{
+						tbodyData += "<tr>";
+					}
+					tbodyData += "<td><input type='radio' name='List_Check' class='List_Check sub'>";
 					tbodyData += "<td>"+result[i].EK+"</td>";
 					tbodyData += "<td><input type='hidden' class='in_key' value='"+result[i].IN_KEY+"'>"+result[i].OUT_DAY+"</td>";
 					tbodyData += "<td>"+result[i].REC_NM+"</td>";

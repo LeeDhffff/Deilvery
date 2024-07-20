@@ -243,7 +243,7 @@
 		                    <div class="inputWrap">
 		                    	<h5 class="inputName"><a href="#">픽업지 선택<span>*</span></a></h5>
 		                        <select name="recTarget" id="recTarget">
-		                            <option value="1">본사</option>
+		                        	<option value="1">본사</option>
 		                            <option value="2">하우 창고</option>
 		                            <option value="3">지방배송</option>
 		                        </select>
@@ -410,6 +410,7 @@
 //     	fnCalCbm();
 //     	$("#totBox").text($("input[name=boxIndex]").length);
 
+
 		/* initSjKey 담기 (240531 JANG) */
 		const initSjKey = new Array();
 		$("input[name='sjKey']").each(function(index){
@@ -439,11 +440,19 @@
     	
     	/* 본사, 하우창고, 지방배송 선택 설정 (JANG) */
     	if("${result.recTarget}" != "" && "${result.recTarget}" != null){
-	    	$("#recTarget").val("${result.recTarget}").prop("selected", true);
+			const targetVal = "${result.recTarget}";
+			console.log("targetVal : ", targetVal);
+			if(targetVal == "0"){
+		    	$("#recTarget").val("1").prop("selected", true);
+			}else{
+		    	$("#recTarget").val("${result.recTarget}").prop("selected", true);
+			}
 	    	if($("#recTarget").val() == 3){
 	    		$("#target_1").hide();
     			$("#target_3").show();
 	    	}
+    	}else{
+    		console.log("target value is null !!");
     	}
     	
     	/* 지방배송 선택 설정 (JANG) */
@@ -719,13 +728,9 @@
     	                htmlStr += '      <div class="left" id="qrCode_'+cntArr[i]+'" style="width:30%;">';
     	                htmlStr += '      </div>'
             	        htmlStr += '      <div class="right" style="width:50%">';
-    	                htmlStr += '         <div class="logo">';
-    	                htmlStr += '            <img src="images/delivery/pc_icon/eklogis_N_Lao.svg" alt="#" style="width:100%; height:40%;">';
-    	                htmlStr += '         </div>';
-    	                htmlStr += '		 <h5 style="height : 20%; margin-left:15px">한국 -> 라오스 구매대행 서비스</h5>';
-    	                htmlStr += '         <div class="bottom" style="height: 40%">'; //display: flex;
-    		            htmlStr += '         	<img src="images/delivery/pc_icon/lao_long.svg" alt="#" style="width:100%; height:100%">';                 
-    					htmlStr += '         </div>';
+    	                htmlStr += '         <img src="images/delivery/pc_icon/eklogis_N_Lao.svg" alt="#" style="width:100%; height:40%;">';
+    	                htmlStr += '		 <h5 style="height : 20%;">한국 -> 라오스 구매대행 서비스</h5>';
+    		            htmlStr += '         <img src="images/delivery/pc_icon/lao_long.svg" alt="#" style="width:100%; height:40%">';                 
     					htmlStr += '      </div>';
     					htmlStr += '   </div>';
     					htmlStr += '   <div class="outBody">';
@@ -763,13 +768,9 @@
     	                htmlStr += '      <div class="left" id="qrCode_'+index+'" style="width:30%;">';
     	                htmlStr += '      </div>'
         	            htmlStr += '      <div class="right" style="width:50%">';
-    	                htmlStr += '         <div class="logo">';
-    	                htmlStr += '            <img src="images/delivery/pc_icon/eklogis_N_Lao.svg" alt="#" style="width:100%; height:40%;">';
-    	                htmlStr += '         </div>';
-    	                htmlStr += '		 <h5 style="height : 20%; margin-left:15px">한국 -> 라오스 구매대행 서비스</h5>';
-    	                htmlStr += '         <div class="bottom" style="height: 40%">'; //display: flex;
-    		            htmlStr += '         	<img src="images/delivery/pc_icon/lao_long.svg" alt="#" style="width:100%; height:100%">';                 
-    					htmlStr += '         </div>';
+    	                htmlStr += '         <img src="images/delivery/pc_icon/eklogis_N_Lao.svg" alt="#" style="width:100%; height:40%;">';
+    	                htmlStr += '		 <h5 style="height : 20%;">한국 -> 라오스 구매대행 서비스</h5>';
+    		            htmlStr += '         <img src="images/delivery/pc_icon/lao_long.svg" alt="#" style="width:100%; height:40%">';                 
     					htmlStr += '      </div>';
     					htmlStr += '   </div>';
     					htmlStr += '   <div class="outBody">';
@@ -906,6 +907,14 @@
 				evt.preventDefault();
     			$("#boxDel").trigger("click");				
 				return false;
+			// 송장출력하기 : +(키패드)
+			}else if(evt.keyCode === 107){
+				evt.preventDefault();
+				if($(".outWrap").css("display") == "flex"){
+					fnPrint();
+				}else{
+					console.log("no date");
+				}
 			}
     	});
     	

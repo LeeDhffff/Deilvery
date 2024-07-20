@@ -56,6 +56,22 @@
 	    color: white;
 	    margin-top: 22px;
     }
+    .kakaotalkbutton{
+    	width: 200px;
+    	height: 30px;
+	    border-radius: 4px;
+	    background: #ffa100;
+	    color: white;
+	    margin-top: 22px;
+	    line-height: 31px;
+	    justify-content: center;    
+	    padding-right: 8px;
+	    display:none;
+    }
+    .kakaotalkbutton > img{
+    	width: 30px;
+    	height:30px;
+    }
 	#target_3{
 		display: none;
 	}
@@ -168,6 +184,7 @@
 	        </div>
 	        <button class="savebutton">저장
 	        </button>
+	        <button onclick="kakao()" class="kakaotalkbutton"><img src="./images/delivery/pc_icon/kakao logo.svg">관리자에게 문의하기</button>
         </div>
             <div class="inputsection" id="target_3">
                 <div class="inputWrap">
@@ -398,7 +415,8 @@
 	    }
 	    if(add != '' && add != 'null' && add != '0'){
 			$("#recTarget").val(add);
-	    	$(".savebutton").remove();		
+	    	$(".savebutton").remove();	
+	    	$(".kakaotalkbutton").css("display","flex");
 	    	$("#recTarget").prop("disabled",true);
 	    	$("#recAddr").prop("disabled",true);
 	    	$("#recHou").prop("disabled",true);
@@ -641,12 +659,17 @@
 			async: false,
             success: function(datas){
           		alert(datas);  	
-    	    	$(".savebutton").remove();		
+    	    	$(".savebutton").remove();	
+    	    	$(".kakaotalkbutton").css("display","flex");	
     	    	$("#recTarget").prop("disabled",true);
     	    	$("#recAddr").prop("disabled",true);
     	    	$("#recHou").prop("disabled",true);
             }
 		})
+	}
+	function kakao(){
+// 		https://open.kakao.com/o/sc8L40Gf
+		var win = window.open("//open.kakao.com/o/sc8L40Gf"); 
 	}
 </script>
 </html>
