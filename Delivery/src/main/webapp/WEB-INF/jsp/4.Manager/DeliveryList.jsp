@@ -135,6 +135,9 @@ input[type=checkbox]{
 .target_zero{
 	background: #ffc4c4;
 }
+
+	
+}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -192,9 +195,10 @@ input[type=checkbox]{
                             <div class="inputWrap">
                                 <select name="pickup" id="S_Pickup">
                                     <option value="">픽업지를 선택하세요</option>
+                                    <option value="0">사용자 미선택</option>
                                     <option value="1">본사</option>
                                     <option value="2">하우창고</option>
-                                    <option value="3">지방배송</option>
+                                    <option value="3">택배 서비스</option>
                                 </select>
                             </div>
                             <div class="inputWrap">
@@ -650,7 +654,7 @@ input[type=checkbox]{
 										REC_PHONE:		A_result[0].REC_PHONE,
 										YEAR:			A_result[0].CRE_DAY.substr(0,4),
 										COUNT:			D_result.length,
-										OUT_DAY:		A_result[0].ARR_DAY + "일 출항",
+										OUT_DAY:		A_result[0].ARR_DAY + "일 마감",
 										MONTH:		A_result[0].ARR_DAY.substr(5,2),
 										DISCOUNT: A_result[0].DISCOUNT + "%"
 								}

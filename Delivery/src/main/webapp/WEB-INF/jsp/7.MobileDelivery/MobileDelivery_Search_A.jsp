@@ -47,6 +47,7 @@
 	    justify-content: center;    
 	    padding-right: 8px;
 	    display:none;
+	    margin-left : 30px;
     }
     .kakaotalkbutton > img{
     	width: 30px;
@@ -58,14 +59,16 @@
 	    border: 1px solid black;
 	}
 	#recAddr{
-		width: 100px;
+		width: 100%;
 	    height: 30px;
 	    border: 1px solid black;
+        margin-left: 18px;
 	}
 	#recHou{
-		width: 60%;
+		width: 100%;
 	    height: 30px;
 	    border: 1px solid black;
+        margin-left: 18px;
 	}
 	#target_3{
 		display: none;
@@ -210,7 +213,7 @@
 		        <option value="0">픽업지 선택</option>
 	            <option value="1">본사</option>
 	            <option value="2">하우 창고</option>
-	            <option value="3">지방배송</option>
+	            <option value="3">택배 서비스</option>
 	        </select>
 	        <button class="savebutton">저장
 	        </button>
@@ -233,10 +236,17 @@
             	</div>
                 <div class="inputWrap">
                     <h5 class="inputName"><a href="#">상세주소</a></h5>
-                    <input type="text" name="recHou" id="recHou" value="${Dlist.REC_HOU}">
+                    <c:choose>
+                    	<c:when test="${Dlist.REC_TARGET == 3}">
+                    		<input type="text" name="recHou" id="recHou" value="${Dlist.REC_HOU}">
+                    	</c:when>
+                    	<c:otherwise>
+                    		<input type="text" name="recHou" id="recHou" value="">
+                    	</c:otherwise>
+                    </c:choose>
                 </div>
-	        	<button onclick="kakao()" class="kakaotalkbutton"><img src="./images/delivery/pc_icon/kakao logo.svg">관리자에게 문의하기</button>
             </div>
+	        	<button onclick="kakao()" class="kakaotalkbutton"><img src="./images/delivery/pc_icon/kakao logo.svg">관리자에게 문의하기</button>
         <section>
         
             <h3 class="sectionMainTitle">

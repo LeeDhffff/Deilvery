@@ -149,9 +149,10 @@
                 <h5 class="inputName"><a href="#">픽업지 선택<span>*</span></a></h5>
                 <select name="pickup" id="S_Pickup">
                     <option value="">픽업지를 선택하세요</option>
+                    <option value="0">사용자 미선택</option>
                     <option value="1">본사</option>
                     <option value="2">하우 창고</option>
-                    <option value="3">지방배송</option>
+                    <option value="3">택배 서비스</option>
                 </select>
             </div>
             <div class="inputWrap">

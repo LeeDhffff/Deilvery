@@ -127,7 +127,7 @@
                 <select name="recTarget" id="recTarget">
                     <option value="1">본사</option>
                     <option value="2">하우 창고</option>
-                    <option value="3">지방배송</option>
+                    <option value="3">택배 서비스</option>
                 </select>
             </div>
 

@@ -1401,7 +1401,7 @@ public class ManagerController {
         			final Picture pict = drawing.createPicture(anchor, pictureIdx);
 
         			// 이미지 사이즈 비율 설정
-        			pict.resize(0.7);
+        			pict.resize(0.65);
         			
 //            		sheet.getRow(12).getCell(4).setCellValue("(USD) (KIP)");
             		for(int i=4; i<9; i++) {

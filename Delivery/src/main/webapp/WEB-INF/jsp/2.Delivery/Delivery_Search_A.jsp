@@ -179,7 +179,7 @@
 		            <option value="0">픽업지 선택</option>
 		            <option value="1">본사</option>
 		            <option value="2">하우 창고</option>
-		            <option value="3">지방배송</option>
+		            <option value="3">택배 서비스</option>
 		        </select>
 	        </div>
 	        <button class="savebutton">저장
@@ -204,7 +204,14 @@
             	</div>
                 <div class="inputWrap">
                     <h3 class="inputName"><a href="#">상세주소</a></h3>
-                    <input type="text" name="recHou" id="recHou" value="${Dlist.REC_HOU}">
+                    <c:choose>
+                    	<c:when test="${Dlist.REC_TARGET == 3}">
+                    		<input type="text" name="recHou" id="recHou" value="${Dlist.REC_HOU}">
+                    	</c:when>
+                    	<c:otherwise>
+                    		<input type="text" name="recHou" id="recHou" value="">
+                    	</c:otherwise>
+                    </c:choose>
                 </div>
             </div>               
                     <div class="wrap">

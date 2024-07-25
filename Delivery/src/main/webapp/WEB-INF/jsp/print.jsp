@@ -114,22 +114,10 @@
 	}
 	.qr_code > img{
 		margin : 0 auto;
+	    width: 280px;
+/*     	height: 140px; */
 	}
 	
-	@media print {
-	* {
-		-webkit-print-color-adjust: exact;
-		print-color-adjust: exact;
-    }
-    html, body {
-    margin:0;
-    padding:0;
-    page-break-after: avoid;
-    page-break-before: avoid
-  }
-    .print_table { border:2px solid black; border-collapse: collapse;}
-	.print_table > thead > tr > th, .print_table > tbody > tr > td {border:1px solid black; }
-}
 .printbuttonMove{
 	width: 30px;
     height: 31px;
@@ -155,6 +143,7 @@
     padding-left: 5px;
     padding-right: 5px;
 }
+
 </style>
 
 </head>
@@ -191,13 +180,15 @@
         				최소 운임은 10$ 입니다.(소수점 단위 반올림)
 						※ອີງຕາມຂໍ້ກຳນົດ ແລະເງື່ອນໄຂ, ຄ່າຂົນສົ່ງແມ່ນຄິດໄລ່ ຕາມຂະໜາດ ,ນ້ຳໜັກ,ແລະ ປະລິມານ ຂອງສີນຄ້າ , 
 						ຄ່າຂົນສົ່ງຂັ້ນຕ່ຳແມ່ນ $10.
-        			</td><td colspan="5">
+        			</td><td colspan="5" class="qrtd">
         			<div class="qrdiv">
-        			<div class="qr_code" id="EXCEL_QR1"><img src="./images/pc_icon/QR_USD.png"></div>
-        			<div class="qr_code" id="EXCEL_QR2"><img src="./images/pc_icon/QR_KIP.png"></div>
+        			<div class="qr_code" id="EXCEL_QR1"><img src="./images/pc_icon/QR_TOTAL.png"></div>
+<!--         			<div class="qr_code" id="EXCEL_QR2"><img src="./images/pc_icon/QR_KIP.png"></div> -->
         			</div>
-        			<span class="qr_title">(USD)</span>   
-        			<span class="qr_title">(KIP)</span></td></tr>
+<!--         			<span class="qr_title">(USD)</span>    -->
+<!--         			<span class="qr_title">(KIP)</span> -->
+        			
+        			</td></tr>
         			<tr style="text-align:center;"><td rowspan="2" colspan="4">원화결제 →하나은행 : 윤병인 369-810087-61207<br />ບັນຊີ ຢູ່ ເກົາຫຼີ </td><td colspan="5">BCEL BANK : MR HOUMPHAN SIHAPANYA</td></tr>
         			<tr style="text-align:center;"><td colspan="3">010-12-01-01761708-001 (USD)</td><td colspan="2">010-12-0001761708-001 (KIP)</td></tr>
         		</table>
@@ -406,6 +397,21 @@
 		
 	})
 	
+	window.addEventListener("keydown", (e) => {
+		if($("#print_grayback").css("display") == 'block'){
+
+			if(e.key == 'Enter'){ 
+				startPrint('print_div');
+			}
+			else if(e.key == 'ArrowLeft'){
+				$("#print_before").trigger("click");
+			}
+			else if(e.key == 'ArrowRight'){
+				$("#print_after").trigger("click");
+			}
+		}
+	});
+	
 	function PrintPageLoad(in_key){
 		
 			$("#EXCEL_NAME").text(main_table[in_key].REC_NM);
@@ -457,9 +463,8 @@ function startPrint (div_id) {
 		printable: div_id,
 		type: 'html',
 		css: "css/3.Manager/printstyle.css",
-		imageStyle : "width:100%; height:100%;"
 // 		style: '',
-// 		scanStyles: true
+// 		scanStyles: false
     });
 }
 

@@ -242,10 +242,12 @@
                         <div class="double">
 		                    <div class="inputWrap">
 		                    	<h5 class="inputName"><a href="#">픽업지 선택<span>*</span></a></h5>
-		                        <select name="recTarget" id="recTarget">
+		                        <select name="recTarget" id="recTarget">                        
+		                        	<option>픽업지를 선택해주세요.</option>
+		                        	<option value="0">고객 픽업지 미선택</option>
 		                        	<option value="1">본사</option>
 		                            <option value="2">하우 창고</option>
-		                            <option value="3">지방배송</option>
+		                            <option value="3">택배 서비스</option>
 		                        </select>
 		                    </div>
 		                    <div class="inputWrap">
@@ -442,11 +444,12 @@
     	if("${result.recTarget}" != "" && "${result.recTarget}" != null){
 			const targetVal = "${result.recTarget}";
 			console.log("targetVal : ", targetVal);
-			if(targetVal == "0"){
-		    	$("#recTarget").val("1").prop("selected", true);
-			}else{
-		    	$("#recTarget").val("${result.recTarget}").prop("selected", true);
-			}
+		    $("#recTarget").val("${result.recTarget}").prop("selected", true);
+// 			if(targetVal == "0"){
+// 		    	$("#recTarget").val("1").prop("selected", true);
+// 			}else{
+// 		    	$("#recTarget").val("${result.recTarget}").prop("selected", true);
+// 			}
 	    	if($("#recTarget").val() == 3){
 	    		$("#target_1").hide();
     			$("#target_3").show();
@@ -727,10 +730,11 @@
     	                htmlStr += '   <div class="outHeader">';
     	                htmlStr += '      <div class="left" id="qrCode_'+cntArr[i]+'" style="width:30%;">';
     	                htmlStr += '      </div>'
-            	        htmlStr += '      <div class="right" style="width:50%">';
-    	                htmlStr += '         <img src="images/delivery/pc_icon/eklogis_N_Lao.svg" alt="#" style="width:100%; height:40%;">';
-    	                htmlStr += '		 <h5 style="height : 20%;">한국 -> 라오스 구매대행 서비스</h5>';
-    		            htmlStr += '         <img src="images/delivery/pc_icon/lao_long.svg" alt="#" style="width:100%; height:40%">';                 
+    	                htmlStr += '      <div class="right" style="width:50%; display:flex; flex-direction:column; justify-content:space-around; height:90%;">';
+    	                htmlStr += '         <img src="images/delivery/pc_icon/qr_top.png" alt="#" style="width:100%; height:100%;">';
+//     	                htmlStr += '         <img src="images/delivery/pc_icon/eklogis_N_Lao.svg" alt="#" style="width:100%; height:100%;">';
+//     	                htmlStr += '		 <h5 style="height : 15%; text-wrap:nowrap; font-size:12px; text-align:center;">한국 -> 라오스 구매대행 서비스</h5>';
+//     		            htmlStr += '         <img src="images/delivery/pc_icon/lao_long.svg" alt="#" style="width:100%; height:40%">';                 
     					htmlStr += '      </div>';
     					htmlStr += '   </div>';
     					htmlStr += '   <div class="outBody">';
@@ -743,7 +747,7 @@
     					htmlStr += '         <h4 style="height:30%;">KOR Tel.010-6235-8005</h4>';
     					htmlStr += '         <h4 style="height:30%;">LAO Tel.020-5553-3327</h4>';
     					htmlStr += '      </div>';
-    					htmlStr += '      <div class="bottom">';
+    					htmlStr += '      <div class="bottom" style="width:50%">';
     					htmlStr += '         <h4 style="height:30%;"><img src="images/delivery/pc_icon/WWW-Icon.svg" alt="#" style="width:20px; height:20px;">www.eklaos.com</h4>';   
     					htmlStr += '         <h4 style="height:30%;"><img src="images/delivery/pc_icon/kakao logo.svg" alt="#" style="width:20px; height:20px;">EKLAOS</h4>';   
     					htmlStr += '         <h4 style="height:30%;"><img src="images/delivery/pc_icon/facebook_icon.svg" alt="#" style="width:20px; height:20px;">E-K MALL</h4>';   
@@ -767,10 +771,11 @@
     	                htmlStr += '   <div class="outHeader">';
     	                htmlStr += '      <div class="left" id="qrCode_'+index+'" style="width:30%;">';
     	                htmlStr += '      </div>'
-        	            htmlStr += '      <div class="right" style="width:50%">';
-    	                htmlStr += '         <img src="images/delivery/pc_icon/eklogis_N_Lao.svg" alt="#" style="width:100%; height:40%;">';
-    	                htmlStr += '		 <h5 style="height : 20%;">한국 -> 라오스 구매대행 서비스</h5>';
-    		            htmlStr += '         <img src="images/delivery/pc_icon/lao_long.svg" alt="#" style="width:100%; height:40%">';                 
+        	            htmlStr += '      <div class="right" style="width:50%; display:flex; flex-direction:column; justify-content:space-around; height:90%;">';
+    	                htmlStr += '         <img src="images/delivery/pc_icon/qr_top.png" alt="#" style="width:100%; height:100%;">';        	            
+//     	                htmlStr += '         <img src="images/delivery/pc_icon/eklogis_N_Lao.svg" alt="#" style="width:100%; height:40%;">';
+//     	                htmlStr += '		 <h5 style="height : 15%; text-wrap:nowrap; font-size:12px; text-align:center;">한국 -> 라오스 구매대행 서비스</h5>';
+//     		            htmlStr += '         <img src="images/delivery/pc_icon/lao_long.svg" alt="#" style="width:100%; height:40%">';                 
     					htmlStr += '      </div>';
     					htmlStr += '   </div>';
     					htmlStr += '   <div class="outBody">';
@@ -783,10 +788,11 @@
     					htmlStr += '         <h4 style="height:30%;">KOR Tel.010-6235-8005</h4>';
     					htmlStr += '         <h4 style="height:30%;">LAO Tel.020-5553-3327</h4>';
     					htmlStr += '      </div>';
-    					htmlStr += '      <div class="bottom">';
-    					htmlStr += '         <h4 style="height:30%;"><img src="images/delivery/pc_icon/WWW-Icon.svg" alt="#" style="width:20px; height:20px;">www.eklaos.com</h4>';   
-    					htmlStr += '         <h4 style="height:30%;"><img src="images/delivery/pc_icon/kakao logo.svg" alt="#" style="width:20px; height:20px;">EKLAOS</h4>';   
-    					htmlStr += '         <h4 style="height:30%;"><img src="images/delivery/pc_icon/facebook_icon.svg" alt="#" style="width:20px; height:20px;">E-K MALL</h4>';   
+    					htmlStr += '      <div class="bottom" style="width:50%">';
+    	                htmlStr += '         <img src="images/delivery/pc_icon/qr_bottom.png" alt="#" style="width:100%; height:100%;">';   
+//     					htmlStr += '         <h4 style="height:30%;"><img src="images/delivery/pc_icon/WWW-Icon.svg" alt="#" style="width:20px; height:20px;">www.eklaos.com</h4>';   
+//     					htmlStr += '         <h4 style="height:30%;"><img src="images/delivery/pc_icon/kakao logo.svg" alt="#" style="width:20px; height:20px;">EKLAOS</h4>';   
+//     					htmlStr += '         <h4 style="height:30%;"><img src="images/delivery/pc_icon/facebook_icon.svg" alt="#" style="width:20px; height:20px;">E-K MALL</h4>';   
     					htmlStr += '      </div>';
     					htmlStr += '   </div>'
     					htmlStr += '</div>';

@@ -1,28 +1,18 @@
 
-	@media print {
+@media print { 
 	* {
 		-webkit-print-color-adjust: exact;
 		--print-color-adjust: exact;
     }
-    html, body {
-    margin:0;
-    padding:0;
-    page-break-after: avoid;
-    page-break-before: avoid;
-    font-size:0.9em;
-  }
   	table{
   	    width: 100%;
-	    border: 0;
-	    box-sizing: border-box;
+/* 	    border: 0; */
+/* 	    box-sizing: border-box; */
 	    margin-bottom: 40px;
   	}
-    .print_table { border:2px solid black; border-collapse: collapse;}
-	.print_table > thead > tr > th, .print_table > tbody > tr > td {border:1px solid black; }
-	.print_table_2{ border:2px solid black; border-collapse: collapse;}
-	.print_table_2 > thead > tr > th, .print_table > tbody > tr > td {border:1px solid black; text-align:center;}
+    #print_table { border:2px solid black !important; border-collapse: collapse !important;}
+	#print_table > thead > tr > th, .print_table > tbody > tr > td {border:1px solid black !important; }
+	#print_table_2{ border:2px solid black; border-collapse: collapse;}
+	#print_table_2 > thead > tr > th, .print_table > tbody > tr > td {border:1px solid black; text-align:center;}
 	
-	#EXCEL_QR1 > img{
-		margin : 0 auto;
-	}
 }
