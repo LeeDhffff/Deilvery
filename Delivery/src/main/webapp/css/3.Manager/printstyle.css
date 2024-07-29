@@ -10,9 +10,9 @@
 /* 	    box-sizing: border-box; */
 	    margin-bottom: 40px;
   	}
-    #print_table { border:2px solid black !important; border-collapse: collapse !important;}
-	#print_table > thead > tr > th, .print_table > tbody > tr > td {border:1px solid black !important; }
+    #print_table_1 { border:2px solid black; border-collapse: collapse;}
+	#print_table_1 > thead > tr > th, #print_table_1 > tbody > tr > td {border:1px solid black; }
 	#print_table_2{ border:2px solid black; border-collapse: collapse;}
-	#print_table_2 > thead > tr > th, .print_table > tbody > tr > td {border:1px solid black; text-align:center;}
+	#print_table_2 > thead > tr > th, #print_table_2 > tbody > tr > td {border:1px solid black; text-align:center;}
 	
 }
