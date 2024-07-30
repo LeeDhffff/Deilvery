@@ -261,27 +261,27 @@
 	                ${Dlist.OUT_TXT}
            		</h4>
                 <div class="stepCon on">
-                    <h5 class="stepTxt"><a href="#">한국물류창고</a></h5>
+                    <h5 class="stepTxt"><a href="#">한국창고</a></h5>
                     <h5 class="stepDate"><a href="#"></a></h5>
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
-                    <h5 class="stepTxt"><a href="#">출항시작</a></h5>
+                    <h5 class="stepTxt"><a href="#">인천항</a></h5>
                     <h5 class="stepDate"><a href="#"></a></h5>
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
-                    <h5 class="stepTxt"><a href="#">태국도착</a></h5>
+                    <h5 class="stepTxt"><a href="#">배송중</a></h5>
                     <h5 class="stepDate"><a href="#"></a></h5>
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
-                    <h5 class="stepTxt"><a href="#">라오스출발</a></h5>
+                    <h5 class="stepTxt"><a href="#">태국항</a></h5>
                     <h5 class="stepDate"><a href="#"></a></h5>
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
-                    <h5 class="stepTxt"><a href="#">라오스도착</a></h5>
+                    <h5 class="stepTxt"><a href="#">라오스 창고</a></h5>
                     <h5 class="stepDate"><a href="#"></a></h5>
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>

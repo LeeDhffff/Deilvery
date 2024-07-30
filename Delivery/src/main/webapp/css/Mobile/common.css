@@ -88,3 +88,32 @@ footer button
     width: 100%;
     height: 56px;
 }
+
+/*아이폰 input 기본 스타일 제거*/
+
+input, textarea {
+
+appearance: none;
+
+-webkit-appearance: none;
+
+-webkit-border-radius: 0;
+
+}
+
+
+/* 아이폰 select 기본 스타일 제거 */
+select {
+-webkit-appearance: none;
+-moz-appearance: none; 
+appearance: none;
+
+/*화살표 배경 넣기*/
+background: #fff no-repeat 98% center;
+}
+
+/* 익스플로러 select 화살표 제거 */
+select::-ms-expand{
+/* 화살표 없애기 for IE10, 11*/ 
+	display:none;
+}

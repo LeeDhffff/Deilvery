@@ -134,7 +134,7 @@
                                             <img src="./images/pc_icon/check_white.svg" alt="#">
                                         </a>
                                     </div>
-                                    <h5 class="currentTitle"><a href="#">한국물류창고</a></h5>
+                                    <h5 class="currentTitle"><a href="#">한국 창고</a></h5>
                                     <input type="text" class="currentDay" placeholder="날짜">
                                     <input type="text" class="currentMessage" placeholder="비고">
                             		<input type="hidden" class="currentSeq" placeholder="" value="1">
@@ -146,7 +146,7 @@
                                             <img src="./images/pc_icon/check_white.svg" alt="#">
                                         </a>
                                     </div>
-                                    <h5 class="currentTitle"><a href="#">출항시작</a></h5>
+                                    <h5 class="currentTitle"><a href="#">인천항</a></h5>
                                     <input type="text" class="currentDay" placeholder="날짜">
                                     <input type="text" class="currentMessage" placeholder="비고">
                             		<input type="hidden" class="currentSeq" placeholder="" value="2">
@@ -158,7 +158,7 @@
                                             <img src="./images/pc_icon/check_white.svg" alt="#">
                                         </a>
                                     </div>
-                                    <h5 class="currentTitle"><a href="#">태국도착</a></h5>
+                                    <h5 class="currentTitle"><a href="#">배송중</a></h5>
                                     <input type="text" class="currentDay" placeholder="날짜">
                                     <input type="text" class="currentMessage" placeholder="비고">
                             		<input type="hidden" class="currentSeq" placeholder="" value="3">
@@ -170,7 +170,7 @@
                                             <img src="./images/pc_icon/check_white.svg" alt="#">
                                         </a>
                                     </div>
-                                    <h5 class="currentTitle"><a href="#">라오스 출발</a></h5>
+                                    <h5 class="currentTitle"><a href="#">태국항</a></h5>
                                     <input type="text" class="currentDay" placeholder="날짜">
                                     <input type="text" class="currentMessage" placeholder="비고">
                             		<input type="hidden" class="currentSeq" placeholder="" value="4">
@@ -182,7 +182,7 @@
                                             <img src="./images/pc_icon/check_white.svg" alt="#">
                                         </a>
                                     </div>
-                                    <h5 class="currentTitle"><a href="#">라오스 도착</a></h5>
+                                    <h5 class="currentTitle"><a href="#">라오스 창고</a></h5>
                                     <input type="text" class="currentDay" placeholder="날짜">
                                     <input type="text" class="currentMessage" placeholder="비고">
                             		<input type="hidden" class="currentSeq" placeholder="" value="5">
@@ -194,7 +194,7 @@
                                             <img src="./images/pc_icon/check_white.svg" alt="#">
                                         </a>
                                     </div>
-                                    <h5 class="currentTitle"><a href="#">배출 시작</a></h5>
+                                    <h5 class="currentTitle"><a href="#">배출시작</a></h5>
                                     <input type="text" class="currentDay" placeholder="날짜">
                                     <input type="text" class="currentMessage" placeholder="비고">
                             		<input type="hidden" class="currentSeq" placeholder="" value="6">

@@ -101,35 +101,35 @@
             </h3>
             <div class="stepWrap">
                 <div class="stepCon current one on">
-                    <h5 class="stepTxt"><a href="#">한국물류창고</a></h5>
+                    <h5 class="stepTxt"><a href="#">한국 창고</a></h5>
                     <input class="stepDate currentDay" type="text" placeholder="날짜">
                     <input class="stepDate currentMessage" type="text" placeholder="비고">
 	          		<input type="hidden" class="currentSeq" placeholder="" value="1">
                     <input type="radio" name="radiooutkey" class="currentcheck">                     
                 </div>
                 <div class="stepCon current two">
-                    <h5 class="stepTxt"><a href="#">출항시작</a></h5>
+                    <h5 class="stepTxt"><a href="#">인천항</a></h5>
                     <input class="stepDate currentDay" type="text" placeholder="날짜">
                     <input class="stepDate currentMessage" type="text" placeholder="비고">
 	          		<input type="hidden" class="currentSeq" placeholder="" value="2">
                     <input type="radio" name="radiooutkey" class="currentcheck">   
                 </div>
                 <div class="stepCon current three">
-                    <h5 class="stepTxt"><a href="#">태국도착</a></h5>
+                    <h5 class="stepTxt"><a href="#">배송중</a></h5>
                     <input class="stepDate currentDay" type="text" placeholder="날짜">
                     <input class="stepDate currentMessage" type="text" placeholder="비고">
 	          		<input type="hidden" class="currentSeq" placeholder="" value="3">
                     <input type="radio" name="radiooutkey" class="currentcheck">   
                 </div>
                 <div class="stepCon current four">
-                    <h5 class="stepTxt"><a href="#">라오스출발</a></h5>
+                    <h5 class="stepTxt"><a href="#">태국항</a></h5>
                     <input class="stepDate currentDay" type="text" placeholder="날짜">
                     <input class="stepDate currentMessage" type="text" placeholder="비고">
 	          		<input type="hidden" class="currentSeq" placeholder="" value="4">
                     <input type="radio" name="radiooutkey" class="currentcheck">   
                 </div>
                 <div class="stepCon current five">
-                    <h5 class="stepTxt"><a href="#">라오스도착</a></h5>
+                    <h5 class="stepTxt"><a href="#">라오스 창고</a></h5>
                     <input class="stepDate currentDay" type="text" placeholder="날짜">
                     <input class="stepDate currentMessage" type="text" placeholder="비고">
 	          		<input type="hidden" class="currentSeq" placeholder="" value="5">
