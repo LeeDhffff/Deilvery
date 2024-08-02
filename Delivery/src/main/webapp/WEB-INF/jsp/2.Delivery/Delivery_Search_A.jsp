@@ -78,6 +78,11 @@
 	.currentWrap{
 		display: block !important;
 	}
+	
+	.ek1{
+		display: none !important;
+	}
+	
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -214,8 +219,8 @@
                     </c:choose>
                 </div>
             </div>               
-                    <div class="wrap">
-                        <div class="tableWrap">
+                    <div class="wrap" >
+                        <div class="tableWrap" id="section_date">
                             <table id="Delivery_Table">
                                 <thead>
                                     <tr>
@@ -388,6 +393,9 @@
 
 <script type="text/javascript">
 
+	var EKS = '${Dlist.EK}';
+	var add = '${Dlist.REC_TARGET}';
+
 	var uid = '<%=(String)session.getAttribute("SESSION_MEM_ID")%>';
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
 	var name = '<%=(String)session.getAttribute("SESSION_MEM_NM")%>';
@@ -452,7 +460,12 @@
 			$(this).parents("tr").addClass("tron");
 		})
 		
-		
+
+	    if(EKS == 'EK1'){
+	    	$("#section_date").addClass("ek1");
+	    	$(".inputsection").addClass("ek1");
+	    	$(".kakaotalkbutton").addClass("ek1");
+	    }
 	})
 	
 	

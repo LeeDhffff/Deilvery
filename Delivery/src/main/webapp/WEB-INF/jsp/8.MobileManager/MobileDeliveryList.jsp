@@ -336,8 +336,8 @@
 				document.getElementById("copy_link").select();
 				document.execCommand("copy");
 			}
-			else if(window.location.host == 'eklogis.com'){
-				$("#copy_link").val("https://eklogis.com/Mobile_Delivery_Search_A.do?ik="+nc);
+			else if(window.location.host == 'ek-logis.com'){
+				$("#copy_link").val("ek-logis.com/Mobile_Delivery_Search_A.do?ik="+nc);
 				document.getElementById("copy_link").select();
 				document.execCommand("copy");
 			}

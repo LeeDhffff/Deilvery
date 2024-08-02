@@ -111,7 +111,14 @@
 	{
 	    margin-bottom: 0;
 	}
-	
+	.stepCon > .stepDate > a, .stepCon  > .stepTxt > a{
+		color : #bbb;
+		font-weight:300;
+	}
+	.stepCon.on  > .stepDate > a, .stepCon.on  > .stepTxt > a{
+		color : black;
+		font-weight:bold;
+	}
 	.stepCon.on 
 	{
 	    border: 1px solid var(--main-color);
@@ -338,6 +345,7 @@
 	    if(EKS == 'EK1'){
 	    	$("#section_date").addClass("ek1");
 	    	$(".inputsection").addClass("ek1");
+	    	$(".kakaotalkbutton").addClass("ek1");
 	    }
 
 		$("#recTarget").on("change",function(){
