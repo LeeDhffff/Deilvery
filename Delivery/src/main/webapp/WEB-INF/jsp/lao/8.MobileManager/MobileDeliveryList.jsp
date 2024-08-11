@@ -123,15 +123,15 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<link rel="stylesheet" href="./css/Mobile/common.css">  
-<link rel="stylesheet" href="./css/8.MobileManager/MobileDeliveryList_style.css">    
-<link rel="stylesheet" href="./css/8.MobileManager/MobileDeliveryList_Filter_style.css">    
+<link rel="stylesheet" href="../css/Mobile/common.css">  
+<link rel="stylesheet" href="../css/8.MobileManager/MobileDeliveryList_style.css">    
+<link rel="stylesheet" href="../css/8.MobileManager/MobileDeliveryList_Filter_style.css">    
 <!-- import font-awesome, line-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
-<script src="./js/pageChange.js"></script>
+<script src="../js/pageChange.js"></script>
 
 </head>
 
@@ -141,7 +141,7 @@
         <header class="m_header">
             <h3 class="arrow back">
                 <a href="#">
-                    <img src="./images/m_icon/header_arrow.svg" alt="#">
+                    <img src="../images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>
             <div class="m_headerTitle">배송조회</div>
@@ -192,7 +192,7 @@
         <header class="m_header">
             <h3 class="arrow">
                 <a id="Before2" href="#">
-                    <img src="./images/m_icon/header_arrow.svg" alt="#">
+                    <img src="../images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>
             <div class="m_headerTitle">배송조회</div>
@@ -205,10 +205,10 @@
                     <h4>총 박스 수 : <span class="total_box"></span></h4>
                 </div>
                 <h5 class="icon filter">
-                    <img src="./images/m_icon/filter_orange.svg" alt="#">
+                    <img src="../images/m_icon/filter_orange.svg" alt="#">
                 </h5>                                 
                 <div class="laoswrap">
-                	<input type="checkbox" name="laos" id="laos"><label for="laos">라오스어로 링크복사</label>      
+                	<input type="checkbox" name="laos" id="laos"><label for="laos">한국어로 링크복사</label>      
                 </div>
                 <div class="currentHeader">
                     <h5><a href="#">배송리스트</a></h5>
@@ -354,7 +354,7 @@
 			var nc = $(this).parents("tr").find(".in_key").val();
 			if(window.location.host == 'localhost:8080'){
 
-				if($("#laos").prop("checked") == true){
+				if($("#laos").prop("checked") == false){
 					$("#copy_link").val("localhost:8080/Delivery/lao/Mobile_Delivery_Search_A.do?ik="+nc);
 					document.getElementById("copy_link").select();
 					document.execCommand("copy");
@@ -366,7 +366,7 @@
 				}
 			}
 			else if(window.location.host == 'ek-logis.com'){
-				if($("#laos").prop("checked") == true){
+				if($("#laos").prop("checked") == false){
 					$("#copy_link").val("ek-logis.com/lao/Mobile_Delivery_Search_A.do?ik="+nc);
 					document.getElementById("copy_link").select();
 					document.execCommand("copy");
@@ -396,7 +396,7 @@
 		};
 		$.ajax({
 			type: "POST",
-			url : "./Deilvery_Now_List.do",
+			url : "../Deilvery_Now_List.do",
 			data: deliverydata,
 			async: false,
             success: function(datas){
@@ -420,7 +420,7 @@
 					tbodyData += "<td>"+result[i].REC_PHONE+"</td>";
 					tbodyData += "<td>"+result[i].REC_TARGET+"</td>";
 					tbodyData += "<td>"+result[i].SERVICE+"</td>";
-					tbodyData += "<td><button class='link'><img src='./images/pc_icon/Link.svg'></button></td>";
+					tbodyData += "<td><button class='link'><img src='../images/pc_icon/Link.svg'></button></td>";
 					tbodyData += "<input type='hidden' class='tr_cbm' value='"+result[i].CBM+"' >";
 					tbodyData += "<input type='hidden' class='tr_weight' value='"+result[i].WEIGHT+"' >";
 					tbodyData += "<input type='hidden' class='tr_count' value='"+result[i].COUNT+"' >";
@@ -487,7 +487,7 @@
 		};
 		$.ajax({
 			type: "POST",
-			url : "./Out_Day_List.do",
+			url : "../Out_Day_List.do",
 			data: deliverydata,
 			async: false,
             success: function(datas){

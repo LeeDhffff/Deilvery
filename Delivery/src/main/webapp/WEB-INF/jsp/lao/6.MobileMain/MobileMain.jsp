@@ -22,14 +22,14 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<link rel="stylesheet" href="./css/Mobile/common.css">  
-<link rel="stylesheet" href="./css/5.MobileMain/MM_style.css">    
+<link rel="stylesheet" href="../css/Mobile/common.css">  
+<link rel="stylesheet" href="../css/5.MobileMain/MM_style.css">    
 <!-- import font-awesome, line-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
-<script src="./js/pageChange.js"></script>
+<script src="../js/pageChange.js"></script>
 
 </head>
 
@@ -37,17 +37,17 @@
     <div class="m_container">
         <header class="m_header">
             <h1 class="logo">
-                <img src="./images/m_icon/logo_color.svg" alt="logo">
+                <img src="../images/m_icon/logo_color.svg" alt="logo">
             </h1>            
             <ul class="header_option">
-<!--                 <li id="topc"><img src="./images/m_icon/pc_icon.svg" alt="pc"></li> -->
-                <li id="tologin"><img src="./images/m_icon/login.svg" alt="login"></li>
-                <li id="tologout"><img src="./images/m_icon/logout.svg" alt="logout"></li>
+<!--                 <li id="topc"><img src="../images/m_icon/pc_icon.svg" alt="pc"></li> -->
+                <li id="tologin"><img src="../images/m_icon/login.svg" alt="login"></li>
+                <li id="tologout"><img src="../images/m_icon/logout.svg" alt="logout"></li>
                 <li class="language">
-                    <img src="./images/m_icon/globe-solid.svg" alt="language">
+                    <img src="../images/m_icon/globe-solid.svg" alt="language">
                     <select name="language" id="language">
                         <option value="kor">KOR</option>
-                        <option value="lao">LAO</option>
+                        <option value="lao" selected>LAO</option>
                     </select>
                 </li>
             </ul>
@@ -74,7 +74,7 @@
                 <div class="mainTitle">공지사항</div>
                 <div class="notice">
                     <h5 class="icon">
-                        <img src="./images/m_icon/notice_orange.svg" alt="#">
+                        <img src="../images/m_icon/notice_orange.svg" alt="#">
                     </h5>
                     <h5 class="txt">금주 예상 출항일은 <span id="dateOut" class="date"></span> 입니다.</h5>
                 </div>
@@ -110,7 +110,7 @@
                     </div>
                     <a href="#">
                         <span class="icon cost">
-                            <img src="./images/m_icon/medal_orange.svg" alt="">
+                            <img src="../images/m_icon/medal_orange.svg" alt="">
                         </span>
                     </a>
                 </button>
@@ -121,7 +121,7 @@
                     </div>
                     <a href="#">
                         <span class="icon use">
-                            <img src="./images/m_icon/write_orange.svg" alt="">
+                            <img src="../images/m_icon/write_orange.svg" alt="">
                         </span>
                     </a>
                 </button>
@@ -141,7 +141,7 @@
 		if(uid == 'null' && uid2== 'null'){
 			$.ajax({
 				type: "POST",
-				url : "./AutoLogin.do",
+				url : "../AutoLogin.do",
 				data: {},
 				async: false,
 		        success: function(datas){
@@ -173,7 +173,7 @@
 
 		$.ajax({
 			type: "POST",
-			url : "./Status_Select.do",
+			url : "../Status_Select.do",
 			data: {MEM_ID : uid},
 			async: false,
             success: function(datas){
@@ -222,7 +222,7 @@
 
 				$.ajax({
 					type: "POST",
-					url : "./Logout.do",
+					url : "../Logout.do",
 					data: {},
 					async: false,
 		            success: function(datas){

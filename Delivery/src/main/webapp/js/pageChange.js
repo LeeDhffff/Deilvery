@@ -12,8 +12,18 @@ $(document).on("ready",function(){
 	
 	var nowpage = window.location.pathname;
 	var search = window.location.search;
-	if(nowpage.indexOf("/Delivery/") >= 0){
+	
+	var lao = 0;
+	if(nowpage.indexOf("/Delivery/lao/") >= 0){
+		nowpage = nowpage.replace("/Delivery/lao/","");	
+		lao = 1;
+	}
+	else if(nowpage.indexOf("/Delivery/") >= 0){
 		nowpage = nowpage.replace("/Delivery/","");	
+	}
+	if(nowpage.indexOf("/lao/") >= 0){
+		nowpage = nowpage.replace("/lao/","");	
+		lao = 1;
 	}
 	else if(nowpage.indexOf("/") >= 0){
 		nowpage = nowpage.replace("/","");	
@@ -42,19 +52,29 @@ $(document).on("ready",function(){
 	if(level != '2' && managerpage.indexOf(nowpage) >= 0){
 		location.href = "Main.do";
 	}
-	
-	if(width <= 767){
-		if(page.indexOf(nowpage) >= 0){
-			location.href = mobilepage[page.indexOf(nowpage)] + search;
+		if(width <= 767){
+			if(page.indexOf(nowpage) >= 0){
+				location.href =  mobilepage[page.indexOf(nowpage)] + search;
+			}
+			else if(nowpage == ''){
+				location.href = "Mobile_Main.do";
+			}
 		}
-		else if(nowpage == ''){
-			location.href = "Mobile_Main.do";
+		else{
+			if(mobilepage.indexOf(nowpage) >= 0){
+				
+				location.href = page[mobilepage.indexOf(nowpage)] + search;
+			}
 		}
-	}
-	else{
-		if(mobilepage.indexOf(nowpage) >= 0){
-			
-			location.href = page[mobilepage.indexOf(nowpage)] + search;
-		}
-	}
+		
+		
+		
+	$("#language").on("change",function(){
+ 	   if($("#language").val() == 'kor' && lao == 1){
+		location.href = "../" + nowpage + search;	
+	   }
+	   else if($("#language").val() == 'lao' && lao == 0){
+		location.href = "lao/" + nowpage + search;	
+	   }
+	})
 })

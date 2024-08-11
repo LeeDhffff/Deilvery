@@ -89,13 +89,13 @@ input[type=checkbox]{
     background: white;
     border: 1px solid var(--main-color);
     border-radius: 3px;
-    background-image: url(./images/pc_icon/search_orange.svg);
+    background-image: url(../images/pc_icon/search_orange.svg);
     background-size: cover;
     cursor: pointer;
 }
 .searchButton:hover{
 	background: var(--main-color);
-    background-image: url(./images/pc_icon/search_white.svg);
+    background-image: url(../images/pc_icon/search_white.svg);
 }
 .searchButton > img{
 	width: 100%;
@@ -154,18 +154,18 @@ input[type=checkbox]{
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
-<link rel="stylesheet" href="./css/common.css">  
-<link rel="stylesheet" href="./css/3.Manager/AppList_style.css">   
+<link rel="stylesheet" href="../css/common.css">  
+<link rel="stylesheet" href="../css/3.Manager/AppList_style.css">   
 
 <!-- qrCode.js import -->
-<script src="js/qrcode.js"></script>
+<script src="../js/qrcode.js"></script>
     
 <!-- import font-awesome, line-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
-<script src="./js/3.Manager/Deilivery_List_index.js"></script>
+<script src="../js/3.Manager/Deilivery_List_index.js"></script>
 
 </head>
 
@@ -231,7 +231,7 @@ input[type=checkbox]{
                             </div>
                             <button class="bill">
                                 <a href="#">
-                                    <img src="./images/pc_icon/calculator.svg" alt="영수증출력하기">
+                                    <img src="../images/pc_icon/calculator.svg" alt="영수증출력하기">
                                 </a>
                             </button>
 <!--                             <button class="excel"> -->
@@ -242,7 +242,7 @@ input[type=checkbox]{
                         </div>                        
                     </h3>                                  
                     <div class="laoswrap">
-                    <label for="laos">라오스어로 링크복사</label><input type="checkbox" name="laos" id="laos">      
+                    <label for="laos">한국어로 링크복사</label><input type="checkbox" name="laos" id="laos">      
                     </div>                                
                     <div class="wrap">
                         <div class="tableWrap">
@@ -478,7 +478,7 @@ input[type=checkbox]{
 			$("#copy_link").show();
 			var nc = $(this).parents("tr").find(".in_key").val();
 			if(window.location.host == 'localhost:8080'){
-				if($("#laos").prop("checked") == true){
+				if($("#laos").prop("checked") == false){
 					$("#copy_link").val("localhost:8080/Delivery/lao/Delivery_Search_A.do?ik="+nc);
 					document.getElementById("copy_link").select();
 					document.execCommand("copy");
@@ -491,7 +491,7 @@ input[type=checkbox]{
 			}
 			else if(window.location.host == 'ek-logis.com'){
 
-				if($("#laos").prop("checked") == true){
+				if($("#laos").prop("checked") == false){
 					$("#copy_link").val("ek-logis.com/lao/Delivery_Search_A.do?ik="+nc);
 					document.getElementById("copy_link").select();
 					document.execCommand("copy");
@@ -521,7 +521,7 @@ input[type=checkbox]{
 		};
 		$.ajax({
 			type: "POST",
-			url : "./Deilvery_Now_List.do",
+			url : "../Deilvery_Now_List.do",
 			data: deliverydata,
 			async: false,
             success: function(datas){
@@ -545,9 +545,9 @@ input[type=checkbox]{
 					tbodyData += "<td>"+result[i].MAXCHK+"</td>";
 					tbodyData += "<td>"+result[i].SERVICE+"</td>";
 					if(auth != 'R'){
-						tbodyData += "<td><button class='modify'><img src='./images/pc_icon/modify_black.svg'></button></td>";
+						tbodyData += "<td><button class='modify'><img src='../images/pc_icon/modify_black.svg'></button></td>";
 					}
-					tbodyData += "<td><button class='link'><img src='./images/pc_icon/Link.svg'></button></td>";
+					tbodyData += "<td><button class='link'><img src='../images/pc_icon/Link.svg'></button></td>";
 					tbodyData += "<input type='hidden' class='tr_cbm' value='"+result[i].CBM+"' >";
 					tbodyData += "<input type='hidden' class='tr_weight' value='"+result[i].WEIGHT+"' >";
 					tbodyData += "<input type='hidden' class='tr_cost' value='"+result[i].COST+"' >";
@@ -616,14 +616,14 @@ input[type=checkbox]{
 				};
 				$.ajax({
 					type: "POST",
-					url : "./Delivery_receipt.do",
+					url : "../Delivery_receipt.do",
 					data: deliverydata,
 					async: false,
 		            success: function(datas){
 						
 						$.ajax({
 							type: "POST",
-							url : "./Delivery_receipt_D.do",
+							url : "../Delivery_receipt_D.do",
 							data: deliverydata,
 							async: false,
 				            success: function(datas2){
@@ -787,7 +787,7 @@ input[type=checkbox]{
 		};
 		$.ajax({
 			type: "POST",
-			url : "./Out_Day_List.do",
+			url : "../Out_Day_List.do",
 			data: deliverydata,
 			async: false,
             success: function(datas){

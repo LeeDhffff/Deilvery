@@ -28,7 +28,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
-<script src="./js/pageChange.js"></script>
+<script src="../js/pageChange.js"></script>
 
 </head>
 
@@ -36,7 +36,7 @@
 	<header id="normal">
         <h1 class="logo">
             <a href="Main.do">
-                <img src="./images/pc_icon/logo_color.svg" alt="logo">
+                <img src="../images/pc_icon/logo_color.svg" alt="logo">
             </a>
         </h1>
         <ul class="menu">
@@ -53,11 +53,11 @@
             <li class="language">
                 <a href="#">
                     <span class="icon">
-                        <img src="./images/pc_icon/global.svg" alt="language">
+                        <img src="../images/pc_icon/global.svg" alt="language">
                     </span>
                     <select name="language" id="language">
                         <option value="kor">KOR</option>
-                        <option value="lao">LAO</option>
+                        <option value="lao" selected>LAO</option>
                     </select>
                 </a>
             </li>
@@ -84,7 +84,7 @@
 		if(uid == 'null' && uid2== 'null'){
 			$.ajax({
 				type: "POST",
-				url : "./AutoLogin.do",
+				url : "../AutoLogin.do",
 				data: {},
 				async: false,
 		        success: function(datas){
@@ -112,7 +112,7 @@
 				var auth = [];
 				$.ajax({
 					type: "POST",
-					url : "./Authority_Select.do",
+					url : "../Authority_Select.do",
 					data: {MEM_ID : uid},
 					async: false,
 			        success: function(datas){
@@ -172,7 +172,7 @@
 
 				$.ajax({
 					type: "POST",
-					url : "./Logout.do",
+					url : "../Logout.do",
 					data: {},
 					async: false,
 		            success: function(datas){
@@ -234,7 +234,6 @@
 
          	   location.href = "Mobile_Main.do";
 		})
-		
 	})
 </script>
 </html>

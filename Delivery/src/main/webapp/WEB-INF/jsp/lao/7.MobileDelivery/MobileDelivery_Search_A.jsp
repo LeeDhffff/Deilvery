@@ -143,16 +143,16 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<link rel="stylesheet" href="./css/Mobile/common.css">  
-<link rel="stylesheet" href="./css/6.MobileDelivery/MD_style.css">  
-<!-- <link rel="stylesheet" href="./css/6.MobileDelivery/MDD_style.css">       -->
+<link rel="stylesheet" href="../css/Mobile/common.css">  
+<link rel="stylesheet" href="../css/6.MobileDelivery/MD_style.css">  
+<!-- <link rel="stylesheet" href="../css/6.MobileDelivery/MDD_style.css">       -->
 <!-- import font-awesome, line-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
-<script src="./js/6.MobileDelivery/MD_index.js"></script>
-<script src="./js/pageChange.js"></script>
+<script src="../js/6.MobileDelivery/MD_index.js"></script>
+<script src="../js/pageChange.js"></script>
 
 </head>
 
@@ -164,7 +164,7 @@
                 <div class="popTitle">배송내역</div>
                 <h5 class="cancel">
                     <a href="#">
-                        <img src="./images/m_icon/cancel_black.svg" alt="">
+                        <img src="../images/m_icon/cancel_black.svg" alt="">
                     </a>
                 </h5>
             </div>
@@ -179,7 +179,7 @@
         <!-- <header class="m_header"> -->
 <!--             <h3 class="arrow back"> -->
 <!--                 <a href="#"> -->
-<!--                     <img src="./images/m_icon/header_arrow.svg" alt="#"> -->
+<!--                     <img src="../images/m_icon/header_arrow.svg" alt="#"> -->
 <!--                 </a> -->
 <!--             </h3> -->
             <!-- <div class="m_headerTitle">배송조회</div>
@@ -195,64 +195,52 @@
             </h5>
 
 			<a href="logo">
-				<img src="./images/m_icon/logo_color.svg" alt="logo">
+				<img src="../images/m_icon/logo_color.svg" alt="logo">
 			</a>
 
 			<div class="infoWrap">
 					
 				<div class="dateNotice">
-					<h5 class="subTxt"><a href="#">접수 마감일</a></h5>
-					<!-- <h5 class="subTxt"><a href="#">ປິດຮັບເຄື່ອງ</a></h5> -->
+					<h5 class="subTxt"><a href="#">ປິດຮັບເຄື່ອງ</a></h5>
 					<h1 class="dateTxt"><a href="#">${Dlist.ARR_DAY}</a></h1>
 				</div>	
 				<div class="infoCon indate eks">
-					<h5 class="subTxt"><a href="#">송장번호</a></h5>
-					<!-- <h5 class="subTxt"><a href="#">ລະຫັດເຄື່ອງ</a></h5> -->
+					<h5 class="subTxt"><a href="#">ລະຫັດເຄື່ອງ</a></h5>
 					<h1 class="subTxt"><a href="#">${Dlist.EK}</a></h1>
 				</div>
 				<div class="infoCon indate">
-					<h5 class="subTxt"><a href="#">접수일</a></h5>
-					<!-- <h5 class="subTxt"><a href="#">ເຄື່ອງເຂົ້າສາງ</a></h5> -->
+					<h5 class="subTxt"><a href="#">ເຄື່ອງເຂົ້າສາງ</a></h5>
 					<h1 class="subTxt"><a href="#">${Dlist.CRE_DAY}</a></h1>
 				</div>
 				<div class="infoCon people"> 
-					<h5 class="subTxt"><a href="#">수령인</a></h5>
-					<!-- <h5 class="subTxt"><a href="#">ຊື່ຜູ້ຮັບເຄື່ອງ</a></h5> -->
+					<h5 class="subTxt"><a href="#">ຊື່ຜູ້ຮັບເຄື່ອງ</a></h5>
 					<h1 class="subTxt"><a href="#">${Dlist.REC_NM}</a></h1>
 				</div>
 				<div class="infoCon cost">
-					<h5 class="subTxt"><a href="#">물류예상비용</a></h5>
-					<!-- <h5 class="subTxt"><a href="#">ຄ່າຂົນ(ໂດຍປະມານ)</a></h5> -->
+					<h5 class="subTxt"><a href="#">ຄ່າຂົນ(ໂດຍປະມານ)</a></h5>
 					<h1 class="subTxt"><a href="#">$${Dlist.COST}</a></h1>
 				</div>
 					<input type="hidden" class="T_IN_KEY" id="${IN_KEY}" value="${IN_KEY}">
-				<div class="infoCheck">배송내역 확인하기</div>
-				<!-- <div class="infoCheck">ກວດລາຍລະອຽດເຄື່ອງ</div> -->
+				<div class="infoCheck">ກວດລາຍລະອຽດເຄື່ອງ</div>
 			</div>
 
         </section>
         <div class="inputsection">
-        	<h5 class="inputName"><a href="#">픽업지 선택</a></h5>
-			<!-- <h5 class="inputName"><a href="#">ເລືອກສະຖານທີ່ຮັບເຄື່ອງ</a></h5> -->
+<!--         	<h5 class="inputName"><a href="#">픽업지 선택</a></h5> -->
+			<h5 class="inputName"><a href="#">ເລືອກສະຖານທີ່ຮັບເຄື່ອງ</a></h5>
 	        <select name="recTarget" id="recTarget">
-		        <option value="0">픽업지 선택</option>
-	            <option value="1">본사</option>
-	            <option value="2">하우 창고</option>
-	            <option value="3">택배 서비스</option>
-
-				<!-- <option value="0">ເລືອກສະຖານທີ່ຮັບເຄື່ອງ</option>
+				<option value="0">ເລືອກສະຖານທີ່ຮັບເຄື່ອງ</option>
 				<option value="1">ສຳນັກງານໃຫຍ່(ປາກທ້າງ)</option>
 	            <option value="2">ສາງຮາວ</option>
-	            <option value="3">ບໍລິການສົ່ງ</option> -->
+	            <option value="3">ບໍລິການສົ່ງ</option>
 
 	        </select>
-	        <button class="savebutton">저장</button>
-			<!-- <button class="savebutton">ບັນທຶກ</button> -->
+<!-- 	        <button class="savebutton">저장</button> -->
+			<button class="savebutton">ບັນທຶກ</button>
         </div>
             <div class="inputsection" id="target_3">
                 <div class="inputWrap">
-                <h5 class="inputName"><a href="#">택배사</a></h5>
-				<!-- <h5 class="inputName"><a href="#">ບໍລິສັດຂົນສົ່ງ</a></h5> -->
+				<h5 class="inputName"><a href="#">ບໍລິສັດຂົນສົ່ງ</a></h5>
                 <select name="recAddr" id="recAddr">
                 	<c:forEach var="item" items="${shipComList}">
                 		<c:choose>
@@ -267,8 +255,7 @@
                 </select>
             	</div>
                 <div class="inputWrap">
-                    <h5 class="inputName"><a href="#">상세주소</a></h5>
-					<!-- <h5 class="inputName"><a href="#">ລາຍລະອຽດ(ສາຂາ)</a></h5> -->
+					<h5 class="inputName"><a href="#">ລາຍລະອຽດ(ສາຂາ)</a></h5>
                     <c:choose>
                     	<c:when test="${Dlist.REC_TARGET == 3}">
                     		<input type="text" name="recHou" id="recHou" value="${Dlist.REC_HOU}">
@@ -279,13 +266,11 @@
                     </c:choose>
                 </div>
             </div>
-	        	<button onclick="kakao()" class="kakaotalkbutton"><img src="./images/delivery/pc_icon/kakao logo.svg">카카오톡 문의</button>
-				<!-- <button onclick="kakao()" class="kakaotalkbutton"><img src="./images/delivery/pc_icon/wslogo.svg">ສອບຖາມຂໍ້ມູນເພີ່ມເຕີມ</button> -->
+				<button onclick="kakao()" class="kakaotalkbutton"><img src="../images/delivery/pc_icon/wslogo.svg">ສອບຖາມຂໍ້ມູນເພີ່ມເຕີມ</button>
         <section>
         
             <h3 class="sectionMainTitle">
-                <a href="#">배송 현황</a>
-				<!-- <a href="#">ສະຖານະການ ການຂົນສົ່ງ</a> -->
+				<a href="#">ສະຖານະການ ການຂົນສົ່ງ</a>
             </h3>
             <input type="hidden" id="memid" value="${Dlist.MEM_ID}">
             <input type="hidden" id="inkey" value="${Dlist.IN_KEY}">
@@ -294,38 +279,38 @@
 	                ${Dlist.OUT_TXT}
            		</h4>
                 <div class="stepCon on">
-                    <h5 class="stepTxt"><a href="#">한국창고</a></h5>
-					<!-- <h5 class="stepTxt"><a href="#">ສາງເຄື່ອງຢູ່ເກົາຫຼີ</a></h5> -->
+<!--                     <h5 class="stepTxt"><a href="#">한국창고</a></h5> -->
+					<h5 class="stepTxt"><a href="#">ສາງເຄື່ອງຢູ່ເກົາຫຼີ</a></h5>
                     <h5 class="stepDate"><a href="#"></a></h5>
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
-                    <h5 class="stepTxt"><a href="#">인천항</a></h5>
-					<!-- <h5 class="stepTxt"><a href="#">ສາຍເຮືອອິນຊອນ</a></h5> -->
+<!--                     <h5 class="stepTxt"><a href="#">인천항</a></h5> -->
+					<h5 class="stepTxt"><a href="#">ສາຍເຮືອອິນຊອນ</a></h5>
                     <h5 class="stepDate"><a href="#"></a></h5>
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
-                    <h5 class="stepTxt"><a href="#">배송중</a></h5>
-					<!-- <h5 class="stepTxt"><a href="#">ກຳລັງຈັດສົ່ງ</a></h5> -->
+<!--                     <h5 class="stepTxt"><a href="#">배송중</a></h5> -->
+					<h5 class="stepTxt"><a href="#">ກຳລັງຈັດສົ່ງ</a></h5>
                     <h5 class="stepDate"><a href="#"></a></h5>
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
-                    <h5 class="stepTxt"><a href="#">태국항</a></h5>
-					<!-- <h5 class="stepTxt"><a href="#">ສາຍເຮຶອໄທ</a></h5> -->
+<!--                     <h5 class="stepTxt"><a href="#">태국항</a></h5> -->
+					<h5 class="stepTxt"><a href="#">ສາຍເຮຶອໄທ</a></h5>
                     <h5 class="stepDate"><a href="#"></a></h5>
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
-                    <h5 class="stepTxt"><a href="#">라오스 창고</a></h5>
-					<!-- <h5 class="stepTxt"><a href="#">ສາງເຄື່ອງຢູ່ລາວ</a></h5> -->
+<!--                     <h5 class="stepTxt"><a href="#">라오스 창고</a></h5> -->
+					<h5 class="stepTxt"><a href="#">ສາງເຄື່ອງຢູ່ລາວ</a></h5>
                     <h5 class="stepDate"><a href="#"></a></h5>
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
-                    <h5 class="stepTxt"><a href="#">배출시작</a></h5>
-					<!-- <h5 class="stepTxt"><a href="#">ເລີ່ມກະຈາຍເຄື່ອງ</a></h5> -->
+<!--                     <h5 class="stepTxt"><a href="#">배출시작</a></h5> -->
+					<h5 class="stepTxt"><a href="#">ເລີ່ມກະຈາຍເຄື່ອງ</a></h5>
                     <h5 class="stepDate"><a href="#"></a></h5>
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
@@ -423,7 +408,7 @@
 		};
 		$.ajax({
 			type: "POST",
-			url : "./Delivery_Select_B.do",
+			url : "../Delivery_Select_B.do",
 			data: deliverydata,
 			async: false,
             success: function(datas){
@@ -483,7 +468,7 @@
 		};
 		$.ajax({
 			type: "POST",
-			url : "./Delivery_Select_D.do",
+			url : "../Delivery_Select_D.do",
 			data: deliverydata,
 			async: false,
             success: function(datas){
@@ -517,7 +502,7 @@
 		};
 		$.ajax({
 			type: "POST",
-			url : "./Delivery_Select_D.do",
+			url : "../Delivery_Select_D.do",
 			data: deliverydata,
 			async: false,
             success: function(datas){
@@ -548,7 +533,7 @@
 		};
 		$.ajax({
 			type: "POST",
-			url : "./Delivery_Select_O.do",
+			url : "../Delivery_Select_O.do",
 			data: deliverydata,
 			async: false,
             success: function(datas){
@@ -595,7 +580,7 @@
 
 		$.ajax({
 			type: "POST",
-			url : "./Pickup_Insert.do",
+			url : "../Pickup_Insert.do",
 			data: pickup_data,
 			async: false,
             success: function(datas){
