@@ -20,8 +20,8 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
-<link rel="stylesheet" href="./css/common.css">  
-<link rel="stylesheet" href="./css/0.Login/style_JoinC.css">    
+<link rel="stylesheet" href="../css/common.css">  
+<link rel="stylesheet" href="../css/0.Login/style_JoinC.css">    
 <!-- import font-awesome, line-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
@@ -43,7 +43,7 @@
                 <div class="conWrap">
                     <a href="#">
                         <span class="icon">
-                            <img src="./images/pc_icon/check_orange.svg" alt="#">
+                            <img src="../images/pc_icon/check_orange.svg" alt="#">
                         </span>
                     </a>
                     <h3 class="conMainTitle">

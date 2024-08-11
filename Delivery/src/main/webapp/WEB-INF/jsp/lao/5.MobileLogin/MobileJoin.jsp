@@ -31,16 +31,16 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<link rel="stylesheet" href="./css/Mobile/common.css">  
-<link rel="stylesheet" href="./css/4.MobileLogin/Join_style.css"> 
-<link rel="stylesheet" href="./css/4.MobileLogin/Join2_style.css">   
+<link rel="stylesheet" href="../css/Mobile/common.css">  
+<link rel="stylesheet" href="../css/4.MobileLogin/Join_style.css"> 
+<link rel="stylesheet" href="../css/4.MobileLogin/Join2_style.css">   
 <!-- import font-awesome, line-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
-<script src="./js/5.MobileLogin/MJ_index.js"></script>
-<script src="./js/pageChange.js"></script>
+<script src="../js/5.MobileLogin/MJ_index.js"></script>
+<script src="../js/pageChange.js"></script>
 
 </head>
 
@@ -51,7 +51,7 @@
                 <div class="popTitle">이메일로 전송한 인증번호 6자리를 입력해주세요</div>
                 <h5 class="cancel">
                     <a href="#">
-                        <img src="./images/m_icon/cancel_black.svg" alt="">
+                        <img src="../images/m_icon/cancel_black.svg" alt="">
                     </a>
                 </h5>
             </div>
@@ -75,7 +75,7 @@
                 <div class="popTitle">중복확인</div>
                 <h5 class="cancel">
                     <a href="#">
-                        <img src="../../images/m_icon/cancel_black.svg" alt="">
+                        <img src=".../.../images/m_icon/cancel_black.svg" alt="">
                     </a>
                 </h5>
             </div>
@@ -95,7 +95,7 @@
         <header class="m_header first">
             <h3 class="arrow">
                 <a href="Mobile_Login.do">
-                    <img src="./images/m_icon/header_arrow.svg" alt="#">
+                    <img src="../images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>
             <div class="m_headerTitle">회원가입</div>
@@ -124,7 +124,7 @@
         <header class="m_header second" style="display:none;">
             <h3 class="arrow">
                 <a id="back" href="#">
-                    <img src="./images/m_icon/header_arrow.svg" alt="#">
+                    <img src="../images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>
             <div class="m_headerTitle">회원가입</div>
@@ -187,7 +187,7 @@
 			if($("#join_ID").val() != '' && $("#join_ID").val().length >= 6){
 				$.ajax({
 					type: "POST",
-					url : "./id_chk.do",
+					url : "../id_chk.do",
 					data: {CHK_ID : $("#join_ID").val()},
 					async: false,
 		            success: function(datas){
@@ -236,7 +236,7 @@
 
 			$.ajax({
 				type: "POST",
-				url : "./Mail.do",
+				url : "../Mail.do",
 				data: maildata,
 				async: false,
 	            success: function(datas){
@@ -333,7 +333,7 @@
 				};
 				$.ajax({
 					type: "POST",
-					url : "./Join.do",
+					url : "../Join.do",
 					data: joindata,
 					async: false,
 		            success: function(datas){

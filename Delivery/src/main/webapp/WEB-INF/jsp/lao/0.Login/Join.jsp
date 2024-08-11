@@ -20,8 +20,8 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
-<link rel="stylesheet" href="./css/common.css">  
-<link rel="stylesheet" href="./css/0.Login/style_Join.css">    
+<link rel="stylesheet" href="../css/common.css">  
+<link rel="stylesheet" href="../css/0.Login/style_Join.css">    
 <!-- import font-awesome, line-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
@@ -133,7 +133,7 @@
 			if($("#join_ID").val() != '' && $("#join_ID").val().length >= 6){
 				$.ajax({
 					type: "POST",
-					url : "./id_chk.do",
+					url : "../id_chk.do",
 					data: {CHK_ID : $("#join_ID").val()},
 					async: false,
 		            success: function(datas){
@@ -179,7 +179,7 @@
 
 			$.ajax({
 				type: "POST",
-				url : "./Mail.do",
+				url : "../Mail.do",
 				data: maildata,
 				async: false,
 	            success: function(datas){
@@ -281,7 +281,7 @@
 				};
 				$.ajax({
 					type: "POST",
-					url : "./Join.do",
+					url : "../Join.do",
 					data: joindata,
 					async: false,
 		            success: function(datas){

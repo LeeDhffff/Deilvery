@@ -20,8 +20,8 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<link rel="stylesheet" href="./css/Mobile/common.css">  
-<link rel="stylesheet" href="./css/4.MobileLogin/Load_style.css">    
+<link rel="stylesheet" href="../css/Mobile/common.css">  
+<link rel="stylesheet" href="../css/4.MobileLogin/Load_style.css">    
 <!-- import font-awesome, line-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
@@ -36,7 +36,7 @@
         <div class="textCon">                
             <h1 class="logoWhite">
                 <a href="logoWhite">
-                    <img src="./images/m_icon/logo_white.svg" alt="logo">
+                    <img src="../images/m_icon/logo_white.svg" alt="logo">
                 </a>
             </h1>
             <h3 class="mainTitle">

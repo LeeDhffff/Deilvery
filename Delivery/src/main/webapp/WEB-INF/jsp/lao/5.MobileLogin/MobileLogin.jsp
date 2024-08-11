@@ -20,14 +20,14 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<link rel="stylesheet" href="./css/Mobile/common.css">  
-<link rel="stylesheet" href="./css/4.MobileLogin/Login_style.css">    
+<link rel="stylesheet" href="../css/Mobile/common.css">  
+<link rel="stylesheet" href="../css/4.MobileLogin/Login_style.css">    
 <!-- import font-awesome, line-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
-<script src="./js/pageChange.js"></script>
+<script src="../js/pageChange.js"></script>
 
 </head>
 
@@ -36,7 +36,7 @@
         <header class="m_header">
             <h3 class="arrow back">
                 <a href="#">
-                    <img src="./images/m_icon/header_arrow.svg" alt="#">
+                    <img src="../images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>
             <div class="m_headerTitle">로그인</div>
@@ -44,7 +44,7 @@
         <section>
             <h1 class="logo">
                 <a href="logo">
-                    <img src="./images/m_icon/logo_color.svg" alt="logo">
+                    <img src="../images/m_icon/logo_color.svg" alt="logo">
                 </a>
             </h1>
             
@@ -122,7 +122,7 @@
 					};
 					$.ajax({
 						type: "POST",
-						url : "./Login.do",
+						url : "../Login.do",
 						data: logindata,
 						async: false,
 			            success: function(datas){

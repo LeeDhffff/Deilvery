@@ -343,7 +343,7 @@
 			};
 			$.ajax({
 				type: "POST",
-				url : "./Excel.do",
+				url : "../Excel.do",
 				data: parsingdeliverydata,
 				async: false,
 	            success: function(datas){

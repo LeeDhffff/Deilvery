@@ -16,8 +16,8 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<link rel="stylesheet" href="./css/common.css">  
-<link rel="stylesheet" href="./css/0.Login/style.css">    
+<link rel="stylesheet" href="../css/common.css">  
+<link rel="stylesheet" href="../css/0.Login/style.css">    
 <!-- import font-awesome, line-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
@@ -37,7 +37,7 @@
                 <div class="conWrap">
                     <h1 class="logo">
                         <a href="#">
-                            <img src="./images/pc_icon/logo_color.svg" alt="logo">
+                            <img src="../images/pc_icon/logo_color.svg" alt="logo">
                         </a>
                     </h1>
                     <div class="wrap">
@@ -90,7 +90,7 @@
 				};
 				$.ajax({
 					type: "POST",
-					url : "./Login_B.do",
+					url : "../Login_B.do",
 					data: joindata,
 					async: false,
 		            success: function(datas){
