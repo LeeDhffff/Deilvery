@@ -14,11 +14,11 @@
     <script src="https://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
     
 	<!-- qrCode.js import -->
-    <script src="js/qrcode.js"></script>
+    <script src="../js/qrcode.js"></script>
     
     <!-- css import -->
-    <link href="css/adminDeliverRegist/mCommon.css" rel="stylesheet" type="text/css">
-    <link href="css/adminDeliverRegist/mAdminDeliveryRegist_A_Style.css" rel="stylesheet" type="text/css">
+    <link href="../css/adminDeliverRegist/mCommon.css" rel="stylesheet" type="text/css">
+    <link href="../css/adminDeliverRegist/mAdminDeliveryRegist_A_Style.css" rel="stylesheet" type="text/css">
     
     <!-- import font-awesome, line-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
@@ -26,7 +26,7 @@
 
     <!-- import pretendard font -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
-    <script src="./js/pageChange.js"></script>
+    <script src="../js/pageChange.js"></script>
     
     <!-- import grid.js -->
     <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
@@ -40,7 +40,7 @@
 			background : white;
 			border : 1px solid var(--main-color);
 			border-radius : 3px;
-			background-image : url(./images/pc_icon/search_orange.svg);
+			background-image : url(../images/pc_icon/search_orange.svg);
 			background-size : cover;
 			cursor : pointer;
 		}
@@ -48,7 +48,7 @@
 			width : 30px;
 			height : 30px;
 			background : var(--main-color);
-			background-image : url(./images/pc_icon/search_white.svg);
+			background-image : url(../images/pc_icon/search_white.svg);
 		}
 		.search > img, .popSearch > img { width : 100%; height : 100%};
 		
@@ -59,13 +59,13 @@
 			background : white;
 			border : 1px solid var(--main-color);
 			border-radius : 3px;
-			background-image : url(./images/pc_icon/check_orange.svg);
+			background-image : url(../images/pc_icon/check_orange.svg);
 			background-size : cover;
 			cursor : pointer;
 		}
 		.selectBtn:hover {
 			background : var(--main-color);
-			background-image : url(./images/pc_icon/check_white.svg);
+			background-image : url(../images/pc_icon/check_white.svg);
 		}
 		.selectBtn > img, .selectBtn:hover > img { width : 100%; height : 100%};
 		
@@ -79,7 +79,7 @@
 				<div class="popTitle" id="pop2_text">수령인 검색</div>
 				<h5 class="cancel">
                     <a href="#">
-                        <img src="./images/m_icon/cancel_black.svg" alt="">
+                        <img src="../images/m_icon/cancel_black.svg" alt="">
                     </a>
                 </h5>				
 			</div>
@@ -92,7 +92,7 @@
         <header class="m_header">
             <h3 class="arrow" onclick="location.href='Mobile_Main.do';">
                 <a href="#">
-                    <img src="images/m_icon/header_arrow.svg" alt="#">
+                    <img src="../images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>
             <c:choose>
@@ -270,7 +270,7 @@
    			if(regist){
    				console.log("formData A : ", $("#formData").serialize());
    				$.ajax({
-   	   				url : "mAdminDeliveryRegistB.do",
+   	   				url : "../lao/mAdminDeliveryRegistB.do",
    	   				type : "POST",
    	   				data : $("#formData").serialize(),
    	   				async : false,

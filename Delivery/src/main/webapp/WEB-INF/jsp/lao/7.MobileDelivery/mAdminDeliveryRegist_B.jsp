@@ -14,11 +14,11 @@
     <script src="https://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
     
 	<!-- qrCode.js import -->
-    <script src="js/qrcode.js"></script>
+    <script src="../js/qrcode.js"></script>
     
     <!-- css import -->
-    <link href="css/adminDeliverRegist/mCommon.css" rel="stylesheet" type="text/css">
-    <link href="css/adminDeliverRegist/mAdminDeliveryRegist_B_Style.css" rel="stylesheet" type="text/css">
+    <link href="../css/adminDeliverRegist/mCommon.css" rel="stylesheet" type="text/css">
+    <link href="../css/adminDeliverRegist/mAdminDeliveryRegist_B_Style.css" rel="stylesheet" type="text/css">
     
     <!-- import font-awesome, line-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
@@ -26,14 +26,14 @@
 
     <!-- import pretendard font -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
-        <script src="./js/pageChange.js"></script>
+        <script src="../js/pageChange.js"></script>
 </head>
 <body>
     <div class="m_container">
         <header class="m_header">
             <h3 class="arrow">
                 <a href="#">
-                    <img src="images/m_icon/header_arrow.svg" alt="#">
+                    <img src="../images/m_icon/header_arrow.svg" alt="#">
                 </a>
             </h3>
             <c:choose>
@@ -215,7 +215,7 @@
     		console.log("formData B : ", $("#formData").serialize());
     		    		
    			$.ajax({
-   				url : "mAdminDeliveryRegistC.do",
+   				url : "../lao/mAdminDeliveryRegistC.do",
    				type : "POST",
    				data : $("#formData").serialize(),
    				async : false,
@@ -234,7 +234,7 @@
     	$(".arrow").on("click", function(evt){  		
     		console.log("click!");
     		$.ajax({
-				url : "mAdminDeliveryRegistMain.do",
+				url : "../lao/mAdminDeliveryRegistMain.do",
 				type : "POST",
 				async : false,
 				data : $("#formData").serialize(),

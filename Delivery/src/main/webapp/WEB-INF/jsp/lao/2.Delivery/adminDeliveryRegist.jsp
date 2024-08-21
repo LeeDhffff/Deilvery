@@ -14,11 +14,11 @@
     <script src="https://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
     
 	<!-- qrCode.js import -->
-    <script src="js/qrcode.js"></script>
+    <script src="../js/qrcode.js"></script>
     
     <!-- css import -->
-    <link href="css/adminDeliverRegist/common.css" rel="stylesheet" type="text/css">
-    <link href="css/adminDeliverRegist/style.css" rel="stylesheet" type="text/css">
+    <link href="../css/adminDeliverRegist/common.css" rel="stylesheet" type="text/css">
+    <link href="../css/adminDeliverRegist/style.css" rel="stylesheet" type="text/css">
     
     <!-- import font-awesome, line-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
@@ -43,13 +43,13 @@
 			background : white;
 			border : 1px solid var(--main-color);
 			border-radius : 3px;
-			background-image : url(./images/pc_icon/search_orange.svg);
+			background-image : url(../images/pc_icon/search_orange.svg);
 			background-size : cover;
 			cursor : pointer;
 		}
 		.search:hover, .popSearch:hover {
 			background : var(--main-color);
-			background-image : url(./images/pc_icon/search_white.svg);
+			background-image : url(../images/pc_icon/search_white.svg);
 		}
 		.search > img, .popSearch > img { width : 100%; height : 100%};
 		
@@ -100,13 +100,13 @@
 			background : white;
 			border : 1px solid var(--main-color);
 			border-radius : 3px;
-			background-image : url(./images/pc_icon/check_orange.svg);
+			background-image : url(../images/pc_icon/check_orange.svg);
 			background-size : cover;
 			cursor : pointer;
 		}
 		.selectBtn:hover {
 			background : var(--main-color);
-			background-image : url(./images/pc_icon/check_white.svg);
+			background-image : url(../images/pc_icon/check_white.svg);
 		}
 		.selectBtn > img, .selectBtn:hover > img { width : 100%; height : 100%};
 		
@@ -115,7 +115,7 @@
 <body>
 	<!-- 로딩이미지 추가 (JANG 240517) -->
 	<div class="wrap-loading display-none">
-		<div><img src="images/delivery/pc_icon/loading.gif" alt="loading..."/></div>
+		<div><img src="../images/delivery/pc_icon/loading.gif" alt="loading..."/></div>
 	</div>
 	<!-- 수령인 검색 팝업 추가 (JANG 240605) -->
 	<div class="pop_container">
@@ -137,7 +137,7 @@
                 <h3 class="outTitle" onclick="fnPrint();">출력하기</h3>	
                 <h3 class="icon cancelout">
                     <a href="#">
-                        <img src="images/delivery/pc_icon/cancel_black.svg" alt="#">
+                        <img src="../images/delivery/pc_icon/cancel_black.svg" alt="#">
                     </a>
                 </h3>
             </div>
@@ -185,7 +185,7 @@
     </div>
 
     <div class="container">
-    <jsp:include page="../../common.jsp"></jsp:include>
+    <jsp:include page="../common.jsp"></jsp:include>
 		 
         <section>        	
             <div class="sectionContainer">
@@ -621,7 +621,7 @@
     		if(regist){
 	    		console.log("formData : ", $("#formData").serialize());
 				$.ajax({
-					url : "adminDelRegist.do",
+					url : "../adminDelRegist.do",
 					type : "POST",
 					async : false,
 					data : $("#formData").serialize(),					

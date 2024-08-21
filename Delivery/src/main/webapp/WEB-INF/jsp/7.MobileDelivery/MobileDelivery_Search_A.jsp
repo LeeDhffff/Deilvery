@@ -33,12 +33,13 @@
 		margin-top: 10px;
 	}
 	.savebutton{
-		width: 100px;
+		font-size: 20px;
+		width: 80px;
 	    height: 30px;
 	    border-radius: 4px;
-	    background: #00b700;
+	    background: seagreen;
 	    color: white;
-        margin: 0px 0px 0px 85px;
+        margin: 0px 0px 0px 10px;
 	}
     .kakaotalkbutton{
     	font-size: 16px;
@@ -129,10 +130,51 @@
 	    border: 1px solid var(--main-color);
 	    background-color: #fff;
 	}
-	.ek1{
+
+
+	.ek1 > .infoWrap > .dateNotice {
+		text-align: center;
+	}
+
+
+	.ek1 > .infoWrap > .infoCheck {
+		display: none !important;
+	}
+
+	.ek1 > .infoWrap > .infoCon.indate {
+		display: none !important;
+	}
+
+	.ek1 > .infoWrap > .infoCon.indate {
 		display: none !important;
 	}
 	
+	.ek1 > .infoWrap > .infoCon.indate.eks {
+		display: none !important;
+	}
+
+	.ek1 > .infoWrap > .infoCon.cost {
+		display: none !important;
+	}
+
+	.ek1 > .infoWrap > .infoCon.people > h5 {
+		display: none !important;
+	}
+
+	.inputsection.ek1 {
+		display: none !important;
+	}
+
+	.ek1 > .infoWrap > .infoCon.people > h1 {
+		margin-bottom: 16px;
+		margin-top: 5px;
+		width: 100%;
+		text-align: center;
+		font-size: 25px;
+		font-weight: bold;
+	}
+
+
 	.eks > h1{
 	    font-size: 18px;
    		font-weight: bold;
