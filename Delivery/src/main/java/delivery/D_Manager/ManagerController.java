@@ -76,8 +76,8 @@ import delivery.D_Manager.service.ManagerService;
 @Controller
 public class ManagerController {
 
-    public static String filePath = "D:\\upload\\deliveryFile"; // 윈도우 경로
-//	public static String filePath = "/upload"; // 우분투 경로
+//    public static String filePath = "D:\\upload\\deliveryFile"; // 윈도우 경로
+	public static String filePath = "/upload"; // 우분투 경로
 	private static final String BASE64_PNG_PRE_FIX = "data:image/png;base64,";
 	
 	@Resource(name = "ManagerService")

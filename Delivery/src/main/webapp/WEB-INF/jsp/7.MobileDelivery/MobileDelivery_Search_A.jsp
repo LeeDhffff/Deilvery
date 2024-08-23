@@ -25,7 +25,7 @@
 	    margin: 0 0 0 5px;
 	}
 	.inputName > a{
-	    font-size: 14px;
+	    font-size: 17px;
 	}
 
 	.inputWrap{
@@ -63,6 +63,7 @@
 		width: 100px;
 	    height: 30px;
 	    border: 1px solid black;
+		margin-left: 33px;
 	}
 	#recAddr{
 		width: 100%;
@@ -99,11 +100,12 @@
 	.stepWrap
 	{
 	    margin-top: 24px;
+		font-size: 22px;
 	}
 	
 	.stepCon 
 	{
-	    height: 40px;
+	    height: 50px;
 	    border: 1px solid var(--input-color); 
 	    padding: 0 16px;
 	    display: flex;
@@ -194,7 +196,7 @@
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
 <script src="./js/6.MobileDelivery/MD_index.js"></script>
-<script src="./js/pageChange.js"></script>
+<!-- <script src="./js/pageChange.js"></script> -->
 
 </head>
 
@@ -268,7 +270,7 @@
 					<h1 class="subTxt"><a href="#">$${Dlist.COST}</a></h1>
 				</div>
 					<input type="hidden" class="T_IN_KEY" id="${IN_KEY}" value="${IN_KEY}">
-				<div class="infoCheck">배송내역 확인하기</div>
+				<div class="infoCheck">배송내역 확인(클릭)</div>
 				<!-- <div class="infoCheck">ກວດລາຍລະອຽດເຄື່ອງ</div> -->
 			</div>
 
@@ -339,37 +341,37 @@
                     <h5 class="stepTxt"><a href="#">한국창고</a></h5>
 					<!-- <h5 class="stepTxt"><a href="#">ສາງເຄື່ອງຢູ່ເກົາຫຼີ</a></h5> -->
                     <h5 class="stepDate"><a href="#"></a></h5>
-                    <h5 class="stepCurrent"><a href="#"></a></h5>
+                    <!-- <h5 class="stepCurrent"><a href="#"></a></h5> -->
                 </div>
                 <div class="stepCon">
                     <h5 class="stepTxt"><a href="#">인천항</a></h5>
 					<!-- <h5 class="stepTxt"><a href="#">ສາຍເຮືອອິນຊອນ</a></h5> -->
                     <h5 class="stepDate"><a href="#"></a></h5>
-                    <h5 class="stepCurrent"><a href="#"></a></h5>
+                    <!-- <h5 class="stepCurrent"><a href="#"></a></h5> -->
                 </div>
                 <div class="stepCon">
                     <h5 class="stepTxt"><a href="#">배송중</a></h5>
 					<!-- <h5 class="stepTxt"><a href="#">ກຳລັງຈັດສົ່ງ</a></h5> -->
                     <h5 class="stepDate"><a href="#"></a></h5>
-                    <h5 class="stepCurrent"><a href="#"></a></h5>
+                    <!-- <h5 class="stepCurrent"><a href="#"></a></h5> -->
                 </div>
                 <div class="stepCon">
                     <h5 class="stepTxt"><a href="#">태국항</a></h5>
 					<!-- <h5 class="stepTxt"><a href="#">ສາຍເຮຶອໄທ</a></h5> -->
                     <h5 class="stepDate"><a href="#"></a></h5>
-                    <h5 class="stepCurrent"><a href="#"></a></h5>
+                    <!-- <h5 class="stepCurrent"><a href="#"></a></h5> -->
                 </div>
                 <div class="stepCon">
                     <h5 class="stepTxt"><a href="#">라오스 창고</a></h5>
 					<!-- <h5 class="stepTxt"><a href="#">ສາງເຄື່ອງຢູ່ລາວ</a></h5> -->
                     <h5 class="stepDate"><a href="#"></a></h5>
-                    <h5 class="stepCurrent"><a href="#"></a></h5>
+                    <!-- <h5 class="stepCurrent"><a href="#"></a></h5> -->
                 </div>
                 <div class="stepCon">
-                    <h5 class="stepTxt"><a href="#">배출시작</a></h5>
+                    <h5 class="stepTxt"><a href="#">불출시작</a></h5>
 					<!-- <h5 class="stepTxt"><a href="#">ເລີ່ມກະຈາຍເຄື່ອງ</a></h5> -->
                     <h5 class="stepDate"><a href="#"></a></h5>
-                    <h5 class="stepCurrent"><a href="#"></a></h5>
+                    <!-- <h5 class="stepCurrent"><a href="#"></a></h5> -->
                 </div>
             </div>    
         </section>
@@ -598,6 +600,8 @@
 
 				var tbodyData2 = "";
 				$(".stepCon").removeClass("on");
+				$(".stepCon").removeClass("off");
+				$(".stepCon").addClass("off");
 				$(".stepDate > a").text("미정");
 
 				if(result[0].SJ_KEY != null){
@@ -613,6 +617,7 @@
 				$("#qr_outday").text(result[0].ARR_DAY);
 				
 				for(let i=0; i<result.length; i++ ){
+					$($(".stepCon")[i]).removeClass("off");
 					$($(".stepCon")[i]).find(".stepDate > a").text(result[i].OUT_TXT);
 					$($(".stepCon")[i]).find(".stepCurrent > a").text(result[i].OUT_TXT_SUB);
 					

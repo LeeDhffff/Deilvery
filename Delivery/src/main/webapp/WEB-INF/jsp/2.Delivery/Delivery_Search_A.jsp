@@ -98,7 +98,7 @@
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
 <script src="./js/2.Delivery/Search_index.js"></script>
-<script src="./js/pageChange.js"></script>
+<!-- <script src="./js/pageChange.js"></script> -->
 </head>
 
 <body>  
@@ -263,7 +263,7 @@
                                     <h5 class="currentDay"><a href="#"></a></h5>
                                     <h5 class="currentMessage"><a href="#"></a></h5>                                    
                                 </div>
-                                <div class="current two">
+                                <div class="current two off">
                                     <div class="condition">
                                         <a href="#">
                                             <img src="./images/pc_icon/check_white.svg" alt="#">
@@ -273,7 +273,7 @@
                                     <h5 class="currentDay"><a href="#"></a></h5>
                                     <h5 class="currentMessage"><a href="#"></a></h5>
                                 </div>
-                                <div class="current three">
+                                <div class="current three off">
                                     <div class="condition">
                                         <a href="#">
                                             <img src="./images/pc_icon/check_white.svg" alt="#">
@@ -283,7 +283,7 @@
                                     <h5 class="currentDay"><a href="#"></a></h5>
                                     <h5 class="currentMessage"><a href="#"></a></h5>
                                 </div>
-                                <div class="current four">
+                                <div class="current four off">
                                     <div class="condition">
                                         <a href="#">
                                             <img src="./images/pc_icon/check_white.svg" alt="#">
@@ -293,7 +293,7 @@
                                     <h5 class="currentDay"><a href="#"></a></h5>
                                     <h5 class="currentMessage"><a href="#"></a></h5>
                                 </div>
-                                <div class="current five">
+                                <div class="current five off">
                                     <div class="condition">
                                         <a href="#">
                                             <img src="./images/pc_icon/check_white.svg" alt="#">
@@ -303,7 +303,7 @@
                                     <h5 class="currentDay"><a href="#"></a></h5>
                                     <h5 class="currentMessage"><a href="#"></a></h5>
                                 </div>
-                                <div class="current six">
+                                <div class="current six off">
                                     <div class="condition">
                                         <a href="#">
                                             <img src="./images/pc_icon/check_white.svg" alt="#">
@@ -633,6 +633,8 @@
 				var tbodyData2 = "";
 				$(".current").removeClass("on");
 				$(".condition").removeClass("on");
+				$(".current").removeClass("off");
+				$(".current").addClass("off");
 				$(".currentDay > a").text("미정");
 				$(".currentMessage > a").text("");
 				
@@ -649,6 +651,7 @@
 				$("#qr_outday").text(result[0].ARR_DAY);
 				
 				for(let i=0; i<result.length; i++ ){
+					$($(".currentCon > .current")[i]).removeClass("off");
 					$($(".currentCon > .current")[i]).find(".currentDay > a").text(result[i].OUT_TXT);
 					$($(".currentCon > .current")[i]).find(".currentMessage > a").text(result[i].OUT_TXT_SUB);
 					

@@ -98,7 +98,7 @@
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
 <script src="../js/2.Delivery/Search_index.js"></script>
-<script src="../js/pageChange.js"></script>
+<!-- <script src="../js/pageChange.js"></script> -->
 </head>
 
 <body>  
@@ -632,6 +632,8 @@
 
 				var tbodyData2 = "";
 				$(".current").removeClass("on");
+				$(".current").removeClass("off");
+				$(".current").addClass("off");
 				$(".condition").removeClass("on");
 				$(".currentDay > a").text("미정");
 				$(".currentMessage > a").text("");
@@ -649,6 +651,7 @@
 				$("#qr_outday").text(result[0].ARR_DAY);
 				
 				for(let i=0; i<result.length; i++ ){
+					$($(".currentCon > .current")[i]).removeClass("off");
 					$($(".currentCon > .current")[i]).find(".currentDay > a").text(result[i].OUT_TXT);
 					$($(".currentCon > .current")[i]).find(".currentMessage > a").text(result[i].OUT_TXT_SUB);
 					

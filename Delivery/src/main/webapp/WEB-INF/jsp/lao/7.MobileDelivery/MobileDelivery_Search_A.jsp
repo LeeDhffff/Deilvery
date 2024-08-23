@@ -19,13 +19,13 @@
 		margin: 10px 30px 10px 30px;
 	}
 	.inputName{
-	    width: 80px;
+	    width: 144px;
    	 	height: 30px;
 	    line-height: 30px;
 	    margin: 0 0 0 5px;
 	}
 	.inputName > a{
-	    font-size: 14px;
+	    font-size: 12px;
 	}
 
 	.inputWrap{
@@ -36,9 +36,9 @@
 		width: 100px;
 	    height: 30px;
 	    border-radius: 4px;
-	    background: #00b700;
+	    background: seagreen;
 	    color: white;
-        margin: 0px 0px 0px 85px;
+        margin: 0px 0px 0px 10px;
 	}
     .kakaotalkbutton{
     	font-size: 16px;
@@ -98,11 +98,12 @@
 	.stepWrap
 	{
 	    margin-top: 24px;
+		font-size: 18px;
 	}
 	
 	.stepCon 
 	{
-	    height: 40px;
+	    height: 50px;
 	    border: 1px solid var(--input-color); 
 	    padding: 0 16px;
 	    display: flex;
@@ -120,7 +121,13 @@
 		color : #bbb;
 		font-weight:300;
 	}
-	.stepCon.on  > .stepDate > a, .stepCon.on  > .stepTxt > a{
+
+	.stepCon > .stepCurrent > a {
+		color : #bbb;
+		font-weight:300;
+	}
+
+	.stepCon.on  > .stepCurrent > a, .stepCon.on  > .stepTxt > a{
 		color : black;
 		font-weight:bold;
 	}
@@ -129,9 +136,48 @@
 	    border: 1px solid var(--main-color);
 	    background-color: #fff;
 	}
-	.ek1{
+	.ek1 > .infoWrap > .dateNotice {
+		text-align: center;
+	}
+
+
+	.ek1 > .infoWrap > .infoCheck {
 		display: none !important;
 	}
+
+	.ek1 > .infoWrap > .infoCon.indate {
+		display: none !important;
+	}
+
+	.ek1 > .infoWrap > .infoCon.indate {
+		display: none !important;
+	}
+	
+	.ek1 > .infoWrap > .infoCon.indate.eks {
+		display: none !important;
+	}
+
+	.ek1 > .infoWrap > .infoCon.cost {
+		display: none !important;
+	}
+
+	.ek1 > .infoWrap > .infoCon.people > h5 {
+		display: none !important;
+	}
+
+	.inputsection.ek1 {
+		display: none !important;
+	}
+
+	.ek1 > .infoWrap > .infoCon.people > h1 {
+		margin-bottom: 16px;
+		margin-top: 5px;
+		width: 100%;
+		text-align: center;
+		font-size: 25px;
+		font-weight: bold;
+	}
+
 	
 	.eks > h1{
 	    font-size: 18px;
@@ -152,7 +198,7 @@
 <!-- import pretendard font -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
 <script src="../js/6.MobileDelivery/MD_index.js"></script>
-<script src="../js/pageChange.js"></script>
+<!-- <script src="../js/pageChange.js"></script> -->
 
 </head>
 
@@ -161,7 +207,7 @@
     <div class="pop">
         <div class="popCon">
             <div class="popHeader">
-                <div class="popTitle">배송내역</div>
+                <div class="popTitle">ລາຍລະອຽດ</div>
                 <h5 class="cancel">
                     <a href="#">
                         <img src="../images/m_icon/cancel_black.svg" alt="">
@@ -217,7 +263,7 @@
 					<h1 class="subTxt"><a href="#">${Dlist.REC_NM}</a></h1>
 				</div>
 				<div class="infoCon cost">
-					<h5 class="subTxt"><a href="#">ຄ່າຂົນ(ໂດຍປະມານ)</a></h5>
+					<h5 class="subTxt"><a href="#">ຄ່າຂົນສົ່ງ(ໂດຍປະມານ)</a></h5>
 					<h1 class="subTxt"><a href="#">$${Dlist.COST}</a></h1>
 				</div>
 					<input type="hidden" class="T_IN_KEY" id="${IN_KEY}" value="${IN_KEY}">
@@ -231,7 +277,7 @@
 	        <select name="recTarget" id="recTarget">
 				<option value="0">ເລືອກສະຖານທີ່ຮັບເຄື່ອງ</option>
 				<option value="1">ສຳນັກງານໃຫຍ່(ປາກທ້າງ)</option>
-	            <option value="2">ສາງຮາວ</option>
+	            <option value="2">ສາງໂພນປ່າເປົ້າ</option>
 	            <option value="3">ບໍລິການສົ່ງ</option>
 
 	        </select>
@@ -281,37 +327,37 @@
                 <div class="stepCon on">
 <!--                     <h5 class="stepTxt"><a href="#">한국창고</a></h5> -->
 					<h5 class="stepTxt"><a href="#">ສາງເຄື່ອງຢູ່ເກົາຫຼີ</a></h5>
-                    <h5 class="stepDate"><a href="#"></a></h5>
+                    <!-- <h5 class="stepDate"><a href="#"></a></h5> -->
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
 <!--                     <h5 class="stepTxt"><a href="#">인천항</a></h5> -->
-					<h5 class="stepTxt"><a href="#">ສາຍເຮືອອິນຊອນ</a></h5>
-                    <h5 class="stepDate"><a href="#"></a></h5>
+					<h5 class="stepTxt"><a href="#">ອອກເດີນທາງຈາກເກົາຫຼີ</a></h5>
+                    <!-- <h5 class="stepDate"><a href="#"></a></h5> -->
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
 <!--                     <h5 class="stepTxt"><a href="#">배송중</a></h5> -->
-					<h5 class="stepTxt"><a href="#">ກຳລັງຈັດສົ່ງ</a></h5>
-                    <h5 class="stepDate"><a href="#"></a></h5>
+					<h5 class="stepTxt"><a href="#">ກຳລັງເດີນທາງ</a></h5>
+                    <!-- <h5 class="stepDate"><a href="#"></a></h5> -->
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
 <!--                     <h5 class="stepTxt"><a href="#">태국항</a></h5> -->
-					<h5 class="stepTxt"><a href="#">ສາຍເຮຶອໄທ</a></h5>
-                    <h5 class="stepDate"><a href="#"></a></h5>
+					<h5 class="stepTxt"><a href="#">ຮອດໄທ(ກຳລັງມາລາວ)</a></h5>
+                    <!-- <h5 class="stepDate"><a href="#"></a></h5> -->
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
 <!--                     <h5 class="stepTxt"><a href="#">라오스 창고</a></h5> -->
-					<h5 class="stepTxt"><a href="#">ສາງເຄື່ອງຢູ່ລາວ</a></h5>
-                    <h5 class="stepDate"><a href="#"></a></h5>
+					<h5 class="stepTxt"><a href="#">ຮອດສາງເຄື່ອງຢູ່ລາວ</a></h5>
+                    <!-- <h5 class="stepDate"><a href="#"></a></h5> -->
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
                 <div class="stepCon">
 <!--                     <h5 class="stepTxt"><a href="#">배출시작</a></h5> -->
 					<h5 class="stepTxt"><a href="#">ເລີ່ມກະຈາຍເຄື່ອງ</a></h5>
-                    <h5 class="stepDate"><a href="#"></a></h5>
+                    <!-- <h5 class="stepDate"><a href="#"></a></h5> -->
                     <h5 class="stepCurrent"><a href="#"></a></h5>
                 </div>
             </div>    
@@ -541,6 +587,8 @@
 
 				var tbodyData2 = "";
 				$(".stepCon").removeClass("on");
+				$(".stepCon").removeClass("off");
+				$(".stepCon").addClass("off");
 				$(".stepDate > a").text("미정");
 
 				if(result[0].SJ_KEY != null){
@@ -556,6 +604,7 @@
 				$("#qr_outday").text(result[0].ARR_DAY);
 				
 				for(let i=0; i<result.length; i++ ){
+					$($(".stepCon")[i]).removeClass("off");
 					$($(".stepCon")[i]).find(".stepDate > a").text(result[i].OUT_TXT);
 					$($(".stepCon")[i]).find(".stepCurrent > a").text(result[i].OUT_TXT_SUB);
 					
@@ -594,8 +643,8 @@
 		})
 	}
 	function kakao(){
-// 		https://open.kakao.com/o/sc8L40Gf
-		var win = window.open("//open.kakao.com/o/sc8L40Gf"); 
+// 		https://wa.me/message/CYLZWO35KWKEP1
+		var win = window.open("//wa.me/message/CYLZWO35KWKEP1"); 
 	}
 </script>
 </html>

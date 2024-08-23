@@ -976,7 +976,7 @@
 //			$500 (kg*$1.5 or 용적중량 *$1.5 중 비싼 비용으로 계산)
 // 			용적중량 : 가로*세로*높이*0.00022 
 			
-			var kgcost = weight * 1.5;
+			var kgcost = Math.round(weight * 1.5);
 			var lncost = Math.round(width * height * length * 0.00022 * 1.5);
 		
 // 			console.log(kgcost,lncost);
@@ -991,12 +991,12 @@
 			}
     	});
     	
-    	$("#cost").val(number.toFixed(5));
+    	$("#cost").val(number.toFixed());
     }
     // 개별 물류 비용 계산 function cost() 참고 (JANG)
     function indiCost(height, width, length, weight){
     	var number = 0;
-    	var kgcost = weight * 1.5;
+    	var kgcost = Math.round(weight * 1.5);
 		var lncost = Math.round(width * height * length * 0.00022 * 1.5);
 		if(kgcost < 10 && lncost < 10){
 			number += 10;
@@ -1007,7 +1007,7 @@
 		else{
 			number += lncost;
 		}
-		return number.toFixed(5);
+		return number.toFixed();
     }
     
     // Join.jsp 참고 (이동헌)

@@ -117,6 +117,13 @@
     -webkit-appearance: checkbox;
     margin-right:5px;
 }
+#mobile{
+	width: 20px;
+    height: 20px;
+    background: white;
+    -webkit-appearance: checkbox;
+    margin-right:5px;
+}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -209,6 +216,7 @@
                 </h5>                                 
                 <div class="laoswrap">
                 	<input type="checkbox" name="laos" id="laos"><label for="laos">한국어로 링크복사</label>      
+                    <input type="checkbox" name="mobile" id="mobile"><label for="mobile">PC로 링크복사</label>  
                 </div>
                 <div class="currentHeader">
                     <h5><a href="#">배송리스트</a></h5>
@@ -355,26 +363,54 @@
 			if(window.location.host == 'localhost:8080'){
 
 				if($("#laos").prop("checked") == false){
-					$("#copy_link").val("localhost:8080/Delivery/lao/Mobile_Delivery_Search_A.do?ik="+nc);
-					document.getElementById("copy_link").select();
-					document.execCommand("copy");
+					if($("#mobile").prop("checked") == true){
+						$("#copy_link").val("localhost:8080/Delivery/lao/Delivery_Search_A.do?ik="+nc);
+						document.getElementById("copy_link").select();
+						document.execCommand("copy");
+					}
+					else{
+						$("#copy_link").val("localhost:8080/Delivery/lao/Mobile_Delivery_Search_A.do?ik="+nc);
+						document.getElementById("copy_link").select();
+						document.execCommand("copy");
+					}
 				}
 				else{
-					$("#copy_link").val("localhost:8080/Delivery/Mobile_Delivery_Search_A.do?ik="+nc);
-					document.getElementById("copy_link").select();
-					document.execCommand("copy");
+					if($("#mobile").prop("checked") == true){
+						$("#copy_link").val("localhost:8080/Delivery/Delivery_Search_A.do?ik="+nc);
+						document.getElementById("copy_link").select();
+						document.execCommand("copy");
+					}
+					else{
+						$("#copy_link").val("localhost:8080/Delivery/Mobile_Delivery_Search_A.do?ik="+nc);
+						document.getElementById("copy_link").select();
+						document.execCommand("copy");
+					}
 				}
 			}
 			else if(window.location.host == 'ek-logis.com'){
 				if($("#laos").prop("checked") == false){
-					$("#copy_link").val("ek-logis.com/lao/Mobile_Delivery_Search_A.do?ik="+nc);
-					document.getElementById("copy_link").select();
-					document.execCommand("copy");
+					if($("#mobile").prop("checked") == true){
+						$("#copy_link").val("ek-logis.com/lao/Delivery_Search_A.do?ik="+nc);
+						document.getElementById("copy_link").select();
+						document.execCommand("copy");
+					}
+					else{
+						$("#copy_link").val("ek-logis.com/lao/Mobile_Delivery_Search_A.do?ik="+nc);
+						document.getElementById("copy_link").select();
+						document.execCommand("copy");
+					}
 				}
 				else{
-					$("#copy_link").val("ek-logis.com/Mobile_Delivery_Search_A.do?ik="+nc);
-					document.getElementById("copy_link").select();
-					document.execCommand("copy");
+					if($("#mobile").prop("checked") == true){
+						$("#copy_link").val("ek-logis.com/Delivery_Search_A.do?ik="+nc);
+						document.getElementById("copy_link").select();
+						document.execCommand("copy");
+					}
+					else{
+						$("#copy_link").val("ek-logis.com/Mobile_Delivery_Search_A.do?ik="+nc);
+						document.getElementById("copy_link").select();
+						document.execCommand("copy");
+					}
 					
 				}
 			}

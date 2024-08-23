@@ -147,6 +147,9 @@ input[type=checkbox]{
 #laos{
 	margin: 10px 20px 0px 5px;
 }
+#mobile{
+	margin: 10px 20px 0px 5px;
+}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -242,7 +245,8 @@ input[type=checkbox]{
                         </div>                        
                     </h3>                                  
                     <div class="laoswrap">
-                    <label for="laos">라오스어로 링크복사</label><input type="checkbox" name="laos" id="laos">      
+                    <label for="laos">라오스어로 링크복사</label><input type="checkbox" name="laos" id="laos">    
+                    <label for="mobile">모바일로 링크복사</label><input type="checkbox" name="mobile" id="mobile">      
                     </div>                                
                     <div class="wrap">
                         <div class="tableWrap">
@@ -479,27 +483,55 @@ input[type=checkbox]{
 			var nc = $(this).parents("tr").find(".in_key").val();
 			if(window.location.host == 'localhost:8080'){
 				if($("#laos").prop("checked") == true){
-					$("#copy_link").val("localhost:8080/Delivery/lao/Delivery_Search_A.do?ik="+nc);
-					document.getElementById("copy_link").select();
-					document.execCommand("copy");
+					if($("#mobile").prop("checked") == false){
+						$("#copy_link").val("localhost:8080/Delivery/lao/Delivery_Search_A.do?ik="+nc);
+						document.getElementById("copy_link").select();
+						document.execCommand("copy");
+					}
+					else{
+						$("#copy_link").val("localhost:8080/Delivery/lao/Mobile_Delivery_Search_A.do?ik="+nc);
+						document.getElementById("copy_link").select();
+						document.execCommand("copy");
+					}
 				}
 				else{
-					$("#copy_link").val("localhost:8080/Delivery/Delivery_Search_A.do?ik="+nc);
-					document.getElementById("copy_link").select();
-					document.execCommand("copy");
+					if($("#mobile").prop("checked") == false){
+						$("#copy_link").val("localhost:8080/Delivery/Delivery_Search_A.do?ik="+nc);
+						document.getElementById("copy_link").select();
+						document.execCommand("copy");
+					}
+					else{
+						$("#copy_link").val("localhost:8080/Delivery/Mobile_Delivery_Search_A.do?ik="+nc);
+						document.getElementById("copy_link").select();
+						document.execCommand("copy");
+					}
 				}
 			}
 			else if(window.location.host == 'ek-logis.com'){
 
 				if($("#laos").prop("checked") == true){
-					$("#copy_link").val("ek-logis.com/lao/Delivery_Search_A.do?ik="+nc);
-					document.getElementById("copy_link").select();
-					document.execCommand("copy");
+					if($("#mobile").prop("checked") == false){
+						$("#copy_link").val("ek-logis.com/lao/Delivery_Search_A.do?ik="+nc);
+						document.getElementById("copy_link").select();
+						document.execCommand("copy");
+					}
+					else{
+						$("#copy_link").val("ek-logis.com/lao/Mobile_Delivery_Search_A.do?ik="+nc);
+						document.getElementById("copy_link").select();
+						document.execCommand("copy");
+					}
 				}
 				else{
-					$("#copy_link").val("ek-logis.com/Delivery_Search_A.do?ik="+nc);
-					document.getElementById("copy_link").select();
-					document.execCommand("copy");
+					if($("#mobile").prop("checked") == false){
+						$("#copy_link").val("ek-logis.com/Delivery_Search_A.do?ik="+nc);
+						document.getElementById("copy_link").select();
+						document.execCommand("copy");
+					}
+					else{
+						$("#copy_link").val("ek-logis.com/Mobile_Delivery_Search_A.do?ik="+nc);
+						document.getElementById("copy_link").select();
+						document.execCommand("copy");
+					}
 				}
 			}
 			alert("클립보드로 해당 항목의 링크가 복사되었습니다.");
@@ -649,7 +681,7 @@ input[type=checkbox]{
 // 									else{
 // 										cost = Math.round(lncost * 1.5);
 // 									}
-									cost += D_result[i].COST;
+									cost += Math.round(D_result[i].COST);
 									//서브테이블 값
 									var dk = {
 											IN_KEY:A_result[0].IN_KEY,
@@ -659,7 +691,7 @@ input[type=checkbox]{
 											LENGTH:D_result[i].LENGTH,
 											HEIGHT:D_result[i].HEIGHT,
 											LNCOST:lncost,
-											COST: D_result[i].COST,
+											COST: Math.round(D_result[i].COST),
 											WEIGHT3:(lncost < D_result[i].WEIGHT) ? D_result[i].WEIGHT
 													:lncost
 											
@@ -693,9 +725,18 @@ input[type=checkbox]{
 												:cn1;
 									
 									mk["COST"] ="$" + cn1;
-									mk["DIS_COST"] = "$" + (Math.round(Number(cn2) * A_result[0].DISCOUNT / 100 ));
-// 									console.log(Number(cn1) - (Number(cn1) * A_result[0].DISCOUNT / 100));
-									mk["TR_COST"] = "$" + (Math.round((Number(cn2) - Math.round(Number(cn2) * A_result[0].DISCOUNT / 100))));
+									
+									if(Math.round((Number(cn2) - Math.round(Number(cn2) * A_result[0].DISCOUNT / 100))) >= 10){
+										mk["DIS_COST"] = "$" + (Math.round(Number(cn2) * A_result[0].DISCOUNT / 100 ));
+//	 									console.log(Number(cn1) - (Number(cn1) * A_result[0].DISCOUNT / 100));
+										mk["TR_COST"] = "$" + (Math.round((Number(cn2) - Math.round(Number(cn2) * A_result[0].DISCOUNT / 100))));
+									}
+									else{
+										mk["DIS_COST"] = (((Math.round(Number(cn2) * A_result[0].DISCOUNT / 100 ))-10) > 0) ? "$" + ((Math.round(Number(cn2) * A_result[0].DISCOUNT / 100 ))-10)
+														:  "$0";
+//	 									console.log(Number(cn1) - (Number(cn1) * A_result[0].DISCOUNT / 100));
+										mk["TR_COST"] = "$10";
+									}
 									mk["EK"] = D_result[0].SJ_KEY.split("-")[0];
 									
 // 						        	const qrInfoArr = new Array();
