@@ -76,8 +76,8 @@ import delivery.D_Manager.service.ManagerService;
 @Controller
 public class ManagerController {
 
-//    public static String filePath = "D:\\upload\\deliveryFile"; // 윈도우 경로
-	public static String filePath = "/upload"; // 우분투 경로
+    public static String filePath = "D:\\upload\\deliveryFile"; // 윈도우 경로
+//	public static String filePath = "/upload"; // 우분투 경로
 	private static final String BASE64_PNG_PRE_FIX = "data:image/png;base64,";
 	
 	@Resource(name = "ManagerService")
@@ -895,6 +895,235 @@ public class ManagerController {
 		File imageFile = null;
 
     	List<Sheet> liss = new ArrayList<Sheet>();
+    	
+
+        CellStyle HeadStyle = workbook.createCellStyle();
+        Font HeadFont = workbook.createFont();
+        HeadStyle.setWrapText(true);
+        HeadStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyle.setBorderRight(HSSFCellStyle.BORDER_MEDIUM);
+        HeadStyle.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
+        HeadStyle.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
+        HeadStyle.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM);
+        HeadFont.setFontHeight((short)(20*20)); //사이즈
+        HeadFont.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadFont.setColor(HSSFColor.BLACK.index);
+        HeadStyle.setFont(HeadFont);
+
+        CellStyle HeadStyleWhiteBold = workbook.createCellStyle();
+        Font HeadFontWhite = workbook.createFont();
+        HeadStyleWhiteBold.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleWhiteBold.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleWhiteBold.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleWhiteBold.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleWhiteBold.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleWhiteBold.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFontWhite.setFontHeight((short)(10*20)); //사이즈
+        HeadFontWhite.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadFontWhite.setColor(HSSFColor.BLACK.index);
+        HeadStyleWhiteBold.setFont(HeadFontWhite);
+
+        CellStyle HeadStyleGreyBold = workbook.createCellStyle();
+        Font HeadFontGrey = workbook.createFont();
+        HeadStyleGreyBold.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleGreyBold.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleGreyBold.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleGreyBold.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleGreyBold.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleGreyBold.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFontGrey.setFontHeight((short)(10*20)); //사이즈
+        HeadFontGrey.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadFontGrey.setColor(HSSFColor.BLACK.index);
+        HeadStyleGreyBold.setFont(HeadFontGrey);
+        HeadStyleGreyBold.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        HeadStyleGreyBold.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        
+        CellStyle HeadStyleBlue = workbook.createCellStyle();
+        Font HeadFont2 = workbook.createFont();
+        HeadStyleBlue.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleBlue.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleBlue.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleBlue.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleBlue.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleBlue.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFont2.setFontHeight((short)(10*20)); //사이즈
+//        HeadFont2.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadFont2.setColor(HSSFColor.BLACK.index);
+        HeadStyleBlue.setFont(HeadFont2);
+        HeadStyleBlue.setWrapText(true);
+        HeadStyleBlue.setFillForegroundColor(IndexedColors.LIGHT_TURQUOISE.getIndex());
+        HeadStyleBlue.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        
+        CellStyle HeadStyleBlueBold = workbook.createCellStyle();
+        Font HeadFont2Bold = workbook.createFont();
+        HeadStyleBlueBold.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleBlueBold.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleBlueBold.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleBlueBold.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleBlueBold.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleBlueBold.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFont2Bold.setFontHeight((short)(10*20)); //사이즈
+        HeadFont2Bold.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadFont2Bold.setColor(HSSFColor.BLACK.index);
+        HeadStyleBlueBold.setFont(HeadFont2Bold);
+        HeadStyleBlueBold.setFillForegroundColor(IndexedColors.LIGHT_TURQUOISE.getIndex());
+        HeadStyleBlueBold.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        
+        CellStyle HeadStyleYellowBold = workbook.createCellStyle();
+        Font HeadFont3 = workbook.createFont();
+        HeadStyleYellowBold.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleYellowBold.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleYellowBold.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleYellowBold.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleYellowBold.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleYellowBold.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFont3.setFontHeight((short)(10*20)); //사이즈
+        HeadFont3.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadFont3.setColor(HSSFColor.BLACK.index);
+        HeadStyleYellowBold.setFillForegroundColor(IndexedColors.LEMON_CHIFFON.getIndex());
+        HeadStyleYellowBold.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        HeadStyleYellowBold.setFont(HeadFont3);
+
+        CellStyle HeadStyleOrangeBold = workbook.createCellStyle();
+        Font HeadFont4 = workbook.createFont();
+        HeadStyleOrangeBold.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleOrangeBold.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleOrangeBold.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleOrangeBold.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleOrangeBold.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleOrangeBold.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFont4.setFontHeight((short)(10*20)); //사이즈
+        HeadFont4.setColor(HSSFColor.BLACK.index);
+        HeadFont4.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadStyleOrangeBold.setFillForegroundColor(IndexedColors.TAN.getIndex());
+        HeadStyleOrangeBold.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        HeadStyleOrangeBold.setFont(HeadFont4);
+        
+        CellStyle HeadStyleEK = workbook.createCellStyle();
+        Font HeadFontEK = workbook.createFont();
+        HeadStyleEK.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleEK.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleEK.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleEK.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleEK.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleEK.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFontEK.setFontHeight((short)(16*20)); //사이즈
+        HeadFontEK.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadFontEK.setColor(HSSFColor.BLACK.index);
+        HeadStyleEK.setFont(HeadFontEK);
+        HeadStyleEK.setFillForegroundColor(IndexedColors.TAN.getIndex());
+        HeadStyleEK.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+
+        CellStyle HeadStyleNormal = workbook.createCellStyle();
+        Font HeadFontNormal = workbook.createFont();
+        HeadStyleNormal.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleNormal.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleNormal.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormal.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormal.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormal.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFontNormal.setFontHeight((short)(10*20)); //사이즈
+        HeadFontNormal.setColor(HSSFColor.BLACK.index);
+        HeadStyleNormal.setFont(HeadFontNormal);
+        HeadStyleNormal.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        HeadStyleNormal.setFillForegroundColor(IndexedColors.WHITE.getIndex());
+
+
+        CellStyle HeadStyleNormalMonth = workbook.createCellStyle();
+        Font HeadFontNormalMonth = workbook.createFont();
+        HeadStyleNormalMonth.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleNormalMonth.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleNormalMonth.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalMonth.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalMonth.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalMonth.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFontNormalMonth.setFontHeight((short)(10*20)); //사이즈
+        HeadFontNormalMonth.setColor(HSSFColor.BLACK.index);
+        HeadStyleNormalMonth.setFont(HeadFontNormalMonth);
+        HeadStyleNormalMonth.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        HeadStyleNormalMonth.setFillForegroundColor(IndexedColors.TAN.getIndex());
+        
+        CellStyle HeadStyleNormalRed = workbook.createCellStyle();
+        Font HeadFontNormalRed = workbook.createFont();
+        HeadStyleNormalRed.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleNormalRed.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleNormalRed.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalRed.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalRed.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalRed.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFontNormalRed.setFontHeight((short)(10*20)); //사이즈
+        HeadFontNormalRed.setColor(HSSFColor.RED.index);
+        HeadFontNormalRed.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        HeadStyleNormalRed.setFont(HeadFontNormalRed);
+        HeadStyleNormalRed.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        HeadStyleNormalRed.setFillForegroundColor(IndexedColors.WHITE.getIndex());
+
+        CellStyle HeadStyleNormalBlue = workbook.createCellStyle();
+        Font HeadFontNormalBlue = workbook.createFont();
+        HeadStyleNormalBlue.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleNormalBlue.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleNormalBlue.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalBlue.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalBlue.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalBlue.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFontNormalBlue.setFontHeight((short)(10*20)); //사이즈
+        HeadFontNormalBlue.setColor(HSSFColor.BLUE.index);
+        HeadStyleNormalBlue.setFont(HeadFontNormalBlue);
+        HeadStyleNormalBlue.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        HeadStyleNormalBlue.setFillForegroundColor(IndexedColors.WHITE.getIndex());
+        
+
+        CellStyle HeadStyleNormalDown = workbook.createCellStyle();
+        Font HeadFontNormalDown = workbook.createFont();
+        HeadStyleNormalDown.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleNormalDown.setVerticalAlignment(HSSFCellStyle.VERTICAL_BOTTOM); //높이 아래 정렬
+        HeadStyleNormalDown.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalDown.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalDown.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleNormalDown.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadFontNormalDown.setFontHeight((short)(10*20)); //사이즈
+        HeadFontNormalDown.setColor(HSSFColor.BLACK.index);
+        HeadStyleNormalDown.setFont(HeadFontNormalDown);
+        HeadStyleNormalDown.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        HeadStyleNormalDown.setFillForegroundColor(IndexedColors.WHITE.getIndex());
+        
+        CellStyle SignitureStyleNormal = workbook.createCellStyle();
+        Font SignitureFontNormal = workbook.createFont();
+        SignitureStyleNormal.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        SignitureStyleNormal.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        SignitureStyleNormal.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        SignitureStyleNormal.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        SignitureStyleNormal.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        SignitureStyleNormal.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        SignitureFontNormal.setFontHeight((short)(10*20)); //사이즈
+        SignitureFontNormal.setColor(HSSFColor.GREY_40_PERCENT.index);
+        SignitureFontNormal.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        SignitureStyleNormal.setFont(SignitureFontNormal);
+        
+        CellStyle HeadStyleLong = workbook.createCellStyle();
+        Font HeadFontLong = workbook.createFont();
+        HeadStyleLong.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HeadStyleLong.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
+        HeadStyleLong.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        HeadStyleLong.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        HeadStyleLong.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        HeadStyleLong.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        HeadStyleLong.setWrapText(true);
+        HeadFontLong.setFontHeight((short)(10*20)); //사이즈
+        HeadFontLong.setFontName("phetsarath ot");
+        HeadStyleLong.setFont(HeadFontLong);
+
+        CellStyle HeadStyleBorderLeft = workbook.createCellStyle();
+        HeadStyleBorderLeft.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
+
+        CellStyle HeadStyleBorderTopBottom = workbook.createCellStyle();
+        HeadStyleBorderTopBottom.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
+        HeadStyleBorderTopBottom.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM);
+
+        CellStyle HeadStyleBorderTop = workbook.createCellStyle();
+        HeadStyleBorderTop.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
+        
         for(int sn = 0; sn <inputMap.size(); sn++ ) {
         	in = null;
         	fos = null;
@@ -974,232 +1203,6 @@ public class ManagerController {
             sheet.addMergedRegion(new CellRangeAddress(14,14,4,6));
             sheet.addMergedRegion(new CellRangeAddress(14,14,7,8));
             
-            CellStyle HeadStyle = workbook.createCellStyle();
-            Font HeadFont = workbook.createFont();
-            HeadStyle.setWrapText(true);
-            HeadStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-            HeadStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
-            HeadStyle.setBorderRight(HSSFCellStyle.BORDER_MEDIUM);
-            HeadStyle.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
-            HeadStyle.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
-            HeadStyle.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM);
-            HeadFont.setFontHeight((short)(20*20)); //사이즈
-            HeadFont.setBoldweight(Font.BOLDWEIGHT_BOLD);
-            HeadFont.setColor(HSSFColor.BLACK.index);
-            HeadStyle.setFont(HeadFont);
-
-            CellStyle HeadStyleWhiteBold = workbook.createCellStyle();
-            Font HeadFontWhite = workbook.createFont();
-            HeadStyleWhiteBold.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-            HeadStyleWhiteBold.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
-            HeadStyleWhiteBold.setBorderRight(HSSFCellStyle.BORDER_THIN);
-            HeadStyleWhiteBold.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-            HeadStyleWhiteBold.setBorderTop(HSSFCellStyle.BORDER_THIN);
-            HeadStyleWhiteBold.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-            HeadFontWhite.setFontHeight((short)(10*20)); //사이즈
-            HeadFontWhite.setBoldweight(Font.BOLDWEIGHT_BOLD);
-            HeadFontWhite.setColor(HSSFColor.BLACK.index);
-            HeadStyleWhiteBold.setFont(HeadFontWhite);
-
-            CellStyle HeadStyleGreyBold = workbook.createCellStyle();
-            Font HeadFontGrey = workbook.createFont();
-            HeadStyleGreyBold.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-            HeadStyleGreyBold.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
-            HeadStyleGreyBold.setBorderRight(HSSFCellStyle.BORDER_THIN);
-            HeadStyleGreyBold.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-            HeadStyleGreyBold.setBorderTop(HSSFCellStyle.BORDER_THIN);
-            HeadStyleGreyBold.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-            HeadFontGrey.setFontHeight((short)(10*20)); //사이즈
-            HeadFontGrey.setBoldweight(Font.BOLDWEIGHT_BOLD);
-            HeadFontGrey.setColor(HSSFColor.BLACK.index);
-            HeadStyleGreyBold.setFont(HeadFontGrey);
-            HeadStyleGreyBold.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-            HeadStyleGreyBold.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-            
-            CellStyle HeadStyleBlue = workbook.createCellStyle();
-            Font HeadFont2 = workbook.createFont();
-            HeadStyleBlue.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-            HeadStyleBlue.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
-            HeadStyleBlue.setBorderRight(HSSFCellStyle.BORDER_THIN);
-            HeadStyleBlue.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-            HeadStyleBlue.setBorderTop(HSSFCellStyle.BORDER_THIN);
-            HeadStyleBlue.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-            HeadFont2.setFontHeight((short)(10*20)); //사이즈
-//            HeadFont2.setBoldweight(Font.BOLDWEIGHT_BOLD);
-            HeadFont2.setColor(HSSFColor.BLACK.index);
-            HeadStyleBlue.setFont(HeadFont2);
-            HeadStyleBlue.setWrapText(true);
-            HeadStyleBlue.setFillForegroundColor(IndexedColors.LIGHT_TURQUOISE.getIndex());
-            HeadStyleBlue.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-            
-            CellStyle HeadStyleBlueBold = workbook.createCellStyle();
-            Font HeadFont2Bold = workbook.createFont();
-            HeadStyleBlueBold.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-            HeadStyleBlueBold.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
-            HeadStyleBlueBold.setBorderRight(HSSFCellStyle.BORDER_THIN);
-            HeadStyleBlueBold.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-            HeadStyleBlueBold.setBorderTop(HSSFCellStyle.BORDER_THIN);
-            HeadStyleBlueBold.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-            HeadFont2Bold.setFontHeight((short)(10*20)); //사이즈
-            HeadFont2Bold.setBoldweight(Font.BOLDWEIGHT_BOLD);
-            HeadFont2Bold.setColor(HSSFColor.BLACK.index);
-            HeadStyleBlueBold.setFont(HeadFont2Bold);
-            HeadStyleBlueBold.setFillForegroundColor(IndexedColors.LIGHT_TURQUOISE.getIndex());
-            HeadStyleBlueBold.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-            
-            CellStyle HeadStyleYellowBold = workbook.createCellStyle();
-            Font HeadFont3 = workbook.createFont();
-            HeadStyleYellowBold.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-            HeadStyleYellowBold.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
-            HeadStyleYellowBold.setBorderRight(HSSFCellStyle.BORDER_THIN);
-            HeadStyleYellowBold.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-            HeadStyleYellowBold.setBorderTop(HSSFCellStyle.BORDER_THIN);
-            HeadStyleYellowBold.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-            HeadFont3.setFontHeight((short)(10*20)); //사이즈
-            HeadFont3.setBoldweight(Font.BOLDWEIGHT_BOLD);
-            HeadFont3.setColor(HSSFColor.BLACK.index);
-            HeadStyleYellowBold.setFillForegroundColor(IndexedColors.LEMON_CHIFFON.getIndex());
-            HeadStyleYellowBold.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-            HeadStyleYellowBold.setFont(HeadFont3);
-
-            CellStyle HeadStyleOrangeBold = workbook.createCellStyle();
-            Font HeadFont4 = workbook.createFont();
-            HeadStyleOrangeBold.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-            HeadStyleOrangeBold.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
-            HeadStyleOrangeBold.setBorderRight(HSSFCellStyle.BORDER_THIN);
-            HeadStyleOrangeBold.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-            HeadStyleOrangeBold.setBorderTop(HSSFCellStyle.BORDER_THIN);
-            HeadStyleOrangeBold.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-            HeadFont4.setFontHeight((short)(10*20)); //사이즈
-            HeadFont4.setColor(HSSFColor.BLACK.index);
-            HeadFont4.setBoldweight(Font.BOLDWEIGHT_BOLD);
-            HeadStyleOrangeBold.setFillForegroundColor(IndexedColors.TAN.getIndex());
-            HeadStyleOrangeBold.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-            HeadStyleOrangeBold.setFont(HeadFont4);
-            
-            CellStyle HeadStyleEK = workbook.createCellStyle();
-            Font HeadFontEK = workbook.createFont();
-            HeadStyleEK.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-            HeadStyleEK.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
-            HeadStyleEK.setBorderRight(HSSFCellStyle.BORDER_THIN);
-            HeadStyleEK.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-            HeadStyleEK.setBorderTop(HSSFCellStyle.BORDER_THIN);
-            HeadStyleEK.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-            HeadFontEK.setFontHeight((short)(16*20)); //사이즈
-            HeadFontEK.setBoldweight(Font.BOLDWEIGHT_BOLD);
-            HeadFontEK.setColor(HSSFColor.BLACK.index);
-            HeadStyleEK.setFont(HeadFontEK);
-            HeadStyleEK.setFillForegroundColor(IndexedColors.TAN.getIndex());
-            HeadStyleEK.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-
-            CellStyle HeadStyleNormal = workbook.createCellStyle();
-            Font HeadFontNormal = workbook.createFont();
-            HeadStyleNormal.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-            HeadStyleNormal.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
-            HeadStyleNormal.setBorderRight(HSSFCellStyle.BORDER_THIN);
-            HeadStyleNormal.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-            HeadStyleNormal.setBorderTop(HSSFCellStyle.BORDER_THIN);
-            HeadStyleNormal.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-            HeadFontNormal.setFontHeight((short)(10*20)); //사이즈
-            HeadFontNormal.setColor(HSSFColor.BLACK.index);
-            HeadStyleNormal.setFont(HeadFontNormal);
-            HeadStyleNormal.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-            HeadStyleNormal.setFillForegroundColor(IndexedColors.WHITE.getIndex());
-
-
-            CellStyle HeadStyleNormalMonth = workbook.createCellStyle();
-            Font HeadFontNormalMonth = workbook.createFont();
-            HeadStyleNormalMonth.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-            HeadStyleNormalMonth.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
-            HeadStyleNormalMonth.setBorderRight(HSSFCellStyle.BORDER_THIN);
-            HeadStyleNormalMonth.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-            HeadStyleNormalMonth.setBorderTop(HSSFCellStyle.BORDER_THIN);
-            HeadStyleNormalMonth.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-            HeadFontNormalMonth.setFontHeight((short)(10*20)); //사이즈
-            HeadFontNormalMonth.setColor(HSSFColor.BLACK.index);
-            HeadStyleNormalMonth.setFont(HeadFontNormalMonth);
-            HeadStyleNormalMonth.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-            HeadStyleNormalMonth.setFillForegroundColor(IndexedColors.TAN.getIndex());
-            
-            CellStyle HeadStyleNormalRed = workbook.createCellStyle();
-            Font HeadFontNormalRed = workbook.createFont();
-            HeadStyleNormalRed.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-            HeadStyleNormalRed.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
-            HeadStyleNormalRed.setBorderRight(HSSFCellStyle.BORDER_THIN);
-            HeadStyleNormalRed.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-            HeadStyleNormalRed.setBorderTop(HSSFCellStyle.BORDER_THIN);
-            HeadStyleNormalRed.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-            HeadFontNormalRed.setFontHeight((short)(10*20)); //사이즈
-            HeadFontNormalRed.setColor(HSSFColor.RED.index);
-            HeadFontNormalRed.setBoldweight(Font.BOLDWEIGHT_BOLD);
-            HeadStyleNormalRed.setFont(HeadFontNormalRed);
-            HeadStyleNormalRed.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-            HeadStyleNormalRed.setFillForegroundColor(IndexedColors.WHITE.getIndex());
-
-            CellStyle HeadStyleNormalBlue = workbook.createCellStyle();
-            Font HeadFontNormalBlue = workbook.createFont();
-            HeadStyleNormalBlue.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-            HeadStyleNormalBlue.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
-            HeadStyleNormalBlue.setBorderRight(HSSFCellStyle.BORDER_THIN);
-            HeadStyleNormalBlue.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-            HeadStyleNormalBlue.setBorderTop(HSSFCellStyle.BORDER_THIN);
-            HeadStyleNormalBlue.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-            HeadFontNormalBlue.setFontHeight((short)(10*20)); //사이즈
-            HeadFontNormalBlue.setColor(HSSFColor.BLUE.index);
-            HeadStyleNormalBlue.setFont(HeadFontNormalBlue);
-            HeadStyleNormalBlue.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-            HeadStyleNormalBlue.setFillForegroundColor(IndexedColors.WHITE.getIndex());
-            
-
-            CellStyle HeadStyleNormalDown = workbook.createCellStyle();
-            Font HeadFontNormalDown = workbook.createFont();
-            HeadStyleNormalDown.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-            HeadStyleNormalDown.setVerticalAlignment(HSSFCellStyle.VERTICAL_BOTTOM); //높이 아래 정렬
-            HeadStyleNormalDown.setBorderRight(HSSFCellStyle.BORDER_THIN);
-            HeadStyleNormalDown.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-            HeadStyleNormalDown.setBorderTop(HSSFCellStyle.BORDER_THIN);
-            HeadStyleNormalDown.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-            HeadFontNormalDown.setFontHeight((short)(10*20)); //사이즈
-            HeadFontNormalDown.setColor(HSSFColor.BLACK.index);
-            HeadStyleNormalDown.setFont(HeadFontNormalDown);
-            HeadStyleNormalDown.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-            HeadStyleNormalDown.setFillForegroundColor(IndexedColors.WHITE.getIndex());
-            
-            CellStyle SignitureStyleNormal = workbook.createCellStyle();
-            Font SignitureFontNormal = workbook.createFont();
-            SignitureStyleNormal.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-            SignitureStyleNormal.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
-            SignitureStyleNormal.setBorderRight(HSSFCellStyle.BORDER_THIN);
-            SignitureStyleNormal.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-            SignitureStyleNormal.setBorderTop(HSSFCellStyle.BORDER_THIN);
-            SignitureStyleNormal.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-            SignitureFontNormal.setFontHeight((short)(10*20)); //사이즈
-            SignitureFontNormal.setColor(HSSFColor.GREY_40_PERCENT.index);
-            SignitureFontNormal.setBoldweight(Font.BOLDWEIGHT_BOLD);
-            SignitureStyleNormal.setFont(SignitureFontNormal);
-            
-            CellStyle HeadStyleLong = workbook.createCellStyle();
-            Font HeadFontLong = workbook.createFont();
-            HeadStyleLong.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-            HeadStyleLong.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER); //높이 가운데 정렬
-            HeadStyleLong.setBorderRight(HSSFCellStyle.BORDER_THIN);
-            HeadStyleLong.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-            HeadStyleLong.setBorderTop(HSSFCellStyle.BORDER_THIN);
-            HeadStyleLong.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-            HeadStyleLong.setWrapText(true);
-            HeadFontLong.setFontHeight((short)(10*20)); //사이즈
-            HeadFontLong.setFontName("phetsarath ot");
-            HeadStyleLong.setFont(HeadFontLong);
-
-            CellStyle HeadStyleBorderLeft = workbook.createCellStyle();
-            HeadStyleBorderLeft.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
-
-            CellStyle HeadStyleBorderTopBottom = workbook.createCellStyle();
-            HeadStyleBorderTopBottom.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
-            HeadStyleBorderTopBottom.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM);
-
-            CellStyle HeadStyleBorderTop = workbook.createCellStyle();
-            HeadStyleBorderTop.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
             
             sheet.setColumnWidth(0, 7000);
             for(int i=1; i<9; i++) {
