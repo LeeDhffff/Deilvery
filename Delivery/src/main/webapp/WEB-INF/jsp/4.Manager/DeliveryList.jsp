@@ -48,10 +48,10 @@
 	}
 	
 	#Delivery_Table > tbody > tr{
-  -webkit-user-select:none;
-  -moz-user-select:none;
-  -ms-user-select:none;
-  user-select:none;
+/*   -webkit-user-select:none; */
+/*   -moz-user-select:none; */
+/*   -ms-user-select:none; */
+/*   user-select:none; */
 }
 .totalh4{
 	display:flex;
@@ -259,13 +259,14 @@ input[type=checkbox]{
                                         <label for="checkAll"><button class="checkAll">All</button></label>
                                         </div>
                                         </th>
-                                        <th>송장번호</th>
-                                        <th>마감일</th>
+
+										<th>접수번호</th>
+                                        <th>수량</th>
                                         <th>수령인</th>
+                                        <th>전화번호</th>
                                         <th>픽업지</th>
-                                        <th>배송현황</th>
-                                        <th>배송완료 여부</th>
-                                        <th>배송서비스</th>
+										<th>마감일</th>
+                                        <!-- <th>배송현황</th> -->
                                         <th class="modifyth">수정하기</th>
                                         <th>링크복사</th>
                                     </tr>
@@ -570,12 +571,14 @@ input[type=checkbox]{
 					}
 					tbodyData += "<td class='sub'><input type='checkbox' name='List_Check' class='List_Check sub' style=''></td>";
 					tbodyData += "<td class='tdek'>"+result[i].EK+"</td>";
-					tbodyData += "<td><input type='hidden' class='in_key' value='"+result[i].IN_KEY+"'>"+result[i].OUT_DAY+"</td>";
+					tbodyData += "<td>"+result[i].COUNT+"</td>";
 					tbodyData += "<td>"+result[i].REC_NM+"</td>";
+					tbodyData += "<td>"+result[i].REC_PHONE+"</td>";
 					tbodyData += "<td>"+result[i].REC_TARGET+"</td>";
-					tbodyData += "<td>"+result[i].NOW_DELIVERY+"</td>";
-					tbodyData += "<td>"+result[i].MAXCHK+"</td>";
-					tbodyData += "<td>"+result[i].SERVICE+"</td>";
+					tbodyData += "<td><input type='hidden' class='in_key' value='"+result[i].IN_KEY+"'>"+result[i].OUT_DAY+"</td>";
+					// tbodyData += "<td>"+result[i].NOW_DELIVERY+"</td>";
+// 					tbodyData += "<td>"+result[i].MAXCHK+"</td>";
+// 					tbodyData += "<td>"+result[i].SERVICE+"</td>";
 					if(auth != 'R'){
 						tbodyData += "<td><button class='modify'><img src='./images/pc_icon/modify_black.svg'></button></td>";
 					}

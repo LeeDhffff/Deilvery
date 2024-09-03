@@ -56,17 +56,20 @@
 	    color: white;
 	    margin-top: 22px;
     }
+    .inputWrap_alert{
+    	display:none;
+    }
     .kakaotalkbutton{
     	width: 200px;
     	height: 30px;
 	    border-radius: 4px;
 	    background: #ffa100;
 	    color: white;
-	    margin-top: 22px;
+/* 	    margin-top: 22px; */
 	    line-height: 31px;
 	    justify-content: center;    
 	    padding-right: 8px;
-	    display:none;
+ 	    display: flex;
     }
     .kakaotalkbutton > img{
     	width: 30px;
@@ -189,7 +192,20 @@
 	        </div>
 	        <button class="savebutton">저장
 	        </button>
-	        <button onclick="kakao()" class="kakaotalkbutton"><img src="./images/delivery/pc_icon/kakao logo.svg">관리자에게 문의하기</button>
+            <div class="inputWrap_alert">
+                    <c:choose>
+                    	<c:when test="${Dlist.REC_TARGET == 1}">
+		        			<h4 class="select_alert">본사가 선택되었습니다.</h4>
+                    	</c:when>
+                    	<c:when test="${Dlist.REC_TARGET == 2}">
+		        			<h4 class="select_alert">하우창고가 선택되었습니다.</h4>
+                    	</c:when>
+                    	<c:when test="${Dlist.REC_TARGET == 3}">
+		        			<h4 class="select_alert">택배 서비스가 선택되었습니다.</h4>
+                    	</c:when>
+                   	</c:choose>
+		        <button onclick="kakao()" class="kakaotalkbutton"><img src="./images/delivery/pc_icon/kakao logo.svg">관리자에게 문의하기</button>
+	        </div>
         </div>
             <div class="inputsection" id="target_3">
                 <div class="inputWrap">
@@ -431,7 +447,7 @@
 	    if(add != '' && add != 'null' && add != '0'){
 			$("#recTarget").val(add);
 	    	$(".savebutton").remove();	
-	    	$(".kakaotalkbutton").css("display","flex");
+	    	$(".inputWrap_alert").show();
 	    	$("#recTarget").prop("disabled",true);
 	    	$("#recAddr").prop("disabled",true);
 	    	$("#recHou").prop("disabled",true);
@@ -464,7 +480,7 @@
 	    if(EKS == 'EK1'){
 	    	$("#section_date").addClass("ek1");
 	    	$(".inputsection").addClass("ek1");
-	    	$(".kakaotalkbutton").addClass("ek1");
+	    	$(".inputWrap_alert").addClass("ek1");
 	    }
 	})
 	
@@ -683,7 +699,7 @@
             success: function(datas){
           		alert(datas);  	
     	    	$(".savebutton").remove();	
-    	    	$(".kakaotalkbutton").css("display","flex");	
+    	    	$(".inputWrap_alert").show();
     	    	$("#recTarget").prop("disabled",true);
     	    	$("#recAddr").prop("disabled",true);
     	    	$("#recHou").prop("disabled",true);

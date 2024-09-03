@@ -231,7 +231,9 @@
                                 <th>수령인</th>
                                 <th>전화번호</th>
                                 <th>픽업지</th>
-                                <th>배송서비스</th>
+<!--                                 <th>배송서비스</th> -->
+                                <th>전화번호</th>
+                                <th>박스개수</th>
                                 <th>링크복사</th>
                             </tr>
                         </thead>
@@ -455,7 +457,9 @@
 					tbodyData += "<td>"+result[i].REC_NM+"</td>";
 					tbodyData += "<td>"+result[i].REC_PHONE+"</td>";
 					tbodyData += "<td>"+result[i].REC_TARGET+"</td>";
-					tbodyData += "<td>"+result[i].SERVICE+"</td>";
+// 					tbodyData += "<td>"+result[i].SERVICE+"</td>";
+					tbodyData += "<td>"+result[i].REC_PHONE+"</td>";
+					tbodyData += "<td>"+result[i].COUNT+"</td>";
 					tbodyData += "<td><button class='link'><img src='../images/pc_icon/Link.svg'></button></td>";
 					tbodyData += "<input type='hidden' class='tr_cbm' value='"+result[i].CBM+"' >";
 					tbodyData += "<input type='hidden' class='tr_weight' value='"+result[i].WEIGHT+"' >";

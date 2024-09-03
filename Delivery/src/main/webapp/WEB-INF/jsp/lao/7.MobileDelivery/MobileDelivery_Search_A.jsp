@@ -183,6 +183,10 @@
 	    font-size: 18px;
    		font-weight: bold;
 	}
+	.select_alert{
+	    margin-left : 30px;
+	    display:none;
+	}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -312,6 +316,17 @@
                     </c:choose>
                 </div>
             </div>
+            	<c:choose>
+                	<c:when test="${Dlist.REC_TARGET == 1}">
+      					<h4 class="select_alert">본사가 선택되었습니다.</h4>
+                	</c:when>
+                	<c:when test="${Dlist.REC_TARGET == 2}">
+      					<h4 class="select_alert">하우창고가 선택되었습니다.</h4>
+                	</c:when>
+                	<c:when test="${Dlist.REC_TARGET == 3}">
+      					<h4 class="select_alert">택배 서비스가 선택되었습니다.</h4>
+                	</c:when>
+               	</c:choose>
 				<button onclick="kakao()" class="kakaotalkbutton"><img src="../images/delivery/pc_icon/wslogo.svg">ສອບຖາມຂໍ້ມູນເພີ່ມເຕີມ</button>
         <section>
         
@@ -409,6 +424,7 @@
 	    	$("#section_date").addClass("ek1");
 	    	$(".inputsection").addClass("ek1");
 	    	$(".kakaotalkbutton").addClass("ek1");
+	    	$(".select_alert").addClass("ek1");
 	    }
 
 		$("#recTarget").on("change",function(){
@@ -427,6 +443,7 @@
 			$("#recTarget").val(add);
 	    	$(".savebutton").remove();	
 	    	$(".kakaotalkbutton").css("display","flex");	
+	    	$(".select_alert").show();
 	    	$("#recTarget").prop("disabled",true);
 	    	$("#recAddr").prop("disabled",true);
 	    	$("#recHou").prop("disabled",true);
@@ -636,6 +653,7 @@
           		alert(datas);  	
     	    	$(".savebutton").remove();		
     	    	$(".kakaotalkbutton").css("display","flex");
+    	    	$(".select_alert").show();
     	    	$("#recTarget").prop("disabled",true);
     	    	$("#recAddr").prop("disabled",true);
     	    	$("#recHou").prop("disabled",true);
