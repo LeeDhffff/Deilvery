@@ -432,7 +432,7 @@
 			$("input[name='indiCost']").each(function(index){
 				num += parseFloat($(this).val());				
 			});			
-			$("#cost").val(num);
+			$("#cost").val(num.toFixed());
 		}
     	
     	/* 신청일자 datePicker 설정 (JANG) */
@@ -976,8 +976,8 @@
 //			$500 (kg*$1.5 or 용적중량 *$1.5 중 비싼 비용으로 계산)
 // 			용적중량 : 가로*세로*높이*0.00022 
 			
-			var kgcost = Math.round(weight * 1.5);
-			var lncost = Math.round(width * height * length * 0.00022 * 1.5);
+			var kgcost = Math.round(weight * 1.5* 100) / 100;
+			var lncost = Math.round(width * height * length * 0.00022 * 1.5* 100) / 100;
 		
 // 			console.log(kgcost,lncost);
 			if(kgcost < 10 && lncost < 10){
@@ -996,8 +996,8 @@
     // 개별 물류 비용 계산 function cost() 참고 (JANG)
     function indiCost(height, width, length, weight){
     	var number = 0;
-    	var kgcost = Math.round(weight * 1.5);
-		var lncost = Math.round(width * height * length * 0.00022 * 1.5);
+    	var kgcost = Math.round(weight * 1.5* 100) / 100;
+		var lncost = Math.round(width * height * length * 0.00022 * 1.5* 100) / 100;
 		if(kgcost < 10 && lncost < 10){
 			number += 10;
 		}
@@ -1007,7 +1007,7 @@
 		else{
 			number += lncost;
 		}
-		return number.toFixed();
+		return number.toFixed(5);
     }
     
     // Join.jsp 참고 (이동헌)

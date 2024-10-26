@@ -93,7 +93,7 @@
                     <div class="wrap">
                         <div class="inputWrap">
                             <h5 class="inputName"><a href="#">마감예정일 선택하기</a></h5>
-                            <input type="text" id="Out_Day" placeholder="">
+                            <input type="text" id="Out_Day" placeholder="" maxlength="10" oninput="oninputDay(this);">
                             <input type="hidden" id="Out_CHK" placeholder="">
                             <input type="hidden" id="Out_Key" placeholder="">
                         </div>
@@ -603,5 +603,20 @@
 		}
 		
 	}
+	
+	
+	
+	
+	
+	//============추가 (2024-10-20)===============//
+	
+	
+	
+	function oninputDay(target) {
+        target.value = target.value
+            .replace(/[^0-9]/g, '')
+            .replace(/([0-9]{4})([0-9]{2})([0-9]{2})/g, "$1-$2-$3");
+//             .replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]{4})([0-9]{4})/g, "$1-$2-$3");
+    }
 </script>
 </html>

@@ -686,7 +686,7 @@ input[type=checkbox]{
 // 									else{
 // 										cost = Math.round(lncost * 1.5);
 // 									}
-									cost += Math.round(D_result[i].COST);
+									cost += D_result[i].COST;
 									//서브테이블 값
 									var dk = {
 											IN_KEY:A_result[0].IN_KEY,
@@ -696,7 +696,7 @@ input[type=checkbox]{
 											LENGTH:D_result[i].LENGTH,
 											HEIGHT:D_result[i].HEIGHT,
 											LNCOST:lncost,
-											COST: Math.round(D_result[i].COST),
+											COST: Math.round(D_result[i].COST*100)/100,
 											WEIGHT3:(lncost < D_result[i].WEIGHT) ? D_result[i].WEIGHT
 													:lncost
 											
@@ -729,7 +729,7 @@ input[type=checkbox]{
 									const cn2 = (cn1.indexOf(",") > 0) ? cn1.replace(",","")
 												:cn1;
 									
-									mk["COST"] ="$" + cn1;
+									mk["COST"] ="$" + Math.round(cn1);
 
 									if(Math.round((Number(cn2) - Math.round(Number(cn2) * A_result[0].DISCOUNT / 100))) >= 10){
 										mk["DIS_COST"] = "$" + (Math.round(Number(cn2) * A_result[0].DISCOUNT / 100 ));
