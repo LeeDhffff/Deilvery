@@ -21,6 +21,12 @@ public class DeliveryServiceImpl implements DeliveryService {
 	}
 
 	@Override
+	public List<HashMap<String, String>> Delivery_Mem_History(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return DeliveryMapper.Delivery_Mem_History(inputMap);
+	}
+
+	@Override
 	public List<HashMap<String, String>> Delivery_Select(HashMap<String, Object> inputMap) throws Exception {
 		// TODO Auto-generated method stub
 		return DeliveryMapper.Delivery_Select(inputMap);

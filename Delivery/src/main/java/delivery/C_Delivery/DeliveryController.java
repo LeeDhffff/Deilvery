@@ -166,7 +166,20 @@ public class DeliveryController {
 		String jsonStr = mapper.writeValueAsString(LoginList);
 		return jsonStr;
 	}
-	
+
+	/* 회원 이용 내역 가져오기 */
+	@RequestMapping(value = "/Delivery_Mem_History.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Delivery_Mem_History(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		List<HashMap<String, String>> LoginList = DeliveryService.Delivery_Mem_History(inputMap);
+		System.out.println(LoginList);
+
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr = mapper.writeValueAsString(LoginList);
+		return jsonStr;
+	}
 
 	/* 이용횟수, 돈, 다가올 출항일  불러오기. */
 	@RequestMapping(value = "/Status_Select.do" , produces = "application/text; charset=utf-8")

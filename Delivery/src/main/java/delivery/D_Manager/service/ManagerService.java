@@ -41,6 +41,9 @@ public interface ManagerService {
 	HashMap<String, String> DeliveryCompanyList_Load(HashMap<String, Object> inputMap) throws Exception;
 	String DeliveryCompanyList_IUD(HashMap<String, Object> inputMap) throws Exception;
 	
-
+	HashMap<String, String> Discount_Load(HashMap<String, Object> inputMap) throws Exception;
+	String Discount_IU(HashMap<String, Object> inputMap) throws Exception;
+	
+	
 	HashMap<String, String> Emailinfo(HashMap<String, Object> inputMap) throws Exception;
 }

@@ -108,8 +108,22 @@
 			background : var(--main-color);
 			background-image : url(./images/pc_icon/check_white.svg);
 		}
-		.selectBtn > img, .selectBtn:hover > img { width : 100%; height : 100%};
+		.selectBtn > img, .selectBtn:hover > img { width : 100%; height : 100%}
 		
+/* 		20241026 추가(이동헌) */
+		.d_div{
+			    display: flex;
+			    width: 100%;
+			    line-height: 50px;
+		}
+		#d_use{
+				width : 30px;
+		}
+		#discount{
+/* 				display : none; */
+				margin-left: 10px;
+			    width: 60%;
+		}
 	</style>
 </head>
 <body>
@@ -309,7 +323,12 @@
                                 <div class="inputHeader" style="display: flex; justify-content: space-between;">
                                     <h5 class="inputName"><a href="#">박스크기<span>*</span></a></h5>
                                     <button class="boxSave" id="boxSaveBtn">저장하기</button>
-                                </div>                                
+                                </div>      
+                                <div class="d_div">
+	                                우선순위 할인 적용<input type="checkbox" id="d_use">
+<!-- 	                                onchange="duse();"                          1-->
+	                                <input type="text" id="discount" class="discount_Point" placeholder="할인율(%) 변경시 모든 할인율이 변경됩니다." oninput="fnChkNum(this);" value="${result.discount }" onchange="discount_changer(this.value);">
+                                </div>
                                 <input type="text" id="width" class="boxSize" placeholder="가로" oninput="fnChkNum(this);">
                                 <input type="text" id="length" class="boxSize" placeholder="세로" oninput="fnChkNum(this);">
                                 <input type="text" id="height" class="boxSize" placeholder="높이" oninput="fnChkNum(this);">
@@ -326,6 +345,7 @@
                                 <input type="hidden" id="heightArr" name="heightArr" placeholder="높이" />
                                 <input type="hidden" id="weightArr" name="weightArr" placeholder="무게" />
                                 <input type="hidden" id="costArr" name="costArr" placeholder="금액" />
+                                <input type="hidden" id="discountArr" name="discountArr" placeholder="할인율" />
                                 <input type="hidden" id="sjKeyArr" name="sjKeyArr" placeholder="sjKey" />
                                 <input type="hidden" id="initSjKey" name="initSjKey" placeholder="initSjKey" />
                                 <input type="hidden" id="sn" name="sn" value="${packInfo[0].sn }" placeholder="sn" />
@@ -337,20 +357,24 @@
                                                 </th>
                                                 <th>No</th>
                                                 <th>박스크기</th>
+                                                <th>할인율(%)</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tBody">
                                         <c:forEach var="item" items="${packInfo }" varStatus="status">
-                                            <tr name="boxTr">                                            
+                                            <tr name="boxTr" class="duse${item.d_use }">                                            
                                                 <td><input type="checkbox" id="box_${status.index }" name="boxIndex" ></td>
                                                 <td class="boxIndex">${status.count }</td>
                                                 <td>W*L*H(${item.width }cm *${item.length }cm * ${item.height }cm) / 무게:${item.weight }kg</td>
+                                                <td class="duseTr${item.d_use }">${item.discount}</td>
                                                 <input type="hidden" name="width" value="${item.width }" />
                                                 <input type="hidden" name="height" value="${item.height }" />
                                                 <input type="hidden" name="length" value="${item.length }" />
                                                 <input type="hidden" name="weight" value="${item.weight }" />
                                                 <input type="hidden" name="sjKey" value="${item.sjKey }" />                                                
-                                                <input type="hidden" name="indiCost" value="${item.cost }" />                                                
+                                                <input type="hidden" name="indiCost" value="${item.cost }" />                                           
+                                                <input type="hidden" name="d_use" value="${item.d_use }" />                                              
+                                                <input type="hidden" name="discount" value="${item.discount }" />                                                       
                                             </tr>
 										</c:forEach>
                                         </tbody>
@@ -420,6 +444,9 @@
 		});
 		if(initSjKey.length != 0){
 			let arr = initSjKey[0].split("-");
+			if(arr[0].indexOf("#") >= 0 ){
+				arr[0] = arr[0].substr(0, arr[0].indexOf("#"));
+			}
 			let str = arr[0]+"-"+arr[1]+"-";
 			$("#initSjKey").val(str);
 		}
@@ -485,6 +512,10 @@
     		const heightVal = $("#height").val();
     		const lengthVal = $("#length").val();
     		const weightVal = $("#weight").val();
+    		const d_use = ($("#d_use").prop("checked") == true) ? 'Y'
+    					   : 'N';
+    		const discount = ($("#d_use").prop("checked") == false) ? 'N'
+					   : $("#discount").val();
     		const outKey = $("#outKey").val();
     		let htmlStr = "";
 	   		
@@ -493,23 +524,31 @@
 // 	   		}else 
 	   		if(widthVal == "" || heightVal == "" || lengthVal == "" || weightVal == ""){
 	   			alert("가로, 세로, 높이, 무게 항목을 모두 입력해주세요.");
-	   		}else{
+	   		}
+	   		else if(d_use == 'Y' && discount == ''){
+	   			alert("할인율을 입력해주세요.");
+	   		}
+	   		else{
 	   			
-	    		htmlStr += "<tr>";
+	    		htmlStr += "<tr class=duse"+d_use+">";
 	    		htmlStr += "	<td><input type='checkbox' id='box_"+boxIndex+"' name='boxIndex'></td>";
 	    		htmlStr += "	<td class='boxIndex'>"+(boxIndex+1)+"</td>";
 	    		htmlStr += "	<td>W*L*H("+widthVal+"cm *"+lengthVal+"cm *"+heightVal+"cm)/무게:"+weightVal+"kg";
+	    		htmlStr += "	<td class='duseTr"+d_use+"'>"+discount + "</td>";
 	    		htmlStr += "	<input type='hidden' name='width' value='"+widthVal+"'>";
 	    		htmlStr += "	<input type='hidden' name='height' value='"+heightVal+"'>";
 	    		htmlStr += "	<input type='hidden' name='length' value='"+lengthVal+"'>";
 	    		htmlStr += "	<input type='hidden' name='weight' value='"+weightVal+"'>";
 	    		htmlStr += "	<input type='hidden' name='indiCost' value='"+indiCost(heightVal, widthVal, lengthVal, weightVal)+"'>";
+	    		htmlStr += "	<input type='hidden' name='d_use' value='"+d_use+"'>";
+	    		htmlStr += "	<input type='hidden' name='discount' value='"+discount+"'>";
 	    		htmlStr += "</tr>";
 	    		
 	    		$("#tBody").append(htmlStr);
 	    		console.log("chkIndex : ", chkIndex);
 	    		$("input[class='boxSize']").val("");
 	    		cost();
+	    		
 // 	    		fnCalCbm();
 // 	    		$("#totBox").text($("input[name=boxIndex]").length);
 	   		}
@@ -536,6 +575,7 @@
 	   		const lengthArr = new Array();
 	   		const sjKeyArr = new Array();
 	   		const costArr = new Array();
+	   		const discountArr = new Array();
     		
     		$("#arrDay").val($("select[name=outDay]").val());
     		$("#outKey").val($("select[name=outDay]").val());
@@ -555,6 +595,9 @@
     		$("input[name='indiCost']").each(function(index){
     			costArr.push($("input[name='indiCost']").eq(index).val());
     		});
+    		$("input[name='discount']").each(function(index){
+    			discountArr.push($("input[name='discount']").eq(index).val());
+    		});
     		$("input[name='sjKey']").each(function(index){
     			sjKeyArr.push($("input[name='sjKey']").eq(index).val());
     		});
@@ -562,7 +605,9 @@
     		$("#heightArr").val(heightArr);
     		$("#lengthArr").val(lengthArr);
     		$("#weightArr").val(weightArr);
+    		$("#widthArr").val(widthArr);
     		$("#costArr").val(costArr);
+    		$("#discountArr").val(discountArr);
     		$("#sjKeyArr").val(sjKeyArr);
     		
     		/* 필수값 유효성 검사
@@ -693,6 +738,7 @@
         	evt.preventDefault();
         	const sjKeyArr = new Array();
         	const qrInfoArr = new Array();
+        	const duseArr = new Array();
         	let sjNum = "";
         	let htmlStr = "";
         	let recTarget = $("#recTarget").val();
@@ -715,12 +761,13 @@
         	}        	
         	
         	// 프린트 영역 생성 - checkbox 선택한 경우, 선택하지 않은 경우 구분 추가 (240509 JANG)
-        	if($("input[name=sjKey]").length > 0){	        		
+        	if($("input[name=sjKey]").length > 0){	        
        			if(cntArr.length > 0){
        				for(let i=0; i<cntArr.length; i++){
        					// QR Code 데이터 설정 영역
     					sjKeyArr.push($("input[name=sjKey]").eq(cntArr[i]).val());
     	        		let txt = sjKeyArr[i].split("-");
+    	        		
 //     	        		qrTxt = "수령인 : "+$("#recNm").val()+"\n연락처 : "+$("#recPhone").val()+"\n픽업지 : "+recTarget+"\n박스번호 : "+txt[2];	      
     					qrTxt = $("#recNm").val()+" / "+$("#recPhone").val()+" / "+recTarget+" / "+txt[2];
     	        		qrInfoArr.push({qrText : qrTxt, qrId : "qrCode_"+cntArr[i]});
@@ -739,7 +786,7 @@
     					htmlStr += '   </div>';
     					htmlStr += '   <div class="outBody">';
     					htmlStr += '      <img src="images/delivery/pc_icon/inKey.png" alt="#" style="width:80px;">';
-    					htmlStr += '      <h1>'+txt[0]+'</h1>';
+    					htmlStr += '      <h1>'+txt[0] +'</h1>';
     					htmlStr += '   </div>';
     					htmlStr += '   <div class="outFoot">';
     					htmlStr += '      <div class="top">';
@@ -762,6 +809,7 @@
     	        		// QR Code 데이터 설정 영역
     					sjKeyArr.push($("input[name=sjKey]").eq(index).val());
     	        		let txt = sjKeyArr[index].split("-");
+    	        		
 //     	        		qrTxt = "수령인 : "+$("#recNm").val()+"\n연락처 : "+$("#recPhone").val()+"\n픽업지 : "+recTarget+"\n박스번호 : "+txt[2];	      
     					qrTxt = $("#recNm").val()+" / "+$("#recPhone").val()+" / "+recTarget+" / "+txt[2];
     	        		qrInfoArr.push({qrText : qrTxt, qrId : "qrCode_"+index});
@@ -780,7 +828,7 @@
     					htmlStr += '   </div>';
     					htmlStr += '   <div class="outBody">';
     					htmlStr += '      <img src="images/delivery/pc_icon/inkeyNum.svg" alt="#" style="width:80px;">';
-    					htmlStr += '      <h1>'+txt[0]+'</h1>';
+    					htmlStr += '      <h1>'+txt[0]+ '</h1>';
     					htmlStr += '   </div>';
     					htmlStr += '   <div class="outFoot">';
     					htmlStr += '      <div class="top">';
@@ -845,7 +893,7 @@
     	});
     	  	
     	// grid 생성
-    	const memberList = ${memberList};    	
+    	const memberList = ${memberList};    
     	if(memberList.length == null) memberList = new Array();
     	const grid = new gridjs.Grid({
     		columns : [
@@ -858,9 +906,21 @@
     					return gridjs.h('button', {
     						className : "selectBtn",
     						onClick : () => {
-    							console.log("row.cells : ", row.cells);    						
+    							console.log("row.cells : ", row.cells[0].data); 	
     							$("#recNm").val(row.cells[1].data);
     							$("#recPhone").val(row.cells[2].data);
+    							
+    							for(let i=0; i<memberList.length; i++){
+    								
+    								console.log(memberList[i].memId,row.cells[0].data)
+    								if(memberList[i].memId == row.cells[0].data){
+    	    							$("#recTarget").val(memberList[i].memTg).trigger("change");
+//     	    							$("#recTarget");
+    	    							$("#recAddr").val(memberList[i].memAd);
+    	    							$("#recHou").val(memberList[i].memHu);
+    								}
+    							}
+    							
     							$(".pop_container").hide();
     						}   
     					}, "");
@@ -965,6 +1025,7 @@
    	
     
     // 용적용량 자동계산기 (이동헌)
+    // 수정 : 할인율 추가(이동헌)
     function cost(){
     	var number = 0;
     	$("#tBody > tr").each(function(){
@@ -972,6 +1033,9 @@
     		var height = $(this).find("input[name=height]").val();
     		var length = $(this).find("input[name=length]").val();
     		var weight = $(this).find("input[name=weight]").val();
+    		var d_use = $(this).find("input[name=d_use]").val();
+    		var discount = (d_use == 'Y') ? $(this).find("input[name=discount]").val() * 0.01
+    					  : 0;
     		
 //			$500 (kg*$1.5 or 용적중량 *$1.5 중 비싼 비용으로 계산)
 // 			용적중량 : 가로*세로*높이*0.00022 
@@ -981,13 +1045,13 @@
 		
 // 			console.log(kgcost,lncost);
 			if(kgcost < 10 && lncost < 10){
-				number += 10;
+				number += 10 -  (10 * discount);
 			}
 			else if(kgcost >= lncost){
-				number += kgcost;
+				number += kgcost -  (kgcost * discount);
 			}
 			else{
-				number += lncost;
+				number += lncost -  (lncost * discount);
 			}
     	});
     	
@@ -1052,6 +1116,23 @@
 		$("#heightArr").val("");
 		$("#sjKeyArr").val("");
 	}
+	function discount_changer(discount){
+		$(".duseY >input[name='discount']").val(discount);
+		$(".duseTrY").text(discount);
+	}
+    
+    //우선할인 여부 (추가자 : 이동헌)
+//     function duse(){
+//     	$("#discount").val("");
+//     	if($("#d_use").prop("checked") == true){
+//     		$("#discount").show();
+//     	}
+//     	else{
+//     		$("#discount").hide();	
+//     	}
+    	
+//     }
+    
     </script>
 </body>
 </html>

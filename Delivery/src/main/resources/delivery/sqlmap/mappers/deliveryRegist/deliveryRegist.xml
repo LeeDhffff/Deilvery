@@ -80,6 +80,7 @@
 			,ARR_DAY AS arrDay
 			,CHK AS chk
 			,BIGO AS bigo
+			,(SELECT ds.PERCENT FROM discount ds WHERE ds.`TYPE` = 'B' AND ds.SUB_TARGET = IN_KEY LIMIT 1) AS discount
 		FROM application
 		WHERE IN_KEY = #{inKey};
 	</select>
@@ -120,6 +121,9 @@
 			,OUT_KEY AS outKey
 			,SN AS sn
 			,SUBSTRING_INDEX(SJ_KEY, '-', -1) AS sjIndex
+			,CASE WHEN (SELECT ds.PERCENT FROM discount ds WHERE ds.`TYPE` = 'B' AND ds.TARGET = SJ_KEY) IS NULL THEN 'N'
+			 ELSE 'Y' END AS d_use
+			,IFNULL((SELECT ds.PERCENT FROM discount ds WHERE ds.`TYPE` = 'B' AND ds.TARGET = SJ_KEY),'N') AS discount
 		FROM sj_num
 		WHERE IN_KEY = #{inKey}
 		ORDER BY 
@@ -279,7 +283,11 @@
 		SELECT 
 			MEM_ID AS memId,
 			NAME AS memNm,
-			PHONE AS memPh
+			PHONE AS memPh,
+			NATION AS memNt,
+			MEM_TARGET AS memTg,
+			MEM_ADDR AS memAd,
+			MEM_HOU AS memHu
 		FROM member
 		WHERE LEVEL != 2
 		ORDER BY NAME;
@@ -295,5 +303,18 @@
 		WHERE a.IN_KEY = #{inKey};		
 	</select>
 	
+	<select id="discount_set" parameterType="hashmap" resultType="string">
+		{ call E_DISCOUNT(
+				#{TYPE},
+				#{TARGET},
+				#{SUB_TARGET},
+				#{PERCENT}
+		) }
+	</select>
 	
+	<select id="discount_delete_box" parameterType="hashmap" resultType="string">
+		{ call E_DISCOUNT_DELETE_B(
+				#{SUB_TARGET}
+		) }
+	</select>
 </mapper>

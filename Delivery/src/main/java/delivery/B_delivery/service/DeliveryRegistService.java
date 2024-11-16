@@ -45,4 +45,14 @@ public interface DeliveryRegistService {
 	/* 물류접수자 level 조회 */
 	public HashMap<String, String> chkLevel(HashMap<String, Object> inputMap) throws Exception;
 	
+
+	/* ************************************************************************************** */
+	/* *******************    after 10/26 Update!!!!    **************************************** */
+	/* ************************************************************************************** */
+	
+	/* check  discount */
+	public String discount_set(HashMap<String, Object> inputMap) throws Exception;
+
+	/* delete  discount box */
+	public String discount_delete_box(HashMap<String, Object> inputMap) throws Exception;
 }

@@ -20,6 +20,9 @@ public interface DeliveryMapper {
 	//신청인 정보 불러오기
 	HashMap<String, String> Delivery_Mem_Info(HashMap<String, Object> inputMap) throws Exception;
 
+	//신청인 이용내역 불러오기
+	List<HashMap<String, String>> Delivery_Mem_History(HashMap<String, Object> inputMap) throws Exception;
+	
 	String Delivery_Select_B_CHK(HashMap<String, Object> inputMap) throws Exception;
 	List<HashMap<String, String>> Delivery_Select_B(HashMap<String, Object> inputMap) throws Exception;
 	

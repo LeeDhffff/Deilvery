@@ -55,6 +55,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import delivery.B_delivery.service.DeliveryRegistService;
 import delivery.D_Manager.service.ManagerService;
 
 /**
@@ -83,6 +84,9 @@ public class ManagerController {
 	@Resource(name = "ManagerService")
 	private ManagerService ManagerService;
 
+	/** DeliveryRegistService */
+	@Resource(name = "DeliveryRegistService")
+	private DeliveryRegistService delRegistService;
 
 	/* 관리자용 메인페이지로 이동 */
 	@RequestMapping("/Main_Manager.do")
@@ -97,9 +101,14 @@ public class ManagerController {
 		ModelAndView mav = new ModelAndView();
 		inputMap.put("MEM_ID",(String)session.getAttribute("SESSION_MEM_ID"));
 		inputMap.put("PAGE","MemberListPage");
+		// 택배사 데이터 가지고 오기
+		List<HashMap<String, String>> shipComList = delRegistService.shipComList(inputMap);
+		List<HashMap<String, String>> outDayList = delRegistService.outDayList(inputMap);
 		
 		String ManagerList = ManagerService.Authority_CHK(inputMap);
 		mav.addObject("M_AUTH",ManagerList);
+		mav.addObject("shipComList",shipComList);
+		mav.addObject("outdayList",outDayList);
 		mav.setViewName("4.Manager/MemberList");
 		
 		return mav;
@@ -709,7 +718,33 @@ public class ManagerController {
 		return LoginList;
 	}
 	
+	//개별 할인율 불러오기
+	@RequestMapping(value = "/Discount_Load.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Discount_Load(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		HashMap<String, String> ManagerList = ManagerService.Discount_Load(inputMap);
+//		System.out.println(LoginList.get("resultMsg"));
+
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr = mapper.writeValueAsString(ManagerList);
+		return jsonStr;
+	}
 	
+	//할인율 수정하기
+	@RequestMapping(value = "/Discount_IU.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Discount_IU(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		String LoginList = ManagerService.Discount_IU(inputMap);
+//		System.out.println(LoginList.get("resultMsg"));
+
+//		ObjectMapper mapper = new ObjectMapper();
+//		String jsonStr = mapper.writeValueAsString(LoginList);
+		return LoginList;
+	}
 	
 	
 	/* Javamail 실행 */

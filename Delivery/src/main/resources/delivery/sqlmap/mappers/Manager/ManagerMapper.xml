@@ -6,7 +6,10 @@
 		{ call B_MEM_LIST(
 				#{MEM_ID},
 				#{COUNT},
-				#{TOTALCOST}
+				#{TOTALCOST},
+				#{ARR_DAY},
+				#{M_LEVEL},
+				#{USE_DAY}
 		) }
 	</select>
 	
@@ -15,12 +18,16 @@
 				#{MEM_NM},
 				#{MEM_ID},
 				#{MEM_PW},
+				#{MEM_NATION},
 				#{MEM_PHONE},
 				#{MEM_EMAIL},
 				#{MEM_ID2},
 				#{MEM_DISCOUNT},
 				#{MEM_LEVEL},
-				#{MEM_BIGO}
+				#{MEM_BIGO},
+				#{MEM_TARGET},
+				#{MEM_ADDR},
+				#{MEM_HOU}
 		) }
 	</select>
 	<select id="Member_Modify_Discount" statementType="CALLABLE" parameterType="hashmap" resultType="string">
@@ -194,6 +201,23 @@
 				#{T_NAME},
 				#{USE},
 				#{MODE}
+		) }
+	</select>
+	
+	<select id="Discount_IU" statementType="CALLABLE" parameterType="hashmap" resultType="string">
+		{ call E_DISCOUNT(
+				#{TYPE},
+				#{TARGET},
+				#{SUB_TARGET},
+				#{PERCENT}
+		) }
+	</select>
+	
+	<select id="Discount_Load" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call E_DISCOUNT_LOAD(
+				#{TYPE},
+				#{TARGET},
+				#{SUB_TARGET}
 		) }
 	</select>
 	

@@ -46,7 +46,22 @@
 	.link:hover{
 		background: #ffaa40;
 	}
+	.link2{
+		background: white;
+		width:40px;
+		height:30px;
+		border: 1px solid #ffaa40;
+	    padding: 2px;
+	    cursor: pointer;
+	    border-radius: 5px;
+	}
 	
+	.link2 > img{
+		height: 23px;
+	}
+	.link2:hover{
+		background: #ffaa40;
+	}
 	#Delivery_Table > tbody > tr{
 /*   -webkit-user-select:none; */
 /*   -moz-user-select:none; */
@@ -246,7 +261,7 @@ input[type=checkbox]{
                     </h3>                                  
                     <div class="laoswrap">
                     <label for="laos">라오스어로 링크복사</label><input type="checkbox" name="laos" id="laos">    
-                    <label for="mobile">모바일로 링크복사</label><input type="checkbox" name="mobile" id="mobile">      
+<!--                     <label for="mobile">모바일로 링크복사</label><input type="checkbox" name="mobile" id="mobile">       -->
                     </div>                                
                     <div class="wrap">
                         <div class="tableWrap">
@@ -269,6 +284,7 @@ input[type=checkbox]{
                                         <!-- <th>배송현황</th> -->
                                         <th class="modifyth">수정하기</th>
                                         <th>링크복사</th>
+                                        <th>정보복사</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -277,6 +293,7 @@ input[type=checkbox]{
                             </table>
                         </div>
                         <input type="text" id="copy_link" style="display:none;">
+                        <textarea id="copy_link2" style="display:none;"></textarea>
                     </div> <!-- wrap -->
                 </div> <!-- conWrap -->
             </div> <!-- sectionContainer -->
@@ -484,61 +501,82 @@ input[type=checkbox]{
 			var nc = $(this).parents("tr").find(".in_key").val();
 			if(window.location.host == 'localhost:8080'){
 				if($("#laos").prop("checked") == true){
-					if($("#mobile").prop("checked") == false){
-						$("#copy_link").val("localhost:8080/Delivery/lao/Delivery_Search_A.do?ik="+nc);
-						document.getElementById("copy_link").select();
-						document.execCommand("copy");
-					}
-					else{
+// 					if($("#mobile").prop("checked") == false){
+// 						$("#copy_link").val("localhost:8080/Delivery/lao/Delivery_Search_A.do?ik="+nc);
+// 						document.getElementById("copy_link").select();
+// 						document.execCommand("copy");
+// 					}
+// 					else{
 						$("#copy_link").val("localhost:8080/Delivery/lao/Mobile_Delivery_Search_A.do?ik="+nc);
 						document.getElementById("copy_link").select();
 						document.execCommand("copy");
-					}
+// 					}
 				}
 				else{
-					if($("#mobile").prop("checked") == false){
-						$("#copy_link").val("localhost:8080/Delivery/Delivery_Search_A.do?ik="+nc);
-						document.getElementById("copy_link").select();
-						document.execCommand("copy");
-					}
-					else{
+// 					if($("#mobile").prop("checked") == false){
+// 						$("#copy_link").val("localhost:8080/Delivery/Delivery_Search_A.do?ik="+nc);
+// 						document.getElementById("copy_link").select();
+// 						document.execCommand("copy");
+// 					}
+// 					else{
 						$("#copy_link").val("localhost:8080/Delivery/Mobile_Delivery_Search_A.do?ik="+nc);
 						document.getElementById("copy_link").select();
 						document.execCommand("copy");
-					}
+// 					}
 				}
 			}
 			else if(window.location.host == 'ek-logis.com'){
 
 				if($("#laos").prop("checked") == true){
-					if($("#mobile").prop("checked") == false){
-						$("#copy_link").val("ek-logis.com/lao/Delivery_Search_A.do?ik="+nc);
-						document.getElementById("copy_link").select();
-						document.execCommand("copy");
-					}
-					else{
+// 					if($("#mobile").prop("checked") == false){
+// 						$("#copy_link").val("ek-logis.com/lao/Delivery_Search_A.do?ik="+nc);
+// 						document.getElementById("copy_link").select();
+// 						document.execCommand("copy");
+// 					}
+// 					else{
 						$("#copy_link").val("ek-logis.com/lao/Mobile_Delivery_Search_A.do?ik="+nc);
 						document.getElementById("copy_link").select();
 						document.execCommand("copy");
-					}
+// 					}
 				}
 				else{
-					if($("#mobile").prop("checked") == false){
-						$("#copy_link").val("ek-logis.com/Delivery_Search_A.do?ik="+nc);
-						document.getElementById("copy_link").select();
-						document.execCommand("copy");
-					}
-					else{
+// 					if($("#mobile").prop("checked") == false){
+// 						$("#copy_link").val("ek-logis.com/Delivery_Search_A.do?ik="+nc);
+// 						document.getElementById("copy_link").select();
+// 						document.execCommand("copy");
+// 					}
+// 					else{
 						$("#copy_link").val("ek-logis.com/Mobile_Delivery_Search_A.do?ik="+nc);
 						document.getElementById("copy_link").select();
 						document.execCommand("copy");
-					}
+// 					}
 				}
 			}
 			alert("클립보드로 해당 항목의 링크가 복사되었습니다.");
 			$("#copy_link").hide();
 		})
 		
+		$(document).on("click",".link2",function(){
+			$("#copy_link2").show();
+			var EK = $(this).parents("tr").find("input[name='EK']").val();
+			var REC_NM = $(this).parents("tr").find("input[name='REC_NM']").val();
+			var REC_PHONE = $(this).parents("tr").find("input[name='REC_PHONE']").val();
+			var OUT_DAY = $(this).parents("tr").find("input[name='OUT_DAY']").val();
+			
+			var copyString = "접수번호 : " + EK + "\n\n";
+			copyString += "수령인 : " + REC_NM + "\n\n";
+			copyString += "전화번호 : " + REC_PHONE + "\n\n";
+			copyString += "마감일 : " + OUT_DAY + "\n\n";
+			
+
+			$("#copy_link2").val(copyString);
+			document.getElementById("copy_link2").select();
+			document.execCommand("copy");
+			
+
+			alert("클립보드로 해당 항목의 정보가 복사되었습니다.");
+			$("#copy_link2").hide();
+		})
 	})
 	
 	
@@ -583,10 +621,18 @@ input[type=checkbox]{
 						tbodyData += "<td><button class='modify'><img src='./images/pc_icon/modify_black.svg'></button></td>";
 					}
 					tbodyData += "<td><button class='link'><img src='./images/pc_icon/Link.svg'></button></td>";
+					tbodyData += "<td><button class='link2'><img src='./images/pc_icon/Link.svg'></button></td>";
 					tbodyData += "<input type='hidden' class='tr_cbm' value='"+result[i].CBM+"' >";
 					tbodyData += "<input type='hidden' class='tr_weight' value='"+result[i].WEIGHT+"' >";
 					tbodyData += "<input type='hidden' class='tr_cost' value='"+result[i].COST+"' >";
 					tbodyData += "<input type='hidden' class='tr_count' value='"+result[i].COUNT+"' >";
+					
+					tbodyData += "<input type='hidden' name='EK' value='"+result[i].EK+"' >";
+					tbodyData += "<input type='hidden' name='REC_NM' value='"+result[i].REC_NM+"' >";
+					tbodyData += "<input type='hidden' name='REC_PHONE' value='"+result[i].REC_PHONE+"' >";
+					tbodyData += "<input type='hidden' name='REC_TARGET' value='"+result[i].REC_TARGET+"' >";
+					tbodyData += "<input type='hidden' name='OUT_DAY' value='"+result[i].OUT_DAY+"' >";
+					tbodyData += "<input type='hidden' name='REC_NATION' value='"+result[i].REC_NATION+"' >";
 					
 					tbodyData += "</tr>";
 				}

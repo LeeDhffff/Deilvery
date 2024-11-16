@@ -13,6 +13,9 @@
 </head>
 
 <style type="text/css">
+	button{
+		cursor:pointer;
+	}
 	.conMainTitle{
 	    justify-content: space-between;
 	}
@@ -50,7 +53,7 @@
 		background: #5d5d5d9c;
 	}
 	.popup{
-		width: 600px;
+		width: 1000px;
 /* 		height: 250px; */
 		background: white;
 		position: fixed;
@@ -144,6 +147,51 @@
 	    margin-right: 10px;	
     	display:none;
 	}
+	.popup_middle_double{
+		display:flex;
+	}
+	.popup_table{
+	    height: 300px;
+   		overflow-y: scroll;
+	}
+	.popup_table > h3{
+		margin: 20px 0px 20px 10px;
+	}
+	#reset_search{
+		width: 30px;
+	    height: 30px;
+	    border: 1px solid #E88100;
+	    background: white;
+	    background-image: url(./images/pc_icon/delete_black.svg);
+	    background-repeat: no-repeat;
+	    background-position: center;
+	    border-radius: 5px;
+	}
+	#reset_search:hover{
+	    background: #E88100;
+	    background-image: url(./images/pc_icon/delete_black.svg);
+	    background-repeat: no-repeat;
+	    background-position: center;
+	}
+	#popup_discount{
+		width:500px;
+	}
+	#Alldiscount_open{
+		width: 150px;
+	    height: 40px;
+	    border-radius: 3px;
+	    border: 1px solid #E88100;
+	    background: #E88100;
+	    color: white;
+	}
+	#Alldiscount_open:hover{
+	    background: white;
+	    color: black;
+	}
+	.popup_h4{
+	    font-weight: normal;
+    	margin: 10px 0 0 10px;
+	}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -168,15 +216,12 @@
 		<div class="grey_pop">
 			<div class="popup" id="popup_discount">
 				<div class="popup_head">
-				<h2 class="popup_h2">할인율 수정</h2>
-				<button class="popup_X">X</button>
+					<h2 class="popup_h2">전체 할인율 편집</h2>
+					<button class="popup_X">X</button>
 				</div>
+				<h4 class="popup_h4">※개별 할인율과 별개로 회원 전체에 할인율이 적용됩니다.</h4>
+				<h4 class="popup_h4">※할인 시 높은 할인율이 우선 적용됩니다.</h4>
 				<div class="popup_middle">
-					<div class="popup_input_div">
-						<h3>대상 고객</h3>
-						<input type="text" class="popup_input" id="T_NAME" placeholder="고객명" disabled>
-						<input type="hidden" class="popup_input" id="T_ID">
-					</div>
 					<div class="popup_input_div">
 						<h3>할인율(%)</h3>
 						<input type="number" class="popup_input" id="T_DISCOUNT" placeholder="할인율">
@@ -188,47 +233,95 @@
 			</div>
 			<div class="popup" id="popup_modify">
 				<div class="popup_head">
-				<h2 class="popup_h2">고객정보 추가</h2>
-				<button class="popup_X">X</button>
+					<h2 class="popup_h2">고객정보 추가</h2>
+					<button class="popup_X">X</button>
 				</div>
-				<div class="popup_middle">
-					<div class="popup_input_div">
-						<h3>고객 ID<span>*</span></h3>
-						<input type="text" class="popup_input" id="M_ID" placeholder="ID">
-						<input type="hidden" class="popup_input" id="M_ID_CHK">
+				<div class="popup_table">
+					<h3>이용내역</h3>
+					<table id="history">
+						<thead>
+							<tr>
+								<th>마감일</th>
+								<th>박스 수</th>
+								<th>금액</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+				<div class="popup_middle_double">
+					<div class="popup_middle">
+						<div class="popup_input_div">
+							<h3>고객 ID<span>*</span></h3>
+							<input type="text" class="popup_input" id="M_ID" placeholder="ID">
+							<input type="hidden" class="popup_input" id="M_ID_CHK">
+						</div>
+						<div class="popup_input_div">
+							<h3 class="pwh3">비밀번호<span>*</span></h3>
+							<input type="password" class="popup_input" id="M_PASSWORD" placeholder="비밀번호">
+						</div>
+						<div class="popup_input_div">
+							<h3>지역</h3>
+							<select class="popup_input" id="M_NATION">
+								<option value="K">한국</option>
+								<option value="L">라오스</option>
+							</select>
+						</div>
+						<div class="popup_input_div">
+							<h3>이름<span>*</span></h3>
+							<input type="text" class="popup_input blik" id="M_NAME" placeholder="이름">
+							<input type="hidden" class="popup_input blik" id="M_NAME_CHK">
+						</div>
+						<div class="popup_input_div">
+							<h3>전화번호<span>*</span></h3>
+							<input type="text" oninput="oninputPhone(this)" maxlength="13" class="popup_input blik" id="M_PHONE" placeholder="전화번호">
+						</div>
+						<div class="popup_input_div">
+							<h3>이메일</h3>
+							<input type="text" class="popup_input blik" id="M_EMAIL" placeholder="이메일">
+						</div>
 					</div>
-					<div class="popup_input_div">
-						<h3 class="pwh3">비밀번호<span>*</span></h3>
-						<input type="password" class="popup_input" id="M_PASSWORD" placeholder="비밀번호">
-					</div>
-					<div class="popup_input_div">
-						<h3>이름<span>*</span></h3>
-						<input type="text" class="popup_input blik" id="M_NAME" placeholder="이름">
-						<input type="hidden" class="popup_input blik" id="M_NAME_CHK">
-					</div>
-					<div class="popup_input_div">
-						<h3>전화번호<span>*</span></h3>
-						<input type="text" oninput="oninputPhone(this)" maxlength="13" class="popup_input blik" id="M_PHONE" placeholder="전화번호">
-					</div>
-					<div class="popup_input_div">
-						<h3>이메일</h3>
-						<input type="text" class="popup_input blik" id="M_EMAIL" placeholder="이메일">
-					</div>
-					<div class="popup_input_div">
-						<h3>할인율(%)</h3>
-						<input type="number" class="popup_input" id="M_DISCOUNT" placeholder="할인율">
-					</div>
-					<div class="popup_input_div">
-						<h3>구분</h3>
-						<select class="popup_input" id="M_LEVEL">
-							<option value="1">일반회원</option>
-							<option value="2">관리자</option>
-							<option value="0">비회원</option>
-						</select>
-					</div>
-					<div class="popup_input_div">
-						<h3>비고</h3>
-						<input type="text" class="popup_input" id="M_BIGO" placeholder="비고">
+					<div class="popup_middle">
+						<div class="popup_input_div">
+							<h3>할인율(%)</h3>
+							<input type="number" class="popup_input" id="M_DISCOUNT" placeholder="할인율">
+						</div>
+						<div class="popup_input_div">
+							<h3>구분</h3>
+							<select class="popup_input" id="M_LEVEL">
+								<option value="1">일반회원</option>
+								<option value="2">관리자</option>
+								<option value="3">선교사</option>
+								<option value="4">도매업</option>
+								<option value="0">비회원</option>
+							</select>
+						</div>
+						<div class="popup_input_div">
+							<h3>픽업지 선택</h3>
+							<select class="popup_input" id="M_TARGET">
+						        <option value="0">픽업지 선택</option>
+					            <option value="1">본사</option>
+					            <option value="2">하우 창고</option>
+					            <option value="3">택배 서비스</option>
+							</select>
+						</div>
+						<div class="popup_input_div">
+							<h3>택배사</h3>
+							 <select class="popup_input" name="M_ADDR" id="M_ADDR">
+			                	<c:forEach var="item" items="${shipComList}">
+			                		<option value="${item.target }">${item.tName }</option>
+			                	</c:forEach>
+			                </select>
+						</div>
+						<div class="popup_input_div">
+							<h3>상세주소</h3>
+							<input type="text" class="popup_input" id="M_HOU" placeholder="상세주소">
+						</div>
+						<div class="popup_input_div">
+							<h3>비고</h3>
+							<input type="text" class="popup_input" id="M_BIGO" placeholder="비고">
+						</div>
 					</div>
 				</div>
 				<div class="popup_bottom">
@@ -249,6 +342,8 @@
                 <div class="conWrap">
                     <h3 class="conMainTitle">
                         <a href="#">고객 리스트 필터</a>
+                            <button id="reset_search" onclick="reset_Search();">
+                        	</button>
                     </h3>
                     <div class="wrap">
                         <div class="triple">
@@ -265,6 +360,29 @@
                                     <option value="Y">높은순서</option>
                                     <option value="N">낮은순서</option>
                                 </select>
+                            </div>
+                            <div class="inputWrap">
+                                <select class="search" name="" id="chk_arrDay">
+	                            	<option value="">마감일 선택</option>
+	                            	<c:forEach var="item" items="${outdayList }">
+	                            		<option value="${item.outKey }">${item.outDay }</option> 
+	                            	</c:forEach>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="triple">
+                            <div class="inputWrap">
+                                <select class="search" name="" id="chk_level">
+                                    <option value="">구분</option>
+                                    <option value="1">일반회원</option>
+                                    <option value="3">선교사</option>
+                                </select>
+                            </div>
+                            <div class="inputWrap">
+	                            <input type="text" class="search" id="chk_useDay" name="useDay" placeholder="휴면 고객 검색 기준일">
+                            </div>
+                            <div class="inputWrap">
+                            	<button id="Alldiscount_open">전체 할인율 편집</button>
                             </div>
                         </div>
                     </div>
@@ -284,6 +402,7 @@
 <!--                                         <th><input type="checkbox"></th> -->
                                         <th>이름</th>
                                         <th>전화번호</th>
+                                        <th>최근이용일</th>
                                         <th>이용횟수</th>
                                         <th>배송비 총 금액</th>
                                         <th>할인율(%)</th>
@@ -313,7 +432,10 @@
 	console.log(level);
  
 	$(document).on('ready',function(){
-		
+
+    	$("#chk_useDay").datepicker();
+    	$("#chk_useDay").datepicker("option", "dateFormat", "yy-mm-dd");
+    	
 		if(uid!="null" || uid2 != "null"){ 
 			   if(level != '2'){
 				   location.href = "Main.do";
@@ -360,28 +482,38 @@
 			
 		});
 		
+
+		$("#Alldiscount_open").on("click",function(){
+
+			reset('D');
+
+		})
 		
 // 		등록하기
 		$("#T_create").on("click",function(){
-			var discount = {
-				MEM_ID : uid,
-				MEM_ID2 : $("#T_ID").val(),
-				DISCOUNT : $("#T_DISCOUNT").val()
-			};
-			
+			if($("#T_DISCOUNT").val() == ""){
+				alert("할인율을 입력해주세요.");
+			}
+			else{
+				var discount = {
+					TYPE : "A",
+					PERCENT : $("#T_DISCOUNT").val()
+				};
+				
 
-			$.ajax({
-				type: "POST",
-				url : "./Member_Modify_Discount.do",
-				data: discount,
-				async: false,
-	            success: function(datas){
-					alert(datas);
+				$.ajax({
+					type: "POST",
+					url : "./Discount_IU.do",
+					data: discount,
+					async: false,
+		            success: function(datas){
+						alert(datas);
 
-					selectList();
-					reset('END');
-	            }
-			});
+						selectList();
+						reset('END');
+		            }
+				});
+			}
 		})
 		
 		$("#M_ID").on("change",function(){
@@ -443,11 +575,15 @@
 						MEM_ID2 : $("#M_ID").val(),						
 						MEM_PW : $("#M_PASSWORD").val(),
 						MEM_NM : $("#M_NAME").val(),
+						MEM_NATION : $("#M_NATION").val(),
 						MEM_PHONE : $("#M_PHONE").val(),
 						MEM_EMAIL : $("#M_EMAIL").val(),
 						MEM_DISCOUNT : $("#M_DISCOUNT").val(),
 						MEM_LEVEL : $("#M_LEVEL").val(),
-						MEM_BIGO : $("#M_BIGO").val()
+						MEM_BIGO : $("#M_BIGO").val(),
+						MEM_TARGET : $("#M_TARGET").val(),
+						MEM_ADDR : $("#M_ADDR").val(),
+						MEM_HOU : $("#M_HOU").val()
 				};
 				$.ajax({
 					type: "POST",
@@ -498,7 +634,11 @@
 						MEM_ID2 : uid,	
 						MEM_DISCOUNT : $("#M_DISCOUNT").val(),
 						MEM_LEVEL : $("#M_LEVEL").val(),
-						MEM_BIGO : $("#M_BIGO").val()
+						MEM_BIGO : $("#M_BIGO").val(),
+						MEM_TARGET : $("#M_TARGET").val(),
+						MEM_ADDR : $("#M_ADDR").val(),
+						MEM_HOU : $("#M_HOU").val(),
+						MEM_NATION : $("#M_NATION").val()
 				};
 				$.ajax({
 					type: "POST",
@@ -542,6 +682,8 @@
 				})	
 			}
 		})
+		
+		
 // 		팝업 닫기
 		$(".popup_X").on("click",function(){
 			reset('END');
@@ -559,7 +701,10 @@
 			var deliverydata = {
 					MEM_ID : uid,
 					COUNT : $("#chk_count option:selected").val(),
-					TOTALCOST : $("#chk_cost option:selected").val()
+					TOTALCOST : $("#chk_cost option:selected").val(),
+					ARR_DAY : $("#chk_arrDay option:selected").val(),
+					M_LEVEL : $("#chk_level option:selected").val(),
+					USE_DAY : $("#chk_useDay").val()
 			};
 			$.ajax({
 				type: "POST",
@@ -590,6 +735,7 @@
 // 						tbodyData += "<td><input type='checkbox'></td>";
 						tbodyData += "<td class='tdnm'>"+result[i].NAME+"</td>";
 						tbodyData += "<td>"+result[i].PHONE+"</td>";
+						tbodyData += "<td>"+result[i].LASTUSE+"</td>";
 						tbodyData += "<td>"+result[i].USECOUNT+"</td>";
 						tbodyData += "<td>$"+result[i].COST+"</td>";
 						tbodyData += "<td class='tddiscount'>"+result[i].DISCOUNT+"</td>";
@@ -641,7 +787,24 @@
 
 			$(".pop_container").show();
 			$("#popup_discount").show();
+			var dmode ={
+				TYPE: "A",
+				TARGET: "ALL",
+				SUB_TARGET: ""
+			};
+			$.ajax({
+				type: "POST",
+				url : "./Discount_Load.do",
+				data: dmode,
+				async: false,
+	            success: function(datas){
+	            	var result = JSON.parse(datas);
+	            	
+	            	$("#T_DISCOUNT").val(result.PERCENT);
+	            }
+			})
 		}
+		
 		if(mode == 'C'){
 			$(".popup_input").val("");
 			$("#M_DISCOUNT").val(0);
@@ -649,6 +812,8 @@
 			$("#M_create").show();
 			$("#M_modify").hide();
 			$("#M_delete").hide();
+        	$("#history > tbody").empty();
+			$(".popup_table").hide();
 			$(".pwh3").html("비밀번호<span>*</span>");
 			$(".pop_container").show();
 			$("#popup_modify").show();
@@ -658,6 +823,7 @@
 			$("#M_create").hide();
 			$("#M_modify").show();
 			$("#M_delete").show();
+			$(".popup_table").show();
 			$(".pwh3").html("비밀번호");
 			$(".pop_container").show();
 			$("#popup_modify").show();
@@ -684,15 +850,43 @@
 					async: false,
 		            success: function(datas){
 		            	var result = JSON.parse(datas);
+		            	discount["MEM_NAME"] = result.NAME;
+		            	discount["MEM_PHONE"] = result.PHONE;
 		            	
-		            	$("#M_ID_CHK").val(result.MEM_ID);
-		            	$("#M_NAME").val(result.NAME);
-		            	$("#M_NAME_CHK").val("Y");
-		            	$("#M_EMAIL").val(result.EMAIL);
-		            	$("#M_PHONE").val(result.PHONE);
-		            	$("#M_DISCOUNT").val(result.DISCOUNT);
-		            	$("#M_LEVEL").val(result.LEVEL);
-		            	$("#M_BIGO").val(result.BIGO);
+						$.ajax({
+							type: "POST",
+							url : "./Delivery_Mem_History.do",
+							data: discount,
+							async: false,
+				            success: function(datas2){
+				            	var result2 = JSON.parse(datas2);
+				            	$("#M_ID_CHK").val(result.MEM_ID);
+				            	$("#M_NAME").val(result.NAME);
+				            	$("#M_NAME_CHK").val("Y");
+				            	$("#M_EMAIL").val(result.EMAIL);
+				            	$("#M_PHONE").val(result.PHONE);
+				            	$("#M_DISCOUNT").val(result.DISCOUNT);
+				            	$("#M_LEVEL").val(result.LEVEL);
+				            	$("#M_NATION").val(result.NATION);
+				            	$("#M_TARGET").val(result.MEM_TARGET);
+				            	$("#M_ADDR").val(result.MEM_ADDR);
+				            	$("#M_HOU").val(result.MEM_HOU);
+				            	$("#M_BIGO").val(result.BIGO);
+				            	
+				            	var tabledata = "";
+
+				            	$("#history > tbody").empty();
+				            	for(let i=0; i<result2.length ; i++){
+					            	tabledata += "<tr>";
+					            	tabledata += "<td>"+result2[i].ARR_DAY+"</td>";
+					            	tabledata += "<td>"+result2[i].BOX+"</td>";
+					            	tabledata += "<td>"+result2[i].TOTAL+"$</td>";
+					            	tabledata += "</tr>";
+				            	}
+
+				            	$("#history > tbody").append(tabledata);
+				            }
+				        })
 		            }
 				});
 		}
@@ -705,6 +899,10 @@
 		}
 	}
 	
+	function reset_Search(){
+		$(".search").val("");
+		selectList();
+	}
 
 	function oninputPhone(target) {
 	    target.value = target.value

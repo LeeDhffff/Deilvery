@@ -31,11 +31,15 @@
 				#{MEM_ID2},
 				#{MEM_PW},
 				#{MEM_NM},
+				#{MEM_NATION},
 				#{MEM_PHONE},
 				#{MEM_EMAIL},
 				#{MEM_DISCOUNT},
 				#{MEM_LEVEL},
-				#{MEM_BIGO}
+				#{MEM_BIGO},
+				#{MEM_TARGET},
+				#{MEM_ADDR},
+				#{MEM_HOU}
 		) }
 	</select>
 	<select id="find_id" statementType="CALLABLE" parameterType="hashmap" resultType="string">

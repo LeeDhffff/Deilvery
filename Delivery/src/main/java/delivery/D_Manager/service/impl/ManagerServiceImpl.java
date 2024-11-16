@@ -29,6 +29,7 @@ public class ManagerServiceImpl implements ManagerService {
 	@Override
 	public String Member_Modify_Discount(HashMap<String, Object> inputMap) throws Exception {
 		// TODO Auto-generated method stub
+		   
 		return ManagerMapper.Member_Modify_Discount(inputMap);
 	}
 	
@@ -178,6 +179,24 @@ public class ManagerServiceImpl implements ManagerService {
 	public List<HashMap<String, String>> Manager_List(HashMap<String, Object> inputMap) throws Exception {
 		// TODO Auto-generated method stub
 		return ManagerMapper.Manager_List(inputMap);
+	}
+
+	@Override
+	public HashMap<String, String> Discount_Load(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+		return ManagerMapper.Discount_Load(inputMap);
+	}
+
+	@Override
+	public String Discount_IU(HashMap<String, Object> inputMap) throws Exception {
+		// TODO Auto-generated method stub
+			String type	= inputMap.get("TYPE").toString();
+		   
+		   if(type.equals("A")) {
+			   inputMap.put("TARGET","ALL");
+			   inputMap.put("SUB_TARGET","");
+		   }
+		return ManagerMapper.Discount_IU(inputMap);
 	}
 
 

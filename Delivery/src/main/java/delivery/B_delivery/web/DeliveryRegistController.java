@@ -284,6 +284,8 @@ public class DeliveryRegistController {
 		return resultMsg;
 		
 	}
+
+	
 	
 	/* Mobile관리자 배송신청 화면1 진입 */
 	@RequestMapping("mAdminDeliveryRegistMain.do")

@@ -31,6 +31,14 @@
 		) }
 	</select>
 	
+	<select id="Delivery_Mem_History" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call B_MEM_HISTORY(
+				#{MEM_ID},
+				#{MEM_NAME},
+				#{MEM_PHONE}
+		) }
+	</select>
+	
 	<select id="Delivery_Select_B_CHK" statementType="CALLABLE" parameterType="hashmap" resultType="string">
 		{ call B_APPLICATION_SELECT_B_CHK(
 				#{MEM_NM},
