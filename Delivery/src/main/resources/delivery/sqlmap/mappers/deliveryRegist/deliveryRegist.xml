@@ -148,7 +148,8 @@
 			,GOO_COORDINATE
 			,CRE_DAY
 			,ARR_DAY
-			,CHK			
+			,CHK	
+			,MCHK		
 			,BIGO
 		)VALUES(
 			#{inKey}
@@ -156,7 +157,8 @@
 			,#{recNm}
 			,#{recPhone}
 			,#{subPhone}
-			,'0'
+			,#{recTarget}
+<!-- 			,'0' -->
 			,#{recAddr}
 			,#{recHou}
 			,#{recTxt}
@@ -164,6 +166,7 @@
 			,#{creDay}
 			,#{arrDay}
 			,'Y'
+			,'N'
 			,#{bigo}
 		);		
 	</insert>

@@ -25,5 +25,6 @@ public interface DeliveryService {
 
 	HashMap<String, String> Status_Select(HashMap<String, Object> inputMap) throws Exception;
 	
+	String Pickup_Insert_deadline(HashMap<String, Object> inputMap) throws Exception;
 	String Pickup_Insert(HashMap<String, Object> inputMap) throws Exception;
 }

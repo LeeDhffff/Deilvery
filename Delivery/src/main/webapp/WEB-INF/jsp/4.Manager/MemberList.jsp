@@ -73,6 +73,9 @@
 	    font-size: 30px;
 	    font-weight: bold;
 	}
+	.popup_X:hover{
+		color:grey;
+	}
 	.popup_head{
 		display: flex;
 	    justify-content: space-between;
@@ -192,6 +195,27 @@
 	    font-weight: normal;
     	margin: 10px 0 0 10px;
 	}
+	.human{
+		border: 2px dotted #ffb6b6;
+	}
+	.pickup_input{
+		display:none;
+	}
+	.dot_line{
+		display:flex;
+	}
+	.dot_line_txt{    
+		color: black;
+	    font-weight: normal;
+	    font-size: 16px;
+	    margin-left: 5px;
+	}
+	.dot_line_span{
+	    width: 25px;
+	    display: block;
+	    height: 10px;
+	    border-bottom: 3px dotted #fd6d6d;
+	}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -306,7 +330,7 @@
 					            <option value="3">택배 서비스</option>
 							</select>
 						</div>
-						<div class="popup_input_div">
+						<div class="popup_input_div pickup_input">
 							<h3>택배사</h3>
 							 <select class="popup_input" name="M_ADDR" id="M_ADDR">
 			                	<c:forEach var="item" items="${shipComList}">
@@ -314,7 +338,7 @@
 			                	</c:forEach>
 			                </select>
 						</div>
-						<div class="popup_input_div">
+						<div class="popup_input_div pickup_input">
 							<h3>상세주소</h3>
 							<input type="text" class="popup_input" id="M_HOU" placeholder="상세주소">
 						</div>
@@ -363,7 +387,7 @@
                             </div>
                             <div class="inputWrap">
                                 <select class="search" name="" id="chk_arrDay">
-	                            	<option value="">마감일 선택</option>
+	                            	<option value="">최근 이용 마감일 선택</option>
 	                            	<c:forEach var="item" items="${outdayList }">
 	                            		<option value="${item.outKey }">${item.outDay }</option> 
 	                            	</c:forEach>
@@ -389,7 +413,11 @@
 
                     <h3 class="conMainTitle">
                         <a href="#">고객리스트</a>     
-                               
+                        <a class="dot_line" href="#">
+                        	<hr class="dot_line_span"/>
+                        	<span class="dot_line_txt">:휴면고객(오늘기준)</span>
+                        </a>
+                        
                         <button class="create">
                         	<img src="./images/pc_icon/modify_black.svg" alt="저장하기">
                         </button>                                                                     
@@ -481,7 +509,14 @@
 			}
 			
 		});
-		
+		$("#M_TARGET").on("change",function(){
+			if($("#M_TARGET").val() =="3"){
+				$(".pickup_input").css("display","flex");
+			}
+			else{
+				$(".pickup_input").hide();
+			}
+		})
 
 		$("#Alldiscount_open").on("click",function(){
 
@@ -564,6 +599,10 @@
 				alert("전화번호를 입력해주세요.");
 				$("#M_PHONE").focus();
 			}
+			else if($("#M_TARGET").val() == '3' && $("#M_ADDR").val() == null){
+				alert("택배사를 선택해주세요.");
+				$("#M_ADDR").focus();
+			}
 			else if($("#M_NAME_CHK").val() != 'Y'){
 				alert("이름, 전화번호가 중복됩니다.");
 				$("#M_NAME").focus();
@@ -618,6 +657,10 @@
 			else if($("#M_PHONE").val() == ''){
 				alert("전화번호를 입력해주세요.");
 				$("#M_PHONE").focus();
+			}
+			else if($("#M_TARGET").val() == '3' && $("#M_ADDR").val() == null){
+				alert("택배사를 선택해주세요.");
+				$("#M_ADDR").focus();
 			}
 			else if($("#M_NAME_CHK").val() != 'Y'){
 				alert("이름, 전화번호가 중복됩니다.");
@@ -729,6 +772,10 @@
 						else if(result[i].LEVEL == '2'){
 							classname = 'man';
 						}
+					
+						if(result[i].RESTUSER == 'Y'){
+							classname += ' human';
+						}
 						
 						
 						tbodyData += "<tr class='"+classname+"'>";
@@ -809,6 +856,7 @@
 			$(".popup_input").val("");
 			$("#M_DISCOUNT").val(0);
 			$("#M_LEVEL").val("1");
+			$("#M_TARGET").val("0");
 			$("#M_create").show();
 			$("#M_modify").hide();
 			$("#M_delete").hide();
@@ -816,6 +864,7 @@
 			$(".popup_table").hide();
 			$(".pwh3").html("비밀번호<span>*</span>");
 			$(".pop_container").show();
+			$(".pickup_input").hide();
 			$("#popup_modify").show();
 			$("#popup_modify").find(".popup_h2").text("고객정보 추가");
 		}
@@ -868,7 +917,7 @@
 				            	$("#M_DISCOUNT").val(result.DISCOUNT);
 				            	$("#M_LEVEL").val(result.LEVEL);
 				            	$("#M_NATION").val(result.NATION);
-				            	$("#M_TARGET").val(result.MEM_TARGET);
+				            	$("#M_TARGET").val(result.MEM_TARGET).trigger("change");
 				            	$("#M_ADDR").val(result.MEM_ADDR);
 				            	$("#M_HOU").val(result.MEM_HOU);
 				            	$("#M_BIGO").val(result.BIGO);

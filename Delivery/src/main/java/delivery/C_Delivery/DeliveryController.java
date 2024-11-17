@@ -196,6 +196,21 @@ public class DeliveryController {
 	}
 	
 
+	/* 사용자 픽업지 등록 - 마감 */
+	@RequestMapping(value = "/Pickup_Insert_deadline.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Pickup_Insert_deadline(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		
+		String LoginList = DeliveryService.Pickup_Insert_deadline(inputMap);
+//		System.out.println(LoginList.get("resultMsg"));
+
+//		ObjectMapper mapper = new ObjectMapper();
+//		String jsonStr = mapper.writeValueAsString(LoginList);
+		return LoginList;
+	}
+	
 	/* 사용자 픽업지 등록 */
 	@RequestMapping(value = "/Pickup_Insert.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody

@@ -15,7 +15,7 @@
 <style type="text/css">
 	.tron{
 		background: #ffecdb;
-		border: 2px solid black;
+		border: 2px dotted red !important;
 	}
 	.modify{
 		background: white;
@@ -50,7 +50,7 @@
 		background: white;
 		width:40px;
 		height:30px;
-		border: 1px solid #ffaa40;
+		border: 1px solid #ff4040;
 	    padding: 2px;
 	    cursor: pointer;
 	    border-radius: 5px;
@@ -60,13 +60,29 @@
 		height: 23px;
 	}
 	.link2:hover{
-		background: #ffaa40;
+		background: #ff4040;
+	}
+	.link3{
+		background: white;
+		width:40px;
+		height:30px;
+		border: 1px solid #40c8ff;
+	    padding: 2px;
+	    cursor: pointer;
+	    border-radius: 5px;
+	}
+	
+	.link3 > img{
+		height: 23px;
+	}
+	.link3:hover{
+		background: #40c8ff;
 	}
 	#Delivery_Table > tbody > tr{
-/*   -webkit-user-select:none; */
-/*   -moz-user-select:none; */
-/*   -ms-user-select:none; */
-/*   user-select:none; */
+   -webkit-user-select:none; 
+   -moz-user-select:none; 
+   -ms-user-select:none; 
+   user-select:none; 
 }
 .totalh4{
 	display:flex;
@@ -150,6 +166,9 @@ input[type=checkbox]{
 .target_zero{
 	background: #ffc4c4;
 }
+.target_zero2{
+	background: #d5c7ff;
+}
 
 .laoswrap{
 	text-align: right;
@@ -164,6 +183,22 @@ input[type=checkbox]{
 }
 #mobile{
 	margin: 10px 20px 0px 5px;
+}
+
+
+#deadline_open{
+	width: 150px;
+    height: 40px;
+    border-radius: 3px;
+    border: 1px solid #E88100;
+    background: #E88100;
+    color: white;
+    display:none;
+    cursor: pointer;
+}
+#deadline_open:hover{
+    background: white;
+    color: black;
 }
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -235,7 +270,9 @@ input[type=checkbox]{
                                     <option value="N">미신청</option>
                                 </select>
                             </div>
-                                                        
+                            <div class="inputWrap">
+                            	<button id="deadline_open">마감하기</button>
+                            </div>                     			       
                         </div>
                     </div>
 
@@ -249,7 +286,13 @@ input[type=checkbox]{
                             </div>
                             <button class="bill">
                                 <a href="#">
-                                    <img src="./images/pc_icon/calculator.svg" alt="영수증출력하기">
+                                    <img src="./images/pc_icon/calculator.svg" title="Invoice 출력">
+                                </a>
+                            </button>
+                            <button class="bill2">
+                                <a href="#"	>
+                                	<span title="영수증 출력">$</span>
+<!--                                     <img src="./images/pc_icon/receipt.svg" title="영수증 출력"> -->
                                 </a>
                             </button>
 <!--                             <button class="excel"> -->
@@ -260,7 +303,7 @@ input[type=checkbox]{
                         </div>                        
                     </h3>                                  
                     <div class="laoswrap">
-                    <label for="laos">라오스어로 링크복사</label><input type="checkbox" name="laos" id="laos">    
+                    <label for="laos">반대언어로 링크복사</label><input type="checkbox" name="laos" id="laos">    
 <!--                     <label for="mobile">모바일로 링크복사</label><input type="checkbox" name="mobile" id="mobile">       -->
                     </div>                                
                     <div class="wrap">
@@ -283,8 +326,9 @@ input[type=checkbox]{
 										<th>마감일</th>
                                         <!-- <th>배송현황</th> -->
                                         <th class="modifyth">수정하기</th>
+                                        <th>기본정보</th>
+                                        <th>주소정보</th>
                                         <th>링크복사</th>
-                                        <th>정보복사</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -401,7 +445,53 @@ input[type=checkbox]{
 				$(this).parents("tr").removeClass("tron");	
 			}
 		});
-		
+
+		//마감하기 (본사로 처리, 사용자 확인 취급)
+		$("#deadline_open").on("click",function(){
+			if($("input:checkbox[name=List_Check]:checked").length == 0){
+				alert("마감 할 항목을 선택해주세요.");
+			}
+			else if(confirm("선택한 항목을 마감하시겠습니까?")){
+				var Inkey = "";
+				var target = "";
+				var addr = "";
+				var hou = "";
+				$("input:checkbox[name=List_Check]:checked").each(function(){
+					Inkey += $(this).parents("tr").find(".in_key").val() + ",";
+					if($(this).parents("tr").find("input[name='REC_TARGET2']").val() == 0){
+						target += "1,";
+					}
+					else{
+						target += $(this).parents("tr").find("input[name='REC_TARGET2']").val() + ",";
+					}
+					addr += $(this).parents("tr").find("input[name='REC_ADDR2']").val() + ",";
+					hou += $(this).parents("tr").find("input[name='REC_HOU']").val() + ",";
+				});
+				//마지막 , 제거
+				Inkey = Inkey.replace(/,$/, '');
+				target = target.replace(/,$/, '');
+				addr = addr.replace(/,$/, '');
+				hou = hou.replace(/,$/, '');
+				
+				var pickup_data = {
+						Inkey : Inkey,	
+						Itarget : target,
+						Iaddr : addr,
+						Ihou : hou,
+					};
+
+					$.ajax({
+						type: "POST",
+						url : "./Pickup_Insert_deadline.do",
+						data: pickup_data,
+						async: false,
+			            success: function(datas){
+			            	alert(datas);
+			            	ChangeSearch();
+			            }
+					})
+			}
+		});
 		/* 테이블 목록 클릭시 */
 		$(document).on("click","#Delivery_Table > tbody > tr",function(event){
 			if($(event.target).attr("class") != "List_Check sub" && $(event.target).hasClass("sub") == false){
@@ -499,58 +589,36 @@ input[type=checkbox]{
 		$(document).on("click",".link",function(){
 			$("#copy_link").show();
 			var nc = $(this).parents("tr").find(".in_key").val();
+			var nation = $(this).parents("tr").find("input[name='REC_NATION']").val();
 			if(window.location.host == 'localhost:8080'){
+				var laotxt = "";
 				if($("#laos").prop("checked") == true){
-// 					if($("#mobile").prop("checked") == false){
-// 						$("#copy_link").val("localhost:8080/Delivery/lao/Delivery_Search_A.do?ik="+nc);
-// 						document.getElementById("copy_link").select();
-// 						document.execCommand("copy");
-// 					}
-// 					else{
-						$("#copy_link").val("localhost:8080/Delivery/lao/Mobile_Delivery_Search_A.do?ik="+nc);
-						document.getElementById("copy_link").select();
-						document.execCommand("copy");
-// 					}
+					laotxt = (nation == "K") ? "lao/"
+							 : "";
 				}
 				else{
-// 					if($("#mobile").prop("checked") == false){
-// 						$("#copy_link").val("localhost:8080/Delivery/Delivery_Search_A.do?ik="+nc);
-// 						document.getElementById("copy_link").select();
-// 						document.execCommand("copy");
-// 					}
-// 					else{
-						$("#copy_link").val("localhost:8080/Delivery/Mobile_Delivery_Search_A.do?ik="+nc);
-						document.getElementById("copy_link").select();
-						document.execCommand("copy");
-// 					}
+					laotxt = (nation == "L") ? "lao/"
+							 : "";
 				}
+				
+				$("#copy_link").val("localhost:8080/Delivery/"+laotxt+"Mobile_Delivery_Search_A.do?ik="+nc);
+				document.getElementById("copy_link").select();
+				document.execCommand("copy");
 			}
 			else if(window.location.host == 'ek-logis.com'){
 
+				var laotxt = "";
 				if($("#laos").prop("checked") == true){
-// 					if($("#mobile").prop("checked") == false){
-// 						$("#copy_link").val("ek-logis.com/lao/Delivery_Search_A.do?ik="+nc);
-// 						document.getElementById("copy_link").select();
-// 						document.execCommand("copy");
-// 					}
-// 					else{
-						$("#copy_link").val("ek-logis.com/lao/Mobile_Delivery_Search_A.do?ik="+nc);
-						document.getElementById("copy_link").select();
-						document.execCommand("copy");
-// 					}
+					laotxt = (nation == "K") ? "lao/"
+							 : "";
 				}
 				else{
-// 					if($("#mobile").prop("checked") == false){
-// 						$("#copy_link").val("ek-logis.com/Delivery_Search_A.do?ik="+nc);
-// 						document.getElementById("copy_link").select();
-// 						document.execCommand("copy");
-// 					}
-// 					else{
-						$("#copy_link").val("ek-logis.com/Mobile_Delivery_Search_A.do?ik="+nc);
-						document.getElementById("copy_link").select();
-						document.execCommand("copy");
-// 					}
+					laotxt = (nation == "L") ? "lao/"
+							 : "";
 				}
+				$("#copy_link").val("ek-logis.com/"+laotxt+"Mobile_Delivery_Search_A.do?ik="+nc);
+				document.getElementById("copy_link").select();
+				document.execCommand("copy");
 			}
 			alert("클립보드로 해당 항목의 링크가 복사되었습니다.");
 			$("#copy_link").hide();
@@ -558,12 +626,14 @@ input[type=checkbox]{
 		
 		$(document).on("click",".link2",function(){
 			$("#copy_link2").show();
+			var IK = $(this).parents("tr").find(".in_key").val();
 			var EK = $(this).parents("tr").find("input[name='EK']").val();
 			var REC_NM = $(this).parents("tr").find("input[name='REC_NM']").val();
 			var REC_PHONE = $(this).parents("tr").find("input[name='REC_PHONE']").val();
 			var OUT_DAY = $(this).parents("tr").find("input[name='OUT_DAY']").val();
 			
-			var copyString = "접수번호 : " + EK + "\n\n";
+			var copyString = "배송번호 : " + IK + "\n\n";
+			copyString += "접수번호 : " + EK + "\n\n";
 			copyString += "수령인 : " + REC_NM + "\n\n";
 			copyString += "전화번호 : " + REC_PHONE + "\n\n";
 			copyString += "마감일 : " + OUT_DAY + "\n\n";
@@ -574,7 +644,34 @@ input[type=checkbox]{
 			document.execCommand("copy");
 			
 
-			alert("클립보드로 해당 항목의 정보가 복사되었습니다.");
+			alert("클립보드로 해당 항목의 기본정보가 복사되었습니다.");
+			$("#copy_link2").hide();
+		})
+		
+		$(document).on("click",".link3",function(){
+			$("#copy_link2").show();
+			var IK = $(this).parents("tr").find(".in_key").val();
+			var REC_TARGET = $(this).parents("tr").find("input[name='REC_TARGET']").val();
+			var REC_ADDR = $(this).parents("tr").find("input[name='REC_ADDR']").val();
+			var REC_HOU = $(this).parents("tr").find("input[name='REC_HOU']").val();
+			
+			if(REC_TARGET == "본사"){
+				REC_HOU = "Pakthang Village, Sikhot District T3, Dongnatong Vientiane, LAO P.D.R";
+			}
+			else if(REC_TARGET == "하우창고"){
+				REC_HOU = "Phonpapao Village , Sisatttanak Dostrict,Vientiane";
+			}
+			
+			var copyString = "배송번호 : " + IK + "\n\n";
+			copyString += "픽업지 : " + REC_TARGET + "\n\n";
+			copyString += "상세주소 : " + REC_HOU + "\n\n";
+
+			$("#copy_link2").val(copyString);
+			document.getElementById("copy_link2").select();
+			document.execCommand("copy");
+			
+
+			alert("클립보드로 해당 항목의 주소정보가 복사되었습니다.");
 			$("#copy_link2").hide();
 		})
 	})
@@ -601,8 +698,13 @@ input[type=checkbox]{
 				var tbodyData = "";
 				for(let i=0; i<result.length; i++ ){
 					
-					if(result[i].REC_TARGET2 == '0'){
-						tbodyData += "<tr class='tr"+i+" target_zero' cnum = '"+i+"''>";
+					if(result[i].MCHK == 'N'){
+						if(result[i].REC_TARGET2 == '0'){
+							tbodyData += "<tr class='tr"+i+" target_zero' cnum = '"+i+"''>";		
+						}
+						else{
+							tbodyData += "<tr class='tr"+i+" target_zero2' cnum = '"+i+"''>";		
+						}
 					}
 					else{
 						tbodyData += "<tr class='tr"+i+"' cnum = '"+i+"''>";
@@ -620,8 +722,9 @@ input[type=checkbox]{
 					if(auth != 'R'){
 						tbodyData += "<td><button class='modify'><img src='./images/pc_icon/modify_black.svg'></button></td>";
 					}
-					tbodyData += "<td><button class='link'><img src='./images/pc_icon/Link.svg'></button></td>";
 					tbodyData += "<td><button class='link2'><img src='./images/pc_icon/Link.svg'></button></td>";
+					tbodyData += "<td><button class='link3'><img src='./images/pc_icon/Link.svg'></button></td>";
+					tbodyData += "<td><button class='link'><img src='./images/pc_icon/Link.svg'></button></td>";
 					tbodyData += "<input type='hidden' class='tr_cbm' value='"+result[i].CBM+"' >";
 					tbodyData += "<input type='hidden' class='tr_weight' value='"+result[i].WEIGHT+"' >";
 					tbodyData += "<input type='hidden' class='tr_cost' value='"+result[i].COST+"' >";
@@ -631,6 +734,10 @@ input[type=checkbox]{
 					tbodyData += "<input type='hidden' name='REC_NM' value='"+result[i].REC_NM+"' >";
 					tbodyData += "<input type='hidden' name='REC_PHONE' value='"+result[i].REC_PHONE+"' >";
 					tbodyData += "<input type='hidden' name='REC_TARGET' value='"+result[i].REC_TARGET+"' >";
+					tbodyData += "<input type='hidden' name='REC_TARGET2' value='"+result[i].REC_TARGET2+"' >";
+					tbodyData += "<input type='hidden' name='REC_ADDR' value='"+result[i].REC_ADDR+"' >";
+					tbodyData += "<input type='hidden' name='REC_ADDR2' value='"+result[i].REC_ADDR2+"' >";
+					tbodyData += "<input type='hidden' name='REC_HOU' value='"+result[i].REC_HOU+"' >";
 					tbodyData += "<input type='hidden' name='OUT_DAY' value='"+result[i].OUT_DAY+"' >";
 					tbodyData += "<input type='hidden' name='REC_NATION' value='"+result[i].REC_NATION+"' >";
 					
@@ -639,6 +746,13 @@ input[type=checkbox]{
 
 				$("#Delivery_Table > tbody").append(tbodyData);
 				cbmBox();
+				
+				if($("#S_Pickup :selected").val() == "0" ){
+					$("#deadline_open").show();
+				}
+				else{
+					$("#deadline_open").hide();
+				}
             }
 		})
 	}

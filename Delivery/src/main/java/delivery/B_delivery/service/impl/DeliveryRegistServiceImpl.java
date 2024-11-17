@@ -259,7 +259,7 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 					delRegistMapper.packetInfoRegist(inputMap);
 					}
 					else{
-						sjKey = sjkey2[0] + "#" + resunum + "-" + sjkey2[1] + "-" +(i+1);
+						sjKey = sjHead + (cnt+1)+ "#" + resunum + "-" + inputMap.get("outKey") + "-" +(i+1);
 						resunum++;
 						inputMap.put("sjKey", sjKey);
 						inputMap.put("width", widthArr[i]);

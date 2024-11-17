@@ -393,6 +393,7 @@
 // 	lok[2] =  lok2[1];
 	var EKS = '${Dlist.EK}';
 	var add = '${Dlist.REC_TARGET}';
+	var mchk = '${Dlist.MCHK}';
 	
 // 	var name = decodeURI(decodeURIComponent(lok[0]));
 
@@ -439,7 +440,7 @@
 	    if(add == '3'){
 	    	$("#target_3").show();
 	    }
-	    if(add != '' && add != 'null' && add != '0'){
+	    if(add != '' && add != 'null' && mchk == 'Y'){
 			$("#recTarget").val(add);
 	    	$(".savebutton").remove();	
 	    	$(".kakaotalkbutton").css("display","flex");	
