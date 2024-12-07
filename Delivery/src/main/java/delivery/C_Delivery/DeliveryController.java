@@ -99,6 +99,19 @@ public class DeliveryController {
 		return jsonStr;
 	}
 
+	/* 배송신청 데이터 */
+	@RequestMapping(value = "/Delivery_Select_A2.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String Delivery_Select_A2(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		HashMap<String, String> DeliveryList = DeliveryService.Delivery_Search_A(inputMap);
+		System.out.println(DeliveryList);
+
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr = mapper.writeValueAsString(DeliveryList);
+		return jsonStr;
+	}
 	/* 배송신청 상세데이터 */
 	@RequestMapping(value = "/Delivery_Select_D.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody

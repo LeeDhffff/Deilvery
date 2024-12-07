@@ -441,6 +441,8 @@ public class ManagerController {
 		return LoginList;
 	}
 
+	
+
 	/* 출항일 파일 불러오기 (현재 사용여부 X) */
 	@RequestMapping(value = "/Out_Day_File_Select.do" , produces = "application/text; charset=utf-8")
 	@ResponseBody

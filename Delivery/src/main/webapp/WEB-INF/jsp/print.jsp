@@ -155,7 +155,7 @@
         	<div id="print_button_header">
 	        	<button class="printbutton" id="print_excel">엑셀로 받기</button>
 	        	<button class="printbutton" id="print_button">인쇄</button>
-	        	<div class="nextButton">
+	        	<div class="nextButton print_page">
 		        	<button class="printbuttonMove" id="print_before"><</button>
 		        	<h4 class="now_In_key"></h4>
 		        	<span class="now_num" style="display:none;">0</span>
@@ -363,23 +363,23 @@
 		
 		
 		$("#print_after").on("click",function(){
-			var nowinkey = $(".now_In_key").text();
-			var nownum = Number($(".now_num").text());
+			var nowinkey = $(".print_page > .now_In_key").text();
+			var nownum = Number($(".print_page > .now_num").text());
 			var length = in_keys.length;
 			if(nownum < length-1){
 				PrintPageLoad(in_keys[nownum + 1]);
-				$(".now_num").text(nownum + 1)
-				$(".now_In_key").text(in_keys[nownum + 1]);
+				$(".print_page > .now_num").text(nownum + 1)
+				$(".print_page > .now_In_key").text(in_keys[nownum + 1]);
 			}
 		})
 		$("#print_before").on("click",function(){
-			var nowinkey = $(".now_In_key").text();
-			var nownum = Number($(".now_num").text());
+			var nowinkey = $(".print_page > .now_In_key").text();
+			var nownum = Number($(".print_page > .now_num").text());
 			var length = in_keys.length;
 			if(nownum > 0){
 				PrintPageLoad(in_keys[nownum - 1]);
-				$(".now_num").text(nownum - 1);
-				$(".now_In_key").text(in_keys[nownum - 1]);
+				$(".print_page > .now_num").text(nownum - 1);
+				$(".print_page > .now_In_key").text(in_keys[nownum - 1]);
 			}
 		})
 		

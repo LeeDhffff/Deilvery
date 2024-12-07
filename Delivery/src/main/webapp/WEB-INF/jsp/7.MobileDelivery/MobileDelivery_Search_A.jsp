@@ -598,13 +598,13 @@
 
 				$(".table").empty();
 				var tbodyData2 = "";
-
+				console.log(result);
 				for(let i=0; i<result.length; i++ ){
 					var number = 0;
 					
 					tbodyData2 += '<div class="tableCon">';
-					tbodyData2 += '<h3 class="date"><a href="#">W*H*L('+result[i].WIDTH+'cm*'+result[i].HEIGHT+'cm*'+result[i].LENGTH+'cm)/무게'+result[i].WEIGHT+'kg</a></h3>';
-					tbodyData2 += '<h3 class="con"><a href="#">예상비용 : <span class="date">'+result[i].COST+'$</span></a></h3>';
+					tbodyData2 += '<h3 class="date"><a href="#">W*H*L('+result[i].WIDTH+'cm*'+result[i].HEIGHT+'cm*'+result[i].LENGTH+'cm) / 무게'+result[i].WEIGHT+'kg / 적용할인율 : '+result[i].USE_DISCOUNT+'%</a></h3>';
+					tbodyData2 += '<h3 class="con"><a href="#">예상비용 : <span class="date">'+result[i].COST_TOTAL+'$</span></a></h3>';
 					tbodyData2 += '</div>';
 				}
 

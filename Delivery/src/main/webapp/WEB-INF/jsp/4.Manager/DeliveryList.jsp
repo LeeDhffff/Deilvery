@@ -169,6 +169,9 @@ input[type=checkbox]{
 .target_zero2{
 	background: #d5c7ff;
 }
+.target_complete{
+	background: #8ea0ff;
+}
 
 .laoswrap{
 	text-align: right;
@@ -226,6 +229,7 @@ input[type=checkbox]{
     <div class="container">
 		<jsp:include page="../common.jsp"></jsp:include>
 		<jsp:include page="../print.jsp"></jsp:include>
+		<jsp:include page="../receipt.jsp"></jsp:include>
         <section>
             <div class="sectionContainer">
                 <h1 class="sectionTitle">
@@ -400,6 +404,14 @@ input[type=checkbox]{
 		$(".bill").on("click",function(){
 // 			startLoading(Excelpopup());
 			Excelpopup();
+
+// 			stopLoading();
+		})
+		
+		/* 영수증페이지 열기(팝업) */
+		$(".bill2").on("click",function(){
+// 			startLoading(Excelpopup());
+			Receiptpopup();
 
 // 			stopLoading();
 		})
@@ -702,9 +714,13 @@ input[type=checkbox]{
 						if(result[i].REC_TARGET2 == '0'){
 							tbodyData += "<tr class='tr"+i+" target_zero' cnum = '"+i+"''>";		
 						}
-						else{
-							tbodyData += "<tr class='tr"+i+" target_zero2' cnum = '"+i+"''>";		
+						else if(result[i].REC_TARGET2 > '0'){
+								tbodyData += "<tr class='tr"+i+" target_zero2' cnum = '"+i+"''>";		
 						}
+					}
+					else if(result[i].COMPLETE > 0){
+						tbodyData += "<tr class='tr"+i+" target_complete' cnum = '"+i+"''>";
+					
 					}
 					else{
 						tbodyData += "<tr class='tr"+i+"' cnum = '"+i+"''>";
@@ -945,8 +961,8 @@ input[type=checkbox]{
 		
 			if(checkYes != 0){
 				PrintPageLoad(StartIn_key);
-				$(".now_In_key").text(StartIn_key);
-				$(".now_num").text(0);
+				$(".print_page > .now_In_key").text(StartIn_key);
+				$(".print_page > .now_num").text(0);
 				
 				if(checkNot > 0){
 					alert(checkNot + "건의 배송건은 박스가 등록되지 않아 창에 나타나지 않습니다.")
@@ -958,6 +974,108 @@ input[type=checkbox]{
 			}
 		}
 // 		stopLoading();
+	}
+	function Receiptpopup(){
+
+		if($(".List_Check.sub:checked").length <= 0){	
+			alert("출력할 항목을 선택해주세요.")
+		}
+		else{
+			A_in_keys = [];
+			A_table = [];
+			A_table_Detail = [];
+			var StartIn_key = "";
+			var checkNot = 0;
+			var checkYes = 0;
+			for(let prt = 0; prt < $(".List_Check.sub:checked").length; prt++){
+				
+				var deliverydata = {
+						MEM_ID : uid,
+						IN_KEY : $($(".List_Check.sub:checked")[prt]).parents("tr").find(".in_key").val(),
+				};
+
+				$.ajax({
+					type: "POST",
+					url : "./Delivery_Select_A2.do",
+					data: deliverydata,
+					async: false,
+		            success: function(datas){
+						$.ajax({
+							type: "POST",
+							url : "./Delivery_Select_D.do",
+							data: deliverydata,
+							async: false,
+				            success: function(datas2){
+								var A_result = JSON.parse(datas);
+								var D_result = JSON.parse(datas2);
+								var details = [];
+								var ek = {};
+								var dk = [];
+								console.log(prt, A_result ,D_result)
+								if(D_result.length > 0 && A_result.BOX_COUNT > 0){
+									for(let ds= 0; ds< D_result.length; ds++){
+										var dk_data = {
+											WIDTH :	 D_result[ds].WIDTH,
+											HEIGHT : D_result[ds].HEIGHT,
+											LENGTH : D_result[ds].LENGTH,
+											WEIGHT : D_result[ds].WEIGHT,
+											USE_DISCOUNT :	D_result[ds].USE_DISCOUNT,
+											COST_TOTAL :	D_result[ds].COST_TOTAL
+										}
+										dk.push(dk_data);
+									}
+									A_table_Detail[A_result.IN_KEY] = dk;
+									
+									ek = {
+										ARR_DAY 	: A_result.ARR_DAY,
+										EK 			: A_result.EK,
+										REC_NM 		: A_result.REC_NM,
+										BOX_COUNT 	: A_result.BOX_COUNT,
+										COST 		: A_result.COST,
+										DISCOUNT 	: A_result.DISCOUNT,
+										DIS_COST1 	: A_result.DIS_COST1,
+										FIRST_COST 	: A_result.FIRST_COST,
+										FIRST_DISCOUNT : A_result.FIRST_DISCOUNT,
+										DIS_COST2 	: A_result.DIS_COST2,
+										TOTAL_COST 	: A_result.TOTAL_COST
+									};
+									
+									A_table[A_result.IN_KEY] = ek;
+									A_in_keys.push(A_result.IN_KEY);
+									
+
+									if(StartIn_key == ""){
+										StartIn_key = A_result.IN_KEY;
+									}
+									checkYes++;
+								}
+								else{
+									checkNot++;
+								}
+									
+								
+				            }
+						});
+		            }
+				});
+			}
+			
+			if(checkYes != 0){
+				PrintPageLoad2(StartIn_key);
+// 				PrintPageLoadAll();
+				$(".receipt_page > .now_In_key").text(StartIn_key);
+				$(".receipt_page > .now_num").text(0);
+				
+				if(checkNot > 0){
+					alert(checkNot + "건의 배송건은 박스가 등록되지 않아 창에 나타나지 않습니다.")
+				}
+				$("#receipt_grayback").show();
+			}
+			else{
+				alert("선택하신 " + checkNot + "건의 배송건은 박스가 등록되지 않아 엑셀 출력이 불가합니다.")
+			}
+		}
+		
 	}
 	
 	function oninputPhone(target) {

@@ -9,7 +9,8 @@
 				#{TOTALCOST},
 				#{ARR_DAY},
 				#{M_LEVEL},
-				#{USE_DAY}
+				#{USE_DAY},
+				#{USE_DAY_NUM}
 		) }
 	</select>
 	

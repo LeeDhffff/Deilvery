@@ -405,4 +405,14 @@ public class DeliveryRegistController {
 		
 	}
 
+	/*출항일 수정 및 삭제하기 추가자 : 이동헌*/
+
+	@RequestMapping(value = "/discount_set.do" , produces = "application/text; charset=utf-8")
+	@ResponseBody
+	public String discount_set(@RequestParam HashMap<String, Object> inputMap, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("inputMap" + inputMap);
+		String LoginList = delRegistService.discount_set(inputMap);
+		return LoginList;
+	}
 }

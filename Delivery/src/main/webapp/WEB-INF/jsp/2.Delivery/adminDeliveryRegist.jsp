@@ -998,6 +998,8 @@
    	   	
    	
    	/* qrCode 생성 함수 (JANG) */
+   	//QRCode.CorrectLevel은 L, M, Q ,H 로 나뉜다.
+   	//H로 갈수록 오류복원의 효율이 증가하지만, 데이터 용량이 증가한다.
    	function qrCreate(id, txt){ 
    		var qrcode = new QRCode(id, {
    		    text: txt,

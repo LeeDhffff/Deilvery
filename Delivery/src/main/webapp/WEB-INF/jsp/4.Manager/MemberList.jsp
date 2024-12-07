@@ -180,7 +180,7 @@
 		width:500px;
 	}
 	#Alldiscount_open{
-		width: 150px;
+		width: 60%;
 	    height: 40px;
 	    border-radius: 3px;
 	    border: 1px solid #E88100;
@@ -215,6 +215,21 @@
 	    display: block;
 	    height: 10px;
 	    border-bottom: 3px dotted #fd6d6d;
+	}
+	.input_two{
+		display: flex;
+		justify-content: space-between;
+	}
+	.input_two > .input_two_in > input{
+		width: 45% !important;
+	}
+	.input_two_in{
+		display: flex;    
+		width: 50%;
+	}
+	.input_two_in > span{
+		line-height: 50px;
+    	margin-left: 3px;
 	}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -405,7 +420,11 @@
                             <div class="inputWrap">
 	                            <input type="text" class="search" id="chk_useDay" name="useDay" placeholder="휴면 고객 검색 기준일">
                             </div>
-                            <div class="inputWrap">
+                            <div class="inputWrap input_two">
+                            	<div class="input_two_in">
+	                            	<input type="number" class="search" id="chk_useday_num" name="useday_num" value="30" placeholder="휴면 기준 일">
+                            		<span>일</span>
+                            	</div>
                             	<button id="Alldiscount_open">전체 할인율 편집</button>
                             </div>
                         </div>
@@ -415,7 +434,7 @@
                         <a href="#">고객리스트</a>     
                         <a class="dot_line" href="#">
                         	<hr class="dot_line_span"/>
-                        	<span class="dot_line_txt">:휴면고객(오늘기준)</span>
+                        	<span class="dot_line_txt">:휴면고객</span>
                         </a>
                         
                         <button class="create">
@@ -747,7 +766,9 @@
 					TOTALCOST : $("#chk_cost option:selected").val(),
 					ARR_DAY : $("#chk_arrDay option:selected").val(),
 					M_LEVEL : $("#chk_level option:selected").val(),
-					USE_DAY : $("#chk_useDay").val()
+					USE_DAY : $("#chk_useDay").val(),
+					USE_DAY_NUM : $("input[name='useday_num']").val() != '' ? $("input[name='useday_num']").val()
+								   : 0
 			};
 			$.ajax({
 				type: "POST",
