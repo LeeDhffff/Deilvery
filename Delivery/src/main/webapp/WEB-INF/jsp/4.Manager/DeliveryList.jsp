@@ -643,12 +643,68 @@ input[type=checkbox]{
 			var REC_NM = $(this).parents("tr").find("input[name='REC_NM']").val();
 			var REC_PHONE = $(this).parents("tr").find("input[name='REC_PHONE']").val();
 			var OUT_DAY = $(this).parents("tr").find("input[name='OUT_DAY']").val();
+			var EK1 = $(this).parents("tr").find("input[name='EK1']").val();
+			var REC_TARGET = $(this).parents("tr").find("input[name='REC_TARGET']").val();
+			var REC_ADDR = $(this).parents("tr").find("input[name='REC_ADDR']").val();
+			var REC_HOU = $(this).parents("tr").find("input[name='REC_HOU']").val();
+			var nc = $(this).parents("tr").find(".in_key").val();
+			var nation = $(this).parents("tr").find("input[name='REC_NATION']").val();
+			var link = "";
 			
-			var copyString = "배송번호 : " + IK + "\n\n";
-			copyString += "접수번호 : " + EK + "\n\n";
-			copyString += "수령인 : " + REC_NM + "\n\n";
-			copyString += "전화번호 : " + REC_PHONE + "\n\n";
-			copyString += "마감일 : " + OUT_DAY + "\n\n";
+			if(window.location.host == 'localhost:8080'){
+				var laotxt = "";
+				if($("#laos").prop("checked") == true){
+					laotxt = (nation == "K") ? "lao/"
+							 : "";
+				}
+				else{
+					laotxt = (nation == "L") ? "lao/"
+							 : "";
+				}
+				
+				link = "localhost:8080/Delivery/"+laotxt+"Mobile_Delivery_Search_A.do?ik="+nc;
+			}
+			else if(window.location.host == 'ek-logis.com'){
+
+				var laotxt = "";
+				if($("#laos").prop("checked") == true){
+					laotxt = (nation == "K") ? "lao/"
+							 : "";
+				}
+				else{
+					laotxt = (nation == "L") ? "lao/"
+							 : "";
+				}
+				link = "ek-logis.com/"+laotxt+"Mobile_Delivery_Search_A.do?ik="+nc;
+			}
+
+// 			▪안녕하세요, (해당 마감일에 EK1번 수량인 이름고정)고객님 택배가 “한국본사”로 접수되었습니다.
+
+// 			▪접수번호 : (#EK2)_접수번호
+
+// 			▪문의전화 : 020-5553-3327
+
+// 			▪👇아래링크를 통해 세부내역 조회 및 수령지 접수 부탁드립니다.
+
+// 			#------------링크복사------------#
+
+// 			▪수령지 미신청시 본사 수령으로 자동 접수됩니다.
+
+// 			▪이용해 주셔서 감사합니다.
+			var copyString = "[EK물류접수안내]\n\n"; 
+			copyString += "▪안녕하세요, "+EK1+"고객님 택배가 “"+REC_TARGET+"”로 접수되었습니다.\n\n";
+			copyString += "▪접수번호 : (#"+EK+")_"+IK+"\n\n";
+			copyString += "▪문의전화 : 020-5553-3327\n\n";
+			copyString += "▪👇아래링크를 통해 세부내역 조회 및 수령지 접수 부탁드립니다.\n\n";
+			copyString += link + "\n\n";
+			copyString += "▪수령지 미신청시 본사 수령으로 자동 접수됩니다.\n\n";
+			copyString += "▪이용해 주셔서 감사합니다.";
+			
+// 			copyString += "배송번호 : " + IK + "\n\n";
+// 			copyString += "접수번호 : " + EK + "\n\n";
+// 			copyString += "수령인 : " + REC_NM + "\n\n";
+// 			copyString += "전화번호 : " + REC_PHONE + "\n\n";
+// 			copyString += "마감일 : " + OUT_DAY + "\n\n";
 			
 
 			$("#copy_link2").val(copyString);
@@ -756,6 +812,7 @@ input[type=checkbox]{
 					tbodyData += "<input type='hidden' name='REC_HOU' value='"+result[i].REC_HOU+"' >";
 					tbodyData += "<input type='hidden' name='OUT_DAY' value='"+result[i].OUT_DAY+"' >";
 					tbodyData += "<input type='hidden' name='REC_NATION' value='"+result[i].REC_NATION+"' >";
+					tbodyData += "<input type='hidden' name='EK1' value='"+result[i].EK1+"' >";
 					
 					tbodyData += "</tr>";
 				}

@@ -617,7 +617,13 @@
     			alert("신청일자를 선택해주세요.");
     			$("#creDay").focus();
     			regist = false;
-    		}else if($("#cost").val() == "" || $("#cost").val() == null){
+    		}
+    		else if($("#recTarget").val() == "" || $("#recTarget").val() == null){
+    			alert("픽업지를 선택해주세요.");
+    			$("#recTarget").focus();
+    			regist = false;
+    		}
+    		else if($("#cost").val() == "" || $("#cost").val() == null){
     			alert("예상 물류 비용을 입력해주세요.");
     			$("#cost").focus();
     			regist = false;
@@ -914,10 +920,16 @@
     								
     								console.log(memberList[i].memId,row.cells[0].data)
     								if(memberList[i].memId == row.cells[0].data){
-    	    							$("#recTarget").val(memberList[i].memTg).trigger("change");
+    									if(memberList[i].memTg != null && memberList[i].memTg != ""){
+        	    							$("#recTarget").val(memberList[i].memTg).trigger("change");	
+    									}
 //     	    							$("#recTarget");
-    	    							$("#recAddr").val(memberList[i].memAd);
-    	    							$("#recHou").val(memberList[i].memHu);
+    									if(memberList[i].memAd != null && memberList[i].memAd != ""){
+        	    							$("#recAddr").val(memberList[i].memAd);
+    									}
+    									if(memberList[i].memHu != null && memberList[i].memHu != ""){
+        	    							$("#recHou").val(memberList[i].memHu);
+    									}
     								}
     							}
     							
