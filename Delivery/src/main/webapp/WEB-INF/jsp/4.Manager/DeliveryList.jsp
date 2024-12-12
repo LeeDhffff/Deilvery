@@ -203,6 +203,33 @@ input[type=checkbox]{
     background: white;
     color: black;
 }
+.a_phone{
+	cursor: pointer;
+}
+.a_phone:hover{
+	color: grey;
+}
+.alert_copy{
+	width: 500px;
+    height: 80px;
+    background-color: rgba(255, 255, 255, .9);
+    border: 1px solid var(--input-color);
+    border-radius: 5px;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+	display: none;
+}
+.alert_copy > span{
+	position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 18px;
+}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -348,8 +375,9 @@ input[type=checkbox]{
         </section>
     </div>
     
-   	
-   	
+   	<div class="alert_copy">
+   		<span>알람입니다.</span>
+   	</div>
 </body>
 
 <script type="text/javascript">
@@ -632,7 +660,8 @@ input[type=checkbox]{
 				document.getElementById("copy_link").select();
 				document.execCommand("copy");
 			}
-			alert("클립보드로 해당 항목의 링크가 복사되었습니다.");
+// 			alert("클립보드로 해당 항목의 링크가 복사되었습니다.");
+			alertcopy("클립보드로 해당 항목의 <span style='font-weight:bold;'>링크</span>가 복사되었습니다.");
 			$("#copy_link").hide();
 		})
 		
@@ -692,8 +721,8 @@ input[type=checkbox]{
 
 // 			▪이용해 주셔서 감사합니다.
 			var copyString = "[EK물류접수안내]\n\n"; 
-			copyString += "▪안녕하세요, "+EK1+"고객님 택배가 “"+REC_TARGET+"”로 접수되었습니다.\n\n";
-			copyString += "▪접수번호 : (#"+EK+")_"+IK+"\n\n";
+			copyString += "▪안녕하세요, "+EK1+", 고객님 택배가 “한국본사”로 접수되었습니다.\n\n";
+			copyString += "▪접수번호 : "+EK+" \n\n";
 			copyString += "▪문의전화 : 020-5553-3327\n\n";
 			copyString += "▪👇아래링크를 통해 세부내역 조회 및 수령지 접수 부탁드립니다.\n\n";
 			copyString += link + "\n\n";
@@ -707,12 +736,28 @@ input[type=checkbox]{
 // 			copyString += "마감일 : " + OUT_DAY + "\n\n";
 			
 
+
+
+			// 위에 양식그대로 라오스어로 번역했는데 요거도 번역해서 복사 가능할까요???
+			// var copyString = "[ແຈ້ງລູກຄ້າຈາກEK]\n\n"; 
+			// copyString += "▪ສະບາຍດີ, ເຄື່ອງລູກຄ້າທີ່ສົ່ງມາ"+EK1+" ໄດ້ສົ່ງຮອດ ”ສາງເກົາຫຼີ” ຂອງພວກເຮົາເປັນທີ່ຮຽບຮ້ອຍ";
+			// copyString += "▪ລະຫັດເຄື່ອງ : "+EK+" \n\n";
+			// copyString += "▪ສອບຖາມຂໍ້ມູນ : 020-5553-3327\n\n";
+			// copyString += "▪👇ກະລຸນາຕິດຕາມການຈັດສົ່ງເຄື່ອງ ແລະ ເລືອກສະຖານທີ່ຮັບເຄື່ອງຜ່ານລິ້ງລຸ່ມນີ້ດ້ວຍ.\n\n";
+			// copyString += link + "\n\n";
+			// copyString += "▪ຂໍຂອບໃຈທີ່ໃຊ້ບໍລິການຂອງພວກເຮົາ🙏🙏";
+
+
+
+			
+
 			$("#copy_link2").val(copyString);
 			document.getElementById("copy_link2").select();
 			document.execCommand("copy");
 			
 
-			alert("클립보드로 해당 항목의 기본정보가 복사되었습니다.");
+// 			alert("클립보드로 해당 항목의 기본정보가 복사되었습니다.");
+			alertcopy("클립보드로 해당 항목의 <span style='font-weight:bold;'>기본정보</span>가 복사되었습니다.");
 			$("#copy_link2").hide();
 		})
 		
@@ -739,9 +784,24 @@ input[type=checkbox]{
 			document.execCommand("copy");
 			
 
-			alert("클립보드로 해당 항목의 주소정보가 복사되었습니다.");
+// 			alert("클립보드로 해당 항목의 주소정보가 복사되었습니다.");
+			alertcopy("클립보드로 해당 항목의 <span style='font-weight:bold;'>주소정보</span>가 복사되었습니다.");
 			$("#copy_link2").hide();
 		})
+		
+		$(document).on("click",".a_phone",function(){
+			$("#copy_link").show();
+			var REC_PHONE = $(this).parents("tr").find("input[name='REC_PHONE']").val();
+			
+
+			$("#copy_link").val(REC_PHONE);
+			document.getElementById("copy_link").select();
+			document.execCommand("copy");
+		
+// 			alert("클립보드로 해당 항목의 전화번호가 복사되었습니다.");
+			alertcopy("클립보드로 해당 항목의 <span style='font-weight:bold;'>전화번호</span>가 복사되었습니다.");
+			$("#copy_link").hide();
+		});
 	})
 	
 	
@@ -767,7 +827,7 @@ input[type=checkbox]{
 				for(let i=0; i<result.length; i++ ){
 					
 					if(result[i].MCHK == 'N'){
-						if(result[i].REC_TARGET2 == '0'){
+						if(result[i].REC_TARGET2 == '0' || result[i].REC_TARGET2 == null){
 							tbodyData += "<tr class='tr"+i+" target_zero' cnum = '"+i+"''>";		
 						}
 						else if(result[i].REC_TARGET2 > '0'){
@@ -785,7 +845,7 @@ input[type=checkbox]{
 					tbodyData += "<td class='tdek'>"+result[i].EK+"</td>";
 					tbodyData += "<td>"+result[i].COUNT+"</td>";
 					tbodyData += "<td>"+result[i].REC_NM+"</td>";
-					tbodyData += "<td>"+result[i].REC_PHONE+"</td>";
+					tbodyData += "<td><span class='a_phone' href='#'>"+result[i].REC_PHONE+"</span></td>";
 					tbodyData += "<td>"+result[i].REC_TARGET+"</td>";
 					tbodyData += "<td><input type='hidden' class='in_key' value='"+result[i].IN_KEY+"'>"+result[i].OUT_DAY+"</td>";
 					// tbodyData += "<td>"+result[i].NOW_DELIVERY+"</td>";
@@ -1158,6 +1218,16 @@ input[type=checkbox]{
 			ChangeSearch();
 		}
 	}
+	
+	function alertcopy(msg){
+
+		$(".alert_copy > span").html(msg);
+		$(".alert_copy").fadeIn(1000,function(){
+			setTimeout(function () { $(".alert_copy").fadeOut(1000);},2500);
+			
+		});
+	}
+	
 	
 	function outdaybox(){
 		var deliverydata = {

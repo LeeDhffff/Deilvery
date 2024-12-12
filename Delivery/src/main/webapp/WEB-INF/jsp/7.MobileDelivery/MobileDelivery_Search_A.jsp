@@ -14,6 +14,8 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
+
+	
 	.inputsection{
 		display:flex;
 		margin: 10px 30px 10px 30px;
@@ -163,9 +165,21 @@
 		display: none !important;
 	}
 
+	.ek1 > .infoWrap > .infoCon.discount > h1 {
+		display: none !important;
+	}
+	.ek1 > .infoWrap > .infoCon.discount > h5 {
+		display: none !important;
+	}
+
+	.ek1 > .infoWrap > .infoCon.discount {
+		display: none !important;
+	}
+
 	.inputsection.ek1 {
 		display: none !important;
 	}
+
 
 	.select_alert.ek1{
 		display: none !important;
@@ -176,8 +190,17 @@
 		margin-top: 5px;
 		width: 100%;
 		text-align: center;
-		font-size: 25px;
+		font-size: 38px;
 		font-weight: bold;
+	}
+
+	.ek1 > .infoWrap > .infoCon.people {
+		padding: 30px 2px 0;
+		
+	}
+
+	.select_alert.ek1{
+		display: none !important;
 	}
 
 
@@ -265,8 +288,8 @@
 <!-- 				<div class="infoCon indate"> -->
 <!-- 					<h5 class="subTxt"><a href="#">접수일</a></h5> -->
 <!-- 					<h5 class="subTxt"><a href="#">ເຄື່ອງເຂົ້າສາງ</a></h5> -->
-<%-- 					<h1 class="subTxt"><a href="#">${Dlist.CRE_DAY}</a></h1> --%>
-<!-- 				</div> -->
+<!-- 					<h1 class="subTxt"><a href="#">${Dlist.CRE_DAY}</a></h1> --%>
+ 				</div> -->
 				<div class="infoCon people"> 
 					<h5 class="subTxt"><a href="#">수령인</a></h5>
 					<!-- <h5 class="subTxt"><a href="#">ຊື່ຜູ້ຮັບເຄື່ອງ</a></h5> -->
@@ -293,6 +316,7 @@
 					<!-- <h5 class="subTxt"><a href="#">ຄ່າຂົນ(ໂດຍປະມານ)</a></h5> -->
 					<h1 class="subTxt"><a href="#">$${Dlist.DIS_COST1}</a></h1>
 				</div><br/>
+				<c:if test="${Dlist.FIRST_COST != '0'}" >
 				<div class="infoCon discount">
 					<h5 class="subTxt"><a href="#"><b>특별취급 물건</b></a></h5>
 				</div>
@@ -311,6 +335,7 @@
 					<!-- <h5 class="subTxt"><a href="#">ຄ່າຂົນ(ໂດຍປະມານ)</a></h5> -->
 					<h1 class="subTxt"><a href="#">$${Dlist.DIS_COST2}</a></h1>
 				</div><br/>
+				</c:if>
 				<div class="infoCon discount">
 					<h5 class="subTxt"><a href="#">최종비용</a></h5>
 					<!-- <h5 class="subTxt"><a href="#">ຄ່າຂົນ(ໂດຍປະມານ)</a></h5> -->
@@ -326,7 +351,7 @@
         	<h5 class="inputName"><a href="#">픽업지 선택</a></h5>
 			<!-- <h5 class="inputName"><a href="#">ເລືອກສະຖານທີ່ຮັບເຄື່ອງ</a></h5> -->
 	        <select name="recTarget" id="recTarget">
-		        <option value="0">픽업지 선택</option>
+				<option value="0">픽업지 선택</option>
 	            <option value="1">본사</option>
 	            <option value="2">하우 창고</option>
 	            <option value="3">택배 서비스</option>

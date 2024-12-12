@@ -89,7 +89,12 @@ public class DeliveryServiceImpl implements DeliveryService {
 			inputMap.put("IN_KEY",inkeys[i]);
 		    inputMap.put("TARGET",targets[i]);
 		    inputMap.put("ADDR",addrs[i]);
-		    inputMap.put("HOU",hous[i]);
+		    if(hous.length > 0) {
+			    inputMap.put("HOU",hous[i]);
+		    }
+		    else {
+		        inputMap.put("HOU","");	
+		    }
 			String vars = DeliveryMapper.Pickup_Insert(inputMap);
 		}
 		

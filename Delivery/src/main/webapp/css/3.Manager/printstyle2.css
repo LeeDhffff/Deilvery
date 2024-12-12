@@ -142,7 +142,8 @@ section
 .infoWrap 
 {
     border: 1px solid var(--input-color);
-	height:630px;
+/* 	height:630px; */
+	height:828px;
     margin-bottom: 40px; 
 }
 
@@ -308,4 +309,24 @@ footer button
 	    border: 1px solid #dadada;
 	    vertical-align : top;
 	}
+
+	.dateNotice.rec{
+		background-color: white;
+		border: 3px solid black;
+	}
+	.dateNotice.rec > .subTxt > a{color: black !important;}
+	.dateNotice.rec > .dateTxt > a{color: black !important;}
+
+	.infoCon > h5{
+		font-size: 22px;
+	}
+	.infoCon > h1{
+		font-size: 22px;
+	}
+	.tableCon{padding: 4px 4px 70px 10px}
+	.tableCon > h3{font-size: 22px;}
+	
+	.infoCon .subTxt {
+    	width: 200px;
+    }
 }

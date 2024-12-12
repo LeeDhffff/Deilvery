@@ -249,26 +249,71 @@
 			</a>
 
 			<div class="infoWrap">
-					
 				<div class="dateNotice">
 					<h5 class="subTxt"><a href="#">ປິດຮັບເຄື່ອງ</a></h5>
+					<!-- <h5 class="subTxt"><a href="#">ປິດຮັບເຄື່ອງ</a></h5> -->
 					<h1 class="dateTxt"><a href="#">${Dlist.ARR_DAY}</a></h1>
 				</div>	
 				<div class="infoCon indate eks">
 					<h5 class="subTxt"><a href="#">ລະຫັດເຄື່ອງ</a></h5>
+					<!-- <h5 class="subTxt"><a href="#">ລະຫັດເຄື່ອງ</a></h5> -->
 					<h1 class="subTxt"><a href="#">${Dlist.EK}</a></h1>
 				</div>
-				<div class="infoCon indate">
-					<h5 class="subTxt"><a href="#">ເຄື່ອງເຂົ້າສາງ</a></h5>
-					<h1 class="subTxt"><a href="#">${Dlist.CRE_DAY}</a></h1>
-				</div>
+<!-- 				<div class="infoCon indate"> -->
+<!-- 					<h5 class="subTxt"><a href="#">접수일</a></h5> -->
+<!-- 					<h5 class="subTxt"><a href="#">ເຄື່ອງເຂົ້າສາງ</a></h5> -->
+<!-- 					<h1 class="subTxt"><a href="#">${Dlist.CRE_DAY}</a></h1> --%>
+ 				</div> -->
 				<div class="infoCon people"> 
 					<h5 class="subTxt"><a href="#">ຊື່ຜູ້ຮັບເຄື່ອງ</a></h5>
+					<!-- <h5 class="subTxt"><a href="#">ຊື່ຜູ້ຮັບເຄື່ອງ</a></h5> -->
 					<h1 class="subTxt"><a href="#">${Dlist.REC_NM}</a></h1>
+				</div>
+				<div class="infoCon discount">
+					<h5 class="subTxt"><a href="#">박스수량</a></h5>
+					<!-- <h5 class="subTxt"><a href="#">ຄ່າຂົນ(ໂດຍປະມານ)</a></h5> -->
+					<h1 class="subTxt"><a href="#">${Dlist.BOX_COUNT}개</a></h1>
 				</div>
 				<div class="infoCon cost">
 					<h5 class="subTxt"><a href="#">ຄ່າຂົນສົ່ງ(ໂດຍປະມານ)</a></h5>
+					<!-- <h5 class="subTxt"><a href="#">ຄ່າຂົນ(ໂດຍປະມານ)</a></h5> -->
 					<h1 class="subTxt"><a href="#">$${Dlist.COST}</a></h1>
+				</div>
+				
+				<div class="infoCon discount">
+					<h5 class="subTxt"><a href="#">할인</a></h5>
+					<!-- <h5 class="subTxt"><a href="#">ຄ່າຂົນ(ໂດຍປະມານ)</a></h5> -->
+					<h1 class="subTxt"><a href="#">${Dlist.DISCOUNT}%</a></h1>
+				</div>
+				<div class="infoCon discount">
+					<h5 class="subTxt"><a href="#">할인적용비용</a></h5>
+					<!-- <h5 class="subTxt"><a href="#">ຄ່າຂົນ(ໂດຍປະມານ)</a></h5> -->
+					<h1 class="subTxt"><a href="#">$${Dlist.DIS_COST1}</a></h1>
+				</div><br/>
+				<c:if test="${Dlist.FIRST_COST != '0'}" >
+				<div class="infoCon discount">
+					<h5 class="subTxt"><a href="#"><b>특별취급 물건</b></a></h5>
+				</div>
+				<div class="infoCon discount">
+					<h5 class="subTxt"><a href="#">특별취급 물건 비용</a></h5>
+					<!-- <h5 class="subTxt"><a href="#">ຄ່າຂົນ(ໂດຍປະມານ)</a></h5> -->
+					<h1 class="subTxt"><a href="#">$${Dlist.FIRST_COST}</a></h1>
+				</div>
+				<div class="infoCon discount">
+					<h5 class="subTxt"><a href="#">우선적용할인</a></h5>
+					<!-- <h5 class="subTxt"><a href="#">ຄ່າຂົນ(ໂດຍປະມານ)</a></h5> -->
+					<h1 class="subTxt"><a href="#">${Dlist.FIRST_DISCOUNT}%</a></h1>
+				</div>
+				<div class="infoCon discount">
+					<h5 class="subTxt"><a href="#">할인적용 비용</a></h5>
+					<!-- <h5 class="subTxt"><a href="#">ຄ່າຂົນ(ໂດຍປະມານ)</a></h5> -->
+					<h1 class="subTxt"><a href="#">$${Dlist.DIS_COST2}</a></h1>
+				</div><br/>
+				</c:if>
+				<div class="infoCon discount">
+					<h5 class="subTxt"><a href="#">최종비용</a></h5>
+					<!-- <h5 class="subTxt"><a href="#">ຄ່າຂົນ(ໂດຍປະມານ)</a></h5> -->
+					<h1 class="subTxt"><a href="#">$${Dlist.TOTAL_COST}</a></h1>
 				</div>
 					<input type="hidden" class="T_IN_KEY" id="${IN_KEY}" value="${IN_KEY}">
 				<div class="infoCheck">ກວດລາຍລະອຽດເຄື່ອງ</div>
@@ -545,8 +590,8 @@
 					var number = 0;
 					
 					tbodyData2 += '<div class="tableCon">';
-					tbodyData2 += '<h3 class="date"><a href="#">W*H*L('+result[i].WIDTH+'cm*'+result[i].HEIGHT+'cm*'+result[i].LENGTH+'cm)/무게'+result[i].WEIGHT+'kg</a></h3>';
-					tbodyData2 += '<h3 class="con"><a href="#">예상비용 : <span class="date">'+result[i].COST+'$</span></a></h3>';
+					tbodyData2 += '<h3 class="date"><a href="#">W*H*L('+result[i].WIDTH+'cm*'+result[i].HEIGHT+'cm*'+result[i].LENGTH+'cm) / 무게'+result[i].WEIGHT+'kg / 적용할인율 : '+result[i].USE_DISCOUNT+'%</a></h3>';
+					tbodyData2 += '<h3 class="con"><a href="#">예상비용 : <span class="date">'+result[i].COST_TOTAL+'$</span></a></h3>';
 					tbodyData2 += '</div>';
 				}
 

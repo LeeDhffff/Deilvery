@@ -56,7 +56,7 @@
 		top : 50%;
 		left: 50%;
 		padding : 20px;
-		overflow-y: scroll;
+/*  		overflow-y: hidden;  */
 	}
 	.printbuttonMove:hover{
 	    background: #ff7272;
@@ -87,10 +87,11 @@
     	margin-top: 20px;
 	}
 	.infoWrap{
-		height:540px;
+		height:828px;
 	}
 	.sectionMainTitle{
-		margin-top:10px;
+		margin-top:30px;
+		font-size: 20px;
 	}
 	#receipt_print{
 		width: 130px;
@@ -132,13 +133,43 @@
 	}
 	.signiture_in{
 		width: 50%;
-	    height: 80px;
+	    height: 120px;
 	    text-align: center;
 	    font-size: 20px;
 	    font-weight: bold;
-	    border: 1px solid #dadada;
+	    border: 2px solid black;
 	    vertical-align : top;
 	}
+
+	.dateNotice.rec{
+		background-color: white;
+		border: 3px solid black;
+	}
+	.dateNotice.rec > .subTxt > a{color: black !important;}
+	.dateNotice.rec > .dateTxt > a{color: black !important;}
+
+	.infoCon > h5{
+		font-size: 22px;
+	}
+	.infoCon > h1{
+		font-size: 22px;
+	}
+	.tableCon{padding: 4px 4px 70px 10px}
+	.tableCon > h3{font-size: 22px;}
+	
+	.infoCon .subTxt {
+    	width: 200px;
+    }
+    .receipt_div{
+    	overflow-y: scroll;
+    	height: 90%;
+    }
+	/* .infoCon.indate.eks > h5{
+		font-size: 30px;
+	}
+	.infoCon.indate.eks > h1{
+		font-size: 30px;
+	} */
 </style>
 
 </head>
@@ -285,12 +316,12 @@
 		tbodyData1 += '<div class="infoWrap">';
 
 		tbodyData1 += '<table class="signiture">';
-		tbodyData1 += '		<tr><th class="signiture_in">고객용';
+		tbodyData1 += '		<tr><th class="signiture_in">고객용/라오스';
 		tbodyData1 += '		</th>';
-		tbodyData1 += '		<th class="signiture_in">직원';
+		tbodyData1 += '		<th class="signiture_in">직원/라오스';
 		tbodyData1 += '		</th></tr>';
 		tbodyData1 += '</table>';
-		tbodyData1 += '<div class="dateNotice">';
+		tbodyData1 += '<div class="dateNotice rec">';
 		tbodyData1 += '		<h5 class="subTxt"><a href="#">접수 마감일</a></h5>';
 		tbodyData1 += '		<h1 class="dateTxt"><a href="#" id="r_arr_day">'+A_table[A_in_keys[j]].ARR_DAY+'</a></h1>';
 		tbodyData1 += '	</div>	';
@@ -318,21 +349,23 @@
 		tbodyData1 += '		<h5 class="subTxt"><a href="#">할인적용비용</a></h5>';
 		tbodyData1 += '		<h1 class="subTxt"><a href="#" id="r_dis_cost1">$'+A_table[A_in_keys[j]].DIS_COST1+'</a></h1>';
 		tbodyData1 += '	</div><br/>';
-		tbodyData1 += '	<div class="infoCon discount">';
-		tbodyData1 += '		<h5 class="subTxt"><a href="#"><b>특별취급 물건</b></a></h5>';
-		tbodyData1 += '	</div>';
-		tbodyData1 += '	<div class="infoCon discount">';
-		tbodyData1 += '		<h5 class="subTxt"><a href="#">특별취급 물건 비용</a></h5>';
-		tbodyData1 += '		<h1 class="subTxt"><a href="#" id="r_first_cost">$'+A_table[A_in_keys[j]].FIRST_COST+'</a></h1>';
-		tbodyData1 += '	</div>';
-		tbodyData1 += '	<div class="infoCon discount">';
-		tbodyData1 += '		<h5 class="subTxt"><a href="#">우선적용할인</a></h5>';
-		tbodyData1 += '		<h1 class="subTxt"><a href="#" id="r_first_discount">'+A_table[A_in_keys[j]].FIRST_DISCOUNT+'%</a></h1>';
-		tbodyData1 += '	</div>';
-		tbodyData1 += '	<div class="infoCon discount">';
-		tbodyData1 += '		<h5 class="subTxt"><a href="#">할인적용 비용</a></h5>';
-		tbodyData1 += '		<h1 class="subTxt"><a href="#" id="r_dis_cost2">$'+A_table[A_in_keys[j]].DIS_COST2+'</a></h1>';
-		tbodyData1 += '	</div><br/>';
+		if(A_table[A_in_keys[j]].FIRST_COST > 0){
+			tbodyData1 += '	<div class="infoCon discount">';
+			tbodyData1 += '		<h5 class="subTxt"><a href="#"><b>특별취급 물건</b></a></h5>';
+			tbodyData1 += '	</div>';
+			tbodyData1 += '	<div class="infoCon discount">';
+			tbodyData1 += '		<h5 class="subTxt"><a href="#">특별취급 물건 비용</a></h5>';
+			tbodyData1 += '		<h1 class="subTxt"><a href="#" id="r_first_cost">$'+A_table[A_in_keys[j]].FIRST_COST+'</a></h1>';
+			tbodyData1 += '	</div>';
+			tbodyData1 += '	<div class="infoCon discount">';
+			tbodyData1 += '		<h5 class="subTxt"><a href="#">우선적용할인</a></h5>';
+			tbodyData1 += '		<h1 class="subTxt"><a href="#" id="r_first_discount">'+A_table[A_in_keys[j]].FIRST_DISCOUNT+'%</a></h1>';
+			tbodyData1 += '	</div>';
+			tbodyData1 += '	<div class="infoCon discount">';
+			tbodyData1 += '		<h5 class="subTxt"><a href="#">할인적용 비용</a></h5>';
+			tbodyData1 += '		<h1 class="subTxt"><a href="#" id="r_dis_cost2">$'+A_table[A_in_keys[j]].DIS_COST2+'</a></h1>';
+			tbodyData1 += '	</div><br/>';
+		}
 		tbodyData1 += '	<div class="infoCon discount">';
 		tbodyData1 += '		<h5 class="subTxt"><a href="#">최종비용</a></h5>';
 		tbodyData1 += '		<h1 class="subTxt"><a href="#" id="r_total_cost">$'+A_table[A_in_keys[j]].TOTAL_COST+'</a></h1>';
@@ -369,12 +402,12 @@
 		tbodyData1 += '<div class="infoWrap">';
 
 		tbodyData1 += '<table class="signiture">';
-		tbodyData1 += '		<tr><th class="signiture_in">고객용';
+		tbodyData1 += '		<tr><th class="signiture_in">고객용/라오스';
 		tbodyData1 += '		</th>';
-		tbodyData1 += '		<th class="signiture_in">직원';
+		tbodyData1 += '		<th class="signiture_in">직원/라오스';
 		tbodyData1 += '		</th></tr>';
 		tbodyData1 += '</table>';
-		tbodyData1 += '<div class="dateNotice">';
+		tbodyData1 += '<div class="dateNotice rec">';
 		tbodyData1 += '		<h5 class="subTxt"><a href="#">접수 마감일</a></h5>';
 		tbodyData1 += '		<h1 class="dateTxt"><a href="#" id="r_arr_day">'+A_table[in_key].ARR_DAY+'</a></h1>';
 		tbodyData1 += '	</div>	';
@@ -402,6 +435,7 @@
 		tbodyData1 += '		<h5 class="subTxt"><a href="#">할인적용비용</a></h5>';
 		tbodyData1 += '		<h1 class="subTxt"><a href="#" id="r_dis_cost1">$'+A_table[in_key].DIS_COST1+'</a></h1>';
 		tbodyData1 += '	</div><br/>';
+		if(A_table[in_key].FIRST_COST > 0){
 		tbodyData1 += '	<div class="infoCon discount">';
 		tbodyData1 += '		<h5 class="subTxt"><a href="#"><b>특별취급 물건</b></a></h5>';
 		tbodyData1 += '	</div>';
@@ -417,6 +451,7 @@
 		tbodyData1 += '		<h5 class="subTxt"><a href="#">할인적용 비용</a></h5>';
 		tbodyData1 += '		<h1 class="subTxt"><a href="#" id="r_dis_cost2">$'+A_table[in_key].DIS_COST2+'</a></h1>';
 		tbodyData1 += '	</div><br/>';
+		}
 		tbodyData1 += '	<div class="infoCon discount">';
 		tbodyData1 += '		<h5 class="subTxt"><a href="#">최종비용</a></h5>';
 		tbodyData1 += '		<h1 class="subTxt"><a href="#" id="r_total_cost">$'+A_table[in_key].TOTAL_COST+'</a></h1>';

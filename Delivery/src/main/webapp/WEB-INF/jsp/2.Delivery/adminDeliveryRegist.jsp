@@ -257,7 +257,7 @@
 		                    <div class="inputWrap">
 		                    	<h5 class="inputName"><a href="#">픽업지 선택<span>*</span></a></h5>
 		                        <select name="recTarget" id="recTarget">                        
-		                        	<option>픽업지를 선택해주세요.</option>
+<!-- 		                        	<option>픽업지를 선택해주세요.</option> -->
 		                        	<option value="0">고객 픽업지 미선택</option>
 		                        	<option value="1">본사</option>
 		                            <option value="2">하우 창고</option>
