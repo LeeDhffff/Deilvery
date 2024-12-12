@@ -231,6 +231,28 @@
 		line-height: 50px;
     	margin-left: 3px;
 	}
+	.paging{
+	    display: flex;
+	    width: 100%;
+	    justify-content: center;
+	    margin-top: 20px;
+	}
+	.paging > button{
+	    width: 30px;
+	    height: 30px;
+        margin: 0 5px 0 5px;
+	    background: white;
+	    border: 1px solid var(--main-color);
+	}
+	.paging > button:hover{
+		color:white;
+		background: var(--main-color);
+	}
+	.nowpage{
+		color:white;
+		background: var(--main-color) !important;
+		font-weight:bold;
+	}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -462,6 +484,9 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="paging">
+                        	<button value="1">1</button>
+                        </div>
                     </div> <!-- wrap -->
                 </div> <!-- conWrap -->
             </div> <!-- sectionContainer -->
@@ -476,7 +501,7 @@
 	var level = '<%=(String)session.getAttribute("SESSION_LEVEL")%>';
 	var auth = '${M_AUTH}';
 
-	console.log(level);
+	var now_page = 0;
  
 	$(document).on('ready',function(){
 
@@ -754,10 +779,34 @@
 		selectList();
 		
 		$(".search").on("change",function(){
+			now_page = 0;
 			selectList();
 		})
+		$(document).on("click",".pg", function(){
+			now_page = Number($(this).val());
+			selectList();
+		})
+		$(document).on("click",".front", function(){
+			if(now_page > 0){
+				now_page = now_page - 1;
+				selectList();
+			}
+		})
+		$(document).on("click",".back", function(){
+			if(now_page < $(".last").val()){
+				now_page = now_page + 1;
+				selectList();
+			}
+		})
+		$(document).on("click",".first", function(){
+				now_page = 0;
+				selectList();
+		})
+		$(document).on("click",".last", function(){
+			now_page = $(this).val();
+			selectList();
 	})
-	
+	})
 	/* 회원 리스트 불러오기 */
 	function selectList(){
 			var deliverydata = {
@@ -768,7 +817,8 @@
 					M_LEVEL : $("#chk_level option:selected").val(),
 					USE_DAY : $("#chk_useDay").val(),
 					USE_DAY_NUM : $("input[name='useday_num']").val() != '' ? $("input[name='useday_num']").val()
-								   : 0
+								   : 0,
+					PAGE: now_page
 			};
 			$.ajax({
 				type: "POST",
@@ -777,7 +827,8 @@
 				async: false,
 	            success: function(datas){
 					var result = JSON.parse(datas);
-
+					
+// 					console.log(result.length, );
 					$("#Member_Table > tbody").empty();
 					var tbodyData = "";
 
@@ -817,7 +868,42 @@
 					}
 
 					$("#Member_Table > tbody").append(tbodyData);
+					$(".paging").empty();
+
+					var pageData = "";
+					var buttonlength = (result[0].CNT % 10 == 0) ? Math.floor(result[0].CNT / 10)
+									:Math.floor(result[0].CNT / 10) + 1;
+
+					pageData += "<button class='first'><<</button>";
+					pageData += "<button class='front'><</button>";
 					
+					if(buttonlength < 5){
+						for(let i=1; i<=buttonlength; i++){
+							if(i-1 == now_page){
+								pageData += "<button class='pg nowpage' value='"+(i-1)+"'>"+i+"</button>";
+							}
+							else{
+								pageData += "<button class='pg' value='"+(i-1)+"'>"+i+"</button>";
+							}
+						}	
+					}
+					else{
+						var length = (now_page > 1 && now_page < buttonlength-2)? now_page - 1
+									:(now_page <= 1) ? 1
+									:(now_page >= buttonlength-2) ? buttonlength - 4
+									:1;
+						for(let i=length; i<=length+4; i++){
+							if(i-1 == now_page){
+								pageData += "<button class='pg nowpage' value='"+(i-1)+"'>"+i+"</button>";
+							}
+							else{
+								pageData += "<button class='pg' value='"+(i-1)+"'>"+i+"</button>";
+							}
+						}	
+					}
+					pageData += "<button class='back'>></button>";
+					pageData += "<button class='last' value='"+(buttonlength-1)+"'>>></button>";
+					$(".paging").append(pageData);
 	            }
 				
 			})	

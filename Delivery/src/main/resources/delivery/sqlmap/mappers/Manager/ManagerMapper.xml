@@ -10,7 +10,8 @@
 				#{ARR_DAY},
 				#{M_LEVEL},
 				#{USE_DAY},
-				#{USE_DAY_NUM}
+				#{USE_DAY_NUM},
+				#{PAGE}
 		) }
 	</select>
 	
