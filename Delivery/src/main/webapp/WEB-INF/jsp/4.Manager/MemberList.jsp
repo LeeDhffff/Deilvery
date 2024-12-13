@@ -409,6 +409,9 @@
                     <div class="wrap">
                         <div class="triple">
                             <div class="inputWrap">
+                                <input type="text" class="search" name="" id="chk_name" placeholder="고객 이름">
+                            </div>
+                            <div class="inputWrap">
                                 <select class="search" name="" id="chk_count">
                                     <option value="">이용횟수</option>
                                     <option value="Y">많은순서</option>
@@ -811,6 +814,7 @@
 	function selectList(){
 			var deliverydata = {
 					MEM_ID : uid,
+					NAME 	:$("#chk_name").val(),
 					COUNT : $("#chk_count option:selected").val(),
 					TOTALCOST : $("#chk_cost option:selected").val(),
 					ARR_DAY : $("#chk_arrDay option:selected").val(),

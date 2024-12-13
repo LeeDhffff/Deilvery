@@ -5,6 +5,7 @@
 	<select id="Member_Select" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
 		{ call B_MEM_LIST(
 				#{MEM_ID},
+				#{NAME},
 				#{COUNT},
 				#{TOTALCOST},
 				#{ARR_DAY},
