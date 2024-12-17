@@ -179,9 +179,10 @@
 	#popup_discount{
 		width:500px;
 	}
-	#Alldiscount_open{
-		width: 60%;
+	#Alldiscount_open{    
+		width: 20%;
 	    height: 40px;
+	    min-width: 120px;
 	    border-radius: 3px;
 	    border: 1px solid #E88100;
 	    background: #E88100;
@@ -222,6 +223,7 @@
 	}
 	.input_two > .input_two_in > input{
 		width: 45% !important;
+		min-width: 50px;
 	}
 	.input_two_in{
 		display: flex;    
@@ -403,13 +405,17 @@
                 <div class="conWrap">
                     <h3 class="conMainTitle">
                         <a href="#">고객 리스트 필터</a>
+                            <button id="Alldiscount_open">전체 할인율 편집</button>
                             <button id="reset_search" onclick="reset_Search();">
                         	</button>
                     </h3>
                     <div class="wrap">
                         <div class="triple">
                             <div class="inputWrap">
-                                <input type="text" class="search" name="" id="chk_name" placeholder="고객 이름">
+                                <input type="text" class="search" name="" id="chk_name" placeholder="고객 성명">
+                            </div>
+                            <div class="inputWrap">
+                                <input type="text" class="search" name="" id="chk_phone" placeholder="전화번호">
                             </div>
                             <div class="inputWrap">
                                 <select class="search" name="" id="chk_count">
@@ -425,6 +431,8 @@
                                     <option value="N">낮은순서</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="triple">
                             <div class="inputWrap">
                                 <select class="search" name="" id="chk_arrDay">
 	                            	<option value="">최근 이용 마감일 선택</option>
@@ -433,8 +441,6 @@
 	                            	</c:forEach>
                                 </select>
                             </div>
-                        </div>
-                        <div class="triple">
                             <div class="inputWrap">
                                 <select class="search" name="" id="chk_level">
                                     <option value="">구분</option>
@@ -450,7 +456,6 @@
 	                            	<input type="number" class="search" id="chk_useday_num" name="useday_num" value="30" placeholder="휴면 기준 일">
                             		<span>일</span>
                             	</div>
-                            	<button id="Alldiscount_open">전체 할인율 편집</button>
                             </div>
                         </div>
                     </div>
@@ -815,6 +820,7 @@
 			var deliverydata = {
 					MEM_ID : uid,
 					NAME 	:$("#chk_name").val(),
+					PHONE 	:$("#chk_phone").val(),
 					COUNT : $("#chk_count option:selected").val(),
 					TOTALCOST : $("#chk_cost option:selected").val(),
 					ARR_DAY : $("#chk_arrDay option:selected").val(),

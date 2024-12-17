@@ -6,6 +6,7 @@
 		{ call B_MEM_LIST(
 				#{MEM_ID},
 				#{NAME},
+				#{PHONE},
 				#{COUNT},
 				#{TOTALCOST},
 				#{ARR_DAY},

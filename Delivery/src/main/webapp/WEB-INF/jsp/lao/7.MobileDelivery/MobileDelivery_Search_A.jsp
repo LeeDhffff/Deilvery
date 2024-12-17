@@ -277,7 +277,7 @@
 				<div class="infoCon cost">
 					<h5 class="subTxt"><a href="#">ຄ່າຂົນສົ່ງ(ໂດຍປະມານ)</a></h5>
 					<!-- <h5 class="subTxt"><a href="#">ຄ່າຂົນ(ໂດຍປະມານ)</a></h5> -->
-					<h1 class="subTxt"><a href="#">$${Dlist.COST}</a></h1>
+					<h1 class="subTxt"><a href="#">$${Dlist.FN_COST}</a></h1>
 				</div>
 				
 				<div class="infoCon discount">
@@ -339,7 +339,7 @@
                 <select name="recAddr" id="recAddr">
                 	<c:forEach var="item" items="${shipComList}">
                 		<c:choose>
-                			<c:when test="${item.target eq Dlist.REC_ADDR }">
+                			<c:when test="${item.target eq Dlist.MEM_ADDR }">
                 				<option value="${item.target }" selected>${item.tName }</option>
                 			</c:when>
                 			<c:otherwise>
@@ -351,14 +351,14 @@
             	</div>
                 <div class="inputWrap">
 					<h5 class="inputName"><a href="#">ລາຍລະອຽດ(ສາຂາ)</a></h5>
-                    <c:choose>
-                    	<c:when test="${Dlist.REC_TARGET == 3}">
-                    		<input type="text" name="recHou" id="recHou" value="${Dlist.REC_HOU}">
-                    	</c:when>
-                    	<c:otherwise>
-                    		<input type="text" name="recHou" id="recHou" value="">
-                    	</c:otherwise>
-                    </c:choose>
+<%--                     <c:choose> --%>
+<%--                     	<c:when test="${Dlist.REC_TARGET == 3}"> --%>
+                    		<input type="text" name="recHou" id="recHou" value="${Dlist.MEM_HOU}">
+<%--                     	</c:when> --%>
+<%--                     	<c:otherwise> --%>
+<!--                     		<input type="text" name="recHou" id="recHou" value=""> -->
+<%--                     	</c:otherwise> --%>
+<%--                     </c:choose> --%>
                 </div>
             </div>
             	<c:choose>

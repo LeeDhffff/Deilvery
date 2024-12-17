@@ -339,7 +339,7 @@
 		tbodyData1 += '	</div>';
 		tbodyData1 += '	<div class="infoCon cost">';
 		tbodyData1 += '		<h5 class="subTxt"><a href="#">물류비용</a></h5>';
-		tbodyData1 += '		<h1 class="subTxt"><a href="#" id="r_cost">$'+A_table[A_in_keys[j]].COST+'</a></h1>';
+		tbodyData1 += '		<h1 class="subTxt"><a href="#" id="r_cost">$'+A_table[A_in_keys[j]].FN_COST+'</a></h1>';
 		tbodyData1 += '	</div>';
 		tbodyData1 += '	<div class="infoCon discount">';
 		tbodyData1 += '		<h5 class="subTxt"><a href="#">할인</a></h5>';
@@ -425,7 +425,7 @@
 		tbodyData1 += '	</div>';
 		tbodyData1 += '	<div class="infoCon cost">';
 		tbodyData1 += '		<h5 class="subTxt"><a href="#">물류비용</a></h5>';
-		tbodyData1 += '		<h1 class="subTxt"><a href="#" id="r_cost">$'+A_table[in_key].COST+'</a></h1>';
+		tbodyData1 += '		<h1 class="subTxt"><a href="#" id="r_cost">$'+A_table[in_key].FN_COST+'</a></h1>';
 		tbodyData1 += '	</div>';
 		tbodyData1 += '	<div class="infoCon discount">';
 		tbodyData1 += '		<h5 class="subTxt"><a href="#">할인</a></h5>';

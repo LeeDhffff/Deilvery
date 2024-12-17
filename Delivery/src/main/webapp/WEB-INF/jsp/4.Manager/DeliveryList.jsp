@@ -1149,6 +1149,7 @@ input[type=checkbox]{
 										REC_NM 		: A_result.REC_NM,
 										BOX_COUNT 	: A_result.BOX_COUNT,
 										COST 		: A_result.COST,
+										FN_COST 	: A_result.FN_COST,
 										DISCOUNT 	: A_result.DISCOUNT,
 										DIS_COST1 	: A_result.DIS_COST1,
 										FIRST_COST 	: A_result.FIRST_COST,
@@ -1189,7 +1190,7 @@ input[type=checkbox]{
 				$("#receipt_grayback").show();
 			}
 			else{
-				alert("선택하신 " + checkNot + "건의 배송건은 박스가 등록되지 않아 엑셀 출력이 불가합니다.")
+				alert("선택하신 " + checkNot + "건의 배송건은 박스가 등록되지 않아 창에 나타나지 않습니다.")
 			}
 		}
 		

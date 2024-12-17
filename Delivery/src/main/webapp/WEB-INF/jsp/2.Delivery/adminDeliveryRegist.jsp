@@ -487,7 +487,7 @@
     	
     	/* 지방배송 선택 설정 (JANG) */
     	$("#recTarget").on("change", function(evt){
-    		if($(this).val() == 1 || $(this).val() == 2){
+    		if($(this).val() == 0 || $(this).val() == 1 || $(this).val() == 2){
     			$("#target_1").show();
     			$("#target_3").hide();
     		}else{
@@ -544,7 +544,7 @@
 	    		htmlStr += "	<input type='hidden' name='discount' value='"+discount+"'>";
 	    		htmlStr += "</tr>";
 	    		
-	    		$("#tBody").append(htmlStr);
+	    		$("#tBody").prepend(htmlStr);
 	    		console.log("chkIndex : ", chkIndex);
 	    		$("input[class='boxSize']").val("");
 	    		cost();
@@ -920,9 +920,9 @@
     								
     								console.log(memberList[i].memId,row.cells[0].data)
     								if(memberList[i].memId == row.cells[0].data){
-    									if(memberList[i].memTg != null && memberList[i].memTg != ""){
-        	    							$("#recTarget").val(memberList[i].memTg).trigger("change");	
-    									}
+//     									if(memberList[i].memTg != null && memberList[i].memTg != ""){
+//         	    							$("#recTarget").val(memberList[i].memTg).trigger("change");	
+//     									}
 //     	    							$("#recTarget");
     									if(memberList[i].memAd != null && memberList[i].memAd != ""){
         	    							$("#recAddr").val(memberList[i].memAd);

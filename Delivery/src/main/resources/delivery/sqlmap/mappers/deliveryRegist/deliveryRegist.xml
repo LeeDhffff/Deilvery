@@ -128,7 +128,7 @@
 		WHERE IN_KEY = #{inKey}
 		ORDER BY 
 			CAST(sjIndex as INTEGER)
-		ASC
+		DESC
 	</select>
 	
 	

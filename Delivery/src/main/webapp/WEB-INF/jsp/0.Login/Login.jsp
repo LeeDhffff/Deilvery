@@ -132,9 +132,11 @@
 		            	}
 		            	else if(result.RESULTMSG == 'ID_ERROR'){
 			         	  	alert("등록되지 않은 ID입니다.");	
+			         	  	$("#login_ID").focus();
 		            	}
 		            	else if(result.RESULTMSG == 'PW_ERROR'){
 			         	  	alert("비밀번호가 틀렸습니다.");	
+			         	  	$("#login_PW").focus();
 		            	}
 		            }
 					
@@ -268,6 +270,22 @@
 			$(".pop_sub2").hide();
 			$("#popup1").hide();
 		})
+	})
+	
+	
+	
+	
+	window.addEventListener("keydown", (e) => {
+		
+		if(e.key == 'Enter'){
+			if(document.activeElement.id == 'login_ID'){
+				$("#login_PW").focus();
+			}
+			else if(document.activeElement.id == 'login_PW'){
+				$("#loginbutton").focus().trigger("cilck");
+			}
+		}
+		
 	})
 </script>
 </html>
