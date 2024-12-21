@@ -15,7 +15,6 @@
 	#to_mobile{
 		margin-right:10px;
 	}
-
 </style>
 <jsp:include page="Loading.jsp"></jsp:include>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>

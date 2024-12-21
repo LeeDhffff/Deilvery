@@ -207,14 +207,14 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 				for(int i=0; i<widthArr.length; i++) {
 					System.out.println("initSjKey : "+ initSjKey);
 
-					if(discountArr[widthArr.length - 1 - i].equals("N")) {
+					if(discountArr[i].equals("N")) {
 					sjKey = initSjKey+(i+1);
 					inputMap.put("sjKey", sjKey);
-					inputMap.put("width", widthArr[widthArr.length - 1 - i]);
-					inputMap.put("length", lengthArr[widthArr.length - 1 - i]);
-					inputMap.put("height", heightArr[widthArr.length - 1 - i]);
-					inputMap.put("weight", weightArr[widthArr.length - 1 - i]);
-					inputMap.put("cost", costArr[widthArr.length - 1 - i]);
+					inputMap.put("width", widthArr[i]);
+					inputMap.put("length", lengthArr[i]);
+					inputMap.put("height", heightArr[i]);
+					inputMap.put("weight", weightArr[i]);
+					inputMap.put("cost", costArr[i]);
 					
 					delRegistMapper.packetInfoRegist(inputMap);
 					}
@@ -223,17 +223,17 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 
 						resunum++;
 						inputMap.put("sjKey", sjKey);
-						inputMap.put("width", widthArr[widthArr.length - 1 - i]);
-						inputMap.put("length", lengthArr[widthArr.length - 1 - i]);
-						inputMap.put("height", heightArr[widthArr.length - 1 - i]);
-						inputMap.put("weight", weightArr[widthArr.length - 1 - i]);
-						inputMap.put("cost", costArr[widthArr.length - 1 - i]);
+						inputMap.put("width", widthArr[i]);
+						inputMap.put("length", lengthArr[i]);
+						inputMap.put("height", heightArr[i]);
+						inputMap.put("weight", weightArr[i]);
+						inputMap.put("cost", costArr[i]);
 						
 						delRegistMapper.packetInfoRegist(inputMap);
 						
 						inputMap.put("TYPE", "B");
 						inputMap.put("TARGET", sjKey);
-						inputMap.put("PERCENT", discountArr[widthArr.length - 1 - i]);
+						inputMap.put("PERCENT", discountArr[i]);
 						String resu = delRegistMapper.discount_set(inputMap);
 					}
 				}
@@ -247,14 +247,14 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 				int resunum = 1;
 				for(int i=0; i<widthArr.length; i++) {
 
-					if(discountArr[widthArr.length - 1 - i].equals("N")) {
+					if(discountArr[i].equals("N")) {
 					sjKey = initSjKey+(i+1);
 					inputMap.put("sjKey", sjKey);
-					inputMap.put("width", widthArr[widthArr.length - 1 - i]);
-					inputMap.put("length", lengthArr[widthArr.length - 1 - i]);
-					inputMap.put("height", heightArr[widthArr.length - 1 - i]);
-					inputMap.put("weight", weightArr[widthArr.length - 1 - i]);
-					inputMap.put("cost", costArr[widthArr.length - 1 - i]);
+					inputMap.put("width", widthArr[i]);
+					inputMap.put("length", lengthArr[i]);
+					inputMap.put("height", heightArr[i]);
+					inputMap.put("weight", weightArr[i]);
+					inputMap.put("cost", costArr[i]);
 					
 					delRegistMapper.packetInfoRegist(inputMap);
 					}
@@ -262,17 +262,17 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 						sjKey = sjHead + (cnt+1)+ "#" + resunum + "-" + inputMap.get("outKey") + "-" +(i+1);
 						resunum++;
 						inputMap.put("sjKey", sjKey);
-						inputMap.put("width", widthArr[widthArr.length - 1 - i]);
-						inputMap.put("length", lengthArr[widthArr.length - 1 - i]);
-						inputMap.put("height", heightArr[widthArr.length - 1 - i]);
-						inputMap.put("weight", weightArr[widthArr.length - 1 - i]);
-						inputMap.put("cost", costArr[widthArr.length - 1 - i]);
+						inputMap.put("width", widthArr[i]);
+						inputMap.put("length", lengthArr[i]);
+						inputMap.put("height", heightArr[i]);
+						inputMap.put("weight", weightArr[i]);
+						inputMap.put("cost", costArr[i]);
 						
 						delRegistMapper.packetInfoRegist(inputMap);
 						
 						inputMap.put("TYPE", "B");
 						inputMap.put("TARGET", sjKey);
-						inputMap.put("PERCENT", discountArr[widthArr.length - 1 - i]);
+						inputMap.put("PERCENT", discountArr[i]);
 						String resu = delRegistMapper.discount_set(inputMap);
 					}
 				}
@@ -288,14 +288,14 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 			int resunum = 1;
 			for(int i=0; i<widthArr.length; i++) {
 
-				if(discountArr[widthArr.length - 1 - i].equals("N")) {
+				if(discountArr[i].equals("N")) {
 				sjKey = initSjKey+(i+1);
 				inputMap.put("sjKey", sjKey);
-				inputMap.put("width", widthArr[widthArr.length - 1 - i]);
-				inputMap.put("length", lengthArr[widthArr.length - 1 - i]);
-				inputMap.put("height", heightArr[widthArr.length - 1 - i]);
-				inputMap.put("weight", weightArr[widthArr.length - 1 - i]);
-				inputMap.put("cost", costArr[widthArr.length - 1 - i]);
+				inputMap.put("width", widthArr[i]);
+				inputMap.put("length", lengthArr[i]);
+				inputMap.put("height", heightArr[i]);
+				inputMap.put("weight", weightArr[i]);
+				inputMap.put("cost", costArr[i]);
 				
 				delRegistMapper.packetInfoRegist(inputMap);
 				}
@@ -303,17 +303,17 @@ public class DeliveryRegistServiceImpl implements DeliveryRegistService{
 					sjKey = sjHead + "1#" + resunum + "-" + inputMap.get("outKey") + "-" +(i+1);
 					resunum++;
 					inputMap.put("sjKey", sjKey);
-					inputMap.put("width", widthArr[widthArr.length - 1 - i]);
-					inputMap.put("length", lengthArr[widthArr.length - 1 - i]);
-					inputMap.put("height", heightArr[widthArr.length - 1 - i]);
-					inputMap.put("weight", weightArr[widthArr.length - 1 - i]);
-					inputMap.put("cost", costArr[widthArr.length - 1 - i]);
+					inputMap.put("width", widthArr[i]);
+					inputMap.put("length", lengthArr[i]);
+					inputMap.put("height", heightArr[i]);
+					inputMap.put("weight", weightArr[i]);
+					inputMap.put("cost", costArr[i]);
 					
 					delRegistMapper.packetInfoRegist(inputMap);
 						
 					inputMap.put("TYPE", "B");
 					inputMap.put("TARGET", sjKey);
-					inputMap.put("PERCENT", discountArr[widthArr.length - 1 - i]);
+					inputMap.put("PERCENT", discountArr[i]);
 					String resu = delRegistMapper.discount_set(inputMap);
 				}
 			}

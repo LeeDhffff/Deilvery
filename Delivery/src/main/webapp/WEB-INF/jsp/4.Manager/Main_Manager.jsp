@@ -65,6 +65,10 @@
                     </a>
                 </button>
             </div> 
+            <div class="version">
+              <span class="version_span">1.2.7-Release</span><br>
+              <span class="version_span" style="font-size: 11px;">2024-12-22</span>
+            </div>
         </section>
     </div>
    	

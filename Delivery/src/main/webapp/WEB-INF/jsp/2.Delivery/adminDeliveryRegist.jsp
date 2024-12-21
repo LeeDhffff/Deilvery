@@ -544,7 +544,7 @@
 	    		htmlStr += "	<input type='hidden' name='discount' value='"+discount+"'>";
 	    		htmlStr += "</tr>";
 	    		
-	    		$("#tBody").prepend(htmlStr);
+	    		$("#tBody").append(htmlStr);
 	    		console.log("chkIndex : ", chkIndex);
 	    		$("input[class='boxSize']").val("");
 	    		cost();
