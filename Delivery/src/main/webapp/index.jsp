@@ -48,10 +48,6 @@ body{
   
 <body>
 
-	<div class="main">
-		<button class="button" id="individual">개인</button>
-		<button class="button" id="company">회사</button>
-	</div>
 	
 	
 </body>

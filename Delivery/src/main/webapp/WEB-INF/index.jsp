@@ -8,42 +8,62 @@
 <%@ page session="true"%>
 
 <!DOCTYPE html>
-<html lang="kr">    
-    <title>JMT - 스케쥴러</title>
+<html lang="kr">
+    
+    <title></title>
 </head>
-<style type="text/css">
-	
-
+ <jsp:forward page="/Main.do"/>
+<style>
+body{
+	margin: auto;
+    text-align: center;
+}
+.main{
+	width:100%;
+	height:100%;
+}
+.button{
+    width: 200px;
+    height: 100px;
+    font-size: 1.5em;
+    color: white;
+    cursor: pointer; 
+    border: 0px;
+    border-radius: 10px;
+}
+#individual{
+	background : #ff688b;
+}
+#company{
+	background : #8d68ff;
+}
 </style>
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-</head>
 
+
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+  
 <body>
-    <div class="main-container">    	
-        <div class="container">
-            <img src="./images/login/note.l.png" alt="#" class="note">
-            <div class="form">                
-                <div class="choice individual">
-                	<div class="con_div">
-                		<img src="./images/login/individual.svg" alt="#" class="note">
-                		<button class="button individual">개인모드로 바로가기</button>
-                	</div>
-                </div>
-                <div class="choice company">
-                	<div class="con_div">
-                		<img src="./images/login/company.svg" alt="#" class="note">
-                		<button class="button company">회사모드로 바로가기</button>
-                	</div>
-                </div>
-			</div>            
-        </div>
-    </div>
+
+	
+	
 </body>
 
 <script type="text/javascript">
+	$(document).ready(function(){
+// 		$.ajax({
+// 			type: "POST",
+// 			url : "./id_chk.do",
+// 			data: {},
+// 			async: false,
+//             success: function(datas){
+//                 alert(datas);
+//             }
+//         })
+	})
 
 </script>
 </html>
