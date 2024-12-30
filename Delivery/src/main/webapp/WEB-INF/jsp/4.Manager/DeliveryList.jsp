@@ -334,7 +334,7 @@ input[type=checkbox]{
                         </div>                        
                     </h3>                                  
                     <div class="laoswrap">
-                    <label for="laos">반대언어로 링크복사</label><input type="checkbox" name="laos" id="laos">    
+                    <label for="laos">반대언어로 정보복사</label><input type="checkbox" name="laos" id="laos">    
 <!--                     <label for="mobile">모바일로 링크복사</label><input type="checkbox" name="mobile" id="mobile">       -->
                     </div>                                
                     <div class="wrap">
@@ -678,32 +678,25 @@ input[type=checkbox]{
 			var REC_HOU = $(this).parents("tr").find("input[name='REC_HOU']").val();
 			var nc = $(this).parents("tr").find(".in_key").val();
 			var nation = $(this).parents("tr").find("input[name='REC_NATION']").val();
+			var nation2 = (nation == "K" && $("#laos").prop("checked") == true) ? "L"
+						:(nation == "K" && $("#laos").prop("checked") == false) ? "K"
+						:(nation == "L" && $("#laos").prop("checked") == true) ? "K"
+						:(nation == "L" && $("#laos").prop("checked") == false) ? "L"
+						:nation;
 			var link = "";
 			
 			if(window.location.host == 'localhost:8080'){
 				var laotxt = "";
-				if($("#laos").prop("checked") == true){
-					laotxt = (nation == "K") ? "lao/"
+					laotxt = (nation2 == "L") ? "lao/"
 							 : "";
-				}
-				else{
-					laotxt = (nation == "L") ? "lao/"
-							 : "";
-				}
 				
 				link = "localhost:8080/Delivery/"+laotxt+"Mobile_Delivery_Search_A.do?ik="+nc;
 			}
 			else if(window.location.host == 'ek-logis.com'){
 
 				var laotxt = "";
-				if($("#laos").prop("checked") == true){
-					laotxt = (nation == "K") ? "lao/"
+					laotxt = (nation2 == "L") ? "lao/"
 							 : "";
-				}
-				else{
-					laotxt = (nation == "L") ? "lao/"
-							 : "";
-				}
 				link = "ek-logis.com/"+laotxt+"Mobile_Delivery_Search_A.do?ik="+nc;
 			}
 
@@ -731,7 +724,8 @@ input[type=checkbox]{
 			
 			var copyString = "";
 			
-			if(nation == "K"){
+			console.log(nation2);
+			if(nation2 == "K"){
 				copyString += "[EK물류접수안내]\n\n"; 
 				copyString += "▪안녕하세요, "+EK1+", 고객님 택배가 “한국본사”로 접수되었습니다.\n\n";
 				copyString += "▪접수번호 : "+EK+" \n\n";
@@ -741,7 +735,7 @@ input[type=checkbox]{
 				copyString += "▪수령지 미신청시 본사 수령으로 자동 접수됩니다.\n\n";
 				copyString += "▪이용해 주셔서 감사합니다.";
 			}
-			else if(nation == "L"){
+			else if(nation2 == "L"){
 				copyString = "[ແຈ້ງລູກຄ້າຈາກEK]\n\n"; 
 				copyString += "▪ສະບາຍດີ, ເຄື່ອງລູກຄ້າທີ່ສົ່ງມາ"+EK1+" ໄດ້ສົ່ງຮອດ ”ສາງເກົາຫຼີ” ຂອງພວກເຮົາເປັນທີ່ຮຽບຮ້ອຍ";
 				copyString += "▪ລະຫັດເຄື່ອງ : "+EK+" \n\n";
